@@ -1,0 +1,101 @@
+{
+  "containerinfo": {
+    "interact": {
+      "cfg": "dev/interact:V1.02.002.A.001", 
+      "image": "dev/interact:V1.02.002.A.001", 
+      "status": "running"
+    }, 
+    "interactbusiness": {
+      "cfg": "dev/interactbusiness:V1.01.000.A.002", 
+      "image": "dev/interactbusiness:V1.01.000.A.002", 
+      "status": "running"
+    }, 
+    "jycenter": {
+      "cfg": "middleware-dev/jycenter:V2.01.001.A.003", 
+      "image": "middleware-dev/jycenter:V2.01.001.A.003", 
+      "status": "running"
+    }, 
+    "jyresource": {
+      "cfg": "middleware-dev/jyresource:V2.01.001.A.003", 
+      "image": "middleware-dev/jyresource:V2.01.001.A.003", 
+      "status": "running"
+    }, 
+    "middlecas": {
+      "cfg": "dev/middlecas:V2.01.001.A.001", 
+      "image": "dev/middlecas:V2.01.001.A.001", 
+      "status": "running"
+    }, 
+    "middlecenter": {
+      "cfg": "middleware-dev/middlecenter:V2.01.001.A.004", 
+      "image": "middleware-dev/middlecenter:V2.01.001.A.004", 
+      "status": "running"
+    }, 
+    "middlecenterfile": {
+      "cfg": "middleware-dev/middlecenterfile:V2.00.002.A.001", 
+      "image": "middleware-dev/middlecenterfile:V2.00.002.A.001", 
+      "status": "running"
+    }, 
+    "middlecenterres": {
+      "cfg": "middleware-dev/middlecenterres:V2.01.001.A.003", 
+      "image": "middleware-dev/middlecenterres:V2.01.001.A.003", 
+      "status": "running"
+    }, 
+    "middleclient": {
+      "cfg": "middleware-dev/middleclient:V2.01.001.A.005", 
+      "image": "middleware-dev/middleclient:V2.01.001.A.005", 
+      "status": "running"
+    }, 
+    "middledatabase": {
+      "cfg": "dev/middledatabase:V1.10.49", 
+      "image": "dev/middledatabase:V1.10.49", 
+      "status": "stop"
+    }, 
+    "middledriver": {
+      "cfg": "dev/middledriver:V1.01.000.A.001", 
+      "image": "dev/middledriver:V1.01.000.A.001", 
+      "status": "running"
+    }, 
+    "middleresource": {
+      "cfg": "dev/middleresource:V2.01.001.A.003", 
+      "image": "dev/middleresource:V2.01.001.A.003", 
+      "status": "running"
+    }, 
+    "middletherepair": {
+      "cfg": "dev/middletherepair:V2.01.001.A.001", 
+      "image": "dev/middletherepair:V2.01.001.A.001", 
+      "status": "running"
+    }, 
+    "middleware-mcu": {
+      "cfg": "middleware-dev/middleware-mcu:V3.01.001.A.002", 
+      "image": "middleware-dev/middleware-mcu:V3.01.001.A.002", 
+      "status": "running"
+    }, 
+    "mysql": {
+      "cfg": "dev/mysql:5.6.19.1", 
+      "image": "dev/mysql:5.6.19.1", 
+      "status": "running"
+    }, 
+    "nginx": {
+      "cfg": "dev/nginx:1.9.13.2", 
+      "image": "dev/nginx:1.9.13.2", 
+      "status": "running"
+    }, 
+    "openfire": {
+      "cfg": "dev/openfire:4.0.2.1", 
+      "image": "dev/openfire:4.0.2.1", 
+      "status": "running"
+    }, 
+    "redis": {
+      "cfg": "dev/redis:3.0.0", 
+      "image": "dev/redis:3.0.0", 
+      "status": "running"
+    }, 
+    "sxg": {
+      "cfg": "middleware-dev/sxg:V2.01.001.A.002", 
+      "image": "middleware-dev/sxg:V2.01.001.A.002", 
+      "status": "running"
+    }
+  }, 
+  "startover": true, 
+  "status": "suc"
+}
