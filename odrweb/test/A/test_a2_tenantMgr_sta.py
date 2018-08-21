@@ -9,8 +9,8 @@ from odrweb.core.initdata import users
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-class TenantMgr(unittest.TestCase):
-    '''租户管理场景'''
+class OdrLoginAndQuit(unittest.TestCase):
+    '''平台用户登录登出'''
 
     def setUp(self):
         self.homepage = HomePage()
