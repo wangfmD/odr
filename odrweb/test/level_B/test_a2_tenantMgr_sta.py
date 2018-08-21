@@ -42,18 +42,18 @@ class TenantMgr(unittest.TestCase):
         self.homepage.mediator_quit()
         result = self.homepage.mediator_login_quit_sverification()
         self.assertEqual(result, True)
-
+    #
     def test_05_mediator_login_banafg(self):
         '''办案法官登录'''
         self.homepage.mediator_login(users.user_bafg['username'], users.user_bafg['pwd'])
-        result = self.homepage.mediator_login_verification()
+        result = self.homepage.mediator_bafg_login_verification()
         self.assertEqual(result, True)
 
     def test_06_mediator_quit_banafg(self):
         '''办案法官登出'''
         self.homepage.mediator_login(users.user_bafg['username'], users.user_bafg['pwd'])
         self.homepage.mediator_quit_bafg()
-        result = self.homepage.mediator_login_verification()
+        result = self.homepage.mediator_login_quit_sverification()
         self.assertEqual(result, True)
 
     def test_07_organization_user_login(self):
@@ -105,7 +105,7 @@ class TenantMgr(unittest.TestCase):
         '''云解中心账号登出'''
         self.homepage.login_yun(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.login_yun_quit()
-        result = self.homepage.login_yun_verification()
+        result = self.homepage.login_yun_quit_verification()
         self.assertEqual(result, True)
 
     def test_15_organization_login_shenadmin(self):
