@@ -66,6 +66,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 __author__ = "Wai Yip Tung"
 __version__ = "0.8.2"
+
+
 """
 Change History
 
@@ -93,11 +95,8 @@ import StringIO
 import sys
 import time
 import unittest
-import socket
-import os
-import requests, json
 from xml.sax import saxutils
-from tools import cfg
+
 
 # ------------------------------------------------------------------------
 # The redirectors below are used to capture output during testing. Output
@@ -109,7 +108,6 @@ from tools import cfg
 # e.g.
 #   >>> logging.basicConfig(stream=HTMLTestRunner.stdout_redirector)
 #   >>>
-
 
 class OutputRedirector(object):
     """ Wrapper to redirect stdout or stderr """
@@ -126,13 +124,12 @@ class OutputRedirector(object):
     def flush(self):
         self.fp.flush()
 
-
 stdout_redirector = OutputRedirector(sys.stdout)
 stderr_redirector = OutputRedirector(sys.stderr)
 
+
 # ----------------------------------------------------------------------
 # Template
-
 
 class Template_mixin(object):
     """
@@ -195,7 +192,7 @@ class Template_mixin(object):
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     %(stylesheet)s
 </head>
-<body onload="version_load()">
+<body>
 <script language="javascript" type="text/javascript"><!--
 output_list = Array();
 
@@ -274,44 +271,6 @@ function html_escape(s) {
     s = s.replace(/>/g,'&gt;');
     return s;
 }
-
-function getExplorerInfo() {
- var explorer = window.navigator.userAgent.toLowerCase() ;
- //ie
- if (explorer.indexOf("msie") >= 0) {
-    var ver=explorer.match(/msie ([\d.]+)/)[1];
-    return {type:"IE",version:ver};
- }
- //firefox
- else if (explorer.indexOf("firefox") >= 0) {
-    var ver=explorer.match(/firefox\/([\d.]+)/)[1];
-    return {type:"Firefox",version:ver};
- }
- //Chrome
- else if(explorer.indexOf("chrome") >= 0){
-    var ver=explorer.match(/chrome\/([\d.]+)/)[1];
-     return {type:"Chrome",version:ver};
- }
- //Opera
- else if(explorer.indexOf("opera") >= 0){
- var ver=explorer.match(/opera.([\d.]+)/)[1];
- return {type:"Opera",version:ver};
- }
- //Safari
- else if(explorer.indexOf("Safari") >= 0){
- var ver=explorer.match(/version\/([\d.]+)/)[1];
- return {type:"Safari",version:ver};
- }
- }
- function version_load(){
-    document.getElementById("browserVersion").innerHTML=getExplorerInfo().type+"\nversion:"+getExplorerInfo().version;
- }
-
-//$(function(){
-//   $("#browserVersion").html(getExplorerInfo().type+"\nversion:"+getExplorerInfo().version)
-
-//})
-// alert("type:"+getExplorerInfo().type+"\nversion:"+getExplorerInfo().version);
 
 /* obsoleted by detail in <div>
 function showOutput(id, name) {
@@ -437,7 +396,6 @@ a.popup_link:hover {
     HEADING_TMPL = """<div class='heading'>
 <h1>%(title)s</h1>
 %(parameters)s
-<p class="attribute"><strong>the browser version:</strong><span id="browserVersion"></span></p>
 <p class='description'>%(description)s</p>
 </div>
 
@@ -537,8 +495,8 @@ a.popup_link:hover {
 
     ENDING_TMPL = """<div id='ending'>&nbsp;</div>"""
 
-
 # -------------------- The end of the Template class -------------------
+
 
 TestResult = unittest.TestResult
 
@@ -638,17 +596,9 @@ class HTMLTestRunner(Template_mixin):
     """
     """
 
-    def __init__(self,
-                 stream=sys.stdout,
-                 verbosity=1,
-                 title=None,
-                 description=None,
-                 sqlAdd=None,
-                 version_add=None):
+    def __init__(self, stream=sys.stdout, verbosity=1, title=None, description=None):
         self.stream = stream
         self.verbosity = verbosity
-        self.sqlAdd = sqlAdd
-        self.version_add = version_add
         if title is None:
             self.title = self.DEFAULT_TITLE
         else:
@@ -666,8 +616,7 @@ class HTMLTestRunner(Template_mixin):
         test(result)
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
-        print >> sys.stderr, '\nTime Elapsed: %s' % (
-            self.stopTime - self.startTime)
+        print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime - self.startTime)
         return result
 
     def sortResult(self, result_list):
@@ -690,13 +639,8 @@ class HTMLTestRunner(Template_mixin):
         Override this to add custom attributes.
         """
         startTime = str(self.startTime)[:19]
-        duration = str(self.stopTime - self.startTime).split('.')[0]
+        duration = str(self.stopTime - self.startTime)
         status = []
-        # ip_add
-        hostname = ""
-        ip_add = ""
-        sqlAdd = self.sqlAdd
-        project_name_add = cfg.home_path
         if result.success_count:
             status.append('Pass %s' % result.success_count)
         if result.failure_count:
@@ -711,10 +655,6 @@ class HTMLTestRunner(Template_mixin):
             ('Start Time', startTime),
             ('Duration', duration),
             ('Status', status),
-            ('Test Execution Server', ip_add),
-            ('Project Path', project_name_add),
-            ('Test project Server', sqlAdd),
-            ('projectVersion', self.version_add),
         ]
 
     def generateReport(self, test, result):
@@ -730,7 +670,8 @@ class HTMLTestRunner(Template_mixin):
             stylesheet=stylesheet,
             heading=heading,
             report=report,
-            ending=ending, )
+            ending=ending,
+        )
         self.stream.write(output.encode('utf8'))
         # self.stream.write(output)
 
@@ -742,12 +683,14 @@ class HTMLTestRunner(Template_mixin):
         for name, value in report_attrs:
             line = self.HEADING_ATTRIBUTE_TMPL % dict(
                 name=saxutils.escape(name),
-                value=saxutils.escape(value), )
+                value=saxutils.escape(value),
+            )
             a_lines.append(line)
         heading = self.HEADING_TMPL % dict(
             title=saxutils.escape(self.title),
             parameters=''.join(a_lines),
-            description=saxutils.escape(self.description), )
+            description=saxutils.escape(self.description),
+        )
         return heading
 
     def _generate_report(self, result):
@@ -773,14 +716,14 @@ class HTMLTestRunner(Template_mixin):
             desc = doc and '%s: %s' % (name, doc) or name
 
             row = self.REPORT_CLASS_TMPL % dict(
-                style=ne > 0 and 'errorClass' or nf > 0 and 'failClass' or
-                'passClass',
+                style=ne > 0 and 'errorClass' or nf > 0 and 'failClass' or 'passClass',
                 desc=desc,
                 count=np + nf + ne,
                 Pass=np,
                 fail=nf,
                 error=ne,
-                cid='c%s' % (cid + 1), )
+                cid='c%s' % (cid + 1),
+            )
             rows.append(row)
 
             for tid, (n, t, o, e) in enumerate(cls_results):
@@ -788,11 +731,11 @@ class HTMLTestRunner(Template_mixin):
 
         report = self.REPORT_TMPL % dict(
             test_list=''.join(rows),
-            count=str(result.success_count + result.failure_count +
-                      result.error_count),
+            count=str(result.success_count + result.failure_count + result.error_count),
             Pass=str(result.success_count),
             fail=str(result.failure_count),
-            error=str(result.error_count), )
+            error=str(result.error_count),
+        )
         return report
 
     def _generate_report_test(self, rows, cid, tid, n, t, o, e):
@@ -820,7 +763,8 @@ class HTMLTestRunner(Template_mixin):
 
         script = self.REPORT_TEST_OUTPUT_TMPL % dict(
             id=tid,
-            output=saxutils.escape(uo + ue), )
+            output=saxutils.escape(uo + ue),
+        )
 
         row = tmpl % dict(
             tid=tid,
@@ -828,7 +772,8 @@ class HTMLTestRunner(Template_mixin):
             style=n == 2 and 'errorCase' or (n == 1 and 'failCase' or 'none'),
             desc=desc,
             script=script,
-            status=self.STATUS[n], )
+            status=self.STATUS[n],
+        )
         rows.append(row)
         if not has_output:
             return
@@ -840,7 +785,6 @@ class HTMLTestRunner(Template_mixin):
 ##############################################################################
 # Facilities for running tests from the command line
 ##############################################################################
-
 
 # Note: Reuse unittest.TestProgram to launch test. In the future we may
 # build our own launcher to support more specific command line
@@ -858,7 +802,6 @@ class TestProgram(unittest.TestProgram):
         if self.testRunner is None:
             self.testRunner = HTMLTestRunner(verbosity=self.verbosity)
         unittest.TestProgram.runTests(self)
-
 
 main = TestProgram
 

@@ -1,13 +1,15 @@
 # coding:utf-8
 from time import sleep
+
 from selenium import webdriver
 
+from odrweb.core.initdata import users
 
 # base_url = 'https://train.odrcloud.cn:8443/'
 base_url = "https://uatodr.odrcloud.net"
 
 
-def user_login(driver):
+def user_login(driver, name, pwd):
     '''
     普通用户登录
     :param driver:
@@ -19,17 +21,17 @@ def user_login(driver):
     driver.find_element_by_xpath(u"//a[contains(text(),'立即登录')]").click()
     # 输入手机号码
     driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div/input').clear()
-    driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div/input').send_keys("13913031374")
+    driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div/input').send_keys(name)
     # 输入密码
     driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').clear()
-    driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').send_keys("100200")
+    driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').send_keys(pwd)
     # 点击登录
     driver.find_element_by_id("login").click()
     sleep(2)
     driver.refresh()
 
 
-def company_login(driver):
+def company_login(driver, name, pwd):
     '''
     企业登录
     :param driver:
@@ -41,15 +43,14 @@ def company_login(driver):
     driver.find_element_by_xpath('//ul[@id="titleTips"]/li[2]').click()
     sleep(2)
     driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div[1]/input').clear()
-    driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div[1]/input').send_keys('')
+    driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div[1]/input').send_keys(name)
     driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').clear()
-    driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').send_keys('')
+    driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').send_keys(pwd)
 
     # '//*[@id="titleTips"]/p'
 
 
-
-def mediator_login(driver):
+def mediator_login(driver, name, pwd):
     '''
     调解员/办案法官登录
     :param driver:
@@ -60,16 +61,16 @@ def mediator_login(driver):
     driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[1]/a').click()
     # 输入手机号码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys("13817765056")
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys(name)
     # 输入密码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys('000000')
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
     # 确定登录
     driver.find_element_by_xpath('//button[@id="login"]/span').click()
     sleep(4)
 
 
-def organization_user_login(driver):
+def organization_user_login(driver, name, pwd):
     '''
     机构登记员登录
     :param driver:
@@ -82,15 +83,16 @@ def organization_user_login(driver):
     driver.find_element_by_xpath('//div[@id="loginForm"]/div/ul/li[2]').click()
     # 输入手机号码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys("1805130007")
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys(name)
     # 输入密码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys('123456')
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
     # 确定登录
     driver.find_element_by_xpath('//button[@id="login"]/span').click()
     sleep(4)
 
-def organization_login(driver):
+
+def organization_login(driver, name, pwd):
     '''
     调解机构登录
     :param driver:
@@ -103,24 +105,36 @@ def organization_login(driver):
     driver.find_element_by_xpath('//div[@id="loginForm"]/div/ul/li[3]').click()
     # 输入手机号码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys("17612156739")
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys(name)
     # 输入密码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys('123456')
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
     # 确定登录
     driver.find_element_by_xpath('//button[@id="login"]/span').click()
     sleep(10)
 
 
-def counselor_login(driver):
+def counselor_login(driver, name, pwd):
     '''
     咨询师登录
     :param driver:
     :return:
     '''
+    driver.get(base_url + "/")
+    # 进入登录页面
+    driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[2]/a').click()
+    # 输入手机号码
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').clear()
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys(name)
+    # 输入密码
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div/input').clear()
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
+    # 确定登录
+    driver.find_element_by_xpath('//button[@id="login"]/span').click()
+    sleep(10)
 
 
-def customer_login(driver):
+def customer_login(driver, name, pwd):
     '''
     客服人员登录
     :param driver:
@@ -133,14 +147,13 @@ def customer_login(driver):
     driver.find_element_by_xpath('//div[@id="loginForm"]/div/ul/li[2]').click()
     # 输入手机号码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys("13600527465")
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[1]/div/div/input').send_keys(name)
     # 输入密码
     driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div/input').clear()
-    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys('000000')
+    driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
     # 确定登录
     driver.find_element_by_xpath('//button[@id="login"]/span').click()
     sleep(10)
-
 
 
 def consult_input(driver):
@@ -171,7 +184,26 @@ def consult_input(driver):
     # driver.find_element_by_xpath("(//button[@type='button'])[2]").click()
 
 
-def test():
+def login_yun(driver, name, pwd):
+    '''
+
+    :param driver:
+    :return:
+    '''
+    driver.get(base_url + "/")
+    # 进入云解登录page
+    driver.find_element_by_xpath('//div[@id="app"]/div[6]/div[1]/div[1]/ul[1]/li[6]/a').click()
+    windows = driver.window_handles
+    driver.switch_to_window(windows[1])
+    driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[1]').clear()
+    driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[1]').send_keys(name)
+    driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[2]').clear()
+    driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[2]').send_keys(pwd)
+    driver.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/input').click()
+    sleep(10)
+
+
+def t():
     browser = webdriver.Chrome()
     # browser=webdriver.Ie()
     browser.maximize_window()
@@ -186,7 +218,23 @@ def test():
     # organization_user_login(browser)
     # organization_login(browser)
     # mediator_login(browser)
-    customer_login(browser)
+    # customer_login(browser)
+    # counselor_login(browser)
+    # login_yun(browser)
+
+    # user_login(browser, users.user_wfm['username'], users.user_wfm['pwd'])
+    # mediator_login(browser, users.user_tjy['username'], users.user_tjy['pwd'])
+    # mediator_login(browser, users.user_bafg['username'], users.user_bafg['pwd'])
+    # organization_user_login(browser, users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+    # organization_login(browser, users.user_bmxlzxysxxjg['username'], users.user_bmxlzxysxxjg['pwd'])
+    # customer_login(browser, users.user_kf['username'], users.user_kf['pwd'])
+    # counselor_login(browser, users.user_zxs['username'], users.user_zxs['pwd'])
+    # login_yun(browser, users.user_wfm['username'], users.user_wfm['pwd'])
+
+    # organization_login(browser, users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    organization_login(browser, users.user_quadmin['username'], users.user_quadmin['pwd'])
+    # organization_login(browser, users.user_shiadmin['username'], users.user_shiadmin['pwd'])
+
 
 if __name__ == '__main__':
-    test()
+    t()

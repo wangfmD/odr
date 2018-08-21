@@ -1,87 +1,126 @@
 # coding=utf-8
 import ConfigParser
-# import os
-import sys
+import os
 
-from webmgr.common.logger import logger
+from odrweb.core.logger import logger
 
+dir = os.path.dirname
+home_path = dir(os.path.abspath(dir(__file__)))
+
+class Users(object):
+    user_wfm=''
+    user_jgdjy=''
+    user_tjy=''
+    user_kf=''
+    user_zxs=''
+    user_bafg=''
+    user_bmxlzxysxxjg=''
+    user_xhfyfwjg=''
+    user_shenadmin=''
+    user_shiadmin=''
+    user_quadmin=''
+
+users = Users()
 
 def get_cfg_path():
-    from webmgr.common.preinit import DEFAULT_CONF
-    return DEFAULT_CONF
+    path = os.path.join(home_path, 'cfg')
+    cfg_file = os.path.join(path, 'users.conf')
+    return cfg_file
 
 
 def getCfgs(cfg_path):
     logger.info(cfg_path)
     # 配置文件的学校、教室、设备信息
-    classroom_para = []
-
-    classroom_tmp = []
-
-    # 测试平台的访问路径前缀
-    base_url = ''
-
-    # 管理平台数据库信息配配置
-    db_conf = {}
-
-    loginInfo = {}
-
-    execEnv = {}
-
-    # 流媒体地址配置
-    streaming_media = {}
 
     cf = ConfigParser.ConfigParser()
     cf.read(cfg_path)
-    sections = cf.sections()
-    # 从配置文件中读取用户登录信息
+    # sections = cf.sections()
 
-    for s in sections:
-        if s.lower().find('classroom_para') != -1:
-            classroom_tmp.append(s)
-        if s.lower().find('basedata') != -1:
-            base_url = 'http://' + cf.get(s, 'addr')
-            child_interact_ip = cf.get(s, 'interact_1')
-            loginInfo.setdefault('username', cf.get(s, 'username'))
-            loginInfo.setdefault('platformname', cf.get(s, 'platformname'))
-            loginInfo.setdefault('email', cf.get(s, 'email'))
-        if s.lower().find('db_conf') != -1:
-            # host = cf.get(s, 'host')
-            db_conf.setdefault('host', cf.get(s, 'host'))
-            # hostadd = cf.get(s, 'hostadd')
-            db_conf.setdefault('hostadd', cf.get(s, 'hostadd'))
-            # user = cf.get(s, 'user')
-            db_conf.setdefault('user', cf.get(s, 'user'))
-            # passwd = cf.get(s, 'passwd')
-            db_conf.setdefault('passwd', cf.get(s, 'passwd'))
-            # db = cf.get(s, 'db')
-            db_conf.setdefault('db', cf.get(s, 'db'))
-            db_conf.setdefault('port', cf.get(s, 'port'))
-        if s.lower().find('env_para') != -1:
-            execEnv.setdefault('execType', cf.get(s, 'execType'))
-            execEnv.setdefault('remoteUrl', cf.get(s, 'remoteUrl'))
-        if s.lower().find('streaming_media') != -1:
-            streaming_media.setdefault('serverIps', cf.get(s, 'serverIps'))
-    # from conf get classroom_para
-    for s in classroom_tmp:
-        opts = cf.options(s)
-        arr = {}
-        for o in opts:
-            name = cf.get(s, o)
-            arr.setdefault(o, unicode(name).encode("utf-8"))
-        classroom_para.append(arr)
-    return classroom_para, base_url, db_conf, loginInfo, execEnv, streaming_media, child_interact_ip
+    # 普通用户
+    username = cf.get('user_wfm', 'username')
+    pwd = cf.get('user_wfm', 'pwd')
+    users.user_wfm = {"username": username, 'pwd': pwd}
 
 
-def get_active_code(cfg_path):
-    logger.info(cfg_path)
-    cf = ConfigParser.ConfigParser()
-    cf.read(cfg_path)
-    active_code = cf.get('basedata', 'active_code')
-    # cf.set('basedata', 'addr', 'www')
-    # cf.write(open(cfg_path, "w"))
-    return active_code
+    # 机构登记员
+    username = cf.get('user_jgdjy', 'username')
+    pwd = cf.get('user_jgdjy', 'pwd')
+    users.user_jgdjy = {"username": username, 'pwd': pwd}
+    # [user_jgdjy]
+    # username=1805130007
+    # pwd=123456
 
+    # 调解员宋红波
+    username = cf.get('user_tjy', 'username')
+    pwd = cf.get('user_tjy', 'pwd')
+    users.user_tjy = {"username": username, 'pwd': pwd}
+    # [user_tjy]
+    # username=13817765056
+    # pwd=000000
+
+    # 客服
+    username = cf.get('user_kf', 'username')
+    pwd = cf.get('user_kf', 'pwd')
+    users.user_kf = {"username": username, 'pwd': pwd}
+    # [user_kf]
+    # username=13600527465
+    # pwd=000000
+
+    # 咨询师
+    username = cf.get('user_zxs', 'username')
+    pwd = cf.get('user_zxs', 'pwd')
+    users.user_zxs = {"username": username, 'pwd': pwd}
+    # [user_zxs]
+    # username=3606706616
+    # pwd=000000
+
+    # 办案法官
+    username = cf.get('user_bafg', 'username')
+    pwd = cf.get('user_bafg', 'pwd')
+    users.user_bafg = {"username": username, 'pwd': pwd}
+    # [user_bafg]
+    # username=13067812519
+    # pwd=000000
+
+    # 北明心理咨询演示学习机构
+    username = cf.get('user_bmxlzxysxxjg', 'username')
+    pwd = cf.get('user_bmxlzxysxxjg', 'pwd')
+    users.user_bmxlzxysxxjg = {"username": username, 'pwd': pwd}
+    # [user_bmxlzxysxxjg]
+    # username=17612156739
+    # pwd=123456
+
+    # 西湖法院服务机构管理
+    username = cf.get('user_xhfyfwjg', 'username')
+    pwd = cf.get('user_xhfyfwjg', 'pwd')
+    users.user_xhfyfwjg = {"username": username, 'pwd': pwd}
+    # [user_xhfyfwjg]
+    # username=13800000000
+    # pwd=123456
+
+    # 省级账号
+    username = cf.get('user_shenadmin', 'username')
+    pwd = cf.get('user_shenadmin', 'pwd')
+    users.user_shenadmin = {"username": username, 'pwd': pwd}
+    # [user_shenadmin]
+    # username=M330000
+    # pwd=123456
+
+    # 市级账号
+    username = cf.get('user_shiadmin', 'username')
+    pwd = cf.get('user_shiadmin', 'pwd')
+    users.user_shiadmin = {"username": username, 'pwd': pwd}
+    # [user_shiadmin]
+    # username=M330100
+    # pwd=123456
+
+    # 西湖区级账号
+    username = cf.get('user_quadmin', 'username')
+    pwd = cf.get('user_quadmin', 'pwd')
+    users.user_quadmin = {"username": username, 'pwd': pwd}
+    # [user_quadmin]
+    # username=M330106
+    # pwd=123456
 
 class cfg(object):
     def __init__(self):
@@ -103,7 +142,6 @@ class cfg(object):
         # data_path = getSqlPath(self.base_url)
         # self.sqlFilePath = data_path[0]
         # self.sqlStatements = data_path[1]
-        self.active_code = get_active_code(self.cfg_path)
         #         self.sqlFilePathVer = data_path[1]
         logger.info(
             "#############################Init basedata start#############################"
@@ -121,34 +159,13 @@ class cfg(object):
         )
 
 
-def a():
-    cf = cfg()
-    ic = cf.classroom_para
-    def cc():
-        tmp = []
-        return set([i.get('schoolid') for i in ic])
+getCfgs(get_cfg_path())
 
-    def _gorup(sch):
-        return  [i for i in ic if i.get('schoolid') == sch]
-
-    d = [_gorup(i) for i in cc() ]
-    print d
-
-def cc():
-    cf = cfg()
-    ic = cf.classroom_para
-    tmp = []
-    return set([i.get('schoolid') for i in ic if i.get('schoolid') not in tmp])
-
-init = cfg()
 if __name__ == "__main__":
-    # _path = getCfgPath()
-    # cfg = cfg()
-    # # getCfgs(_path)
-    # # print cfg.classroom_para
-    # for c in cfg.classroom_para:
-    #     if isinstance(c,dict):
-    #         for k,v in c.iteritems():
-    #             print k,":",v
-    # d = [i for i in cfg.classroom_para if ]
-    a()
+    # print(get_cfg_path())
+    print(home_path)
+    # getCfgs(get_cfg_path())
+
+    # for k,v in users.iteritems():
+    #     print(k,":",v)
+    print(users)
