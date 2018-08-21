@@ -3,8 +3,8 @@ from time import sleep
 
 from selenium import webdriver
 
-# base_url = 'https://train.odrcloud.cn:8443'
-base_url = "https://uatodr.odrcloud.net"
+base_url = 'https://train.odrcloud.cn:8443'
+# base_url = "https://uatodr.odrcloud.net"
 
 
 class HomePage(object):
@@ -101,21 +101,31 @@ class HomePage(object):
 
         :return:
         '''
-        # quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]')
+        #  homepage.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a').text 账号：TS(宋红波)
         try:
-            quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a')
+            quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]')
         except:
             quit_link=''
             print('获取退出link失败')
         result = quit_link.text == u'退出'
         return result
 
-    def mediator_login_quit(self):
+    def mediator_quit(self):
         '''
 
         :return:
         '''
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
+        # self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a').click()
+        sleep(1)
+
+    def mediator_quit_bafg(self):
+        '''
+
+        :return:
+        '''
+        # self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
+        self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a').click()
         sleep(1)
 
     def mediator_login_quit_sverification(self):
@@ -130,7 +140,7 @@ class HomePage(object):
             reg_link = ''
             print u'获取:立即登录link失败'
 
-        result = reg_link.text == u'立即注册'
+        result = reg_link.text == u'立即注册>'
         return result
 
 

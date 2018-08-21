@@ -39,7 +39,7 @@ class TenantMgr(unittest.TestCase):
     def test_04_mediator_quit_tiaojy(self):
         '''调解员登出'''
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        self.homepage.mediator_login_quit()
+        self.homepage.mediator_quit()
         result = self.homepage.mediator_login_quit_sverification()
         self.assertEqual(result, True)
 
@@ -52,7 +52,7 @@ class TenantMgr(unittest.TestCase):
     def test_06_mediator_quit_banafg(self):
         '''办案法官登出'''
         self.homepage.mediator_login(users.user_bafg['username'], users.user_bafg['pwd'])
-        self.homepage.mediator_login_quit()
+        self.homepage.mediator_quit_bafg()
         result = self.homepage.mediator_login_verification()
         self.assertEqual(result, True)
 
