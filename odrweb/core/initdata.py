@@ -2,8 +2,6 @@
 import ConfigParser
 import os
 
-from odrweb.core.logger import logger
-
 dir = os.path.dirname
 home_path = dir(os.path.abspath(dir(__file__)))
 
@@ -29,7 +27,6 @@ def get_cfg_path():
 
 
 def getCfgs(cfg_path):
-    logger.info(cfg_path)
     # 配置文件的学校、教室、设备信息
 
     cf = ConfigParser.ConfigParser()

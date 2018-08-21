@@ -10,7 +10,7 @@ base_url = "https://uatodr.odrcloud.net"
 class HomePage(object):
 
     def __init__(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Ie()
         self.driver.implicitly_wait(5)
         self.driver.maximize_window()
 
