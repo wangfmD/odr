@@ -5,8 +5,8 @@ import time
 import unittest
 
 
-# from odrweb.core.html.HTMLTestRunner import HTMLTestRunner
-from HTMLTestRunner import HTMLTestRunner
+from odrweb.core.html.HTMLTestRunner import HTMLTestRunner
+# from HTMLTestRunner import HTMLTestRunner
 # from odrweb.core.generateHtml.HTMLTestRunner import HTMLTestRunner
 dir = os.path.dirname
 home_path = dir(os.path.abspath(dir(__file__)))
