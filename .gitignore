@@ -1,10 +1,22 @@
+*.pyc
+workspace.xml
+.idea
+*.html
+*.log
+*.bat
+.settings
+tags
+*.vscode
+checktools/output/*
+*.rdb
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
+*.pyc
 # C extensions
 *.so
 

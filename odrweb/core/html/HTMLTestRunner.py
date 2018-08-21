@@ -628,6 +628,8 @@ class HTMLTestRunner(Template_mixin):
         result = _TestResult(self.verbosity)
         test(result)
         self.stopTime = datetime.datetime.now()
+        print "test",test
+        print "result",result
         self.generateReport(test, result)
         print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
         return result
@@ -677,6 +679,7 @@ class HTMLTestRunner(Template_mixin):
         heading = self._generate_heading(report_attrs)
         report = self._generate_report(result)
         ending = self._generate_ending()
+        print "ending",ending
         output = self.HTML_TMPL % dict(
             title = saxutils.escape(self.title),
             generator = generator,

@@ -5,9 +5,9 @@ import time
 import unittest
 
 
-from odrweb.core.generateHtml.file_os import HTMLFileRunner
-
-from odrweb.core.generateHtml.HTMLTestRunner import HTMLTestRunner
+# from odrweb.core.html.HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
+# from odrweb.core.generateHtml.HTMLTestRunner import HTMLTestRunner
 dir = os.path.dirname
 home_path = dir(os.path.abspath(dir(__file__)))
 
@@ -18,7 +18,6 @@ class TestRunner:
 
     def __init__(self):
         self.homePath = home_path
-
         self.test_dir = '.'
         self.discover = unittest.defaultTestLoader.discover(self.test_dir, pattern='*_sta.py')
         # 设置测试报告路径
@@ -39,17 +38,10 @@ class TestRunner:
         with open(self.filename, 'wb') as fp:
             runner = HTMLTestRunner(
                 stream=fp,
-                title=u'ODR_browser_UI',
-                description=u'用例执行情况：')
-            # runner = HTMLTestRunner(
-            #     stream=fp,
-            #     title='ODR_browser_UI',
-            #     description='summary')
+                title='ODR_browser_UI',
+                description='aa：')
             runner.run(self.discover)
 
 
 if __name__ == '__main__':
-    # runner = TestRunner('dev_wf_57', 'is', '')
-    # print runner.reportPath
-    # runner.run()
     print(home_path)

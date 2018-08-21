@@ -3,7 +3,7 @@ from time import sleep
 
 from selenium import webdriver
 
-# base_url = 'https://train.odrcloud.cn:8443/'
+# base_url = 'https://train.odrcloud.cn:8443'
 base_url = "https://uatodr.odrcloud.net"
 
 
@@ -45,9 +45,15 @@ class HomePage(object):
 
     def user_login_quit(self):
         self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[3]/a').click()
+        sleep(1)
 
     def user_login_quit_verification(self):
-        login_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[5]/a').text
+        login_link=""
+        try:
+            login_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[5]/a').text
+        except:
+            print u'获取:立即登录link失败'
+            login_link = ""
         result = login_link == u'立即登录'
         return result
 
@@ -67,6 +73,7 @@ class HomePage(object):
         self.driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div[1]/input').send_keys(name)
         self.driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').clear()
         self.driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').send_keys(pwd)
+        sleep(2)
 
         # '//*[@id="titleTips"]/p'
 
@@ -94,7 +101,12 @@ class HomePage(object):
 
         :return:
         '''
-        quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]')
+        # quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]')
+        try:
+            quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a')
+        except:
+            quit_link=''
+            print('获取退出link失败')
         result = quit_link.text == u'退出'
         return result
 
@@ -104,13 +116,20 @@ class HomePage(object):
         :return:
         '''
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
+        sleep(1)
 
     def mediator_login_quit_sverification(self):
         '''
 
         :return:
         '''
-        reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
+        reg_link=''
+        try:
+            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
+        except:
+            reg_link = ''
+            print u'获取:立即登录link失败'
+
         result = reg_link.text == u'立即注册'
         return result
 
@@ -177,7 +196,7 @@ class HomePage(object):
         self.driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
         # 确定登录
         self.driver.find_element_by_xpath('//button[@id="login"]/span').click()
-        sleep(10)
+        sleep(2)
 
     def organization_login_verification(self):
         '''
@@ -194,6 +213,7 @@ class HomePage(object):
         :return:
         '''
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
+        sleep(1)
 
 
     def organization_login_quit_verfication(self):
@@ -225,7 +245,7 @@ class HomePage(object):
         self.driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
         # 确定登录
         self.driver.find_element_by_xpath('//button[@id="login"]/span').click()
-        sleep(10)
+        sleep(2)
 
 
     def counselor_login_verification(self):
@@ -244,6 +264,7 @@ class HomePage(object):
         :return:
         '''
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a').click()
+        sleep(1)
 
 
     def counselor_login_quit_verification(self):
@@ -275,7 +296,7 @@ class HomePage(object):
         self.driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
         # 确定登录
         self.driver.find_element_by_xpath('//button[@id="login"]/span').click()
-        sleep(4)
+        sleep(2)
 
     def customer_login_verification(self):
         '''
@@ -293,6 +314,7 @@ class HomePage(object):
         :return:
         '''
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
+        sleep(1)
 
 
     def customer_login_quit_verification(self):
@@ -350,7 +372,7 @@ class HomePage(object):
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[2]').clear()
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[2]').send_keys(pwd)
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[2]/input').click()
-        sleep(4)
+        sleep(2)
 
     def login_yun_verification(self):
         '''
@@ -368,6 +390,7 @@ class HomePage(object):
         :return:
         '''
         self.driver.find_element_by_xpath('//div[@id="app"]/header/div[1]/div[2]/ul/li[2]/a').click()
+        sleep(1)
 
     def login_yun_quit_verification(self):
         '''
