@@ -10,7 +10,7 @@ base_url = "https://uatodr.odrcloud.net"
 class HomePage(object):
 
     def __init__(self):
-        self.driver = webdriver.Ie()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(5)
         self.driver.maximize_window()
 
@@ -149,12 +149,12 @@ class HomePage(object):
         '''
         reg_link=''
         try:
-            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
+            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
         except:
             reg_link = ''
             print u'获取:立即登录link失败'
 
-        result = reg_link.text == u'立即注册>'
+        result = reg_link == u'立即注册>'
         return result
 
 
@@ -205,12 +205,12 @@ class HomePage(object):
         '''
         reg_link=''
         try:
-            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
+            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
         except:
             reg_link = ''
             print u'获取:立即登录link失败'
 
-        result = reg_link.text == u'立即注册>'
+        result = reg_link == u'立即注册>'
         return result
 
 
@@ -295,7 +295,7 @@ class HomePage(object):
         return res
 
 
-    def counselor_login_quit(self):
+    def counselor_quit(self):
         '''
 
         :return:
@@ -304,7 +304,7 @@ class HomePage(object):
         sleep(1)
 
 
-    def counselor_login_quit_verification(self):
+    def counselor_quit_verification(self):
         '''
 
         :return:
@@ -401,9 +401,13 @@ class HomePage(object):
         '''
         self.driver.get(base_url + "/")
         # 进入云解登录page
-        self.driver.find_element_by_xpath('//div[@id="app"]/div[6]/div[1]/div[1]/ul[1]/li[6]/a').click()
+        # 首页优化
+        # self.driver.find_element_by_xpath('//div[@id="app"]/div[6]/div[1]/div[1]/ul[1]/li[6]/a').click()
+        # 首页优化
+        self.driver.find_element_by_xpath('//div[@id="app"]/div[5]/div[1]/div[1]/ul[1]/li[6]/a').click()
         windows = self.driver.window_handles
-        self.driver.switch_to_window(windows[1])
+        # self.driver.switch_to_window(windows[1])
+        self.driver.switch_to.window(windows[1])
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[1]').clear()
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[1]').send_keys(name)
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[2]').clear()

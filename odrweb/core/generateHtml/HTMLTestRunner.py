@@ -91,14 +91,11 @@ Version in 0.7.1
 import datetime
 import StringIO
 import sys
-import time
 import unittest
-import socket
-import os
-import requests, json
 from xml.sax import saxutils
-from tools import cfg
 
+reload(sys)
+sys.setdefaultencoding("utf-8")
 # ------------------------------------------------------------------------
 # The redirectors below are used to capture output during testing. Output
 # sent to sys.stdout and sys.stderr are automatically captured. However
@@ -535,7 +532,7 @@ a.popup_link:hover {
     # ENDING
     #
 
-    ENDING_TMPL = """<div id='ending'>&nbsp;</div>"""
+    ENDING_TMPL = u"""<div id='ending'>&nbsp;</div>"""
 
 
 # -------------------- The end of the Template class -------------------
@@ -643,8 +640,8 @@ class HTMLTestRunner(Template_mixin):
                  verbosity=1,
                  title=None,
                  description=None,
-                 sqlAdd=None,
-                 version_add=None):
+                 sqlAdd="",
+                 version_add=""):
         self.stream = stream
         self.verbosity = verbosity
         self.sqlAdd = sqlAdd
@@ -693,10 +690,9 @@ class HTMLTestRunner(Template_mixin):
         duration = str(self.stopTime - self.startTime).split('.')[0]
         status = []
         # ip_add
-        hostname = ""
-        ip_add = ""
+        ip_add = '0.0.0.0'
         sqlAdd = self.sqlAdd
-        project_name_add = cfg.home_path
+        # project_name_add = cfg.home_path
         if result.success_count:
             status.append('Pass %s' % result.success_count)
         if result.failure_count:
@@ -712,7 +708,8 @@ class HTMLTestRunner(Template_mixin):
             ('Duration', duration),
             ('Status', status),
             ('Test Execution Server', ip_add),
-            ('Project Path', project_name_add),
+            # ('Project Path', project_name_add),
+            ('Project Path', ""),
             ('Test project Server', sqlAdd),
             ('projectVersion', self.version_add),
         ]
@@ -724,13 +721,14 @@ class HTMLTestRunner(Template_mixin):
         heading = self._generate_heading(report_attrs)
         report = self._generate_report(result)
         ending = self._generate_ending()
+        # print("ending:", ending)
         output = self.HTML_TMPL % dict(
             title=saxutils.escape(self.title),
             generator=generator,
             stylesheet=stylesheet,
             heading=heading,
             report=report,
-            ending=ending, )
+            ending=ending)
         self.stream.write(output.encode('utf8'))
         # self.stream.write(output)
 
@@ -740,6 +738,8 @@ class HTMLTestRunner(Template_mixin):
     def _generate_heading(self, report_attrs):
         a_lines = []
         for name, value in report_attrs:
+            # print("name:",name)
+            # print("value:",value)
             line = self.HEADING_ATTRIBUTE_TMPL % dict(
                 name=saxutils.escape(name),
                 value=saxutils.escape(value), )
@@ -785,7 +785,11 @@ class HTMLTestRunner(Template_mixin):
 
             for tid, (n, t, o, e) in enumerate(cls_results):
                 self._generate_report_test(rows, cid, tid, n, t, o, e)
-
+        # print("rows:",rows)
+        # if isinstance(rows, str):
+        #     print("rows is str")
+        # if isinstance(rows, unicode):
+        #     print("rows is unicode")
         report = self.REPORT_TMPL % dict(
             test_list=''.join(rows),
             count=str(result.success_count + result.failure_count +

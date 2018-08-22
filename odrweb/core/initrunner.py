@@ -5,9 +5,8 @@ import time
 import unittest
 
 
-from odrweb.core.html.HTMLTestRunner import HTMLTestRunner
-# from HTMLTestRunner import HTMLTestRunner
-# from odrweb.core.generateHtml.HTMLTestRunner import HTMLTestRunner
+# from odrweb.core.html.HTMLTestRunner import HTMLTestRunner
+from odrweb.core.generateHtml.HTMLTestRunner import HTMLTestRunner
 dir = os.path.dirname
 home_path = dir(os.path.abspath(dir(__file__)))
 
@@ -31,15 +30,15 @@ class TestRunner:
 
     def run(self):
 
-        self.now = time.strftime("%Y-%m-%d%H%H%S")
+        self.now = time.strftime("%Y-%m-%d%H%M%S")
         restult = 'odr_ui_' + self.now + '_restult.html'
         self.filename = os.path.join(self.reportPath, restult)
 
         with open(self.filename, 'wb') as fp:
             runner = HTMLTestRunner(
                 stream=fp,
-                title='ODR_browser_UI',
-                description='aa：')
+                title='ODR_WEBUI_Test',
+                description='测试详情：')
             runner.run(self.discover)
 
 

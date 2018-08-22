@@ -1,13 +1,9 @@
 # coding: utf-8
 import unittest
 
-import sys
-
-from odrweb.core.model.homepage import HomePage
 from odrweb.core.initdata import users
+from odrweb.core.model.homepage import HomePage
 
-reload(sys)
-sys.setdefaultencoding("utf-8")
 
 class OdrLoginAndQuit(unittest.TestCase):
     '''平台用户登录登出'''
@@ -19,12 +15,12 @@ class OdrLoginAndQuit(unittest.TestCase):
         self.homepage.quit()
 
     def test_01_user_login(self):
-        u'''普通用户登录'''
+        '''普通用户登录'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_login_verification()
 
     def test_02_user_login_quit(self):
-        u'''普通用户登出'''
+        '''普通用户登出'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_login_quit()
         result = self.homepage.user_login_quit_verification()
@@ -146,6 +142,18 @@ class OdrLoginAndQuit(unittest.TestCase):
         self.homepage.organization_login_quit()
         result = self.homepage.organization_login_quit_verfication()
         self.assertEqual(result, True)
+
+    def test_21_counselor_login(self):
+        '''咨询师登录'''
+        self.homepage.counselor_login(users.user_zxs['username'], users.user_zxs['pwd'])
+        self.homepage.counselor_login_verification()
+
+    def test_22_counselor_quit(self):
+        '''咨询师登出'''
+        self.homepage.counselor_login(users.user_zxs['username'], users.user_zxs['pwd'])
+        self.homepage.counselor_quit()
+        self.homepage.counselor_quit_verification()
+
 
 if __name__ == '__main__':
     unittest.main()
