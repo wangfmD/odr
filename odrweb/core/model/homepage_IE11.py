@@ -1,13 +1,11 @@
-# coding:utf-8
+ # coding:utf-8
 from time import sleep
 
 from selenium import webdriver
 
-# base_url = 'https://train.odrcloud.cn:8443'
-# IE11URL_ytj = 'https://train.odrcloud.cn:8443/jsp/pages/accountLogin.jsp?page=14588154523857'
-base_url = "https://uatodr.odrcloud.net"
-IE11URL_ytj = 'https://uatodr.odrcloud.net/jsp/pages/accountLogin.jsp?page=14588154523857'
-
+base_url = 'https://train.odrcloud.cn:8443'
+# base_url = "https://uatodr.odrcloud.net"
+IE11URL_ytj="https://train.odrcloud.cn:8443/jsp/pages/accountLogin.jsp?page=14588154523857"
 
 class HomePage(object):
 
@@ -151,12 +149,12 @@ class HomePage(object):
         '''
         reg_link=''
         try:
-            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
+            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
         except:
             reg_link = ''
             print u'获取:立即登录link失败'
 
-        result = reg_link == u'立即注册>'
+        result = reg_link.text == u'立即注册>'
         return result
 
 
@@ -207,12 +205,12 @@ class HomePage(object):
         '''
         reg_link=''
         try:
-            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
+            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
         except:
             reg_link = ''
             print u'获取:立即登录link失败'
 
-        result = reg_link == u'立即注册>'
+        result = reg_link.text == u'立即注册>'
         return result
 
 
@@ -297,7 +295,7 @@ class HomePage(object):
         return res
 
 
-    def counselor_quit(self):
+    def counselor_login_quit(self):
         '''
 
         :return:
@@ -306,7 +304,7 @@ class HomePage(object):
         sleep(1)
 
 
-    def counselor_quit_verification(self):
+    def counselor_login_quit_verification(self):
         '''
 
         :return:
@@ -401,15 +399,8 @@ class HomePage(object):
         :param driver:
         :return:
         '''
-        self.driver.get(IE11URL_ytj)
+        self.driver.get(IE11URL_ytj + "/")
         # 进入云解登录page
-        # 首页优化
-        # self.driver.find_element_by_xpath('//div[@id="app"]/div[6]/div[1]/div[1]/ul[1]/li[6]/a').click()
-        # 首页优化
-        # self.driver.find_element_by_xpath('//div[@id="app"]/div[5]/div[1]/div[1]/ul[1]/li[6]/a').click()
-        # windows = self.driver.window_handles
-        # self.driver.switch_to_window(windows[1])
-        # self.driver.switch_to.window(windows[1])
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[1]').clear()
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[1]').send_keys(name)
         self.driver.find_element_by_xpath('/html/body/div/div/div[2]/div[1]/input[2]').clear()
