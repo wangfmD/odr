@@ -4,19 +4,13 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
+from odrweb.core.page.browser import Page
+
 
 class PersonalPage(object):
 
-    def __init__(self, driver):
-        if isinstance(driver, webdriver.Firefox):
-            self.driver = driver
-        if isinstance(driver, webdriver.Chrome):
-            self.driver = driver
-        if isinstance(driver, webdriver.Ie):
-            self.driver = driver
-
-        self.driver.implicitly_wait(5)
-        self.driver.maximize_window()
+    def __init__(self, page=None,):
+        self.driver = page.driver
 
     def quit(self):
         self.driver.quit()
@@ -59,6 +53,73 @@ class PersonalPage(object):
         # 确认
         self.driver.find_element_by_xpath('//a[text()="是"]').click()
 
+    def apply_mediate(self):
+
+        '''
+        用户申请调解
+        :param chrome:
+        :return:
+        '''
+        # 点击选择我要调解
+        self.driver.find_element_by_xpath('//div[@id="personal-content"]/div[1]/div[2]/div[3]/div[2]').click()
+
+        sleep(1)
+        # 弹出提示框并点击
+        self.driver.find_element_by_xpath('//div[@id="layui-layer1"]/div[3]/a[1]').click()
+        # 选择申请人身份为我是申请人
+        self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[1]/div/div[2]/div[2]/div').click()
+
+        sleep(1)
+        # 选择调解类型
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/label[2]/span[2]').click()
+        # 输入纠纷描述、我的诉求
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div/textarea').send_keys('test')
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[3]/div/div/div/textarea').send_keys('test')
+        # 选择纠纷发生地
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[4]/div/span[2]').click()
+        self.driver.find_element_by_link_text(u"浙江省").click()
+        self.driver.find_element_by_link_text(u"杭州市").click()
+        self.driver.find_element_by_link_text(u"上城区").click()
+        self.driver.find_element_by_link_text(u"清波街道").click()
+        se='//div[@id="app"]/div/div[2]/form/div[4]/div/div/div/div[2]/div[5]/dl/dd/a[1]'
+        self.driver.find_element_by_xpath(se).click()
+        sleep(0.5)
+
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[6]/div/div[1]/input').click()
+
+        sleep(1)
+        # 选择机构
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[3]/div/div/div[2]/div[2]/ul/li[1]/button').click()
+        # self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+
+        sleep(1)
+        # 点击下一步进入填写申请人信息页面
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[5]').click()
+        # 申请人信息默认填写，直接点击下一步进入被申请人信息填写
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/div[2]/div[2]/p[3]/span[2]').click()
+
+        sleep(1)
+        # 填写被申请人姓名、电话号码
+        self.driver.find_element_by_xpath(
+            '//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[2]/div/div/input').send_keys(u'钱桂林')
+        self.driver.find_element_by_xpath(
+            '//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[4]/div/div/input').send_keys('13160077223')
+        # 点击提交弹出提示框
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[2]/p[3]/span[2]').click()
+
+        sleep(2)
+        # 点击提示框确定
+        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+
+        sleep(1)
+        # 点击查看纠纷详情
+        # self.driver.find_element_by_xpath('//div[@id="mediate"]/div[1]/div[4]/div[2]/a[1]').click()
+        #
+        # sleep(1)
+        # # 点击返回列表
+        # self.driver.find_element_by_xpath('/html/body/section[1]/button').click()
+
+
     def _security_settings(self):
         ''''''
         self.driver.find_element_by_xpath('//div[@id="personal-title"]/div[2]/ul/li[2]/a').click()
@@ -78,37 +139,13 @@ class PersonalPage(object):
         self.driver.find_element_by_xpath('//div[@id="login_password"]/div/div/div[2]/form/div[4]/div/button[1]/span').click()
 
 def t():
-    browser = webdriver.Chrome()
-    # browser=webdriver.Ie()
-    browser.maximize_window()
-
-    browser.implicitly_wait(5)
-
-    # login(browser)
-    # consult_input(browser)
-    # company_login(browser)
-
-    # mediator_login(browser)
-    # organization_user_login(browser)
-    # organization_login(browser)
-    # mediator_login(browser)
-    # customer_login(browser)
-    # counselor_login(browser)
-    # login_yun(browser)
-
-    # user_login(browser, users.user_wfm['username'], users.user_wfm['pwd'])
-    # mediator_login(browser, users.user_tjy['username'], users.user_tjy['pwd'])
-    # mediator_login(browser, users.user_bafg['username'], users.user_bafg['pwd'])
-    # organization_user_login(browser, users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-    # organization_login(browser, users.user_bmxlzxysxxjg['username'], users.user_bmxlzxysxxjg['pwd'])
-    # customer_login(browser, users.user_kf['username'], users.user_kf['pwd'])
-    # counselor_login(browser, users.user_zxs['username'], users.user_zxs['pwd'])
-    # login_yun(browser, users.user_wfm['username'], users.user_wfm['pwd'])
-
-    # organization_login(browser, users.user_shenadmin['username'], users.user_shenadmin['pwd'])
-    # organization_login(browser, users.user_quadmin['username'], users.user_quadmin['pwd'])
-    # organization_login(browser, users.user_shiadmin['username'], users.user_shiadmin['pwd'])
-
+    from odrweb.core.page.homepage import HomePage
+    from odrweb.core.initdata import users
+    homepage = HomePage()
+    homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+    homepage.user_personal_center()
+    per = PersonalPage(homepage)
+    per.yonghu_sqtj()
 
 if __name__ == '__main__':
     t()

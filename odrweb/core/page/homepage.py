@@ -4,7 +4,7 @@ from time import sleep
 from selenium import webdriver
 # base_url = 'https://train.odrcloud.cn:8443'
 # IE11URL_ytj = 'https://train.odrcloud.cn:8443/jsp/pages/accountLogin.jsp?page=14588154523857'
-from selenium.common.exceptions import ElementNotInteractableException
+# from selenium.common.exceptions import ElementNotInteractableException
 
 base_url = "https://uatodr.odrcloud.net"
 IE11URL_ytj = 'https://uatodr.odrcloud.net/jsp/pages/accountLogin.jsp?page=14588154523857'
@@ -13,7 +13,7 @@ IE11URL_ytj = 'https://uatodr.odrcloud.net/jsp/pages/accountLogin.jsp?page=14588
 class HomePage(object):
 
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(5)
         self.driver.maximize_window()
 
@@ -258,7 +258,7 @@ class HomePage(object):
         '''
         try:
             self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
-        except ElementNotInteractableException:
+        except :
             self.driver.refresh()
             self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
 
