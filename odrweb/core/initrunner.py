@@ -30,7 +30,7 @@ class TestRunner:
 
     def run(self):
 
-        self.now = time.strftime("%Y-%m-%d%H%M%S")
+        self.now = time.strftime("%Y-%m-%d-%H_%M_%S")
         restult = 'odr_ui_' + self.now + '_restult.html'
         self.filename = os.path.join(self.reportPath, restult)
 

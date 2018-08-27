@@ -2,9 +2,10 @@
 from time import sleep
 
 from selenium import webdriver
-
 # base_url = 'https://train.odrcloud.cn:8443'
 # IE11URL_ytj = 'https://train.odrcloud.cn:8443/jsp/pages/accountLogin.jsp?page=14588154523857'
+from selenium.common.exceptions import ElementNotInteractableException
+
 base_url = "https://uatodr.odrcloud.net"
 IE11URL_ytj = 'https://uatodr.odrcloud.net/jsp/pages/accountLogin.jsp?page=14588154523857'
 
@@ -12,7 +13,7 @@ IE11URL_ytj = 'https://uatodr.odrcloud.net/jsp/pages/accountLogin.jsp?page=14588
 class HomePage(object):
 
     def __init__(self):
-        self.driver = webdriver.Ie()
+        self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(5)
         self.driver.maximize_window()
 
@@ -50,7 +51,7 @@ class HomePage(object):
         sleep(1)
 
     def user_login_quit_verification(self):
-        login_link=""
+        login_link = ""
         try:
             login_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[5]/a').text
         except:
@@ -59,6 +60,10 @@ class HomePage(object):
         result = login_link == u'立即登录'
         return result
 
+    def user_personal_center(self):
+        ''''''
+        self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[2]/a').click()
+        return self.driver
 
     def company_login(self, name, pwd):
         '''
@@ -107,7 +112,7 @@ class HomePage(object):
         try:
             quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a')
         except:
-            quit_link=''
+            quit_link = ''
             print('获取退出link失败')
         result = quit_link.text == u'退出'
         return result
@@ -121,7 +126,7 @@ class HomePage(object):
         try:
             quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]')
         except:
-            quit_link=''
+            quit_link = ''
             print('获取退出link失败')
         result = quit_link.text == u'退出'
         return result
@@ -149,7 +154,7 @@ class HomePage(object):
 
         :return:
         '''
-        reg_link=''
+        reg_link = ''
         try:
             reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
         except:
@@ -158,7 +163,6 @@ class HomePage(object):
 
         result = reg_link == u'立即注册>'
         return result
-
 
     def organization_user_login(self, name, pwd):
         '''
@@ -187,7 +191,7 @@ class HomePage(object):
         :return:
         '''
         back_link = self.driver.find_element_by_xpath('//*[@id="app"]/div/div[1]/div/div/div[2]/a[2]')
-        result =  back_link.text == u'返回>'
+        result = back_link.text == u'返回>'
         return result
 
     def organization_user_login_quit(self):
@@ -205,7 +209,7 @@ class HomePage(object):
 
         :return:
         '''
-        reg_link=''
+        reg_link = ''
         try:
             reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
         except:
@@ -214,7 +218,6 @@ class HomePage(object):
 
         result = reg_link == u'立即注册>'
         return result
-
 
     def organization_login(self, name, pwd):
         '''
@@ -244,6 +247,8 @@ class HomePage(object):
         '''
         quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]')
         res = quit_link.text == u'退出'
+        print u"expect: 退出"
+        print u"result: ", quit_link.text
         return res
 
     def organization_login_quit(self):
@@ -251,21 +256,28 @@ class HomePage(object):
 
         :return:
         '''
-        self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
-        sleep(1)
+        try:
+            self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
+        except ElementNotInteractableException:
+            self.driver.refresh()
+            self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
 
+        sleep(1)
 
     def organization_login_quit_verfication(self):
         '''
 
         :return:
         '''
-        reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
-        result = reg_link.text == u'立即注册>'
+        try:
+            # reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
+            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[5]/a').text
+        except:
+            print(u"获取link失败")
+            reg_link = ""
+        # result = reg_link == u'立即注册>'
+        result = reg_link == u'立即登录'
         return result
-
-
-
 
     def counselor_login(self, name, pwd):
         '''
@@ -286,7 +298,6 @@ class HomePage(object):
         self.driver.find_element_by_xpath('//button[@id="login"]/span').click()
         sleep(2)
 
-
     def counselor_login_verification(self):
         '''
 
@@ -296,7 +307,6 @@ class HomePage(object):
         res = back_link.text == u'退出'
         return res
 
-
     def counselor_quit(self):
         '''
 
@@ -304,7 +314,6 @@ class HomePage(object):
         '''
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a').click()
         sleep(1)
-
 
     def counselor_quit_verification(self):
         '''
@@ -314,7 +323,6 @@ class HomePage(object):
         reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
         result = reg_link.text == u'立即注册>'
         return result
-
 
     def customer_login(self, name, pwd):
         '''
@@ -346,7 +354,6 @@ class HomePage(object):
         res = quit_link.text == u'退出'
         return res
 
-
     def customer_login_quit(self):
         '''
 
@@ -354,7 +361,6 @@ class HomePage(object):
         '''
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
         sleep(1)
-
 
     def customer_login_quit_verification(self):
         '''
@@ -364,9 +370,6 @@ class HomePage(object):
         reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a')
         result = reg_link.text == u'立即注册>'
         return result
-
-
-
 
     def consult_input(self):
         '''
@@ -443,7 +446,6 @@ class HomePage(object):
         login_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[5]/a').text
         result = login_link == u'立即登录'
         return result
-
 
 
 def t():

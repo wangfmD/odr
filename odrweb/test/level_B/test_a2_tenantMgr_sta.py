@@ -3,7 +3,7 @@ import unittest
 
 import sys
 
-from odrweb.core.model.homepage import HomePage
+from odrweb.core.page.homepage import HomePage
 from odrweb.core.initdata import users
 
 reload(sys)
