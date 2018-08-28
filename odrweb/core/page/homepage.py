@@ -270,8 +270,8 @@ class HomePage(object):
         :return:
         '''
         try:
-            # reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
-            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[5]/a').text
+            reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[3]/a').text
+            # reg_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[5]/a').text
         except:
             print(u"获取link失败")
             reg_link = ""
