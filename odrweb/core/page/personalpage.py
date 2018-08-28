@@ -3,6 +3,9 @@ from time import sleep
 
 from selenium.webdriver.support.select import Select
 
+jf_consult = {"jf_type": u"消费维权",
+              "jf_desc": u"假冒商品",
+              "jf_appeal": u"假一赔十"}
 
 class PersonalPage(object):
 
@@ -12,43 +15,73 @@ class PersonalPage(object):
     def quit(self):
         self.driver.quit()
 
-    def consult(self):
+    def consult(self, **kwargs):
         '''咨询录入'''
         # 进入我要咨询输入页面
         self.driver.find_element_by_xpath('//*[@id="personal-content"]/div[1]/div[2]/div[1]/div[2]').click()
         select_xpath = '/html/body/div[2]/div/div/div/form/div[1]/div/select'
         Select(self.driver.find_element_by_xpath(select_xpath)).select_by_visible_text(u'消费维权')
-        self.driver.find_element_by_xpath('//textarea[@id="textarea_title"]').send_keys(u'离婚咨询')
-        self.driver.find_element_by_xpath('//textarea[@id="textarea_content"]').send_keys('ddd')
+        self.driver.find_element_by_xpath('//textarea[@id="textarea_title"]').send_keys(kwargs["jf_desc"])
+        self.driver.find_element_by_xpath('//textarea[@id="textarea_content"]').send_keys(kwargs["jf_appeal"])
         # 申请提交
         self.driver.find_element_by_xpath('/html/body/div[2]/div/div/div/form/div[6]/button').click()
+        sleep(1)
         # 确认
         self.driver.find_element_by_xpath('//a[text()="是"]').click()
-        sleep(5)
+        sleep(2)
+        # 返回首页
+        self.driver.find_element_by_xpath('/html/body/nav/div/div[1]/a/div[1]').click()
 
-    def consult_input_verification(self):
+    def verification_consult(self, jf_info):
+        ''''''
+        try:
+            jf_desc = self.driver.find_element_by_xpath('//div[@id="consultation"]/div[1]/div[3]/ul/li[3]').text
+            res = jf_desc.split(u'：')[-1]
+        except:
+            res = "*None*"
+        print "expect: ", jf_info
+        print "result: ", res
+
+        return res == jf_info
+
+    def verification_consult_input(self):
 
         try:
             res = self.driver.find_element_by_xpath(
                 '/html/body/div[2]/div[2]/counselors/div/div[1]/div[2]/div[1]/button')
         except:
-            res = ""
+            res = "*None*"
         # 校验搜索按键名称
         return res == u"搜索"
 
     # 婚姻继承
-    def evaluate(self):
+    def evaluate(self, **kwargs):
         '''评估录入'''
+
         # 进入我要评估输入页面
         self.driver.find_element_by_xpath('//div[text()="我要评估"]').click()
         select_xpath = '/html/body/div[2]/div/div/div/form/div[1]/div/select'
         Select(self.driver.find_element_by_xpath(select_xpath)).select_by_visible_text(u'消费维权')
-        self.driver.find_element_by_xpath('//textarea[@id="textarea_title"]').send_keys('dasfadsf')
-        self.driver.find_element_by_xpath('//textarea[@id="textarea_content"]').send_keys('das1111111111')
+        self.driver.find_element_by_xpath('//textarea[@id="textarea_title"]').send_keys(kwargs['jf_desc'])
+        self.driver.find_element_by_xpath('//textarea[@id="textarea_content"]').send_keys(kwargs['jf_appeal'])
         # 申请提交
         self.driver.find_element_by_xpath('/html/body/div[2]/div/div/div/form/div[6]/button').click()
         # 确认
-        self.driver.find_element_by_xpath('//a[text()="是"]').click()
+        sleep(0.5)
+        # self.driver.find_element_by_xpath('//a[text()="是"]').click()
+
+    def verification_evaluate(self, jf_info):
+        ''' '''
+        # 验证纠纷描述内容
+        try:
+            mediate_desc = self.driver.find_element_by_xpath('//div[@id="assessment"]/div[1]/div[3]/ul/li[3]').text
+            res = mediate_desc.split(u'：')[-1]
+        except:
+            res = '*None*'
+        print "expect: ", jf_info
+        print "result: ", res
+
+        return res==jf_info
 
     def apply_mediate(self):
 
@@ -133,21 +166,23 @@ class PersonalPage(object):
         ''''''
         self.driver.find_element_by_xpath('//div[@id="personal-title"]/div[2]/ul/li[2]/a').click()
 
-    def modify_passwd(self):
+    def modify_passwd(self,old,new):
         '''修改密码'''
         self._security_settings()
+        sleep(1)
         # 点击修改
-        self.driver.find_element_by_xpath(
-            '//div[@id="personal"]/div[2]/div[2]/div[2]/table/tbody/tr[2]/td[4]/a').click()
+        self.driver.find_element_by_xpath('//div[@id="personal"]/div[2]/div[2]/div[2]/table/tbody/tr[2]/td[4]/a').click()
         # 输入原密码
+        sleep(1)
+        self.driver.find_element_by_xpath('//div[@id="login_password"]/div/div/div[2]/form/div[1]/div/div[1]/input').clear()
         self.driver.find_element_by_xpath(
-            '//div[@id="login_password"]/div/div/div[2]/form/div[1]/div/div[1]/input').send_keys('100200')
+            '//div[@id="login_password"]/div/div/div[2]/form/div[1]/div/div[1]/input').send_keys(old)
         # 输入新密码
         self.driver.find_element_by_xpath(
-            '//div[@id="login_password"]/div/div/div[2]/form/div[2]/div/div/input').send_keys('100200')
+            '//div[@id="login_password"]/div/div/div[2]/form/div[2]/div/div/input').send_keys(new)
         # 确认新密码
         self.driver.find_element_by_xpath(
-            '//div[@id="login_password"]/div/div/div[2]/form/div[3]/div/div/input').send_keys('100200')
+            '//div[@id="login_password"]/div/div/div[2]/form/div[3]/div/div/input').send_keys(new)
         # 提交
         self.driver.find_element_by_xpath(
             '//div[@id="login_password"]/div/div/div[2]/form/div[4]/div/button[1]/span').click()
@@ -160,7 +195,7 @@ def t():
     homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
     homepage.user_personal_center()
     per = PersonalPage(homepage)
-    per.yonghu_sqtj()
+    per.consult(**jf_consult)
 
 
 if __name__ == '__main__':

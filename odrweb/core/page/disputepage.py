@@ -252,6 +252,7 @@ class DisputePage(object):
         self.driver.find_element_by_xpath('//div[@id="layui-layer2"]/div[3]/a').click()
         self.driver.find_element_by_css_selector("button[type=\"button\"]").click()
 
+    # '/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p'
 
 def jf1():
     from odrweb.core.page.homepage import HomePage
