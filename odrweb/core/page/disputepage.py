@@ -68,11 +68,13 @@ class DisputePage(object):
         self.driver.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").click()
         # 详细地址
         self.driver.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").clear()
-        self.driver.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").send_keys(kwargs['applicant_addr'])
+        self.driver.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").send_keys(
+            kwargs['applicant_addr'])
 
         # 被申请人姓名
         self.driver.find_element_by_css_selector("div.el-input.page3Bname0 > input.el-input__inner").clear()
-        self.driver.find_element_by_css_selector("div.el-input.page3Bname0 > input.el-input__inner").send_keys(kwargs['disputer'])
+        self.driver.find_element_by_css_selector("div.el-input.page3Bname0 > input.el-input__inner").send_keys(
+            kwargs['disputer'])
         # 电话
         self.driver.find_element_by_css_selector("div.el-input.page3Bphone0 > input.el-input__inner").clear()
         self.driver.find_element_by_css_selector("div.el-input.page3Bphone0 > input.el-input__inner").send_keys(
@@ -137,10 +139,7 @@ class DisputePage(object):
         print "result: ", jf_info["jf_desc"]
         return jf_desc == jf_info["jf_desc"]
 
-
-
-
-    def _dispute_tjy_input(self,**kwargs):
+    def _dispute_tjy_input(self, **kwargs):
         '''
         调解员登记纠纷
         提交
@@ -165,7 +164,8 @@ class DisputePage(object):
         self.driver.find_element_by_link_text(u"清波门社区").click()
         sleep(1)
         self.driver.find_element_by_css_selector("div.el-input.page2Name0 > input.el-input__inner").clear()
-        self.driver.find_element_by_css_selector("div.el-input.page2Name0 > input.el-input__inner").send_keys(kwargs["applicant"])
+        self.driver.find_element_by_css_selector("div.el-input.page2Name0 > input.el-input__inner").send_keys(
+            kwargs["applicant"])
         self.driver.find_element_by_css_selector("div.el-input.page2Num0 > input.el-input__inner").clear()
         self.driver.find_element_by_css_selector("div.el-input.page2Num0 > input.el-input__inner").send_keys(
             kwargs["applicant_tel"])
@@ -190,8 +190,7 @@ class DisputePage(object):
         self.driver.find_element_by_css_selector("div.el-input.page3Bphone0 > input.el-input__inner").send_keys(
             kwargs['disputer_tel'])
 
-
-    def dispute_tjy_commit(self,**kwargs):
+    def dispute_tjy_commit(self, **kwargs):
         '''
         调解员登记纠纷
         提交
@@ -206,10 +205,19 @@ class DisputePage(object):
         self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button[1]/span').click()
         sleep(2)
         self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-        # 直接提交方式
 
+    def verification_dispute_tjy_commit(self, jf_info):
+        try:
+            # jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
+            jf_desc = self.driver.find_element_by_xpath(
+                '/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[9]/p').text
+        except:
+            jf_desc = "*None*"
+        print "result: ", jf_desc
+        print "expect: ", jf_info
+        return jf_desc == jf_info
 
-    def dispute_tjy_save(self,**kwargs):
+    def dispute_tjy_save(self, **kwargs):
         '''
         调解员登记纠纷
         保存提交
@@ -225,16 +233,15 @@ class DisputePage(object):
         self.driver.find_element_by_xpath("(//button[@type='button'])[6]").click()
         sleep(1)
 
-
-    def dispute_tjy_save_verification(self, jf_desc):
+    def verification_dispute_tjy_save(self, jf_info):
         try:
-            jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
+            jf_desc = self.driver.find_element_by_xpath(
+                '/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
         except:
             jf_desc = "*None*"
-        print "expect: ", jf_desc
-        print "result: ", jf_info["jf_desc"]
-        return jf_desc == jf_info["jf_desc"]
-
+        print "result: ", jf_desc
+        print "expect: ", jf_info
+        return jf_desc == jf_info
 
     def dispute_tjy_save_commit(self):
         self.driver.find_element_by_link_text(u"纠纷预览").click()

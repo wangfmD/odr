@@ -183,7 +183,7 @@ class HomePage(object):
         self.driver.find_element_by_xpath('//div[@id="loginForm"]/form/div[2]/div/div[1]/input').send_keys(pwd)
         # 确定登录
         self.driver.find_element_by_xpath('//button[@id="login"]/span').click()
-        sleep(4)
+        sleep(3)
 
     def organization_user_login_verification(self):
         '''

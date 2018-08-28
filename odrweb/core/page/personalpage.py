@@ -1,15 +1,12 @@
 # coding:utf-8
 from time import sleep
 
-from selenium import webdriver
 from selenium.webdriver.support.select import Select
-
-from odrweb.core.page.browser import Page
 
 
 class PersonalPage(object):
 
-    def __init__(self, page=None,):
+    def __init__(self, page=None, ):
         self.driver = page.driver
 
     def quit(self):
@@ -73,15 +70,17 @@ class PersonalPage(object):
         # 选择调解类型
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/label[2]/span[2]').click()
         # 输入纠纷描述、我的诉求
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div/textarea').send_keys('test')
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[3]/div/div/div/textarea').send_keys('test')
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div/textarea').send_keys(
+            'test')
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[3]/div/div/div/textarea').send_keys(
+            'test')
         # 选择纠纷发生地
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[4]/div/span[2]').click()
         self.driver.find_element_by_link_text(u"浙江省").click()
         self.driver.find_element_by_link_text(u"杭州市").click()
         self.driver.find_element_by_link_text(u"上城区").click()
         self.driver.find_element_by_link_text(u"清波街道").click()
-        se='//div[@id="app"]/div/div[2]/form/div[4]/div/div/div/div[2]/div[5]/dl/dd/a[1]'
+        se = '//div[@id="app"]/div/div[2]/form/div[4]/div/div/div/div[2]/div[5]/dl/dd/a[1]'
         self.driver.find_element_by_xpath(se).click()
         sleep(0.5)
 
@@ -89,7 +88,8 @@ class PersonalPage(object):
 
         sleep(1)
         # 选择机构
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[3]/div/div/div[2]/div[2]/ul/li[1]/button').click()
+        self.driver.find_element_by_xpath(
+            '//div[@id="app"]/div/div[2]/div[3]/div/div/div[2]/div[2]/ul/li[1]/button').click()
         # self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
 
         sleep(1)
@@ -119,6 +119,15 @@ class PersonalPage(object):
         # # 点击返回列表
         # self.driver.find_element_by_xpath('/html/body/section[1]/button').click()
 
+    def verification_apply_mediate(self,jf_desc ):
+        try:
+            mediate_desc = self.driver.find_element_by_xpath('//div[@id="mediate"]/div[1]/div[3]/ul/li[7]').text
+            res = mediate_desc.split(u'：')[-1]
+        except:
+            res = "*None*"
+        print "result: ", res
+        print "expect: ", jf_desc
+        return res == jf_desc
 
     def _security_settings(self):
         ''''''
@@ -128,15 +137,21 @@ class PersonalPage(object):
         '''修改密码'''
         self._security_settings()
         # 点击修改
-        self.driver.find_element_by_xpath('//div[@id="personal"]/div[2]/div[2]/div[2]/table/tbody/tr[2]/td[4]/a').click()
+        self.driver.find_element_by_xpath(
+            '//div[@id="personal"]/div[2]/div[2]/div[2]/table/tbody/tr[2]/td[4]/a').click()
         # 输入原密码
-        self.driver.find_element_by_xpath('//div[@id="login_password"]/div/div/div[2]/form/div[1]/div/div[1]/input').send_keys('100200')
+        self.driver.find_element_by_xpath(
+            '//div[@id="login_password"]/div/div/div[2]/form/div[1]/div/div[1]/input').send_keys('100200')
         # 输入新密码
-        self.driver.find_element_by_xpath('//div[@id="login_password"]/div/div/div[2]/form/div[2]/div/div/input').send_keys('100200')
+        self.driver.find_element_by_xpath(
+            '//div[@id="login_password"]/div/div/div[2]/form/div[2]/div/div/input').send_keys('100200')
         # 确认新密码
-        self.driver.find_element_by_xpath('//div[@id="login_password"]/div/div/div[2]/form/div[3]/div/div/input').send_keys('100200')
+        self.driver.find_element_by_xpath(
+            '//div[@id="login_password"]/div/div/div[2]/form/div[3]/div/div/input').send_keys('100200')
         # 提交
-        self.driver.find_element_by_xpath('//div[@id="login_password"]/div/div/div[2]/form/div[4]/div/button[1]/span').click()
+        self.driver.find_element_by_xpath(
+            '//div[@id="login_password"]/div/div/div[2]/form/div[4]/div/button[1]/span').click()
+
 
 def t():
     from odrweb.core.page.homepage import HomePage
@@ -146,6 +161,7 @@ def t():
     homepage.user_personal_center()
     per = PersonalPage(homepage)
     per.yonghu_sqtj()
+
 
 if __name__ == '__main__':
     t()
