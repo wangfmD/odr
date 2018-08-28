@@ -153,6 +153,19 @@ class OdrLoginAndQuit(unittest.TestCase):
         self.homepage.counselor_quit()
         self.homepage.counselor_quit_verification()
 
+    def test_023(self):
+        '''普通用户头部登录'''
+        self.homepage.user_head_login(users.user_wfm['username'], users.user_wfm['pwd'])
+        self.homepage.user_login_verification()
+
+    def test_024(self):
+        '''普通用户头部登出'''
+        self.homepage.user_head_login(users.user_wfm['username'], users.user_wfm['pwd'])
+        self.homepage.user_head_login_quit()
+        result = self.homepage.user_login_quit_verification()
+        self.assertEqual(result,True)
+
+
 
 if __name__ == '__main__':
     unittest.main()

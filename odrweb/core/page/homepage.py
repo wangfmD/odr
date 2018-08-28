@@ -41,6 +41,27 @@ class HomePage(object):
         sleep(2)
         self.driver.refresh()
 
+    def user_head_login(self, name, pwd):
+        '''
+        普通用户头部登录
+        :param driver:
+        :return:
+        '''
+
+        self.driver.get(base_url + "/")
+        # 进入登录页面
+        self.driver.find_element_by_xpath('//div[@id="app"]/header/div[1]/div[2]/ul/li[1]/a').click()
+        # 输入手机号码
+        self.driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div/input').clear()
+        self.driver.find_element_by_xpath('//form[@id="loginForm"]/div[1]/div/div/input').send_keys(name)
+        # 输入密码
+        self.driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').clear()
+        self.driver.find_element_by_xpath('//form[@id="loginForm"]/div[2]/div/div/input').send_keys(pwd)
+        # 点击登录
+        self.driver.find_element_by_id("login").click()
+        sleep(2)
+        self.driver.refresh()
+
     def user_login_verification(self):
         quit_link = self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[3]/a')
         result = quit_link.text == u'退出'
@@ -59,6 +80,12 @@ class HomePage(object):
             login_link = ""
         result = login_link == u'立即登录'
         return result
+
+    def user_head_login_quit(self):
+        '''用户头部登出'''
+        self.driver.find_element_by_xpath('//div[@id="app"]/header/div[1]/div[2]/ul/li[2]/a').click()
+        sleep(1)
+
 
     def user_personal_center(self):
         ''''''
@@ -275,8 +302,8 @@ class HomePage(object):
         except:
             print(u"获取link失败")
             reg_link = ""
-        # result = reg_link == u'立即注册>'
-        result = reg_link == u'立即登录'
+        result = reg_link == u'立即注册>'
+        # result = reg_link == u'立即登录'
         return result
 
     def counselor_login(self, name, pwd):
