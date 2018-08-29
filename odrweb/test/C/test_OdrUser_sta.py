@@ -1,17 +1,17 @@
 # coding: utf-8
 import sys
 import unittest
-from time import sleep
 
 from odrweb.core.initdata import users
-from odrweb.core.page.personalpage import PersonalPage
-from odrweb.core.page.homepage import HomePage
+from odrweb.page.homepage import HomePage
+from odrweb.page.personalpage import PersonalPage
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 old = users.user_wfm['pwd']
 new = '22222222'
+
 
 class OdrUser(unittest.TestCase):
     ''' 用户功能'''

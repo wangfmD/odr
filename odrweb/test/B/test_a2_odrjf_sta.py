@@ -1,11 +1,11 @@
 # coding: utf-8
 import sys
 import unittest
-from time import sleep
 
 from odrweb.core.initdata import users
-from odrweb.core.page.disputepage import DisputePage
-from odrweb.core.page.homepage import HomePage
+from odrweb.page.disputepage import DisputePage
+from odrweb.page.homepage import HomePage
+from odrweb.page.personalpage import PersonalPage
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -76,7 +76,6 @@ class OdrJfInput(unittest.TestCase):
         ''' 用户-我要调解'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
-        from odrweb.core.page.personalpage import PersonalPage
         personalpage = PersonalPage(self.homepage)
         personalpage.apply_mediate()
         personalpage.verification_apply_mediate("test")
@@ -90,7 +89,7 @@ class OdrJfInput(unittest.TestCase):
         # 执行
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
-        from odrweb.core.page.personalpage import PersonalPage
+
         personalpage = PersonalPage(self.homepage)
         personalpage.evaluate(**jf_consult)
         # 验证
@@ -105,7 +104,6 @@ class OdrJfInput(unittest.TestCase):
                       "jf_appeal": u"假一赔十"}
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
-        from odrweb.core.page.personalpage import PersonalPage
         personalpage = PersonalPage(self.homepage)
         personalpage.consult(**jf_consult)
         self.homepage.user_personal_center()

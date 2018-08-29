@@ -2,7 +2,7 @@
 import unittest
 
 from odrweb.core.initdata import users
-from odrweb.core.page.homepage import HomePage
+from odrweb.page.homepage import HomePage
 
 class OdrLoginAndQuit(unittest.TestCase):
     '''平台用户登录登出'''
@@ -153,12 +153,12 @@ class OdrLoginAndQuit(unittest.TestCase):
         self.homepage.counselor_quit()
         self.homepage.counselor_quit_verification()
 
-    def test_023(self):
+    def test_23(self):
         '''普通用户头部登录'''
         self.homepage.user_head_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_login_verification()
 
-    def test_024(self):
+    def test_24(self):
         '''普通用户头部登出'''
         self.homepage.user_head_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_head_login_quit()
