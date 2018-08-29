@@ -4,9 +4,9 @@ import os
 import time
 import unittest
 
-
-# from odrweb.core.html.HTMLTestRunner import HTMLTestRunner
 from odrweb.core.generateHtml.HTMLTestRunner import HTMLTestRunner
+from odrweb.core.initdata import init
+
 dir = os.path.dirname
 home_path = dir(os.path.abspath(dir(__file__)))
 
@@ -38,8 +38,9 @@ class TestRunner:
         with open(self.filename, 'wb') as fp:
             runner = HTMLTestRunner(
                 stream=fp,
-                title='ODR_WEBUI_Test',
-                description='测试详情：')
+                title='ODR_WebUI_Test',
+                description='测试详情：',
+                browser_type=init.browser)
             runner.run(self.discover)
 
 

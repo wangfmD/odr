@@ -192,7 +192,7 @@ class Template_mixin(object):
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     %(stylesheet)s
 </head>
-<body onload="version_load()">
+<body>
 <script language="javascript" type="text/javascript"><!--
 output_list = Array();
 
@@ -434,7 +434,6 @@ a.popup_link:hover {
     HEADING_TMPL = """<div class='heading'>
 <h1>%(title)s</h1>
 %(parameters)s
-<p class="attribute"><strong>the browser version:</strong><span id="browserVersion"></span></p>
 <p class='description'>%(description)s</p>
 </div>
 
@@ -641,11 +640,11 @@ class HTMLTestRunner(Template_mixin):
                  title=None,
                  description=None,
                  sqlAdd="",
-                 version_add=""):
+                 browser_type=""):
         self.stream = stream
         self.verbosity = verbosity
         self.sqlAdd = sqlAdd
-        self.version_add = version_add
+        self.browser_type = browser_type
         if title is None:
             self.title = self.DEFAULT_TITLE
         else:
@@ -711,7 +710,7 @@ class HTMLTestRunner(Template_mixin):
             # ('Project Path', project_name_add),
             ('Project Path', ""),
             ('Test project Server', sqlAdd),
-            ('projectVersion', self.version_add),
+            ('Browser', self.browser_type),
         ]
 
     def generateReport(self, test, result):

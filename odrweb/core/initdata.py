@@ -18,7 +18,19 @@ class Users(object):
     user_shiadmin=''
     user_quadmin=''
 
+class Init(object):
+    def __init__(self):
+        path = os.path.join(home_path, 'cfg', 'default.conf')
+        self.cf = ConfigParser.ConfigParser()
+        self.cf.read(path)
+        self.browser = self.cf.get('common', 'browser')
+        self.base_url = self.cf.get('common', 'base_url')
+
 users = Users()
+init = Init()
+
+
+
 
 def get_cfg_path():
     path = os.path.join(home_path, 'cfg')
@@ -119,50 +131,32 @@ def getCfgs(cfg_path):
     # username=M330106
     # pwd=123456
 
-class cfg(object):
-    def __init__(self):
-        # self.logFile = getLogFile()
-        self.cfg_path = get_cfg_path()
-        print("init cfg path:{}".format(self.cfg_path))
-        self.tmpData = getCfgs(self.cfg_path)
-        self.classroom_para = self.tmpData[0]
-        self.base_url = self.tmpData[1]
-        self.db_conf = self.tmpData[2]
-
-        self.email = self.tmpData[3]["email"]
-        self.loginInfo = self.tmpData[3]
-        self.execEnv = self.tmpData[4]
-        self.streaming_media = self.tmpData[5]
-        self.child_interact_ip = self.tmpData[6]
-        #   读取路径
-        # data_path = getSqlPath(self.base_url, self.db_conf)
-        # data_path = getSqlPath(self.base_url)
-        # self.sqlFilePath = data_path[0]
-        # self.sqlStatements = data_path[1]
-        #         self.sqlFilePathVer = data_path[1]
-        logger.info(
-            "#############################Init basedata start#############################"
-        )
-        logger.info("\t{0:<12}\t{1:<12}".format('base_url', self.base_url))
-        logger.info("\t{0:<12}\t{1:<12}".format('cfg_path', self.cfg_path))
-        for k, v in self.streaming_media.items():
-            logger.info("\t{0:<12}\t{1:<12}".format(k, v))
-        for k, v in self.db_conf.items():
-            logger.info("\t{0:<12}\t{1:<12}".format(k, v))
-        for k, v in self.loginInfo.items():
-            logger.info("\t{0:<12}\t{1:<12}".format(k, v + u''))
-        logger.info(
-            "#############################Init basedata end#############################"
-        )
+# class cfg(object):
+#
+#         logger.info(
+#             "#############################Init basedata start#############################"
+#         )
+#         logger.info("\t{0:<12}\t{1:<12}".format('base_url', self.base_url))
+#         logger.info("\t{0:<12}\t{1:<12}".format('cfg_path', self.cfg_path))
+#         for k, v in self.streaming_media.items():
+#             logger.info("\t{0:<12}\t{1:<12}".format(k, v))
+#         for k, v in self.db_conf.items():
+#             logger.info("\t{0:<12}\t{1:<12}".format(k, v))
+#         for k, v in self.loginInfo.items():
+#             logger.info("\t{0:<12}\t{1:<12}".format(k, v + u''))
+#         logger.info(
+#             "#############################Init basedata end#############################"
+#         )
 
 
 getCfgs(get_cfg_path())
 
 if __name__ == "__main__":
     # print(get_cfg_path())
-    print(home_path)
+    # print(home_path)
     # getCfgs(get_cfg_path())
 
     # for k,v in users.iteritems():
     #     print(k,":",v)
-    print(users)
+    # print(users)
+    print init.browser,init.base_url
