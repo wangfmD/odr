@@ -75,6 +75,12 @@ class Page(Browser):
     def find_element_by_xpath(self, *args):
         return self.driver.find_element_by_xpath(*args)
 
+    def find_element_by_css_selector(self, *args):
+        return self.driver.find_element_by_css_selector(*args)
+
+    def find_element_by_link_text(self,*args):
+        return self.driver.find_element_by_link_text(*args)
+
 
 class HomePage(Page):
 
