@@ -14,6 +14,134 @@ jf_info = {"jf_desc": u"假冒商品",
            }
 
 
+class DisputePageTjy(Page):
+    def _dispute_applicant_input(self, **kwargs):
+        '''纠纷登记-申请人input'''
+
+        self.find_element_by_xpath("/html/body/div[4]/div[1]/button[2]").click()
+        # 点击案件登记列表
+        self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/a[2]').click()
+        # 点击登记纠纷添加
+        self.find_element_by_css_selector("textarea.el-textarea__inner").clear()
+        self.find_element_by_css_selector("textarea.el-textarea__inner").send_keys(kwargs["jf_desc"])
+        self.find_element_by_css_selector("div.appeal.el-textarea > textarea.el-textarea__inner").clear()
+        self.find_element_by_css_selector("div.appeal.el-textarea > textarea.el-textarea__inner").send_keys(kwargs["jf_appeal"])
+        self.find_element_by_css_selector("span.city-picker-span").click()
+        self.find_element_by_link_text(u"浙江省").click()
+        self.find_element_by_link_text(u"杭州市").click()
+        self.find_element_by_link_text(u"上城区").click()
+        self.find_element_by_link_text(u"清波街道").click()
+        self.find_element_by_link_text(u"清波门社区").click()
+        sleep(1)
+        self.find_element_by_css_selector("div.el-input.page2Name0 > input.el-input__inner").clear()
+        self.find_element_by_css_selector("div.el-input.page2Name0 > input.el-input__inner").send_keys(
+            kwargs["applicant"])
+        self.find_element_by_css_selector("div.el-input.page2Num0 > input.el-input__inner").clear()
+        self.find_element_by_css_selector("div.el-input.page2Num0 > input.el-input__inner").send_keys(
+            kwargs["applicant_tel"])
+        self.find_element_by_xpath("(//input[@type='text'])[8]").clear()
+        self.find_element_by_xpath("(//input[@type='text'])[8]").send_keys(kwargs["applicant_id"])
+        sleep(1)
+        self.find_element_by_xpath('//div[@id="app"]/div/div[3]/div/div[1]/form/div/div[6]/div/span').click()
+        sleep(1)
+        self.find_element_by_link_text(u"浙江省").click()
+        sleep(0.5)
+        self.find_element_by_link_text(u"杭州市").click()
+        self.find_element_by_link_text(u"上城区").click()
+        self.find_element_by_link_text(u"清波街道").click()
+        self.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").click()
+        # 住址
+        self.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").clear()
+        self.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").send_keys(kwargs["applicant_addr"])
+
+    def agent(self):
+
+        # 一般授权代理人
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[1]/span[1]/span').click()
+        # 特别授权代理人
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[2]/span[1]/span').click()
+        # 性别
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[2]/div/div/label[1]/span[1]/span').click()
+        # 姓名
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[3]/div/div/input').send_keys('111')
+        # 手机号码
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[4]/div/div/input').send_keys('111')
+        # 身份证
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[5]/div/div/input').send_keys('111')
+        # filename
+        self.find_element_by_xpath('//*[@id="showFileName0"]').send_keys('111')
+
+    def _dispute_applicant_o_input(self, **kwargs):
+        '''被申请人input'''
+        self.find_element_by_css_selector("div.el-input.page3Bname0 > input.el-input__inner").clear()
+        self.find_element_by_css_selector("div.el-input.page3Bname0 > input.el-input__inner").send_keys(kwargs['disputer'])
+        self.find_element_by_css_selector("div.el-input.page3Bphone0 > input.el-input__inner").clear()
+        self.find_element_by_css_selector("div.el-input.page3Bphone0 > input.el-input__inner").send_keys(kwargs['disputer_tel'])
+
+    def dispute_commit(self, **kwargs):
+        '''
+        调解员登记纠纷
+        提交
+        :param self.driver:
+        :return:
+        '''
+        self._dispute_tjy_input(**kwargs)
+
+        # 提交
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div/div[2]/p[3]/span[2]').click()
+        sleep(1)
+        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button[1]/span').click()
+        sleep(2)
+        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+
+    def verification_dispute_commit(self, jf_info):
+        try:
+            # jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
+            jf_desc = self.driver.find_element_by_xpath(
+                '/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[9]/p').text
+        except:
+            jf_desc = "*None*"
+        print "result: ", jf_desc
+        print "expect: ", jf_info
+        return jf_desc == jf_info
+
+    def dispute_save(self, **kwargs):
+        '''
+        调解员登记纠纷
+        保存提交
+        :param self.driver:
+        :return:
+        '''
+        self._dispute_tjy_input(**kwargs)
+
+        # 保存
+        self.driver.find_element_by_css_selector("span.lastStep").click()
+        sleep(1)
+        # 查看案件列表
+        self.driver.find_element_by_xpath("(//button[@type='button'])[6]").click()
+        sleep(1)
+
+    def verification_dispute_save(self, jf_info):
+        try:
+            jf_desc = self.driver.find_element_by_xpath(
+                '/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
+        except:
+            jf_desc = "*None*"
+        print "result: ", jf_desc
+        print "expect: ", jf_info
+        return jf_desc == jf_info
+
+    def dispute_save_commit(self):
+        self.driver.find_element_by_link_text(u"纠纷预览").click()
+        self.driver.find_element_by_xpath("(//button[@type='button'])[5]").click()
+        sleep(1)
+        self.driver.find_element_by_link_text(u"不发送").click()
+        sleep(3)
+        self.driver.find_element_by_xpath('//div[@id="layui-layer2"]/div[3]/a').click()
+        self.driver.find_element_by_css_selector("button[type=\"button\"]").click()
+
+
+
 class DisputePage(Page):
     # def __init__(self, page=None):
     #     self.driver = page.driver
