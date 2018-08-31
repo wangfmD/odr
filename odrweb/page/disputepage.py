@@ -5,16 +5,29 @@ from odrweb.page.browser import Page
 
 jf_info = {"jf_desc": u"假冒商品",
            "jf_appeal": u"假一赔十",
+
            "applicant": u"徐传珠",
            "applicant_tel": "15295745648",
            "applicant_id": "321281199507077775",
            "applicant_addr": u"addr",
-           "disputer": u"钱桂林",
-           "disputer_tel": "13160077223"
+
+           "disputer": u"",
+           "disputer_tel": "",
+
+           "agent_type": None,  # common special,
+           "agent_name": "钱桂林",
+           "agent_tel": "13160077223",
+           "agent_id": "321023199508166636",
+
+           "agent_b_type": None,  # common special,
+           "agent_b_name": "段志勇",
+           "agent_b_tel": "15895996954",
+           "agent_b_id": ""
            }
 
 
 class DisputePageTjy(Page):
+    '''调解员'''
     def _dispute_applicant_input(self, **kwargs):
         '''纠纷登记-申请人input'''
 
@@ -54,51 +67,66 @@ class DisputePageTjy(Page):
         self.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").clear()
         self.find_element_by_css_selector("div.el-input.page2Xxdz0 > input.el-input__inner").send_keys(kwargs["applicant_addr"])
 
-    def agent(self):
+    def _agent(self, **kwargs):
 
-        # 一般授权代理人
-        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[1]/span[1]/span').click()
-        # 特别授权代理人
-        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[2]/span[1]/span').click()
+        if kwargs['agent_type'] == 'common':
+            # 一般授权代理人
+            self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[1]/span[1]/span').click()
+        elif kwargs['agetn_type'] == 'special':
+            # 特别授权代理人
+            self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[2]/span[1]/span').click()
+
         # 性别
         self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[2]/div/div/label[1]/span[1]/span').click()
         # 姓名
-        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[3]/div/div/input').send_keys('111')
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[3]/div/div/input').send_keys(kwargs['agent_name'])
         # 手机号码
-        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[4]/div/div/input').send_keys('111')
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[4]/div/div/input').send_keys(kwargs['agent_tel'])
         # 身份证
-        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[5]/div/div/input').send_keys('111')
+        self.find_element_by_xpath('//*[@id="app"]/div/div[3]/div/div[1]/form/div/div[8]/div[2]/div[5]/div/div/input').send_keys(kwargs['agent_id'])
         # filename
-        self.find_element_by_xpath('//*[@id="showFileName0"]').send_keys('111')
+        self.find_element_by_xpath('//*[@id="showFileName0"]').send_keys('filename')
 
-    def _dispute_applicant_o_input(self, **kwargs):
+    def _dispute_applicant_b_input(self, **kwargs):
         '''被申请人input'''
         self.find_element_by_css_selector("div.el-input.page3Bname0 > input.el-input__inner").clear()
         self.find_element_by_css_selector("div.el-input.page3Bname0 > input.el-input__inner").send_keys(kwargs['disputer'])
         self.find_element_by_css_selector("div.el-input.page3Bphone0 > input.el-input__inner").clear()
         self.find_element_by_css_selector("div.el-input.page3Bphone0 > input.el-input__inner").send_keys(kwargs['disputer_tel'])
 
-    def dispute_commit(self, **kwargs):
-        '''
-        调解员登记纠纷
-        提交
-        :param self.driver:
-        :return:
-        '''
-        self._dispute_tjy_input(**kwargs)
+    def _agent_b(self, **kwargs):
 
-        # 提交
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div/div[2]/p[3]/span[2]').click()
-        sleep(1)
-        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button[1]/span').click()
-        sleep(2)
-        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        if kwargs['agent_type'] == 'common':
+            # 一般授权代理人
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[1]/span[1]/span').click()
+        elif kwargs['agetn_type'] == 'special':
+            # 特别授权代理人
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div/div[1]/form/div/div[8]/div[2]/div[1]/div/div/label[2]/span[1]/span').click()
+
+        # 性别
+        self.find_element_by_xpath('//*[@id="app"]/div/div[4]/div/div[1]/form/div/div[8]/div[2]/div[2]/div/div/label[1]/span[1]/span').click()
+        # self.find_element_by_xpath('//*[@id="app"]/div/div[4]/div/div[1]/form/div/div[8]/div[2]/div[2]/div/div/label[2]/span[2]/span').click() # female
+        # 姓名
+        self.find_element_by_xpath('//*[@id="app"]/div/div[4]/div/div[1]/form/div/div[8]/div[2]/div[3]/div/div/input').send_keys(kwargs['agent_b_name'])
+        # 手机号码
+        self.find_element_by_xpath('//*[@id="app"]/div/div[4]/div/div[1]/form/div/div[8]/div[2]/div[4]/div/div/input').send_keys(kwargs['agent_b_tel'])
+        # 身份证
+        self.find_element_by_xpath('//*[@id="app"]/div/div[4]/div/div[1]/form/div/div[8]/div[2]/div[5]/div/div/input').send_keys(kwargs['agent_b_id'])
+        # filename
+        self.find_element_by_xpath('//*[@id="BDshowFileName0"]').send_keys('filename')
+
+    def dispute_commit(self, **kwargs):
+        self._dispute_applicant_input(**kwargs)
+        if kwargs['agent_type']:
+            self._agent(**kwargs)
+        self._dispute_applicant_b_input(**kwargs)
+        if kwargs['agent_b_type']:
+            self._agent_b(**kwargs)
 
     def verification_dispute_commit(self, jf_info):
         try:
             # jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
-            jf_desc = self.driver.find_element_by_xpath(
-                '/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[9]/p').text
+            jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[9]/p').text
         except:
             jf_desc = "*None*"
         print "result: ", jf_desc
@@ -107,13 +135,10 @@ class DisputePageTjy(Page):
 
     def dispute_save(self, **kwargs):
         '''
-        调解员登记纠纷
-        保存提交
-        :param self.driver:
-        :return:
-        '''
-        self._dispute_tjy_input(**kwargs)
+        调解员登记纠纷-保存提交
 
+        '''
+        self._dispute_applicant_input(**kwargs)
         # 保存
         self.driver.find_element_by_css_selector("span.lastStep").click()
         sleep(1)
@@ -365,8 +390,7 @@ class DisputePage(Page):
 
     def verification_dispute_tjy_save(self, jf_info):
         try:
-            jf_desc = self.driver.find_element_by_xpath(
-                '/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
+            jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
         except:
             jf_desc = "*None*"
         print "result: ", jf_desc
@@ -385,7 +409,7 @@ class DisputePage(Page):
     # '/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p'
 
 def jf1():
-    from odrweb.page import HomePage
+    from odrweb.page.homepage import HomePage
     from odrweb.core.initdata import users
     homepage = HomePage()
     homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -396,7 +420,7 @@ def jf1():
 
 
 def jf2():
-    from odrweb.page import HomePage
+    from odrweb.page.homepage import HomePage
     from odrweb.core.initdata import users
     homepage = HomePage()
     homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
