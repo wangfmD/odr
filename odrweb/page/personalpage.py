@@ -9,6 +9,37 @@ jf_consult = {"jf_type": u"消费维权",
               "jf_desc": u"假冒商品",
               "jf_appeal": u"假一赔十"}
 
+jf_info_all = {"jf_desc": u"申自然人-被自然人",
+               "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
+               "disputer_type": u"自然人",  # 自然人 法人 非法人组织
+               "agent_type": "special",  # "" common special,
+               "agent_b_type": "special",  # common special,
+
+               "jf_appeal": u"假一赔十",
+               "applicant_name": u"企业或机构名称",  #
+               "world_credit_id": "abcde1234567890",
+               "applicant": u"钱桂林",
+               "applicant_tel": "13160077223",
+               "applicant_pwd":"123456",
+               "applicant_id": "321023199508166636",
+               "applicant_addr": u"1栋2单元303",
+
+               "disputer": u"王发明",
+               "disputer_tel": "13913031374",
+               "disputer_world_credit_id": "zxcvbnmasdfghjk123",
+               "disputer_name": u"企业或机构名称",
+               "disputer_id": "",
+               "disputer_addr": u"10栋1单元101",
+
+               "agent_name": u"徐传珠",
+               "agent_tel": "15295745648",
+               "agent_id": "321281199507077775",
+
+               "agent_b_name": u"段志勇",
+               "agent_b_tel": "15895996954",
+               "agent_b_id": ""
+               }
+
 
 class PersonalPage(Page):
 
@@ -86,7 +117,7 @@ class PersonalPage(Page):
 
         return res == jf_info
 
-    def apply_mediate(self):
+    def apply_mediate(self, **kwargs):
 
         '''
         用户申请调解
@@ -104,46 +135,44 @@ class PersonalPage(Page):
 
         sleep(1)
         # 选择调解类型
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/label[2]/span[2]').click()
+        # self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/label[2]/span[2]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[1]/div/div/label[2]/span[2]').click()
         # 输入纠纷描述、我的诉求
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div/textarea').send_keys(
-            'test')
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[3]/div/div/div/textarea').send_keys(
-            'test')
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[2]/div/div/div/textarea').send_keys(kwargs['jf_desc'])
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[3]/div/div/div/textarea').send_keys(kwargs['jf_appeal'])
         # 选择纠纷发生地
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[4]/div/span[2]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/span[2]').click()
         self.driver.find_element_by_link_text(u"浙江省").click()
         self.driver.find_element_by_link_text(u"杭州市").click()
         self.driver.find_element_by_link_text(u"上城区").click()
         self.driver.find_element_by_link_text(u"清波街道").click()
-        se = '//div[@id="app"]/div/div[2]/form/div[4]/div/div/div/div[2]/div[5]/dl/dd/a[1]'
+        se = '//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[5]/dl/dd/a[1]'
         self.driver.find_element_by_xpath(se).click()
         sleep(0.5)
 
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[6]/div/div[1]/input').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[6]/div/div[1]/input').click()
 
         sleep(1)
         # 选择机构
-        self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[2]/div[3]/div/div/div[2]/div[2]/ul/li[1]/button').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/div[3]/div/div/div[2]/div[2]/ul/li[1]/button').click()
         # self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
 
         sleep(1)
         # 点击下一步进入填写申请人信息页面
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[5]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/div[5]').click()
         # 申请人信息默认填写，直接点击下一步进入被申请人信息填写
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/div[2]/div[2]/p[3]/span[2]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[2]/p[3]/span[2]').click()
 
         sleep(1)
         # 填写被申请人姓名、电话号码
         self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[2]/div/div/input').send_keys(u'钱桂林')
+            '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[2]/div/div/input').send_keys(kwargs['disputer'])
         self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[4]/div/div/input').send_keys('13160077223')
+            '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[4]/div/div/input').send_keys(kwargs['disputer_tel'])
         # 点击提交弹出提示框
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[2]/p[3]/span[2]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
 
-        sleep(2)
+        sleep(1)
         # 点击提示框确定
         self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
 
@@ -194,7 +223,7 @@ class PersonalPage(Page):
 
 
 def t():
-    from odrweb.page import HomePage
+    from odrweb.page.homepage import HomePage
     from odrweb.core.initdata import users
     homepage = HomePage()
     homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])

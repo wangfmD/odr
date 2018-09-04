@@ -3,7 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
-from odrweb.page.disputepage import DisputePage
+# from odrweb.page.disputepage import DisputePage
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage_one import PersonalPage_one
 
@@ -33,7 +33,7 @@ class DifferentUserJfInput(unittest.TestCase):
         self.homepage.quit()
 
 
-    def test_01(self,**kwargs):
+    def test_01(self):
         '''申请人自然人，被申请人自然人'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -42,7 +42,7 @@ class DifferentUserJfInput(unittest.TestCase):
         personalpage_one.verification_apply_uatural_mediate(jf_consult["jf_desc"])
 
 
-    def test_02(self,**kwargs):
+    def test_02(self):
         '''申请人为自然人，被申请人为法人'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -51,7 +51,7 @@ class DifferentUserJfInput(unittest.TestCase):
         personalpage_one.verification_apply_uatural_mediate(jf_consult["jf_desc"])
 
 
-    def test_03(self,**kwargs):
+    def test_03(self):
         '''申请人为自然人，被申请人为非法人组织'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -61,7 +61,7 @@ class DifferentUserJfInput(unittest.TestCase):
 
 
 
-    def test_04(self,**kwargs):
+    def test_04(self):
         '''申请人为法人，被申请人为自然人'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -70,7 +70,7 @@ class DifferentUserJfInput(unittest.TestCase):
         personalpage_one.verification_apply_organization_mediate(jf_consult["jf_organization"])
 
 
-    def test_05(self,**kwargs):
+    def test_05(self):
         '''申请人为法人，被申请人为法人'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -88,7 +88,7 @@ class DifferentUserJfInput(unittest.TestCase):
         personalpage_one.verification_apply_organization_mediate(jf_consult["jf_organization"])
 
 
-    def test_07(self,**kwargs):
+    def test_07(self):
         '''申请人为非法人组织，被申请人为自然人'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -97,7 +97,7 @@ class DifferentUserJfInput(unittest.TestCase):
         personalpage_one.verification_apply_organization_mediate(jf_consult["jf_organization"])
 
 
-    def test_08(self,**kwargs):
+    def test_08(self):
         '''申请人为非法人组织，被申请人为法人'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -108,7 +108,7 @@ class DifferentUserJfInput(unittest.TestCase):
 
 
 
-    def test_09(self,**kwargs):
+    def test_09(self):
         '''申请人为非法人组织，被申请人非法人组织'''
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
