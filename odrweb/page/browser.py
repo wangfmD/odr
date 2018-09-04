@@ -3,7 +3,6 @@ import os
 import time
 
 from selenium import webdriver
-
 from odrweb.core.initdata import init
 
 TYPES = {'firefox': webdriver.Firefox,
@@ -103,5 +102,7 @@ def tt():
     userpage.sina()
 
 
+
 if __name__ == '__main__':
-    tt()
+    # tt()
+    print TYPES
