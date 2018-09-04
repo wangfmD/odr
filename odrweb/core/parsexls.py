@@ -66,10 +66,9 @@ class XlsFile(object):
         testCase = xlrd.open_workbook(self.xls_path)
         table = testCase.sheet_by_name(sheetName)
         keys = table.col_values(0)
-
         list_result = []
         for i in range(1, table.ncols):
-            row = table.row_values(i)
+            row = table.col_values(i)
             list_result.append(dict(zip(keys, row)))
         return list_result
 
