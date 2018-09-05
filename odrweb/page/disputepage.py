@@ -527,7 +527,12 @@ class DisputePageDjy(Page):
         self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button[1]')
         sleep(1)
         # 确定
-        self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        try:
+            self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        except:
+            sleep(1.5)
+            print u"提交后确定获取失败一次..."
+            self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
 
     def verification_commit(self, **kwargs):
         try:
