@@ -223,7 +223,7 @@ class OdrJfInput(unittest.TestCase):
                        "agent_b_type": "",  # common special,
 
                        "jf_appeal": u"假一赔十",
-                       "applicant_name": u"企业或机构名称",  #
+                       "applicant_name": u"a企业或机构名称",  #
                        "world_credit_id": "abcde1234567890",
                        "applicant": u"钱桂林",
                        "applicant_tel": "13160077223",
@@ -233,7 +233,7 @@ class OdrJfInput(unittest.TestCase):
                        "disputer": u"王发明",
                        "disputer_tel": "13913031374",
                        "disputer_world_credit_id": "zxcvbnmasdfghjk123",
-                       "disputer_name": u"企业或机构名称",
+                       "disputer_name": u"b企业或机构名称",
                        "disputer_id": "",
                        "disputer_addr": u"10栋1单元101",
 
