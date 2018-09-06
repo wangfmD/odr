@@ -12,7 +12,7 @@ jf_consult = {"jf_type": u"消费维权",
               "jf_applyTel": '15295745648',
               "jf_applyNumber": '321281199507077775',
               "jf_appliedName": u"钱桂林",
-              "jf_appliedName": '13160077223',
+              "jf_appliedTel": '13160077223',
               "jf_agentName": u"段志勇",
               "jf_agentTel":' 15895996954 ',
               "jf_organization": u"北明测试",
@@ -106,7 +106,7 @@ class PersonalPage_one(Page):
         self.driver.find_element_by_xpath(
             '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[2]/div/div/input').send_keys(jf_consult["jf_appliedName"])
         self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[4]/div/div/input').send_keys(jf_consult["jf_appliedName"])
+            '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[4]/div/div/input').send_keys(jf_consult["jf_appliedTel"])
         # 点击提交弹出提示框
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
         sleep(2)
@@ -144,7 +144,7 @@ class PersonalPage_one(Page):
             '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[4]/div/div/input').send_keys(jf_consult["jf_appliedName"])
         # 被申请人联系电话
         self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[6]/div/div/input').send_keys(jf_consult["jf_appliedName"])
+            '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[6]/div/div/input').send_keys(jf_consult["jf_appliedTel"])
         # 被申请人单位地址
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[8]/div/span[2]').click()
         self.driver.find_element_by_xpath(
