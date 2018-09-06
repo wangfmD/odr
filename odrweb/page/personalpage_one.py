@@ -63,17 +63,51 @@ class PersonalPage(Page):
             self._user_applied_natuural(**kwargs)
             self._applied_info_input(**kwargs)
             if kwargs['agent_b_type']:
-                self._agent(**kwargs)
+                self._agent_b(**kwargs)
         else:
             if kwargs['disputer_type']==u'法人':
                 self._user_applied_logel()
             elif kwargs['disputer_type']==u'非法人组织':
                 self._user_applied_organization()
-            self._apply_info_input(**kwargs)
-
+                self._applied_info_input(**kwargs)
             if kwargs['agent_b_type']:
-                self._agent(**kwargs)
+                self._agent_b(**kwargs)
 
+        # 点击提交
+        # self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
+        sleep(2)
+        # 弹出提示框，点击确定
+        # self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        sleep(2)
+
+    def _agent_b(self,**kwargs):
+        if kwargs['disputer_type'] == u'自然人':
+            # 展开
+            self.find_element_by_xpath('//*[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/p[2]/em').click()
+            if kwargs['agent_type'] == 'common':
+                self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/div/div[1]/div/div/label[1]/span[1]/span').click()
+            elif kwargs['agent_type'] == 'special':
+                self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/div/div[1]/div/div/label[2]/span[1]/span').click()
+
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/div/div[2]/div/div/input').send_keys(kwargs['agent_b_name'])
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/div/div[3]/div/div/label[1]/span[1]/span').click()
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/div/div[4]/div/div/input').send_keys(kwargs['agent_b_tel'])
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/div/div[5]/div/div/input').send_keys(kwargs['agent_b_id'])
+
+        else:
+            # 展开
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[11]/p[2]/em').click()
+            if kwargs['agent_b_type'] == 'common':
+                # 一般代理人
+                self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[11]/div/div[1]/div/div/label[1]/span[1]/span').click()
+            elif kwargs['agent_b_type'] == 'special':
+                # 特别代理人
+                self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[11]/div/div[1]/div/div/label[2]/span[1]/span').click()
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[11]/div/div[2]/div/div/input').send_keys(kwargs['agent_b_name'])
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[11]/div/div[3]/div/div/label[1]/span[1]/span').click()
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[11]/div/div[4]/div/div/input').send_keys(kwargs['agent_b_tel'])
+            self.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[11]/div/div[5]/div/div/input').send_keys(kwargs['agent_b_id'])
+            # 上传委托书
 
     def _agent(self,**kwargs):
         if kwargs['applicant_type']==u'自然人':
@@ -84,14 +118,13 @@ class PersonalPage(Page):
             elif kwargs['agent_type']=='special':
                 self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[1]/div/div/label[2]/span[1]/span').click()
 
-            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[2]/div/div/input').send_keys('name')
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[2]/div/div/input').send_keys(kwargs['agent_name'])
             self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[3]/div/div/label[1]/span[1]/span').click()
-            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[4]/div/div/input').send_keys('13913011122')
-            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[5]/div/div/input').send_keys('320111222233332222')
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[4]/div/div/input').send_keys(kwargs['agent_tel'])
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[9]/div/div[5]/div/div/input').send_keys(kwargs['agent_id'])
 
         else:
             # 展开
-
             self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/p[2]/em').click()
             if kwargs['agent_type']=='common':
                 # 一般代理人
@@ -99,14 +132,13 @@ class PersonalPage(Page):
             elif kwargs['agent_type']=='special':
                 # 特别代理人
                 self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[1]/div/div/label[2]/span[1]').click()
-            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[2]/div/div/input').send_keys('name')
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[2]/div/div/input').send_keys(kwargs['agent_name'])
             self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[3]/div/div/label[1]/span[1]/span').click()
-            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[4]/div/div/input').send_keys('13913011122')
-            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[5]/div/div/input').send_keys('320111222233332222')
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[4]/div/div/input').send_keys(kwargs['agent_tel'])
+            self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[11]/div/div[5]/div/div/input').send_keys(kwargs['agent_id'])
         # 上传委托书
         js = 'app.$data.dynamicValidateForm.domains.forEach(e=>{e.Dfile={createId:null,createPersonnelRole:null,deleteMark:null,fileName:".gitconfig",filePath:"/powerOfAttorney/201808/4872c3f0440046aea35df9a6b6c2e7ee.gitconfig",fileSuffix:"gitconfig",id:null,lawCaseId:null,litigantId:null,name:"授权委托书",remarks:null,syncMark:"0",type:null}})'
         self.driver.execute_script(js)
-
 
     def _into_mediate(self):
 
@@ -172,7 +204,7 @@ class PersonalPage(Page):
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[2]/div/input').send_keys(kwargs["applicant_name"])
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[3]/div/input').send_keys(kwargs["world_credit_id"])
         # 点击下一步进入填写被申请人信息
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[2]/p[3]/span[2]').click()
+        # self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[2]/p[3]/span[2]').click()
         sleep(2)
 
     def _user_applied_natuural(self, **kwargs):
@@ -186,14 +218,8 @@ class PersonalPage(Page):
         sleep(2)
         # 点击提示框确定
         self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-
         sleep(2)
-        # 点击查看纠纷详情
-        # self.driver.find_element_by_xpath('//div[@id="mediate"]/div[1]/div[4]/div[2]/a[1]').click()
-        #
-        # sleep(1)
-        # # 点击返回列表
-        # self.driver.find_element_by_xpath('/html/body/section[1]/button').click()
+
 
     def _user_applied_logel(self):
         '''选择被申请人为法人'''
@@ -233,12 +259,7 @@ class PersonalPage(Page):
             '//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[8]/div/div/div/div[2]/div[4]/dl/dd/a[1]').click()
         # 被申请人详细地址
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[9]/div/input').send_keys('addr')
-        # 点击提交
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
-        sleep(2)
-        # 弹出提示框，点击确定
-        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-        sleep(2)
+
 
     def verification_apply_uatural_mediate(self, jf_desc):
         # 申请人为自然人方法校验
@@ -288,7 +309,7 @@ class PersonalPage(Page):
         # 填写申请人详细地址
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[7]/div/div/input').send_keys('addr')
         # 点击下一步进入被申请人填写页面
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[2]/p[3]/span[2]').click()
+        # self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[2]/p[3]/span[2]').click()
 
 
 
