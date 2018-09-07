@@ -17,7 +17,7 @@ jf_consult = {"jf_type": u"消费维权",
               "jf_applyTel": '15295745648',
               "jf_applyNumber": '321281199507077775',
               "jf_appliedName": u"钱桂林",
-              "jf_appliedName": '13160077223',
+              "jf_appliedTel": '13160077223',
               "jf_agentName": u"段志勇",
               "jf_agentTel":' 15895996954 ',
               "jf_organization": u"北明测试",
@@ -56,7 +56,7 @@ class DifferentUserJfInput(unittest.TestCase):
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage_one = PersonalPage_one(self.homepage)
-        personalpage_one.user_sqr_natural_organization(personalpage_one)
+        personalpage_one.user_sqr_natural_organization()
         personalpage_one.verification_apply_uatural_mediate(jf_consult["jf_desc"])
 
 
@@ -66,7 +66,7 @@ class DifferentUserJfInput(unittest.TestCase):
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage_one = PersonalPage_one(self.homepage)
-        personalpage_one.user_sqr_logel_natural(personalpage_one)
+        personalpage_one.user_sqr_logel_natural()
         personalpage_one.verification_apply_organization_mediate(jf_consult["jf_organization"])
 
 
