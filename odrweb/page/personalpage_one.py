@@ -94,10 +94,10 @@ class PersonalPage(Page):
                 self._agent_b(**kwargs)
 
         # 点击提交
-        # self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
         sleep(2)
         # 弹出提示框，点击确定
-        # self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
         sleep(2)
 
     def _input_all(self, **kwargs):
@@ -129,11 +129,11 @@ class PersonalPage(Page):
                 self._agent_b(**kwargs)
 
         # 点击提交
-        # self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
-        sleep(2)
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
+        sleep(1)
         # 弹出提示框，点击确定
-        # self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-        sleep(2)
+        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        sleep(1)
 
     def _agent_b(self, **kwargs):
         if kwargs['disputer_type'] == u'自然人':
@@ -336,6 +336,30 @@ class PersonalPage(Page):
         print "expect: ", jf_desc
         return res == jf_desc
 
+    def verfication_commit_dlr(self,**kwargs):
+        try:
+            res = self.find_element_by_xpath('//*[@id="mediate"]/div[1]/div[3]/ul/li[7]').text
+            jf_desc = res.split(u'：')[-1]
+        except:
+            jf_desc = "**Nome**"
+        print "result: ", kwargs['jf_desc']
+        print "expect: ", jf_desc
+
+        try:
+             res = self.find_element_by_xpath('//*[@id="mediate"]/div[1]/div[3]/ul/li[3]').text
+             applicant = res.split(u'：')[-1]
+        except:
+            applicant = "*None*"
+        if kwargs['applicant_type'] == u"自然人":
+            print "result: ", applicant
+            print "expect: ", kwargs['applicant']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant']
+        else:
+            print "result: ", applicant
+            print "expect: ", kwargs['applicant_name']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
+
+
     def verification_apply_organization_mediate(self, jf_organization):
         # 申请人为法人、非法人机构方法校验
         try:
@@ -348,12 +372,15 @@ class PersonalPage(Page):
         return res == jf_organization
 
     def _choose_dlr(self, **kwargs):
-        # 选择用户身认为我是特别授权代理人
-        self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div/div[2]/div[1]/span[2]').click()
         if kwargs['agent_type'] == "special":
-            # 点击申请调解
-            self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div/div[2]/div[2]/div[2]/div').click()
-
+            # 选择用户身认为我是特别授权代理人
+            print 'specialspecialspecial'
+            self.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div/div[2]/div[1]/span[2]').click()
+        # elif kwargs['agent_type'] == "common":
+        #     print 'commoncommon'
+        #     self.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div/div[2]/div[1]/span[1]').click()
+        # 点击申请调解
+        self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div/div[2]/div[2]/div[2]/div').click()
 
     def dlr_apply_natural(self, **kwargs):
         ''' 用户作为代理人申请人为自然人'''
