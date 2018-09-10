@@ -62,11 +62,11 @@ class SimpleDisputePage(Page):
     def _input_agent_info(self,**kwargs):
         '''填写申请人代理人信息'''
         # 填写申请人代理人姓名
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[14]/div[2]/div[1]/div/div/input').send_keys(kwargs["agent_name"])
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[13]/div[2]/div[1]/div/div/input').send_keys(kwargs["agent_name"])
         # 填写申请人代理人电话号码
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[14]/div[2]/div[3]/div/div/input').send_keys(kwargs["agent_tel"])
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[13]/div[2]/div[3]/div/div/input').send_keys(kwargs["agent_tel"])
         # 填写申请人代理人身份证
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[14]/div[2]/div[4]/div/div/input').send_keys(kwargs["agent_id"])
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[13]/div[2]/div[4]/div/div/input').send_keys(kwargs["agent_id"])
 
     def _input_agent_b_info(self,**kwargs):
         '''填写被申请人代理人信息'''
@@ -185,9 +185,9 @@ class SimpleDisputePage(Page):
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         # 点击添加申请人
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[15]/p[1]').click()
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[14]/p[1]').click()
         # 点击删除按钮
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[15]').click()
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[14]').click()
         self._input_disputer_info(**kwargs)
         # 点击添加被申请人
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[14]/p[1]').click()
@@ -197,22 +197,22 @@ class SimpleDisputePage(Page):
 
 
     def simple_jf_add_applicant_disputer(self,**kwargs):
-        '''简易案件-申请人-添加申请人-被申请人-添加被申请人'''
+        '''简易案件-两个申请人-两个申请人代理人-两个被申请人-一个被申请人代理人'''
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         self._input_agent_info(**kwargs)
         # 点击添加申请人
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[15]/p[1]').click()
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[14]/p[1]').click()
         # 填写申请人2姓名
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[2]/div/div/input').send_keys(u"王文志")
         # 填写申请人2手机号码
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[4]/div/div/input').send_keys('15396759623')
         # 填写申请人2代理人姓名
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[14]/div[2]/div[1]/div/div/input').send_keys(u"常景国")
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[13]/div[2]/div[1]/div/div/input').send_keys(u"常景国")
         # 填写申请人2代理人手机号码
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[14]/div[2]/div[3]/div/div/input').send_keys('17625906164')
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[13]/div[2]/div[3]/div/div/input').send_keys('17625906164')
         # 填写申请人2代理人身份证
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[14]/div[2]/div[4]/div/div/input').send_keys('340621199408101694')
+        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div[2]/div[13]/div[2]/div[4]/div/div/input').send_keys('340621199408101694')
         # 填写被申请人姓名
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[2]/div/div/input').send_keys(kwargs["disputer"])
         # 填写被申请人手机号码

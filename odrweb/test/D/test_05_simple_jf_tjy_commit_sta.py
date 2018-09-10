@@ -160,6 +160,8 @@ class SimpleJfInputCommit(unittest.TestCase):
         simple_page.commit()
         res = simple_page.verification_commit(**simple_jf_info)
         self.assertEqual(True, res)
+
+
     def test_05(self):
         '''简易案件登记-添加申请人、被申请人-删除申请人、被申请人'''
         simple_jf_info = {"applicant": u"段志勇",
@@ -197,7 +199,7 @@ class SimpleJfInputCommit(unittest.TestCase):
 
 
     def test_06(self):
-        '''简易案件-申请人-添加申请人-被申请人-添加被申请人'''
+        '''简易案件-两个申请人-两个申请人代理人-两个被申请人-一个被申请人代理人'''
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -219,7 +221,7 @@ class SimpleJfInputCommit(unittest.TestCase):
                           "agent_tel_b": '13160077223',
                           "agent_id_b": "321023199508166636",
 
-                          "jf_desc": u"简易案件-申请人-添加申请人-被申请人-添加被申请人",
+                          "jf_desc": u"简易案件-两个申请人-两个申请人代理人-两个被申请人-一个被申请人代理人",
                           "jf_appeal": u"类型是否正确",
                           "jf_action": u"验证类型",
                           "jf_time": u"三天"
