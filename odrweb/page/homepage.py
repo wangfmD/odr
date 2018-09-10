@@ -226,7 +226,8 @@ class HomePage(Page):
         :return:
         '''
         try:
-            back_link = self.driver.find_element_by_xpath('//*[@id="app"]/div/div[1]/div/div/div[2]/a[2]').text
+            # back_link = self.driver.find_element_by_xpath('//*[@id="app"]/div/div[1]/div/div/div[2]/a[2]').text
+            back_link = self.find_element_by_xpath('//*[@id="app"]/div/div[1]/div/div/div/a[2]').text
         except:
             back_link = "**None**"
         print "result: ", back_link
@@ -239,7 +240,7 @@ class HomePage(Page):
 
         :return:
         '''
-        self.driver.find_element_by_xpath('//*[@id="app"]/div/div[1]/div/div/div[2]/a[2]').click()
+        self.driver.find_element_by_xpath('//*[@id="app"]/div/div[1]/div/div/div/a[2]').click()
         sleep(1)
         self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a[2]').click()
         sleep(1)

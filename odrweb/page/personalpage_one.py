@@ -105,9 +105,9 @@ class PersonalPage(Page):
         self._choose_sqr()
         self._mediate_info_input(**kwargs)
         # 申请人
-        if kwargs['disputer_type'] == u'自然人':
+        if kwargs['applicant_type'] == u'自然人':
             # 个人登记纠纷，申请人信息自动获取
-            if kwargs['agent_b_type']:
+            if kwargs['agent_type']:
                 self._agent(**kwargs)
         else:
             self._apply_info_input(**kwargs)
@@ -258,9 +258,9 @@ class PersonalPage(Page):
         '''申请人为法人、非法人组织信息填写'''
 
         # 填写申请人企业信息、社会信用代码
-        if kwargs['disputer_type'] == u'法人':
+        if kwargs['applicant_type'] == u'法人':
             self._user_apply_logel()
-        elif kwargs['disputer_type'] == u'非法人组织':
+        elif kwargs['applicant_type'] == u'非法人组织':
             self._user_apply_organization()
 
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[2]/div/input').send_keys(kwargs["applicant_name"])
