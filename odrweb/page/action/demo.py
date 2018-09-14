@@ -52,5 +52,5 @@
 
 if __name__ == '__main__':
     # test()
-    from browser import TYPES
+    from odrweb.page.browser import TYPES
     print TYPES
