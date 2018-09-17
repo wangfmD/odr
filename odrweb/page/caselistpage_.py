@@ -5,6 +5,7 @@ from selenium.webdriver.support.select import Select
 
 from odrweb.page.browser import Page
 
+
 class CaseListPage(Page):
     def mediate_vedio_create(self, dispute_status=u'等待调解'):
         '''预约调解'''
@@ -45,10 +46,11 @@ class CaseListPage(Page):
         self._workstaion()
         self._redistribution()
 
+    def _search(self, target):
+        self.find_element_by_xpath('//input[@id="searchInput1"]').send_keys(target)
+        self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[6]/div/span/span').click()
 
-    def _search(self):
-
-    def _goto_detail_info(self,dispute_status=u'等待调解'):
+    def _goto_detail_info(self, dispute_status=u'等待调解'):
         Select(self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[4]/select')).select_by_visible_text(dispute_status)
         sleep(0.5)
         # self.find_element_by_xpath('/html/body/div[4]/div[1]/button[1]').click()
@@ -57,7 +59,6 @@ class CaseListPage(Page):
         # 获取纠纷编号
         dispute_id = self.find_element_by_xpath('/html/body/section[2]/div[1]/div/span[2]').text
         return dispute_id
-
 
     def _make_mediate(self):
         '''预约调解'''
@@ -101,7 +102,7 @@ class CaseListPage(Page):
         except:
             dispute_status = "**Nome**"
 
-        if dispute_status == u"等待调解" or dispute_status == u"正在调解" :
+        if dispute_status == u"等待调解" or dispute_status == u"正在调解" or dispute_status == "**Nome**":
             sleep(1)
             try:
                 dispute_status = self.find_element_by_xpath('/html/body/section[1]/div[2]/i').text
@@ -111,29 +112,33 @@ class CaseListPage(Page):
 
         return dispute_status
 
-
     def _mediate_failed(self):
         '''预约调解'''
         self.find_element_by_xpath('//span[contains(text(),"调解失败")]').click()
         self.find_element_by_xpath('//div[@id="reAllotFail"]/div/div[3]/div/textarea').send_keys(u'已确认,失败')
         self.find_element_by_xpath('//div[@id="reAllotFail"]/div/div[4]/input').click()
 
-
     def _mediate_stop(self):
         '''调解终止'''
         self.find_element_by_xpath('//span[contains(text(),"调解终止")]').click()
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
-        self.find_element_by_xpath('//li[contains(text(),"当事人达成和解")]').click()
+        sleep(0.5)
+        try:
+            self.find_element_by_xpath('//li[contains(text(),"当事人达成和解")]').click()
+        except:
+            sleep(0.5)
+            self.find_element_by_xpath('//li[contains(text(),"当事人达成和解")]').click()
+
         self.find_element_by_xpath('//li[contains(text(), "其他")]').click()
         self.find_element_by_xpath('//li[contains(text(), "被申请人拒绝调解")]').click()
         self.find_element_by_xpath('//span[text()="详细原因"]').parent.find_element_by_xpath('//div/textarea').send_keys(u'详细原因')
         # 确定
         self.find_element_by_xpath('//*[@id="myModal55"]/div/div[4]/input').click()
 
-
     def _mediate_revocation(self):
         '''调解撤回'''
         self.find_element_by_xpath('//span[contains(text(),"调解撤回")]').click()
+        sleep(0.5)
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
         self.find_element_by_xpath('//li[contains(text(),"其他")]').click()
         self.find_element_by_xpath('//li[contains(text(),"申请人撤回调解")]').click()
@@ -144,6 +149,7 @@ class CaseListPage(Page):
     def _workstaion(self):
         '''工作台'''
         self.find_element_by_xpath('//button[contains(text(),"工作台")]').click()
+        sleep(0.5)
 
     def _dispute_status(self):
         '''工作台'''
