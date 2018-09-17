@@ -1,7 +1,6 @@
 # coding: utf-8
 import sys
 import unittest
-from time import sleep
 
 from odrweb.core.initdata import users
 from odrweb.page.homepage import HomePage
@@ -10,7 +9,6 @@ from odrweb.page.caselistpage_ import CaseListPage
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-t = 2
 
 
 class OdrTjyFunc(unittest.TestCase):
