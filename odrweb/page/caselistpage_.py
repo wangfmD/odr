@@ -7,6 +7,8 @@ from odrweb.page.browser import Page
 
 
 class CaseListPage(Page):
+
+    case_list_select = '/html/body/div[4]/div[2]/div[1]/div[4]/select'
     def mediate_vedio_create(self, dispute_status=u'等待调解'):
         '''预约调解'''
         dispute_id = self._goto_detail_info(dispute_status=dispute_status)
@@ -46,12 +48,64 @@ class CaseListPage(Page):
         self._workstaion()
         self._redistribution()
 
-    def _search(self, target):
+    def search(self, target):
         self.find_element_by_xpath('//input[@id="searchInput1"]').send_keys(target)
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[6]/div/span/span').click()
 
+    def _get_search(self, type_="No"):
+        if type == "No":
+            try:
+                res = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[3]/div/div/div/div[1]').text
+                search = res.split(u'：')[-1]
+            except:
+                search = None
+        else:
+            try:
+                search = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[3]/div/div/div/div[4]/div[1]/div[6]/div[1]/p').text
+            except:
+                search = None
+        return search
+
+    def verification_search_No(self, expect):
+        sleep(1)
+        try:
+            res = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[1]').text
+            dis_id = res.split(u'：')[-1]
+        except:
+            dis_id = "**None**"
+        print "result: ", dis_id
+        print "expect: ", expect
+        return dis_id == expect
+
+    def verification_search_name(self, expect):
+        sleep(1)
+        try:
+            result = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[6]/div[1]/p').text
+        except:
+            result = "**None**"
+        print "result: ", result
+        print "expect: ", expect
+        return result == expect
+
+    def select_dispute_status(self, dispute_status=u'等待调解'):
+        Select(self.find_element_by_xpath(self.case_list_select)).select_by_visible_text(dispute_status)
+        sleep(1.5)
+
+    def verification_select_status(self, expect):
+        try:
+            # dispute_status = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[3]/div[1]/div[4]/p').text
+            #调解失败和调解终止
+            # dispute_status = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[3]/div[1]/div[4]/p').text
+            dispute_status=self.find_element_by_xpath('//label[text()="纠纷进度"]/following-sibling::p').text
+
+        except:
+            dispute_status = "**None**"
+        print "result: ", dispute_status
+        print "expect: ", expect
+        return dispute_status == expect
+
     def _goto_detail_info(self, dispute_status=u'等待调解'):
-        Select(self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[4]/select')).select_by_visible_text(dispute_status)
+        Select(self.find_element_by_xpath(self.case_list_select)).select_by_visible_text(dispute_status)
         sleep(0.5)
         # self.find_element_by_xpath('/html/body/div[4]/div[1]/button[1]').click()
         self.find_element_by_xpath('//a[contains(text(),"纠纷详情")]').click()

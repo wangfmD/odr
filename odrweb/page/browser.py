@@ -69,19 +69,31 @@ class Page(Browser):
 
     def get_driver(self):
         return self.driver
-
-    def find_element(self, *args):
-        return self.driver.find_element(*args)
-
-    def find_elements(self, *args):
-        return self.driver.find_elements(*args)
+    #
+    # def find_element(self, *args):
+    #     return self.driver.find_element(*args)
+    #
+    # def find_elements(self, *args):
+    #     return self.driver.find_elements(*args)
 
     def find_element_by_xpath(self, *args):
         try:
             el = self.driver.find_element_by_xpath(*args)
         except:
-            time.sleep(1)
-            el = self.driver.find_element_by_xpath(*args)
+            time.sleep(0.5)
+            try:
+                el = self.driver.find_element_by_xpath(*args)
+            except:
+                time.sleep(0.5)
+                try:
+                    el = self.driver.find_element_by_xpath(*args)
+                except:
+                    time.sleep(0.5)
+                    try:
+                        el = self.driver.find_element_by_xpath(*args)
+                    except:
+                        time.sleep(0.5)
+                        el = self.driver.find_element_by_xpath(*args)
         return el
 
     def find_element_by_css_selector(self, *args):
