@@ -60,7 +60,10 @@ class Page(Browser):
             super(Page, self).__init__(browser_type=browser_type)
 
         self.driver.implicitly_wait(5)
-        self.driver.maximize_window()
+        try:
+            self.driver.maximize_window()
+        except:
+            print("Window is maxsize")
 
     def get_driver(self):
         return self.driver

@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+
+
+apply={"role":"apply",
+       "roler":
+           [
+            {"type":"1","name":u"陈","tel":"15850787868"},
+            {"type":"2","name":u"陈陈","tel":"17625908729"}
+           ]
+       }
+
+print len(apply["roler"])
+
+for i in apply["roler"]:
+    print i
+    print i["name"]
+
+for j in range(len(apply["roler"])):
+    print(j)
+
