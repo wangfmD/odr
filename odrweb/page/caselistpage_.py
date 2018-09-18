@@ -7,8 +7,9 @@ from odrweb.page.browser import Page
 
 
 class CaseListPage(Page):
+    case_list_select = '/html/body/div[4]/div[2]/div[1]/div[4]/select'  # 我的案件筛选选择框
+    back_list = '//button[text()="返回列表"]'  # 返回列表
 
-    case_list_select = '/html/body/div[4]/div[2]/div[1]/div[4]/select'
     def mediate_vedio_create(self, dispute_status=u'等待调解'):
         '''预约调解'''
         dispute_id = self._goto_detail_info(dispute_status=dispute_status)
@@ -67,6 +68,7 @@ class CaseListPage(Page):
         return search
 
     def verification_search_No(self, expect):
+        '''验证查询纠纷编号'''
         sleep(1)
         try:
             res = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[1]').text
@@ -78,6 +80,7 @@ class CaseListPage(Page):
         return dis_id == expect
 
     def verification_search_name(self, expect):
+        '''验证查询当事人姓名'''
         sleep(1)
         try:
             result = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[6]/div[1]/p').text
@@ -92,6 +95,7 @@ class CaseListPage(Page):
         sleep(1.5)
 
     def verification_select_status(self, expect):
+        '''验证查询状态'''
         try:
             # dispute_status = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[3]/div[1]/div[4]/p').text
             #调解失败和调解终止
@@ -220,6 +224,18 @@ class CaseListPage(Page):
         self.find_element_by_xpath('//div[@id="reAllot"]/div/div[3]/div/textarea').send_keys(u'详细原因')
         # 确定,返回列表
         self.find_element_by_xpath('//div[@id="reAllot"]/div/div[4]/input').click()
+
+    def _dispute_modification(self):
+        Select(self.find_element_by_xpath('//div[@id="checkCaseform"]/form/div[1]/p/select')).select_by_visible_text(u"金融借款合同纠纷")
+        self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').clear()
+        self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').send_keys("**_**modification")
+        # appeal
+        self.find_element_by_xpath('//h6[text()="申请诉求"]/following-sibling::p/textarea').clear()
+        self.find_element_by_xpath('//h6[text()="申请诉求"]/following-sibling::p/textarea').send_keys("**_**appeal")
+        self.find_element_by_xpath('/html/body/section[2]/div[1]/edit/div[4]/button').click()
+        sleep(2)
+        self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
+        self.find_element_by_xpath(self.back_list).click()
 
     def verification_dispute_status(self, result, expect):
         '''
