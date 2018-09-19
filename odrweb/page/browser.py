@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 import time
 
 from selenium import webdriver
@@ -60,22 +61,40 @@ class Page(Browser):
             super(Page, self).__init__(browser_type=browser_type)
 
         self.driver.implicitly_wait(5)
-        try:
+
+        if sys.platform == 'darwin':
+            self.driver.set_window_size(1849,1001)
+        else:
             self.driver.maximize_window()
-        except:
-            print("Window is maxsize")
 
     def get_driver(self):
         return self.driver
-
-    def find_element(self, *args):
-        return self.driver.find_element(*args)
-
-    def find_elements(self, *args):
-        return self.driver.find_elements(*args)
+    #
+    # def find_element(self, *args):
+    #     return self.driver.find_element(*args)
+    #
+    # def find_elements(self, *args):
+    #     return self.driver.find_elements(*args)
 
     def find_element_by_xpath(self, *args):
-        return self.driver.find_element_by_xpath(*args)
+        try:
+            el = self.driver.find_element_by_xpath(*args)
+        except:
+            time.sleep(0.5)
+            try:
+                el = self.driver.find_element_by_xpath(*args)
+            except:
+                time.sleep(0.5)
+                try:
+                    el = self.driver.find_element_by_xpath(*args)
+                except:
+                    time.sleep(0.5)
+                    try:
+                        el = self.driver.find_element_by_xpath(*args)
+                    except:
+                        time.sleep(0.5)
+                        el = self.driver.find_element_by_xpath(*args)
+        return el
 
     def find_element_by_css_selector(self, *args):
         return self.driver.find_element_by_css_selector(*args)
