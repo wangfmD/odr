@@ -6,9 +6,71 @@ from selenium.webdriver.support.select import Select
 from odrweb.page.browser import Page
 
 
+class InputCaseListPage(Page):
+    # 案件登记列表-下拉框选择
+    case_list_select = '/html/body/div[4]/div[2]/div[1]/div[1]/select'
+
+    def select_status(self, dispute_status=u'全部'):
+        '''案件登记列表-状态选择（已提交、未提交）'''
+        self._into_input_case_list()
+        Select(self.find_element_by_xpath(self.case_list_select)).select_by_visible_text(dispute_status)
+        sleep(1)
+
+    def search(self, id_or_name):
+        self.select_status()
+        self.find_element_by_xpath('//input[@id="searchInput2"]').clear()
+        self.find_element_by_xpath('//input[@id="searchInput2"]').send_keys(id_or_name)
+        self.find_element_by_xpath('//input[@id="searchInput2"]/following-sibling::span').click()
+        sleep(1)
+
+    def dispute_delete(self):
+        self.select_status(dispute_status=u"未提交")
+        self._dispute_delete()
+
+    def dispute_add(self):
+        self.find_element_by_xpath('//a[text()="增加纠纷"]').click()
+        self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').send_keys("dddd")
+
+    def _into_input_case_list(self):
+        '''进入案件登记列表'''
+        self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+
+    def _dispute_delete(self):
+        self.find_element_by_xpath('//a[text()="删除"]').click()
+        self.find_element_by_xpath('//a[text()="确定"]').click()
+        sleep(0.5)
+        self.find_element_by_xpath('//a[text()="确定"]').click()
+
+    def get_search_No(self):
+        '''获取第二条'''
+        try:
+            res = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[3]/div/div/div/div[1]/div[1]').text
+            no = res.split(u"：")[-1]
+        except:
+            no = "**None**"
+        return no
+
+    def verification_search_No(self, expect):
+        try:
+            res = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[1]/div[1]').text
+            dis_id = res.split(u"：")[-1]
+        except:
+            dis_id = "**None**"
+        print "result: ", dis_id
+        print "expect: ", expect
+        return dis_id == expect
+
+
 class CaseListPage(Page):
     case_list_select = '/html/body/div[4]/div[2]/div[1]/div[4]/select'  # 我的案件筛选选择框
     back_list = '//button[text()="返回列表"]'  # 返回列表
+    modifcation_dispute_type = u"金融借款合同纠纷"
+    modifcation_dispute_desc = "**_**modification"
+    modifcation_dispute_appeal = '**_**appeal'
+
+    def case_modification_save(self, dispute_status=u'等待调解'):
+        self._goto_detail_info(dispute_status=dispute_status)
+        self._dispute_modification()
 
     def mediate_vedio_create(self, dispute_status=u'等待调解'):
         '''预约调解'''
@@ -98,9 +160,9 @@ class CaseListPage(Page):
         '''验证查询状态'''
         try:
             # dispute_status = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[3]/div[1]/div[4]/p').text
-            #调解失败和调解终止
+            # 调解失败和调解终止
             # dispute_status = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[3]/div[1]/div[4]/p').text
-            dispute_status=self.find_element_by_xpath('//label[text()="纠纷进度"]/following-sibling::p').text
+            dispute_status = self.find_element_by_xpath('//label[text()="纠纷进度"]/following-sibling::p').text
 
         except:
             dispute_status = "**None**"
@@ -153,6 +215,7 @@ class CaseListPage(Page):
         self.find_element_by_xpath('//div[@id="toLawConfirm"]/div/div[1]/div').click()
 
     def get_detail_dispute_status(self):
+        '''获取纠纷详情中的纠纷状态'''
         sleep(1)
         # self.driver.refresh()
         try:
@@ -226,6 +289,7 @@ class CaseListPage(Page):
         self.find_element_by_xpath('//div[@id="reAllot"]/div/div[4]/input').click()
 
     def _dispute_modification(self):
+        '''我的案件列表-纠纷详情-保存'''
         Select(self.find_element_by_xpath('//div[@id="checkCaseform"]/form/div[1]/p/select')).select_by_visible_text(u"金融借款合同纠纷")
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').clear()
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').send_keys("**_**modification")
@@ -235,7 +299,30 @@ class CaseListPage(Page):
         self.find_element_by_xpath('/html/body/section[2]/div[1]/edit/div[4]/button').click()
         sleep(2)
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
+        sleep(0.5)
         self.find_element_by_xpath(self.back_list).click()
+        sleep(2)
+
+    def verification_dispute_modification(self):
+        try:
+            dispute_type = self.find_element_by_xpath('//label[text()="纠纷类型 "]/following-sibling::p').text
+        except:
+            dispute_type = "**None**"
+        try:
+            appeal = self.find_element_by_xpath('//label[text()="申请人诉求"]/following-sibling::p').text
+        except:
+            appeal = "**None**"
+        try:
+            dispute_desc = self.find_element_by_xpath('//label[text()="纠纷描述"]/following-sibling::p').text
+        except:
+            dispute_desc = "**None**"
+        print "result: ", appeal
+        print "expect: ", self.modifcation_dispute_appeal
+        print "result: ", dispute_desc
+        print "expect: ", self.modifcation_dispute_desc
+        print "result: ", dispute_type
+        print "expect: ", self.modifcation_dispute_type
+        return self.modifcation_dispute_appeal == appeal and self.modifcation_dispute_desc == dispute_desc and self.modifcation_dispute_type == dispute_type
 
     def verification_dispute_status(self, result, expect):
         '''
