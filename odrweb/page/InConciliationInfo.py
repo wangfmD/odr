@@ -11,8 +11,13 @@ class ConciliationInfo(Page):
         self.find_element_by_xpath('//label[text()="我的诉求："]/../div/div/div/textarea').send_keys(kwargs["我的诉求"]) #我的诉求录入
 
         self.find_element_by_xpath('//label[text()="纠纷发生地："]/../div/span[@class="city-picker-span"]').click() #唤出纠纷发生地选项卡
+
         self.find_element_by_xpath('//label[text()="纠纷发生地："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select province"]/dl/dd/a[text()="'+kwargs["纠纷发生省份"]+'"]').click()  # 点选纠纷发生省份
-        self.find_element_by_xpath('//label[text()="纠纷发生地："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select city"]/dl/dd/a[text()="'+kwargs["纠纷发生市区"]+'"]').click() # 点选纠纷发生市区
+
+        if kwargs["纠纷发生市区"] != "":
+            self.find_element_by_xpath('//label[text()="纠纷发生地："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select city"]/dl/dd/a[text()="'+kwargs["纠纷发生市区"]+'"]').click() # 点选纠纷发生市区
+        else:
+            self._CloseCitySelectCard()
 
         if kwargs["纠纷发生区县"] != "":
             self.find_element_by_xpath('//label[text()="纠纷发生地："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select district"]/dl/dd/a[text()="'+kwargs["纠纷发生区县"]+'"]').click()   # 点选纠纷发生区县
