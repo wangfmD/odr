@@ -6,3 +6,4 @@ class InApplyInfo(Page):
 
     def InputApplyInfo(self, **kwargs):
         print("有"+str(len(kwargs["roler"]))+"个申请人")
+
