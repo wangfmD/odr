@@ -65,7 +65,10 @@ class Page(Browser):
         if sys.platform == 'darwin':
             self.driver.set_window_size(1849,1001)
         else:
-            self.driver.maximize_window()
+            try:
+                self.driver.maximize_window()
+            except:
+                print("Window has be maxsize")
 
     def get_driver(self):
         return self.driver
