@@ -7,6 +7,7 @@ from odrweb.page.homepage import HomePage
 from odrweb.page.InPersonalCenter import PersonalCenter
 from odrweb.page.InRolerChoose import RolerChoose
 from odrweb.page.InConciliationInfo import ConciliationInfo
+from odrweb.page.InApplyInfo import InApplyInfo
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -38,6 +39,7 @@ class multiapply(unittest.TestCase):
         RolerChoosePage = RolerChoose(PersonalCenterPage)
         RolerChoosePage.NormalProxy() #一般代理人身份
 
+        #纠纷详情需要录入的信息
         ConciliationDetail = {
             "纠纷类型":"交通事故",
             "纠纷描述":u'自动化测试',
@@ -53,6 +55,30 @@ class multiapply(unittest.TestCase):
         ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
         ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
 
+        MultiApply = {
+                 "roler":
+                     [
+                         {
+                            "申请人类型": "自然人",
+                            "申请人性别":"男",
+                            "联系电话":u"15850787868",
+                            "身份证号": u"320102199107292810",
+                            "常住省份":"浙江省" ,
+                            "常住市区":"宁波市",
+                            "常住区县":"宁海县",
+                            "常住街道":"茶院乡",
+                            "详细地址":u"浙江宁波"
+                         },
+                        {
+                            "申请人类型": "2",
+                            "name": u"陈陈",
+                            "tel": "17625908729"
+                        }
+                     ]
+                 }
+
+        ApplyInfoPage = InApplyInfo(ConciliationInfoPage)
+        ApplyInfoPage.InputApplyInfo(**MultiApply)
 
         '''
 
