@@ -2,12 +2,12 @@
 import unittest
 from time import sleep
 import sys
-from odrweb.core.initdata import users
 from odrweb.page.homepage import HomePage
 from odrweb.page.InPersonalCenter import PersonalCenter
 from odrweb.page.InRolerChoose import RolerChoose
 from odrweb.page.InConciliationInfo import ConciliationInfo
-from odrweb.page.InApplyInfo import InApplyInfo
+from odrweb.page.InProposerInfo import InProposerInfo
+from odrweb.page.InClaimantInfo import InClaimantInfo
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -23,80 +23,152 @@ class multiapply(unittest.TestCase):
     def test_01(self):
         '''复数申请人'''
 
-        self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
-        self.homepage.user_personal_center() #切换到个人中心页面
+        UserInfo={
+            "UserName": "17625908729",
+            "PassWord": "11111111"} #登录用户配置
 
-        sleep(2)
+        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_personal_center() #切换到个人中心页面
+        sleep(0.5)
 
         #个人中心-我要调解
         PersonalCenterPage = PersonalCenter(self.homepage)
         PersonalCenterPage.InConciliation() #切换到纠纷调解页面
-
-        sleep(2)
+        sleep(0.5)
 
         #角色身份选择
-
         RolerChoosePage = RolerChoose(PersonalCenterPage)
         RolerChoosePage.NormalProxy() #一般代理人身份
 
-        #纠纷详情需要录入的信息
+        #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
         ConciliationDetail = {
             "纠纷类型":"交通事故",
             "纠纷描述":u'自动化测试',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
-            "纠纷发生市区":"杭州市",
-            "纠纷发生区县":"",
-            "纠纷发生街道":"",
-            "纠纷发生社区":"",
-            "调解机构":'北明心理咨询演示学习机构(西湖区)'
+            "纠纷发生市区":"宁波市",
+            "纠纷发生区县":"宁海县",
+            "纠纷发生街道":"茶院乡",
+            "纠纷发生社区":"暂不知道",
+            "调解机构所在省份":"浙江省",
+            "调解机构所在市区":"宁波市",
+            "调解机构所在区县":"宁海县",
+            "调解机构所在街道":"",
+            "调解机构所在社区":"",
+            "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
 
         ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
         ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
 
-        MultiApply = {
+        #申请人信息配置
+        MultiProposer = {
                  "roler":
                      [
                          {
                             "申请人类型": "自然人",
-                            "申请人性别":"男",
-                            "联系电话":u"15850787868",
-                            "身份证号": u"320102199107292810",
-                            "常住省份":"浙江省" ,
-                            "常住市区":"宁波市",
-                            "常住区县":"宁海县",
-                            "常住街道":"茶院乡",
-                            "详细地址":u"浙江宁波"
+                            "申请人": u"李雅莉",
+                            "申请人性别": "女",
+                            "联系电话": u"15850787868",
+                            "身份证号": u"320102196709032828",
+                            "常住省份": "浙江省" ,
+                            "常住市区": "宁波市",
+                            "常住区县": "宁海县",
+                            "常住街道": "茶院乡",
+                            "详细地址": u"浙江宁波"
                          },
-                        {
-                            "申请人类型": "2",
-                            "name": u"陈陈",
-                            "tel": "17625908729"
-                        }
+                         {
+                            "申请人类型": "法人",
+                            "申请人": u"发明",
+                             "社会信用码": "555558888877777",
+                             "法定代表人": u"哈哈",
+                             "申请人性别": "女",
+                             "联系电话": "13913031374",
+                             "身份证号": "",
+                             "单位省份": "浙江省",
+                             "单位市区": "杭州市",
+                             "单位区县": "",
+                             "单位街道": "",
+                             "详细地址": u"浙江杭州"
+                         },
+                         {
+                             "申请人类型": "非法人组织",
+                             "申请人": u"义和团",
+                             "社会信用码": "",
+                             "机构代表人": u"桂林",
+                             "申请人性别": "男",
+                             "联系电话": "13160077223",
+                             "身份证号": "",
+                             "单位省份": "浙江省",
+                             "单位市区": "温州市",
+                             "单位区县": "",
+                             "单位街道": "",
+                             "详细地址": u"江南皮革厂"
+                         }
                      ]
                  }
 
-        ApplyInfoPage = InApplyInfo(ConciliationInfoPage)
-        ApplyInfoPage.InputApplyInfo(**MultiApply)
 
-        '''
+        #录入多个申请人信息
+        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
+        ProposerInfoPage.InputProposerInfo(**MultiProposer)
 
-        #切换到申请人页面
-        #申请人1为自然人
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="申请人："]/../div/div/input').send_keys(u'陈瑶玮') #填写申请人1姓名
-        #self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="申请人性别："]/../div/div/label/span/input[@value="男"]/../span').click() #自然人1性别点选
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="联系电话："]/../div/div/input').send_keys(u'15850787868') #自然人1电话
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="身份证号："]/../div/div/input').send_keys(u'320102199107292810') #自然人1身份证号
+        #名词解释：Claimant被申请人
+        #录入多个被申请人
 
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="常住地区："]/../div/span[@class="city-picker-span"]').click() #唤出常住地区选项卡
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="常住地区："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select province"]/dl/dd/a[text()="浙江省"]').click() #点选常住省份
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="常住地区："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select city"]/dl/dd/a[text()="宁波市"]').click() #点选常住市区
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="常住地区："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select district"]/dl/dd/a[text()="宁海县"]').click() #点选常住区县
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="常住地区："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select street"]/dl/dd/a[text()="茶院乡"]').click() #点选常住街道
+        MultiClaimant = {
+                 "roler":
+                     [
+                         {
+                            "被申请人类型": "自然人",
+                            "被申请人姓名": u"慈禧",
+                            "被申请人性别": "女",
+                            "联系电话": u"15800006666",
+                            "身份证号": "",
+                            "常住省份": "浙江省" ,
+                            "常住市区": "宁波市",
+                            "常住区县": "宁海县",
+                            "常住街道": "茶院乡",
+                            "详细地址": u"浙江宁波"
+                         },
+                         {
+                             "被申请人类型": "法人",
+                             "被申请人": u"大清王朝",
+                             "社会信用码": "123451234512345",
+                             "法定代表人": u"溥仪",
+                             "被申请人性别": "男",
+                             "联系电话": "13801240123",
+                             "身份证号": "",
+                             "单位省份": "浙江省",
+                             "单位市区": "杭州市",
+                             "单位区县": "",
+                             "单位街道": "",
+                             "详细地址": u"浙江杭州"
+                         },
+                         {
+                             "被申请人类型": "非法人组织",
+                             "被申请人": u"太平天国",
+                             "社会信用码": "",
+                             "机构代表人": u"洪秀全",
+                             "被申请人性别": "男",
+                             "联系电话": "18966668888",
+                             "身份证号": "",
+                             "单位省份": "浙江省",
+                             "单位市区": "温州市",
+                             "单位区县": "",
+                             "单位街道": "",
+                             "详细地址": u"宁波兴化"
+                         }
+                     ]
+                 }
+        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
+        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
 
-        self.homepage.find_element_by_xpath('//div[@class="formMain"][1]/div/label[text()="详细地址："]/../div/div/input').send_keys(u'浙江宁波')  # 自然人1详细地址
-        '''
+
+
+
+
+
 
 
 

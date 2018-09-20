@@ -26,15 +26,6 @@ class ConciliationInfo(Page):
 
 
 
-
-
-
-
-
-
-
-
-
     def _ChooseConciliationCity(self, **kwargs):
         self.find_element_by_xpath('//label[text()="纠纷发生地："]/../div/div/div/div[@class="city-select-content"]/div[@class="city-select province"]/dl/dd/a[text()="'+kwargs["纠纷发生省份"]+'"]').click()  # 点选纠纷发生省份
 
