@@ -4,7 +4,7 @@ from odrweb.page.browser import Page
 
 class InProposerInfo(Page):
 
-    def InputProposerInfo(self, **kwargs):
+    def input_proposer_info(self, **kwargs):
         print("有"+str(len(kwargs["roler"]))+"个申请人")
 
         for i in range(1,len(kwargs["roler"])+1):

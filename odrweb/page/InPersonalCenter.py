@@ -4,7 +4,7 @@ from odrweb.page.browser import Page
 
 class PersonalCenter(Page):
 
-    def InConciliation(self):
+    def in_conciliation(self):
         #选择我要调解
         self.find_element_by_xpath('//div[text()="我要调解"]').click() #点击我要调解
         sleep(1)

@@ -4,7 +4,7 @@ from odrweb.page.browser import Page
 
 class ConciliationInfo(Page):
 
-    def InputConciliationInfo(self, **kwargs):
+    def input_conciliation_info(self, **kwargs):
 
         self.find_element_by_xpath('//label[text()="纠纷类型："]/../div/div/label/span[text()="'+kwargs["纠纷类型"]+'"]').click() #纠纷类型点选
         self.find_element_by_xpath('//label[text()="纠纷描述："]/../div/div/div/textarea').send_keys(kwargs["纠纷描述"]) #纠纷描述录入

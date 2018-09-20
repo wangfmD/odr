@@ -5,7 +5,8 @@ from odrweb.page.browser import Page
 
 class InClaimantInfo(Page):
 
-    def InputClaimantInfo(self, **kwargs):
+    def input_claimant_info(self, **kwargs):
+        sleep(2)
         print("有" + str(len(kwargs["roler"])) + "个被申请人")
 
         for i in range(1, len(kwargs["roler"]) + 1):
@@ -17,9 +18,9 @@ class InClaimantInfo(Page):
             if i < len(kwargs["roler"]):
                 self.find_element_by_xpath('//p[text()=" + 新增被申请人"]').click()
                 sleep(0.5)
-        self.find_element_by_xpath('//span[text()="提交"]').click()
+        #self.find_element_by_xpath('//span[text()="提交"]').click()
         sleep(0.5)
-        self.find_element_by_xpath('//p[text()="提交成功"]/../../../div/button/span').click()
+        #self.find_element_by_xpath('//p[text()="提交成功"]/../../../div/button/span').click()
 
 
     def _ClaimantCheck(self, count, **kwargs):

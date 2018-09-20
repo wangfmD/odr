@@ -22,23 +22,23 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
 
     def test_01(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人、非法人组织(3v3)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -52,10 +52,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -101,11 +101,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -150,28 +150,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_02(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人、非法人组织(2v3)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -185,10 +185,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -220,11 +220,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -269,28 +269,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_03(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -304,10 +304,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -339,11 +339,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -388,28 +388,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_04(self):
         '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -423,10 +423,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -460,11 +460,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -509,28 +509,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_05(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人(3v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -544,10 +544,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -593,11 +593,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -628,28 +628,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_06(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织(3v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -663,10 +663,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -712,11 +712,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -747,28 +747,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_07(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织(3v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -782,10 +782,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -831,11 +831,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -868,28 +868,29 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_08(self):
         '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：法人、非法人组织(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -903,10 +904,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -940,11 +941,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -977,28 +978,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_09(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、非法人组织(2v2)'''
-        UserInfo = {
+        userinfo = {
             "UserName": "17625908729",
             "PassWord": "11111111"}  # 登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center()  # 切换到个人中心页面
         sleep(0.5)
         # 个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation()  # 切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation()  # 切换到纠纷调解页面
         sleep(0.5)
         # 角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy()  # 一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy()  # 一般代理人身份
         # 纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型": "交通事故",
-            "纠纷描述": u'自动化测试',
+            "纠纷描述": u'一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、非法人组织',
             "我的诉求": u'自动化测试成功',
             "纠纷发生省份": "浙江省",
             "纠纷发生市区": "宁波市",
@@ -1012,10 +1013,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区": "",
             "调解机构名称": u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         # 申请人信息配置
-        MultiProposer = {
+        multiproposer = {
             "roler":
                 [
                     {
@@ -1047,11 +1048,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                 ]
         }
         # 录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         # 名词解释：Claimant被申请人
         # 录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
             "roler":
                 [
                     {
@@ -1082,28 +1083,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                     }
                 ]
         }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_10(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -1117,10 +1118,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -1152,11 +1153,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -1187,28 +1188,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_11(self):
         '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、非法人组织(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -1222,10 +1223,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -1259,11 +1260,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -1294,28 +1295,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_12(self):
         '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -1329,10 +1330,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -1366,11 +1367,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -1401,28 +1402,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_13(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：法人、非法人组织(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -1436,10 +1437,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -1471,11 +1472,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -1508,28 +1509,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_14(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -1543,10 +1544,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -1578,11 +1579,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -1613,28 +1614,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_15(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：法人、非法人组织(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：法人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -1648,10 +1649,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -1683,11 +1684,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -1720,28 +1721,28 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_16(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、非法人组织(2v2)'''
-        UserInfo={
+        userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
-        self.homepage.user_login(UserInfo["UserName"], UserInfo["PassWord"])
+        self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
         #个人中心-我要调解
-        PersonalCenterPage = PersonalCenter(self.homepage)
-        PersonalCenterPage.InConciliation() #切换到纠纷调解页面
+        personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
-        RolerChoosePage = RolerChoose(PersonalCenterPage)
-        RolerChoosePage.NormalProxy() #一般代理人身份
+        rolerchoosepage = RolerChoose(personalcenterpage)
+        rolerchoosepage.normal_proxy() #一般代理人身份
         #纠纷详情需要录入的信息（纠纷发生地必须填到街道)
-        ConciliationDetail = {
+        conciliationdetail = {
             "纠纷类型":"交通事故",
-            "纠纷描述":u'自动化测试',
+            "纠纷描述":u'一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、非法人组织',
             "我的诉求":u'自动化测试成功',
             "纠纷发生省份":"浙江省",
             "纠纷发生市区":"宁波市",
@@ -1755,10 +1756,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
             "调解机构所在社区":"",
             "调解机构名称":u'浙江省宁波市宁海县道路交通事故人民调解委员会'
         }
-        ConciliationInfoPage = ConciliationInfo(RolerChoosePage)
-        ConciliationInfoPage.InputConciliationInfo(**ConciliationDetail)
+        conciliationinfopage = ConciliationInfo(rolerchoosepage)
+        conciliationinfopage.input_conciliation_info(**conciliationdetail)
         #申请人信息配置
-        MultiProposer = {
+        multiproposer = {
                  "roler":
                      [
                          {
@@ -1790,11 +1791,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                      ]
                  }
         #录入多个申请人信息
-        ProposerInfoPage = InProposerInfo(ConciliationInfoPage)
-        ProposerInfoPage.InputProposerInfo(**MultiProposer)
+        proposerinfopage = InProposerInfo(conciliationinfopage)
+        proposerinfopage.input_proposer_info(**multiproposer)
         #名词解释：Claimant被申请人
         #录入多个被申请人
-        MultiClaimant = {
+        multiclaimant = {
                  "roler":
                      [
                          {
@@ -1825,8 +1826,8 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-        ClaimantInfoPage = InClaimantInfo(ProposerInfoPage)
-        ClaimantInfoPage.InputClaimantInfo(**MultiClaimant)
+        claimantinfopage = InClaimantInfo(proposerinfopage)
+        claimantinfopage.input_claimant_info(**multiclaimant)
 
 
 
