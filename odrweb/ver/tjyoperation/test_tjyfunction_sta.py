@@ -243,26 +243,7 @@ class OdrTjyFunc(unittest.TestCase):
         result = case_list_page.verification_dispute_modification()
         self.assertEqual(True, result)
 
-    def test_23(self):
-        '''纠纷登记列表-正在调解-修改保存'''
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        case_list_page = InputCaseListPage(self.homepage)
-        case_list_page.dispute_delete()
-        # 获取返回页面纠纷状态
-        # result = case_list_page.verification_dispute_modification()
-        # self.assertEqual(True, result)
 
-    def test_24(self):
-        '''纠纷登记列表-查询-纠纷编号'''
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        case_list_page = InputCaseListPage(self.homepage)
-        case_list_page._into_input_case_list()
-        dis_id = case_list_page.get_search_No()
-        #
-        case_list_page.search(dis_id)
-        # 获取返回页面纠纷状态
-        result = case_list_page.verification_search_No(dis_id)
-        self.assertEqual(True, result)
 
 
 if __name__ == '__main__':
