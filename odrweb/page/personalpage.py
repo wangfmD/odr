@@ -42,7 +42,9 @@ jf_info_all = {"jf_desc": u"申自然人-被自然人",
 
 
 class PersonalPage(Page):
-    x_manual_consult = '//a[contains(text(), "人工咨询")]'  # 第一行人工咨询
+    x_manual_consult_a = '//a[contains(text(), "人工咨询")]'  # 第一行人工咨询
+    x_manual_consult_search_btn = '//button[contains(text(), "搜索")]'
+    x_manual_consult_search_input = '//button[contains(text(), "搜索")]/preceding-sibling::div/input'
     x_ = '//a[text()="申请调解"]/../a[2]'  # 第一行评估
     x_consultation_list= '' #咨询
     x_assessment_list = ''  #评估
@@ -229,6 +231,24 @@ class PersonalPage(Page):
         self.find_element_by_xpath(
             '//div[@id="login_password"]/div/div/div[2]/form/div[4]/div/button[1]/span').click()
 
+    def manual_consult(self):
+        self.find_element_by_xpath(self.x_manual_consult).click()
+
+    def manual_consult_search(self,search_ctx):
+        '''进入人工咨询页面-查询'''
+        self.find_element_by_xpath(self.x_manual_consult_a).click()
+        self.find_element_by_xpath(self.x_manual_consult_search_input).send_keys(search_ctx)
+        self.find_element_by_xpath(self.x_manual_consult_search_btn).click()
+        sleep(1)
+
+    def verification_manual_consult_search(self,expect_name):
+        try:
+            name = self.find_element_by_xpath('//div[@id="table"]/div[2]/table/tbody/tr/td[2]').text
+        except:
+            name="**None**"
+        print "result: ", name
+        print "expect: ", expect_name
+        return name == expect_name
 
 def t():
     from odrweb.page.homepage import HomePage
