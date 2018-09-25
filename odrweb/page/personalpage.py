@@ -20,7 +20,7 @@ jf_info_all = {"jf_desc": u"申自然人-被自然人",
                "world_credit_id": "abcde1234567890",
                "applicant": u"钱桂林",
                "applicant_tel": "13160077223",
-               "applicant_pwd":"123456",
+               "applicant_pwd": "123456",
                "applicant_id": "321023199508166636",
                "applicant_addr": u"1栋2单元303",
 
@@ -42,12 +42,20 @@ jf_info_all = {"jf_desc": u"申自然人-被自然人",
 
 
 class PersonalPage(Page):
+    x_manual_consult = '//a[contains(text(), "人工咨询")]'  # 第一行人工咨询
+    x_ = '//a[text()="申请调解"]/../a[2]'  # 第一行评估
+    x_consultation_list= '' #咨询
+    x_assessment_list = ''  #评估
+    x_dispute_list = '//a[text()="调解"]' #调解
+    x_dispute_list_search_input = '//a[text()="调解"]/../../following-sibling::div/input'
+    x_dispute_list_search_btn = '//a[text()="调解"]/../../../div/button'
+    x_lawsuit_list=''   # 诉讼
+    x_judicial_list=''  # 司法确认
 
-    # def __init__(self, page=None, ):
-    #     self.driver = page.driver
-
-    def quit(self):
-        self.driver.quit()
+    def dispute_search(self, content):
+        self.find_element_by_xpath(self.x_dispute_list).click()
+        self.find_element_by_xpath(self.x_dispute_list_search_input).send_keys(content)
+        self.find_element_by_xpath(self.x_dispute_list_search_btn).click()
 
     def consult(self, **kwargs):
         '''咨询录入'''
