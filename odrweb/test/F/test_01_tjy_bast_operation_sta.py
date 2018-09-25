@@ -18,7 +18,7 @@ class TjyOperation(unittest.TestCase):
 
     def tearDown(self):
         pass
-        # self.homepage.quit()
+        self.homepage.quit()
 
     # def test_01(self):
     #     '''已提交案件列表增加纠纷-提交'''
@@ -50,13 +50,13 @@ class TjyOperation(unittest.TestCase):
     #     res = caselistpage.verification_dispute_id()
     #     self.assertEqual(True, res)
 
-    def test_05(self):
-        '''已提交案件列表增加纠纷-保存-删除'''
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        caselistpage = TjyBaseOperation(self.homepage)
-        caselistpage.dispute_add_save_delete()
-        res = caselistpage.verfication_dispute_delete()
-        self.assertEqual(True, res)
+    # def test_05(self):
+    #     '''已提交案件列表增加纠纷-保存-删除'''
+    #     self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+    #     caselistpage = TjyBaseOperation(self.homepage)
+    #     caselistpage.dispute_add_save_delete()
+    #     res = caselistpage.verfication_dispute_delete()
+    #     self.assertEqual(True, res)
 
     # def test_06(self):
     #     '''进入我的案件列表纠纷详情'''
