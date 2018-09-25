@@ -16,6 +16,8 @@ class UnSupportBrowserTypeError(Exception):
     pass
 
 
+
+
 dir = os.path.dirname
 home_path = dir(dir(os.path.abspath(dir(__file__))))
 
@@ -29,6 +31,8 @@ class Browser(object):
             if self._type in TYPES:
                 self.browser = TYPES[self._type]
                 self.driver = self.browser()
+
+
                 print "Browser:", browser_type
             else:
                 raise UnSupportBrowserTypeError(u'仅支持%s!' % ', '.join(TYPES.keys()))
@@ -104,6 +108,18 @@ class Page(Browser):
 
     def find_element_by_link_text(self,*args):
         return self.driver.find_element_by_link_text(*args)
+
+    def find_elements_by_xpath(self,*args):
+        return self.driver.find_elements_by_xpath(*args)
+
+    def get_window_handles(self):
+        return self.driver.window_handles()
+
+    def switch_to_window(self, *args):
+        self.driver.switch_to_window(*args)
+
+
+
 
 
 class HomePage(Page):
