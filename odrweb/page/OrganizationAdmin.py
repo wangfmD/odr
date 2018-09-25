@@ -1,6 +1,7 @@
 # coding:utf-8
 from time import sleep
 from odrweb.page.browser import Page
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class OrganizationAdmin(Page):
@@ -17,6 +18,7 @@ class OrganizationAdmin(Page):
         '''搜索案件'''
         self.find_element_by_xpath('//input[@id="keyword"]').send_keys(kwargs["编号/姓名/案号"])
         self.find_element_by_xpath('//a[text()="搜索"]').click()
+        sleep(1)
 
     def clear_search_area(self):
         '''重置搜索输入框'''
@@ -66,8 +68,10 @@ class OrganizationAdmin(Page):
 
         j = int(count) - 1   # 数组下标处理
         print("给第"+str(count)+"个纠纷分配调解员")
-        k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="selMediator($index)"]')
-        k[j].click()
+        k = self.driver.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="selMediator($index)"]')
+        sleep(1)
+        ActionChains(self.driver).move_to_element(k[j]).click(k[j]).perform()
+        #k[j].click()
 
 
 
@@ -104,7 +108,9 @@ class OrganizationAdmin(Page):
 
     def case_mediator_choose(self, **kwargs):
         '''案件分配调解员选择,需要传调解员姓名'''
-        self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').clear()
+        k = self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').text
+        if k != "":
+            self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').clear()
         self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').send_keys(kwargs["分配调解员姓名"])
         self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/button').click()
         self.find_element_by_xpath('//span[text()="'+kwargs["分配调解员姓名"]+'"]/../../../div/button').click()
