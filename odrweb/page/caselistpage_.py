@@ -279,6 +279,8 @@ class CaseListPage(CaseListBasePage):
 
     def _goto_detail_info(self, dispute_status=u'等待调解'):
         '''进入纠纷详情页面'''
+        # 进入纠纷调解案件列表
+        self.find_element_by_xpath('//li[contains(text(), "纠纷调解案件列表")]').click()
         Select(self.find_element_by_xpath(self.case_list_select)).select_by_visible_text(dispute_status)
         sleep(0.5)
         # self.find_element_by_xpath('/html/body/div[4]/div[1]/button[1]').click()

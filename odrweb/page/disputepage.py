@@ -73,7 +73,7 @@ class DisputePageTjy(Page):
     def _dispute_info_input(self, **kwargs):
         '''纠纷信息录入'''
 
-        self.find_element_by_xpath("/html/body/div[4]/div[1]/button[2]").click()
+        self.find_element_by_xpath('//div[contains(text(), "案件登记列表")]').click()
         # 点击案件登记列表
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/a[2]').click()
         # 点击登记纠纷添加
@@ -340,7 +340,7 @@ class DisputePageTjy(Page):
 
     def commit(self, **kwargs):
         self._input_all(**kwargs)
-        self._commit()
+        # self._commit()
 
     def verification_save(self, **kwargs):
         '''调解员登记案件验证'''
