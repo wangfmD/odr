@@ -112,11 +112,6 @@ class Page(Browser):
     def find_elements_by_xpath(self,*args):
         return self.driver.find_elements_by_xpath(*args)
 
-    def get_window_handles(self):
-        return self.driver.window_handles()
-
-    def switch_to_window(self, *args):
-        self.driver.switch_to_window(*args)
 
 
 

@@ -20,8 +20,8 @@ class OrganizationAdmin(Page):
         self.find_element_by_xpath('//a[text()="搜索"]').click()
         sleep(1)
 
-    def clear_search_area(self):
-        '''重置搜索输入框'''
+    def clear_search_case_area(self):
+        '''点击重置纠纷搜索输入框'''
         self.find_element_by_xpath('//a[text()="重置"]').click()
 
 
@@ -36,6 +36,8 @@ class OrganizationAdmin(Page):
         print("查看第"+str(count)+"个纠纷的详情")
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="detailsDispute(one)"]')
         k[j].click()
+        sleep(1)
+        self.driver.switch_to_window(self.driver.window_handles[1])  # 切换到详情窗口
 
     def case_acceptance(self, count=None):
         '''受理'''
