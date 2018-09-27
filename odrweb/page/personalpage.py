@@ -1,7 +1,10 @@
 # coding:utf-8
 from time import sleep
 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from odrweb.page.browser import Page
 
@@ -42,15 +45,33 @@ jf_info_all = {"jf_desc": u"申自然人-被自然人",
 
 
 class PersonalPage(Page):
-    x_manual_consult = '//a[contains(text(), "人工咨询")]'  # 第一行人工咨询
+    x_manual_consult_a = '//a[contains(text(), "人工咨询")]'  # 第一行人工咨询
+    x_manual_consult_search_btn = '//button[contains(text(), "搜索")]'
+    x_manual_consult_search_input = '//button[contains(text(), "搜索")]/preceding-sibling::div/input'
+    x_manual_consult_select_btn = '//button[contains(text(),"选择")]'  # 选择
+    #
+    x_manual_consult_p2p_end_span = '(//span[contains(text(),"案件类型")]/../following-sibling::div/a)[1]'  # 结束咨询
+    x_manual_consult_p2p_end_star_span = '//p[contains(text(),"请对咨询师进行星级评价")]/preceding-sibling::span'  # 选星
+    x_manual_consult_p2p_end_input = '//p[contains(text(),"请对咨询师进行星级评价")]/../following-sibling::div/div/textarea' # 咨询评价输入
+    x_manual_consult_p2p_commit_btn = '//button[contains(text(),"提交评价")]'       # 咨询评价提交
+    #
+    x_manual_consult_p2p_back_span = '(//span[contains(text(),"案件类型")]/../following-sibling::div/a)[2]'  # 返回列表
+
     x_ = '//a[text()="申请调解"]/../a[2]'  # 第一行评估
-    x_consultation_list= '' #咨询
-    x_assessment_list = ''  #评估
-    x_dispute_list = '//a[text()="调解"]' #调解
+    x_consultation_list = ''  # 咨询
+    x_assessment_list = ''  # 评估
+    x_dispute_list = '//a[text()="调解"]'  # 调解
     x_dispute_list_search_input = '//a[text()="调解"]/../../following-sibling::div/input'
     x_dispute_list_search_btn = '//a[text()="调解"]/../../../div/button'
-    x_lawsuit_list=''   # 诉讼
-    x_judicial_list=''  # 司法确认
+    x_lawsuit_list = ''  # 诉讼
+    x_judicial_list = ''  # 司法确认
+
+    #
+    x_person_data_link_a = '//a[contains(text(), "我的资料")]'
+    x_person_data_input = '//div[contains(text(), "详细地址")]/following-sibling::div/div/input'
+    x_person_data_save_btn = '//div[text()="保存"]'
+    x_person_data_save_suc_a = '//a[text()="确定"]'
+
 
     def dispute_search(self, content):
         self.find_element_by_xpath(self.x_dispute_list).click()
@@ -228,6 +249,60 @@ class PersonalPage(Page):
         # 提交
         self.find_element_by_xpath(
             '//div[@id="login_password"]/div/div/div[2]/form/div[4]/div/button[1]/span').click()
+
+    def manual_consult(self):
+        self.find_element_by_xpath(self.x_manual_consult_a).click()
+
+    def manual_consult_search(self, search_ctx):
+        '''进入人工咨询页面-查询'''
+        self.find_element_by_xpath(self.x_manual_consult_a).click()
+        self.find_element_by_xpath(self.x_manual_consult_search_input).send_keys(search_ctx)
+        self.find_element_by_xpath(self.x_manual_consult_search_btn).click()
+        sleep(1)
+
+    def verification_manual_consult_search(self, expect_name):
+        try:
+            name = self.find_element_by_xpath('//div[@id="table"]/div[2]/table/tbody/tr/td[2]').text
+        except:
+            name = "**None**"
+        print "result: ", name
+        print "expect: ", expect_name
+        return name == expect_name
+
+    def manual_consult_select_back(self):
+        '''进入人工咨询页面-选择'''
+        self.find_element_by_xpath(self.x_manual_consult_a).click()
+        # 选择咨询师
+        self.find_element_by_xpath(self.x_manual_consult_select_btn).click()
+        #
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_manual_consult_p2p_back_span)))
+        # sleep(3)
+        element.click()
+        sleep(1)
+
+
+    def manual_consult_select_end(self):
+        '''进入人工咨询页面-结束'''
+        self.find_element_by_xpath(self.x_manual_consult_a).click()
+        # 选择咨询师
+        # self.find_element_by_xpath(self.x_manual_consult_select_btn).click()
+        element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, self.x_manual_consult_p2p_end_span)))
+        #
+        # self.find_element_by_xpath(self.x_manual_consult_p2p_end_span).click()
+        element.click()
+        self.find_element_by_xpath(self.x_manual_consult_p2p_end_star_span)
+        self.find_element_by_xpath(self.x_manual_consult_p2p_end_input).send_keys(u"能够完美解答我的问题，好评")
+        self.find_element_by_xpath(self.x_manual_consult_p2p_commit_btn).click()
+        sleep(1)
+
+    def person_data_save(self):
+        '''修改个人资料'''
+        self.find_element_by_xpath(self.x_person_data_link_a).click()
+        self.find_element_by_xpath(self.x_person_data_input).clear()
+        self.find_element_by_xpath(self.x_person_data_input).send_keys('30#')
+        self.find_element_by_xpath(self.x_person_data_save_btn).click()
+        element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, self.x_person_data_save_suc_a)))
+        element.click()
 
 
 def t():

@@ -68,7 +68,7 @@ class OdrTjyFunc(unittest.TestCase):
         dis_id = case_list_page.get_search_No()
         #
         case_list_page.search(dis_id)
-        # 获取返回页面纠纷状态
+        #
         result = case_list_page.verification_search_No(dis_id)
         self.assertEqual(True, result)
 

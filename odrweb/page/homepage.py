@@ -102,7 +102,7 @@ class HomePage(Page):
 
     def user_personal_center(self):
         ''''''
-        self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[2]/a').click()
+        self.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[2]/a').click()
         return self.driver
 
     def company_login(self, name, pwd):
