@@ -69,10 +69,12 @@ class DisputePageTjy(Page):
     x_applicant_non_natural_addr         = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div/div/input'
     x_applicant_non_natural_addr_selector= '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[9]/div/span/span[1]'
 
+    x_no_sendmsg = '//span[contains(text(),"不发送")]'
+
 
     def _dispute_info_input(self, **kwargs):
         '''纠纷信息录入'''
-
+        # 调解员登记列表-点击
         self.find_element_by_xpath('//div[contains(text(), "案件登记列表")]').click()
         # 点击案件登记列表
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/a[2]').click()
@@ -276,10 +278,10 @@ class DisputePageTjy(Page):
         sleep(1)
         # 不发送短信
         try:
-            self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button[1]').click()
+            self.find_element_by_xpath(self.x_no_sendmsg).click()
         except:
             sleep(1)
-            self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button[1]').click()
+            self.find_element_by_xpath(self.x_no_sendmsg).click()
         sleep(2)
         # 确定
         try:
