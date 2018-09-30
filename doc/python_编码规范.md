@@ -52,7 +52,9 @@
  
     def _private_func():
         pass
-	```
+	```  
+- 校验方法以verification_xxx起头。
+
 
 ### 变量名. 
 
