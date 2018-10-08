@@ -38,8 +38,10 @@ class SimpleDisputePage(Page):
 
     def _into_simple_jf(self):
         '''进入添加简易纠纷登记页面'''
-        # 点击调解员页面案件登记列表
-        self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+        # # 点击调解员页面案件登记列表
+        # self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+        # 调解员登记列表-点击
+        self.find_element_by_xpath('//div[contains(text(), "案件登记列表")]').click()
         sleep(1)
         # 点击简易案件登记
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/a[1]').click()

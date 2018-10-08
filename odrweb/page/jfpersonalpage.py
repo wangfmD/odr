@@ -224,23 +224,28 @@ class PersonalPage(Page):
         # 输入纠纷描述、我的诉求
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[2]/div/div/div/textarea').send_keys(kwargs["jf_desc"])
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[3]/div/div/div/textarea').send_keys(kwargs["jf_appeal"])
-        # 选择纠纷发生地
-        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/span[2]').click()
-        self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[1]/dl[4]/dd/a[5]').click()
-        self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[2]/dl/dd/a[1]').click()
-        self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[3]/dl/dd/a[1]').click()
-        self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[4]/dl/dd/a[1]').click()
-        self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[5]/dl/dd/a[1]').click()
+
         # 选择调解机构
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[6]/div/div/input').click()
         sleep(1)
-        self.driver.find_element_by_xpath(
-            '//div[@id="app"]/div/div[3]/div[3]/div/div/div[2]/div[2]/ul/li[1]/button').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/div[3]/div/div/div[2]/div[2]/ul/li[1]/button').click()
+        # 地区下拉框选择
+        # self.driver.find_element_by_xpath('(//input[@placeholder="请选择省市区"])[2]').click()
+        #
+        # 发生地不在所选机构的管辖范围内，是否选择？ 确定
+        self.driver.find_element_by_xpath('//span[contains(text(),"温馨提示")]/../../following-sibling::div[2]/button[2]/span').click()
+
+        sleep(1)
+
+        # 选择纠纷发生地
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/span[2]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[1]/dl[4]/dd/a[5]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[2]/dl/dd/a[1]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[3]/dl/dd/a[1]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[4]/dl/dd/a[1]').click()
+        self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/form/div[4]/div/div/div/div[2]/div[5]/dl/dd/a[1]').click()
+
+
         # 点击下一步
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[3]/div[5]').click()
         # self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
