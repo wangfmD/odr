@@ -24,6 +24,12 @@ class OrganizationAdmin(Page):
         '''点击重置纠纷搜索输入框'''
         self.find_element_by_xpath('//a[text()="重置"]').click()
 
+    def case_uptodate_check(self):
+        '''临期案件检查'''
+        self.find_element_by_xpath('//input[@class="case-uptoData-check"]').click()
+
+
+
 
 
     def case_detail(self, count=None):
@@ -33,7 +39,7 @@ class OrganizationAdmin(Page):
             count = 1
 
         j = int(count) - 1   # 数组下标处理
-        print("查看第"+str(count)+"个纠纷的详情")
+        print("查看第"+ str(count) +"个纠纷的详情")
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="detailsDispute(one)"]')
         k[j].click()
         sleep(1)
@@ -90,7 +96,7 @@ class OrganizationAdmin(Page):
         k[j].click()
 
     def case_progress(self, count=None):
-        '''转移调解机构'''
+        '''调解进程'''
         '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
         if count is None:
             count = 1
