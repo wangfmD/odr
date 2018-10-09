@@ -49,44 +49,44 @@ class OdrJfInput(unittest.TestCase):
         pass
         self.homepage.quit()
 
-    #
-    # def test_01(self):
-    #     '''用户代理人身份-登记纠纷-申自然人特殊代理人-被自然人'''
-    #     jf_info_all = {"jf_desc": u"用户代理人身份-登记纠纷-申自然人特殊代理人-被自然人",
-    #                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
-    #                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
-    #                    "agent_type": "special",  # "" common special,
-    #                    "agent_b_type": "",  # common special,
-    #                    "mode": "agent",
-    #                    }
-    #     jf_info_all.update(self.dispute_info)
-    #
-    #     self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
-    #     self.homepage.user_personal_center()
-    #     sleep(0.5)
-    #     personalpage = PersonalPage(self.homepage)
-    #     personalpage._input_all_dlr(**jf_info_all)
-    #     sleep(t)
-    #     personalpage.verfication_commit_dlr(**jf_info_all)
 
-    # def test_02(self):
-    #     '''用户代理人身份-登记纠纷-申非法人组织特殊代理人-被法人代理人'''
-    #     jf_info_all = {"jf_desc": u"用户代理人身份-登记纠纷-申非法人组织特殊代理人-被法人代理人",
-    #                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-    #                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
-    #                    "agent_type": "common",  # "" common special,
-    #                    "agent_b_type": "special",  # common special,
-    #                    "mode": "agent",
-    #                    }
-    #     jf_info_all.update(self.dispute_info)
-    #
-    #     self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
-    #     self.homepage.user_personal_center()
-    #     sleep(0.5)
-    #     personalpage = PersonalPage(self.homepage)
-    #     personalpage._input_all_dlr(**jf_info_all)
-    #     sleep(t)
-    #     personalpage.verfication_commit_dlr(**jf_info_all)
+    def test_01(self):
+        '''用户代理人身份-登记纠纷-申自然人特殊代理人-被自然人'''
+        jf_info_all = {"jf_desc": u"用户代理人身份-登记纠纷-申自然人特殊代理人-被自然人",
+                       "applicant_type": u"自然人",  # 自然人 法人 非法人组织
+                       "disputer_type": u"自然人",  # 自然人 法人 非法人组织
+                       "agent_type": "special",  # "" common special,
+                       "agent_b_type": "",  # common special,
+                       "mode": "agent",
+                       }
+        jf_info_all.update(self.dispute_info)
+
+        self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+        self.homepage.user_personal_center()
+        sleep(0.5)
+        personalpage = PersonalPage(self.homepage)
+        personalpage._input_all_dlr(**jf_info_all)
+        sleep(t)
+        personalpage.verfication_commit_dlr(**jf_info_all)
+
+    def test_02(self):
+        '''用户代理人身份-登记纠纷-申非法人组织特殊代理人-被法人代理人'''
+        jf_info_all = {"jf_desc": u"用户代理人身份-登记纠纷-申非法人组织特殊代理人-被法人代理人",
+                       "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
+                       "disputer_type": u"法人",  # 自然人 法人 非法人组织
+                       "agent_type": "common",  # "" common special,
+                       "agent_b_type": "special",  # common special,
+                       "mode": "agent",
+                       }
+        jf_info_all.update(self.dispute_info)
+
+        self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+        self.homepage.user_personal_center()
+        sleep(0.5)
+        personalpage = PersonalPage(self.homepage)
+        personalpage._input_all_dlr(**jf_info_all)
+        sleep(t)
+        personalpage.verfication_commit_dlr(**jf_info_all)
 
 
 if __name__ == '__main__':
