@@ -33,6 +33,7 @@ class OrgCaseOpera(unittest.TestCase):
         orgpage.in_mission_center()
         orgpage.case_type(casetype)
 
+
     def test_02(self):
         '''任务中心调解状态'''
 
@@ -121,10 +122,6 @@ class OrgCaseOpera(unittest.TestCase):
         }
         orgpage.search_case_by_id_or_name(**case_optioninfo)  # 检索纠纷
         orgpage.case_detail()  # 点击查看详情
-
-
-
-
 
     def test_004(self):
         '''机构管理员受理、分配纠纷'''
