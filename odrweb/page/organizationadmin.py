@@ -181,12 +181,13 @@ class MissionCenter(Page):
                 self.find_element_by_xpath('//input[@id="endTime"]').click()
                 self.find_element_by_xpath('//input[@id="endTime"]').send_keys(endTime)
                 self.find_element_by_xpath('//span[text()="登记时间"]/..//input[@value="确定"]').click()
-                return True
+            return True
         except:
             return False
 
     def get_total_case_num(self):
         total = self.find_element_by_xpath('//span[text()="案件数量"]/..//i[@class="ng-binding"]').text
+        print("案件计数："+ total)
         return total
 
 
@@ -199,6 +200,38 @@ class MissionCenter(Page):
     def click_batch_process(self):
         '''批量受理第一页的案件'''
         self.find_element_by_xpath('//button[@class="confirm_cam"]').click()
+
+    def verfc_total_case_number_visitable(self,totalnumber):
+        '''案件总量是否数字'''
+        try:
+            check = int(totalnumber)
+            return True
+        except:
+            return False
+
+    def verfc_case_search_successful(self, totalnumber):
+        '''搜索结果是否唯一'''
+        try:
+            check1 = int(totalnumber)
+            check2 = int(self.case_count())
+            if check1 == 1 and check2 == 1:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def verfc_case_search_clear_successful(self, totalnumber1_, totalnumber2_, totalnumber3_):
+        '''搜索结果重置校验'''
+        try:
+            check = int(totalnumber2_)
+            if check == 1 and totalnumber1_ == totalnumber3_:
+                return True
+            else:
+                return False
+        except:
+            return False
+
 
 
 

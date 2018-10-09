@@ -16,6 +16,7 @@ class OrgCaseOpera(unittest.TestCase):
 
     def tearDown(self):
         self.homepage.quit()
+        print('=====================================================================')
 
     def test_01(self):
         '''任务中心调解类型'''
@@ -33,7 +34,6 @@ class OrgCaseOpera(unittest.TestCase):
         orgpage.in_mission_center()
         result = orgpage.case_type(casetype)
         self.assertEquals(result, True, msg='任务中心调解类型选择失败')
-
 
     def test_02(self):
         '''任务中心调解状态'''
@@ -84,9 +84,27 @@ class OrgCaseOpera(unittest.TestCase):
         result = orgpage.case_uptodate_check()
         self.assertEquals(result, True, msg='只看到期案件点选失败')
 
+    def test_05(self):
+        '''案件总量'''
+
+        org_admin = {
+            "机构账号": "17612156739",
+            "机构密码": "123456"
+        }
+
+        self.homepage.organization_login(org_admin["机构账号"], org_admin["机构密码"])
+
+        orgpage = MissionCenter(self.homepage)
+        orgpage.in_mission_center()
+        total_casenumber = orgpage.get_total_case_num()
+        result = orgpage.verfc_total_case_number_visitable(total_casenumber)
+        self.assertEquals(result, True, msg='案件总量显示不为数字')
+
+
+
 
     def test_06(self):
-        '''案件搜索'''
+        '''案件编号精确搜索'''
 
         org_admin = {
             "机构账号": "17612156739",
@@ -102,8 +120,8 @@ class OrgCaseOpera(unittest.TestCase):
         }
         orgpage.search_case_by_id_or_name(**case_optioninfo)  # 检索纠纷
         total_casenumber = orgpage.get_total_case_num()
-
-
+        result = orgpage.verfc_case_search_successful(total_casenumber)
+        self.assertEquals(result, True, msg='案件编号精确搜索结果唯一性校验失败')
 
     def test_07(self):
         '''案件搜索重置'''
@@ -124,8 +142,14 @@ class OrgCaseOpera(unittest.TestCase):
         orgpage.search_case_by_id_or_name(**case_optioninfo)  # 检索纠纷
         total_casenumber2 = orgpage.get_total_case_num()
         orgpage.clear_search_case_area()
+        sleep(1)
         total_casenumber3 = orgpage.get_total_case_num()
-    #
+        result = orgpage.verfc_case_search_clear_successful(total_casenumber1, total_casenumber2, total_casenumber3)
+        self.assertEquals(result, True, msg='搜索重置功能校验失败')
+
+
+
+
     # def test_001(self):
     #     '''机构管理员查看纠纷详情'''
     #
