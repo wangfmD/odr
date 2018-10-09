@@ -22,10 +22,16 @@ class InClaimantInfo(Page):
         sleep(0.5)
         #self.find_element_by_xpath('//p[text()="提交成功"]/../../../div/button/span').click()
 
+    def commit(self):
+        self.find_element_by_xpath('//span[text()="提交"]').click()
+        sleep(3)
+        self.find_element_by_xpath("//div[@aria-label='提示']//span[contains(text(),'确定')]").click()
+        print("提交成功")
+
 
     def _ClaimantCheck(self, count, **kwargs):
 
-        print("count=", count)
+        #print("count=", count)
         j = count - 1  # 取数据字典信息，数组下标从0开始，统一转换
         MainXpath = '//div[@class="proposer unActive stepActive"]/div/div/form/div[@class="formMain"][' + str(
             count) + ']'

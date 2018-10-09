@@ -45,22 +45,25 @@ jf_info_all = {"jf_desc": u"申自然人-被自然人",
 
 
 class PersonalPage(Page):
-    x_manual_consult_a = '//a[contains(text(), "人工咨询")]'  # 第一行人工咨询
-    x_manual_consult_search_btn = '//button[contains(text(), "搜索")]'
-    x_manual_consult_search_input = '//button[contains(text(), "搜索")]/preceding-sibling::div/input'
-    x_manual_consult_select_btn = '//button[contains(text(),"选择")]'  # 选择
-    #
-    x_manual_consult_p2p_end_span = '(//span[contains(text(),"案件类型")]/../following-sibling::div/a)[1]'  # 结束咨询
-    x_manual_consult_p2p_end_star_span = '//p[contains(text(),"请对咨询师进行星级评价")]/preceding-sibling::span'  # 选星
-    x_manual_consult_p2p_end_input = '//p[contains(text(),"请对咨询师进行星级评价")]/../following-sibling::div/div/textarea' # 咨询评价输入
-    x_manual_consult_p2p_commit_btn = '//button[contains(text(),"提交评价")]'       # 咨询评价提交
-    #
-    x_manual_consult_p2p_back_span = '(//span[contains(text(),"案件类型")]/../following-sibling::div/a)[2]'  # 返回列表
-
-    x_ = '//a[text()="申请调解"]/../a[2]'  # 第一行评估
+    # 咨询
     x_consultation_list = ''  # 咨询
-    x_assessment_list = ''  # 评估
-    x_dispute_list = '//a[text()="调解"]'  # 调解
+    x_manual_consult_a = '//a[contains(text(), "人工咨询")]'                # 咨询-第一行人工咨询
+    x_manual_consult_search_btn = '//button[contains(text(), "搜索")]'      # 咨询-人工咨询-搜索
+    x_manual_consult_search_input = '//button[contains(text(), "搜索")]/preceding-sibling::div/input' # 咨询-人工咨询-搜索输入框
+    x_manual_consult_select_btn = '//button[contains(text(),"选择")]'         # 咨询-人工咨询-选择
+    #
+    x_manual_consult_p2p_end_span = '(//span[contains(text(),"案件类型")]/../following-sibling::div/a)[1]'  # 咨询-人工咨询-选择-结束咨询
+    x_manual_consult_p2p_end_star_span = '//p[contains(text(),"请对咨询师进行星级评价")]/preceding-sibling::span'  # 结束咨询-选星
+    x_manual_consult_p2p_end_input = '//p[contains(text(),"请对咨询师进行星级评价")]/../following-sibling::div/div/textarea' # 结束咨询-咨询评价输入
+    x_manual_consult_p2p_commit_btn = '//button[contains(text(),"提交评价")]'       # 结束咨询-咨询评价提交
+    x_manual_consult_p2p_back_span = '(//span[contains(text(),"案件类型")]/../following-sibling::div/a)[2]'  # 咨询-人工咨询-选择-返回列表
+    x_manual_consult_assessment = '(//a[text()="评估"])[2]'       # 咨询列表-第一行评估
+    x_manual_consult_apply='//a[contains(text(),"申请调解")]'     # 咨询列表-申请调解
+    # 评估
+    x_assessment_list = '(//a[contains(text(),"评估")])[2]'  # 评估
+    x_assessment_apply_report = '//a[contains(text(),"申请评估报告")]'
+    # 调解mediate
+    x_dispute_list = '//a[text()="调解"]'  # 调解 (//a[contains(text(),"调解")])[2]
     x_dispute_list_search_input = '//a[text()="调解"]/../../following-sibling::div/input'
     x_dispute_list_search_btn = '//a[text()="调解"]/../../../div/button'
     x_lawsuit_list = ''  # 诉讼
@@ -294,6 +297,59 @@ class PersonalPage(Page):
         self.find_element_by_xpath(self.x_manual_consult_p2p_end_input).send_keys(u"能够完美解答我的问题，好评")
         self.find_element_by_xpath(self.x_manual_consult_p2p_commit_btn).click()
         sleep(1)
+
+    def act_manual_consult_apply(self):
+        '''咨询列表-申请调解'''
+        self.find_element_by_xpath(self.x_manual_consult_apply).click()
+
+    def verfc_act_manual_consult_apply(self):
+        ecpect_res = u"下一步"
+        try:
+            res = self.find_element_by_xpath('//div[text()="下一步"]').text
+        except:
+            res="**None**"
+        print "result: ", res
+        print "expect: ", ecpect_res
+        return res == ecpect_res
+
+    def act_manual_consult_2_assessment(self):
+        '''咨询列表-评估'''
+        self.find_element_by_xpath(self.x_manual_consult_assessment).click()
+        # 等待申请评估报告btn
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="申请评估报告"]')))
+
+    def act_dispute_search(self,search_by_name_or_id):
+        '''调解列表-查询'''
+        self.find_element_by_xpath(self.x_dispute_list).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_dispute_list_search_input).clear()
+        self.find_element_by_xpath(self.x_dispute_list_search_input).send_keys(search_by_name_or_id)
+        self.find_element_by_xpath(self.x_dispute_list_search_btn).click()
+
+    def get_dispute_search_id(self):
+        '''获取第二行的纠纷编号，用于查询'''
+        self.find_element_by_xpath(self.x_dispute_list).click()
+        try:
+            res = self.find_element_by_xpath('//div[@id="mediate"]/div[2]/div[3]/ul/li[2]').text
+            _, id = res.split(u'：')
+        except:
+            id= None
+        return id
+
+    def verfc_act_dispute_search_by_id(self, ecpect_res):
+        '''by id'''
+        sleep(1)
+        try:
+            res = self.find_element_by_xpath('//div[@id="mediate"]/div[1]/div[3]/ul/li[2]').text  # 调解编号：1665792F2D099
+            _,id = res.split(u'：')
+        except:
+            id = '**None**'
+
+        print "result: ", id
+        print "expect: ", ecpect_res
+        return id == ecpect_res
+
+
 
     def person_data_save(self):
         '''修改个人资料'''
