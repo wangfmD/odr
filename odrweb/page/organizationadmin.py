@@ -25,7 +25,11 @@ class MissionCenter(Page):
 
     def case_uptodate_check(self):
         '''临期案件检查'''
-        self.find_element_by_xpath('//input[@class="case-uptoData-check"]').click()
+        try:
+            self.find_element_by_xpath('//input[@class="case-uptoData-check"]').click()
+            return True
+        except:
+            return False
 
     def case_detail(self, count=None):
         '''纠纷详情'''
@@ -118,56 +122,72 @@ class MissionCenter(Page):
 
     def case_type(self, ctype=None):
         '''调解类型'''
-        if ctype is None:
-            casetype = u"所有类型"
-        else:
-            casetype = ctype
+        try:
+            if ctype is None:
+                casetype = u"所有类型"
+            else:
+                casetype = ctype
 
-        casetypelist = {
-                u"所有类型",
-                u"婚姻继承",
-                u"消费维权",
-                u"劳动争议",
-                u"借贷纠纷",
-                u"物业纠纷",
-                u"相邻关系",
-                u"知识产权",
-                u"房屋买卖",
-                u"房屋租赁"
-        }
+            casetypelist = {
+                    u"所有类型",
+                    u"婚姻继承",
+                    u"消费维权",
+                    u"劳动争议",
+                    u"借贷纠纷",
+                    u"物业纠纷",
+                    u"相邻关系",
+                    u"知识产权",
+                    u"房屋买卖",
+                    u"房屋租赁"
+            }
 
-        if casetype in casetypelist:
-            pass
-        else:
-            self.find_element_by_xpath('//em[text()="更多"]').click()
+            if casetype in casetypelist:
+                pass
+            else:
+                self.find_element_by_xpath('//em[text()="更多"]').click()
 
-        self.find_element_by_xpath("//li[contains(text(),'" + casetype + "')]").click()
+            self.find_element_by_xpath("//li[contains(text(),'" + casetype + "')]").click()
+            return True
+        except:
+            return False
 
     def case_status(self, cstatus=None):
         '''调解状态'''
-        if cstatus is None:
-            casestatus = u"所有状态"
-        else:
-            casestatus = cstatus
+        try:
+            if cstatus is None:
+                casestatus = u"所有状态"
+            else:
+                casestatus = cstatus
 
-        self.find_element_by_xpath("//li[contains(text(),'" + casestatus + "')]").click()
+            self.find_element_by_xpath("//li[contains(text(),'" + casestatus + "')]").click()
+            return True
+        except:
+            return False
 
     def case_time(self, ctime=None, startTime=None, endTime=None):
         '''登记时间'''
-        if ctime is None:
-            casetime = u"所有时间"
-        else:
-            casetime = ctime
+        try:
+            if ctime is None:
+                casetime = u"所有时间"
+            else:
+                casetime = ctime
 
-        self.find_element_by_xpath("//li[contains(text(),'" + casetime + "')]").click()
+            self.find_element_by_xpath("//li[contains(text(),'" + casetime + "')]").click()
 
-        if ctime == u"自定义时间":
-            # 如传入自定义时间 需要追加两位参数起始时间，格式YYYY-MM-DD
-            self.find_element_by_xpath('//input[@id="startTime"]').click()
-            self.find_element_by_xpath('//input[@id="startTime"]').send_keys(startTime)
-            self.find_element_by_xpath('//input[@id="endTime"]').click()
-            self.find_element_by_xpath('//input[@id="endTime"]').send_keys(endTime)
-            self.find_element_by_xpath('//span[text()="登记时间"]/..//input[@value="确定"]').click()
+            if ctime == u"自定义时间":
+                # 如传入自定义时间 需要追加两位参数起始时间，格式YYYY-MM-DD
+                self.find_element_by_xpath('//input[@id="startTime"]').click()
+                self.find_element_by_xpath('//input[@id="startTime"]').send_keys(startTime)
+                self.find_element_by_xpath('//input[@id="endTime"]').click()
+                self.find_element_by_xpath('//input[@id="endTime"]').send_keys(endTime)
+                self.find_element_by_xpath('//span[text()="登记时间"]/..//input[@value="确定"]').click()
+                return True
+        except:
+            return False
+
+    def get_total_case_num(self):
+        total = self.find_element_by_xpath('//span[text()="案件数量"]/..//i[@class="ng-binding"]').text
+        return total
 
 
     def case_count(self):
