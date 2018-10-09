@@ -31,7 +31,7 @@ class InProposerInfo(Page):
 
     def _ProposerCheck(self,count, **kwargs):
 
-        print("count=", count)
+        #print("count=", count)
         j=count-1 #取数据字典信息，数组下标从0开始，统一转换
         MainXpath = '//div[@class="proposer unActive stepActive"]/div/div/form/div[@class="formMain"][' + str(count) + ']'
 

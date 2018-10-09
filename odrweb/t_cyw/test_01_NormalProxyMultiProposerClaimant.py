@@ -3,11 +3,11 @@ import unittest
 from time import sleep
 import sys
 from odrweb.page.homepage import HomePage
-from odrweb.page.InPersonalCenter import PersonalCenter
-from odrweb.page.InRolerChoose import RolerChoose
-from odrweb.page.InConciliationInfo import ConciliationInfo
-from odrweb.page.InProposerInfo import InProposerInfo
-from odrweb.page.InClaimantInfo import InClaimantInfo
+from odrweb.page.inpersonalcenter import PersonalCenter
+from odrweb.page.inrolerchoose import RolerChoose
+from odrweb.page.inconciliationinfo import ConciliationInfo
+from odrweb.page.inproposerinfo import InProposerInfo
+from odrweb.page.inclaimantinfo import InClaimantInfo
 
 reload(sys)
 sys.setdefaultencoding("utf-8")

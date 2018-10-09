@@ -3,11 +3,11 @@ import unittest
 from time import sleep
 import sys
 from odrweb.page.homepage import HomePage
-from odrweb.page.InPersonalCenter import PersonalCenter
-from odrweb.page.InRolerChoose import RolerChoose
-from odrweb.page.InConciliationInfo import ConciliationInfo
-from odrweb.page.InProposerInfo import InProposerInfo
-from odrweb.page.InClaimantInfo import InClaimantInfo
+from odrweb.page.inpersonalcenter import PersonalCenter
+from odrweb.page.inrolerchoose import RolerChoose
+from odrweb.page.inconciliationinfo import ConciliationInfo
+from odrweb.page.inproposerinfo import InProposerInfo
+from odrweb.page.inclaimantinfo import InClaimantInfo
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -28,9 +28,12 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
-        #个人中心-我要调解
+        #个人中心
         personalcenterpage = PersonalCenter(self.homepage)
-        personalcenterpage.in_conciliation() #切换到纠纷调解页面
+        personalcenterpage.conciliation_list()
+        casenumber_old = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_old )
+        personalcenterpage.in_conciliation()  # 切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
         rolerchoosepage = RolerChoose(personalcenterpage)
@@ -76,7 +79,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                             "社会信用码": "555558888877777",
                             "法定代表人": u"哈哈",
                             "申请人性别": "女",
-                            "联系电话": "13913031374",
+                            "联系电话": "13900000000",
                             "身份证号": "",
                             "单位省份": "浙江省",
                             "单位市区": "杭州市",
@@ -90,7 +93,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                              "社会信用码": "",
                              "机构代表人": u"桂林",
                              "申请人性别": "男",
-                             "联系电话": "13160077223",
+                             "联系电话": "13100000000",
                              "身份证号": "",
                              "单位省份": "浙江省",
                              "单位市区": "温州市",
@@ -152,8 +155,15 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                  }
         claimantinfopage = InClaimantInfo(proposerinfopage)
         claimantinfopage.input_claimant_info(**multiclaimant)
+        claimantinfopage.commit()
+        personalcenterpage = PersonalCenter(claimantinfopage)
+        casenumber_new = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_new)
+        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
 
-    def test_02(self):
+
+
+    def xtest_02(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人(3v2)'''
         userinfo={
             "UserName": "17625908729",
@@ -161,8 +171,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
-        #个人中心-我要调解
+        #个人中心
         personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.conciliation_list()
+        casenumber_old = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_old )
         personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
@@ -271,8 +284,13 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                  }
         claimantinfopage = InClaimantInfo(proposerinfopage)
         claimantinfopage.input_claimant_info(**multiclaimant)
+        claimantinfopage.commit()
+        personalcenterpage = PersonalCenter(claimantinfopage)
+        casenumber_new = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_new)
+        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
 
-    def test_03(self):
+    def xtest_03(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织(3v2)'''
         userinfo={
             "UserName": "17625908729",
@@ -280,8 +298,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
-        #个人中心-我要调解
+        #个人中心
         personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.conciliation_list()
+        casenumber_old = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_old )
         personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
@@ -390,8 +411,13 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                  }
         claimantinfopage = InClaimantInfo(proposerinfopage)
         claimantinfopage.input_claimant_info(**multiclaimant)
+        claimantinfopage.commit()
+        personalcenterpage = PersonalCenter(claimantinfopage)
+        casenumber_new = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_new)
+        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
 
-    def test_04(self):
+    def xtest_04(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织(3v2)'''
         userinfo={
             "UserName": "17625908729",
@@ -399,8 +425,11 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         self.homepage.user_login(userinfo["UserName"], userinfo["PassWord"])
         self.homepage.user_personal_center() #切换到个人中心页面
         sleep(0.5)
-        #个人中心-我要调解
+        #个人中心
         personalcenterpage = PersonalCenter(self.homepage)
+        personalcenterpage.conciliation_list()
+        casenumber_old = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_old )
         personalcenterpage.in_conciliation() #切换到纠纷调解页面
         sleep(0.5)
         #角色身份选择
@@ -509,6 +538,10 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
                          }
                      ]
                  }
-
         claimantinfopage = InClaimantInfo(proposerinfopage)
         claimantinfopage.input_claimant_info(**multiclaimant)
+        claimantinfopage.commit()
+        personalcenterpage = PersonalCenter(claimantinfopage)
+        casenumber_new = personalcenterpage.get_last_conciliation_number()
+        print('当前最新'+ casenumber_new)
+        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
