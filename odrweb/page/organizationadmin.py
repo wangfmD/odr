@@ -4,15 +4,14 @@ from odrweb.page.browser import Page
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-class OrganizationAdmin(Page):
+class MissionCenter(Page):
 
     def in_mission_center(self):
         '''进入任务中心'''
         self.find_element_by_xpath('//a[@href="#/missions"]').click()
         sleep(0.5)
-        i = self._case_count()
+        i = self.case_count()
         print("当前页展示" + i + "个纠纷")
-
 
     def search_case_by_id_or_name(self, **kwargs):
         '''搜索案件'''
@@ -27,10 +26,6 @@ class OrganizationAdmin(Page):
     def case_uptodate_check(self):
         '''临期案件检查'''
         self.find_element_by_xpath('//input[@class="case-uptoData-check"]').click()
-
-
-
-
 
     def case_detail(self, count=None):
         '''纠纷详情'''
@@ -81,9 +76,6 @@ class OrganizationAdmin(Page):
         ActionChains(self.driver).move_to_element(k[j]).click(k[j]).perform()
         #k[j].click()
 
-
-
-
     def case_change_organization(self, count=None):
         '''转移调解机构'''
         '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
@@ -124,21 +116,71 @@ class OrganizationAdmin(Page):
         self.find_element_by_xpath('//span[text()="'+kwargs["分配调解员姓名"]+'"]/../../../div/button').click()
         self.info_agree()
 
+    def case_type(self, ctype=None):
+        '''调解类型'''
+        if ctype is None:
+            casetype = u"所有类型"
+        else:
+            casetype = ctype
+
+        casetypelist = {
+                u"所有类型",
+                u"婚姻继承",
+                u"消费维权",
+                u"劳动争议",
+                u"借贷纠纷",
+                u"物业纠纷",
+                u"相邻关系",
+                u"知识产权",
+                u"房屋买卖",
+                u"房屋租赁"
+        }
+
+        if casetype in casetypelist:
+            pass
+        else:
+            self.find_element_by_xpath('//em[text()="更多"]').click()
+
+        self.find_element_by_xpath("//li[contains(text(),'" + casetype + "')]").click()
+
+    def case_status(self, cstatus=None):
+        '''调解状态'''
+        if cstatus is None:
+            casestatus = u"所有状态"
+        else:
+            casestatus = cstatus
+
+        self.find_element_by_xpath("//li[contains(text(),'" + casestatus + "')]").click()
+
+    def case_time(self, ctime=None, startTime=None, endTime=None):
+        '''登记时间'''
+        if ctime is None:
+            casetime = u"所有时间"
+        else:
+            casetime = ctime
+
+        self.find_element_by_xpath("//li[contains(text(),'" + casetime + "')]").click()
+
+        if ctime == u"自定义时间":
+            # 如传入自定义时间 需要追加两位参数起始时间，格式YYYY-MM-DD
+            self.find_element_by_xpath('//input[@id="startTime"]').click()
+            self.find_element_by_xpath('//input[@id="startTime"]').send_keys(startTime)
+            self.find_element_by_xpath('//input[@id="endTime"]').click()
+            self.find_element_by_xpath('//input[@id="endTime"]').send_keys(endTime)
+            self.find_element_by_xpath('//span[text()="登记时间"]/..//input[@value="确定"]').click()
 
 
-
-
-
-
-    def _case_count(self):
+    def case_count(self):
         '''统计当前页有多少纠纷'''
         i = self.find_elements_by_xpath('//div[@class="case-number ng-binding"]')
         j = str(len(i))
         return j
 
-    def _click_batch_process(self):
-        '''点击批量受理'''
+    def click_batch_process(self):
+        '''批量受理第一页的案件'''
         self.find_element_by_xpath('//button[@class="confirm_cam"]').click()
+
+
 
 
 
