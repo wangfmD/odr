@@ -160,7 +160,8 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         personalcenterpage = PersonalCenter(claimantinfopage)
         casenumber_new = personalcenterpage.get_last_conciliation_number()
         print('当前最新'+ casenumber_new)
-        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
+        result = personalcenterpage.verfc_conciliation_create_successful(casenumber_old,casenumber_new)
+        self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_02(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人(3v2)'''
@@ -287,7 +288,8 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         personalcenterpage = PersonalCenter(claimantinfopage)
         casenumber_new = personalcenterpage.get_last_conciliation_number()
         print('当前最新'+ casenumber_new)
-        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
+        result = personalcenterpage.verfc_conciliation_create_successful(casenumber_old, casenumber_new)
+        self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_03(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织(3v2)'''
@@ -414,7 +416,8 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         personalcenterpage = PersonalCenter(claimantinfopage)
         casenumber_new = personalcenterpage.get_last_conciliation_number()
         print('当前最新'+ casenumber_new)
-        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
+        result = personalcenterpage.verfc_conciliation_create_successful(casenumber_old, casenumber_new)
+        self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_04(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织(3v2)'''
@@ -543,7 +546,8 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         personalcenterpage = PersonalCenter(claimantinfopage)
         casenumber_new = personalcenterpage.get_last_conciliation_number()
         print('当前最新'+ casenumber_new)
-        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
+        result = personalcenterpage.verfc_conciliation_create_successful(casenumber_old, casenumber_new)
+        self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_05(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人、非法人组织(2v3)'''
@@ -670,7 +674,8 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         personalcenterpage = PersonalCenter(claimantinfopage)
         casenumber_new = personalcenterpage.get_last_conciliation_number()
         print('当前最新'+ casenumber_new)
-        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
+        result = personalcenterpage.verfc_conciliation_create_successful(casenumber_old, casenumber_new)
+        self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_06(self):
         '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
@@ -797,7 +802,8 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         personalcenterpage = PersonalCenter(claimantinfopage)
         casenumber_new = personalcenterpage.get_last_conciliation_number()
         print('当前最新'+ casenumber_new)
-        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
+        result = personalcenterpage.verfc_conciliation_create_successful(casenumber_old, casenumber_new)
+        self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_07(self):
         '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
@@ -926,4 +932,5 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         personalcenterpage = PersonalCenter(claimantinfopage)
         casenumber_new = personalcenterpage.get_last_conciliation_number()
         print('当前最新'+ casenumber_new)
-        self.assertNotEqual(casenumber_old, casenumber_new, msg='新增失败')
+        result = personalcenterpage.verfc_conciliation_create_successful(casenumber_old, casenumber_new)
+        self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')

@@ -14,10 +14,18 @@ class PersonalCenter(Page):
         return number
 
     def in_conciliation(self):
-        #选择我要调解
+        # 选择我要调解
         self.find_element_by_xpath('//div[text()="我要调解"]').click() #点击我要调解
         sleep(1)
         self.find_element_by_xpath('//div[text()="重要提示"]/..//a[text()="确定"]').click() #重要提示-确定
+
+    def verfc_conciliation_create_successful(self,  number1, number2):
+        # 新旧案件编号不等说明新增成功
+        if number1 == number2:
+            return False
+        else:
+            return True
+
 
 
 if __name__ == '__main__':
