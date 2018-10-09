@@ -70,10 +70,11 @@ class PersonalPage(Page):
     x_judicial_list = ''  # 司法确认
 
     #
-    x_person_data_link_a = '//a[contains(text(), "我的资料")]'
+    x_person_data_link_a = '//a[contains(text(),"我的资料")]'
     x_person_data_input = '//div[contains(text(), "详细地址")]/following-sibling::div/div/input'
     x_person_data_save_btn = '//div[text()="保存"]'
     x_person_data_save_suc_a = '//a[text()="确定"]'
+    x_security_setting = '//a[contains(text(),"安全设置")]'
 
 
     def dispute_search(self, content):
@@ -113,8 +114,7 @@ class PersonalPage(Page):
     def verification_consult_input(self):
 
         try:
-            res = self.driver.find_element_by_xpath(
-                '/html/body/div[2]/div[2]/counselors/div/div[1]/div[2]/div[1]/button')
+            res = self.driver.find_element_by_xpath('/html/body/div[2]/div[2]/counselors/div/div[1]/div[2]/div[1]/button')
         except:
             res = "*None*"
         # 校验搜索按键名称
@@ -257,7 +257,8 @@ class PersonalPage(Page):
         self.find_element_by_xpath(self.x_manual_consult_a).click()
 
     def manual_consult_search(self, search_ctx):
-        '''进入人工咨询页面-查询'''
+        '''进入人工咨询页面-查询
+        '''
         self.find_element_by_xpath(self.x_manual_consult_a).click()
         self.find_element_by_xpath(self.x_manual_consult_search_input).send_keys(search_ctx)
         self.find_element_by_xpath(self.x_manual_consult_search_btn).click()
@@ -273,7 +274,8 @@ class PersonalPage(Page):
         return name == expect_name
 
     def manual_consult_select_back(self):
-        '''进入人工咨询页面-选择'''
+        '''进入人工咨询页面-选择
+        '''
         self.find_element_by_xpath(self.x_manual_consult_a).click()
         # 选择咨询师
         self.find_element_by_xpath(self.x_manual_consult_select_btn).click()
@@ -285,7 +287,8 @@ class PersonalPage(Page):
 
 
     def manual_consult_select_end(self):
-        '''进入人工咨询页面-结束'''
+        '''进入人工咨询页面-结束
+        '''
         self.find_element_by_xpath(self.x_manual_consult_a).click()
         # 选择咨询师
         # self.find_element_by_xpath(self.x_manual_consult_select_btn).click()
@@ -299,7 +302,8 @@ class PersonalPage(Page):
         sleep(1)
 
     def act_manual_consult_apply(self):
-        '''咨询列表-申请调解'''
+        '''咨询列表-申请调解
+        '''
         self.find_element_by_xpath(self.x_manual_consult_apply).click()
 
     def verfc_act_manual_consult_apply(self):
@@ -313,13 +317,15 @@ class PersonalPage(Page):
         return res == ecpect_res
 
     def act_manual_consult_2_assessment(self):
-        '''咨询列表-评估'''
+        '''咨询列表-评估
+        '''
         self.find_element_by_xpath(self.x_manual_consult_assessment).click()
         # 等待申请评估报告btn
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="申请评估报告"]')))
 
     def act_dispute_search(self,search_by_name_or_id):
-        '''调解列表-查询'''
+        '''调解列表-查询
+        '''
         self.find_element_by_xpath(self.x_dispute_list).click()
         sleep(0.5)
         self.find_element_by_xpath(self.x_dispute_list_search_input).clear()
@@ -327,7 +333,8 @@ class PersonalPage(Page):
         self.find_element_by_xpath(self.x_dispute_list_search_btn).click()
 
     def get_dispute_search_id(self):
-        '''获取第二行的纠纷编号，用于查询'''
+        '''获取第二行的纠纷编号，用于查询
+        '''
         self.find_element_by_xpath(self.x_dispute_list).click()
         try:
             res = self.find_element_by_xpath('//div[@id="mediate"]/div[2]/div[3]/ul/li[2]').text
@@ -337,7 +344,8 @@ class PersonalPage(Page):
         return id
 
     def verfc_act_dispute_search_by_id(self, ecpect_res):
-        '''by id'''
+        '''by id
+        '''
         sleep(1)
         try:
             res = self.find_element_by_xpath('//div[@id="mediate"]/div[1]/div[3]/ul/li[2]').text  # 调解编号：1665792F2D099
@@ -349,7 +357,71 @@ class PersonalPage(Page):
         print "expect: ", ecpect_res
         return id == ecpect_res
 
+    def act_dispute_schedule(self):
+        '''调解列表-调解进度
+        '''
+        self.find_element_by_xpath(self.x_dispute_list).click()
+        sleep(2)
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="调解进度"]')))
+        self.find_element_by_xpath('//a[text()="调解进度"]').click()
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="确定"]')))
+        self.find_element_by_xpath('//button[text()="确定"]').click()
 
+
+    def act_dispute_detail_info_back(self):
+        '''调解列表-纠纷详情-返回列表
+        '''
+        self.find_element_by_xpath(self.x_dispute_list).click()
+        sleep(2)
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="纠纷详情"]')))
+        self.find_element_by_xpath('//a[text()="纠纷详情"]').click()
+        self.find_element_by_xpath('//button[text()="返回列表"]').click()
+
+    def act_dispute_detail_info_save(self):
+        '''调解列表-纠纷详情-保存
+        '''
+        self.find_element_by_xpath(self.x_dispute_list).click()
+        sleep(2)
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="纠纷详情"]')))
+        self.find_element_by_xpath('//a[text()="纠纷详情"]').click()
+        self.find_element_by_xpath('//button[text()="返回列表"]').click()
+
+    def act_dispute_detail_info_schedule(self):
+        '''调解列表-纠纷详情-解纷进度
+        '''
+        self.find_element_by_xpath(self.x_dispute_list).click()
+        sleep(2)
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="纠纷详情"]')))
+        self.find_element_by_xpath('//a[text()="纠纷详情"]').click()
+        self.find_element_by_xpath('//span[text()="解纷进度"]').click()
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//button[text()="确定"])[3]')))
+        self.find_element_by_xpath('(//button[text()="确定"])[3]').click()
+
+    def tel_binding(self):
+        '''绑定手机-取消
+        '''
+        self.find_element_by_xpath(self.x_security_setting).click()
+        self.find_element_by_xpath('//td[text()="绑定手机"]/../td[4]/a').click()
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//span[text()="取消"])[2]')))
+        element.click()
+
+    def mail_binding(self):
+        '''绑定邮箱-取消
+        '''
+        self.find_element_by_xpath(self.x_security_setting).click()
+        self.find_element_by_xpath('//td[text()="绑定邮箱"]/../td[4]/a').click()
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//span[text()="取消"])[3]')))
+        element.click()
+        # self.find_element_by_xpath('(//span[text()="取消"])[3]').click()
+
+    def setting_signature(self):
+        '''预留签名-取消
+        '''
+        self.find_element_by_xpath(self.x_security_setting).click()
+        self.find_element_by_xpath('//td[text()="预留签名"]/../td[4]/a').click()
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="取 消"]')))
+        element.click()
+        # self.find_element_by_xpath('//span[text()="取 消"]').click()
 
     def person_data_save(self):
         '''修改个人资料'''
