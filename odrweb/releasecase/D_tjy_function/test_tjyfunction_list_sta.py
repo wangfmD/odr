@@ -3,7 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
-from odrweb.page.caselistpage_ import InputCaseListPage,CaseListPage
+from odrweb.page.caselistpage import InputCaseListPage
 from odrweb.page.homepage import HomePage
 
 reload(sys)
@@ -43,7 +43,7 @@ class OdrTjyFunc(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_3(self):
-        '''纠纷登记列表-添加纠纷-提交'''
+        '''纠纷登记列表-纠纷详情-保存'''
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = InputCaseListPage(self.homepage)
         case_list_page.case_modification_save()
