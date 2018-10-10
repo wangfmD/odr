@@ -3,7 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
-from odrweb.page.caselistpage_ import InputCaseListPage,CaseListPage
+from odrweb.page.caselistpage import CaseListPage
 from odrweb.page.homepage import HomePage
 
 reload(sys)
