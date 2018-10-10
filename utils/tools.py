@@ -1,8 +1,8 @@
 # coding:utf-8
 import os
-import MySQLdb
+import pymysql
 import smtplib
-from MySQLdb import cursors
+from pymysql import cursors
 from email import encoders
 from email.header import Header
 from email.mime.base import MIMEBase
@@ -12,16 +12,16 @@ from email.mime.text import MIMEText
 
 class DbConn:
     '''数据库操作'''
-    host = '10.1.41.20'
+    host = '182.254.149.243'
     # hostadd = db_conf['hostadd']
     user = 'root'
-    passwd = 'Sanbu@123456'
-    db = 'middle'
-    port = 13306
+    passwd = 'odrtest@bm#db'
+    db = 'odr2_test_180816'
+    port = 3306
 
-    def __init__(self, host=host, user=user, passwd=passwd, db=db, port=13306):
+    def __init__(self, host=host, user=user, passwd=passwd, db=db, port=3306):
         try:
-            self.con = MySQLdb.connect(host=host,
+            self.con = pymysql.connect(host=host,
                                        user=user,
                                        passwd=passwd,
                                        db=db,
@@ -30,7 +30,7 @@ class DbConn:
             print "DB connection info:"
             print "  >>host: {0}\n  >>user: {1}\n  >>password: {2}\n  >>database: " \
                   "{3}\n  >>port:{4}".format(host, user, passwd, db, port)
-        except MySQLdb.Error, e:
+        except pymysql.Error, e:
             print "Mysql Err %d:%s" % (e.args[0], e.args[1])
 
     def execQury(self, sql):

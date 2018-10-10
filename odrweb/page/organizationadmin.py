@@ -2,6 +2,7 @@
 from time import sleep
 from odrweb.page.browser import Page
 from selenium.webdriver.common.action_chains import ActionChains
+from utils.tools import DbConn
 
 
 class MissionCenter(Page):
@@ -42,7 +43,14 @@ class MissionCenter(Page):
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="detailsDispute(one)"]')
         k[j].click()
         sleep(1)
-        self.driver.switch_to_window(self.driver.window_handles[1])  # 切换到详情窗口
+        try:
+            self.driver.switch_to_window(self.driver.window_handles[1])  # 切换到详情窗口
+            return True
+        except:
+            return False
+
+
+
 
     def case_acceptance(self, count=None):
         '''受理'''
@@ -91,16 +99,47 @@ class MissionCenter(Page):
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="changeOrg(one.caseNo,one.orgName)"]')
         k[j].click()
 
-    def case_progress(self, count=None):
-        '''调解进程'''
-        '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
-        if count is None:
-            count = 1
+    def input_change_reason(self, reason_):
+        '''输入转移机构理由'''
+        self.find_element_by_xpath('//div[@class="toReason_div"]/textarea').send_keys(reason_)
 
-        j = int(count) - 1   # 数组下标处理
-        print("查看第"+str(count)+"个纠纷调解进度")
-        k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="progress(one.id,one.statusName)"]')
-        k[j].click()
+    def choose_change_organization(self, name_):
+        '''选择转移机构'''
+        k = self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').text
+        if k != "":
+            self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').clear()
+        self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').send_keys(name_)
+        self.find_element_by_xpath('//h4[text()="调解机构筛选"]/..//button[text()="搜索"]').click()
+        self.find_element_by_xpath('//button[text()="转出"]').click()
+        self.find_element_by_xpath('//div[text()="温馨提示"]/..//a[text()="确认"]').click()  #温馨提示-确认
+        sleep(2)
+
+    def verfc_change_organization(self, casenumber):
+        '''调解机构转移校验'''
+        connect = DbConn()
+        sql = "SELECT ORGANIZATION_ID FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
+        result = connect.execQury(sql)
+        ogr_id = str(result[0]["ORGANIZATION_ID"])
+        if ogr_id != "3300000000000005":
+            return True
+        else:
+            return False
+
+
+    def case_progress(self, count=None):
+        try:
+            '''调解进程'''
+            '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
+            if count is None:
+                count = 1
+
+            j = int(count) - 1   # 数组下标处理
+            print("查看第"+str(count)+"个纠纷调解进度")
+            k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="progress(one.id,one.statusName)"]')
+            k[j].click()
+            return True
+        except:
+            return False
 
     def tip_agree(self):
         '''重要提示-确定'''
@@ -198,8 +237,31 @@ class MissionCenter(Page):
         return j
 
     def click_batch_process(self):
-        '''批量受理第一页的案件'''
-        self.find_element_by_xpath('//button[@class="confirm_cam"]').click()
+        '''批量受理案件按钮'''
+        try:
+            self.find_element_by_xpath('//button[@class="confirm_cam"]').click()
+            return True
+        except:
+            return False
+
+    def click_refuse_type(self, type_=None):
+        '''拒绝原因'''
+        if type_ is None:
+            refusetype = u"非本机构管辖"
+        else:
+            refusetype = type_
+
+        self.find_element_by_xpath('//span[text()="原因"]/../ul/li[text()="' + refusetype + '"]').click()
+
+    def input_refuse_detail(self, detail_):
+        '''填写拒绝理由'''
+        self.find_element_by_xpath('//div[@class="box-textarea"]/textarea').send_keys(detail_)
+
+    def click_commit_refuse(self):
+        '''确认拒绝'''
+        self.find_element_by_xpath('//div[@class="btn-box"]/input[@value="确定"]').click()
+
+
 
     def verfc_total_case_number_visitable(self,totalnumber):
         '''案件总量是否数字'''
@@ -230,6 +292,51 @@ class MissionCenter(Page):
             else:
                 return False
         except:
+            return False
+
+    def get_an_unaccept_case(self):
+        '''获取一个未受理纠纷编号（status=20）'''
+        status = "20"  # 未受理纠纷状态枚举值
+        ORGANIZATION_ID = "3300000000000005"  # 北明测试机构
+        connect = DbConn()
+        sql = "SELECT CASE_NO FROM `LAW_CASE`WHERE status='" + status + "' and ORGANIZATION_ID='" + ORGANIZATION_ID + "' order by CREATE_DATE desc"
+        result = connect.execQury(sql)
+        casenumber = result[0]["CASE_NO"]
+        print("获取的纠纷编号为：" + casenumber)
+        return casenumber
+
+    def verfc_case_acceptable(self, casenumber):
+        '''断言：案件状态是否为已受理（status=06）'''
+        connect = DbConn()
+        sql = "SELECT status FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
+        result = connect.execQury(sql)
+        status = str(result[0]["status"])
+        if status == "06":
+            return True
+        else:
+            return False
+
+    def verfc_case_unacceptable(self, casenumber):
+        '''断言：案件状态是否为不受理（status=05）'''
+        connect = DbConn()
+        sql = "SELECT status FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
+        result = connect.execQury(sql)
+        status = str(result[0]["status"])
+        print(status)
+        if status == "05":
+            return True
+        else:
+            return False
+
+    def verfc_case_assignable(self, casenumber):
+        '''断言：案件状态是否为已分配（status=21）'''
+        connect = DbConn()
+        sql = "SELECT status FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
+        result = connect.execQury(sql)
+        status = result[0]["status"]
+        if status == "21":
+            return True
+        else:
             return False
 
 
