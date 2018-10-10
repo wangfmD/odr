@@ -424,11 +424,15 @@ class PersonalPage(Page):
         # self.find_element_by_xpath('//span[text()="取 消"]').click()
 
     def person_data_save(self):
-        '''修改个人资料'''
+        '''我的资料-保存'''
+        # 点击我的资料链接
         self.find_element_by_xpath(self.x_person_data_link_a).click()
+        # 输入详细地址
         self.find_element_by_xpath(self.x_person_data_input).clear()
         self.find_element_by_xpath(self.x_person_data_input).send_keys('30#')
+        # 点击保存
         self.find_element_by_xpath(self.x_person_data_save_btn).click()
+        # 等待更新成功-确定btn
         element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, self.x_person_data_save_suc_a)))
         element.click()
 
