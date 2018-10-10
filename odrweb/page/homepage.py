@@ -16,6 +16,7 @@ IE11URL_ytj = 'https://uatodr.odrcloud.net/jsp/pages/accountLogin.jsp?page=14588
 class HomePage(Page):
 
     select_user_quit_a = '//div[@id="app"]/header/div[2]/div[2]/ul/li[2]/a'  # 个人中心页面 头部的 （退出）
+    x_bafg_home_logout_btn = '//a[text()="退出"]'                            # 办案法官登录页面-退出btn
 
     def quit(self):
         self.driver.quit()
@@ -150,7 +151,8 @@ class HomePage(Page):
         :return:
         '''
         try:
-            quit_link = self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a').text
+            # 获取退出btn
+            quit_link = self.driver.find_element_by_xpath(self.x_bafg_home_logout_btn).text
         except:
             quit_link = "**None**"
         print "result: ", quit_link
@@ -185,7 +187,7 @@ class HomePage(Page):
 
         :return:
         '''
-        self.driver.find_element_by_xpath('/html/body/nav/div/div[2]/a').click()
+        self.driver.find_element_by_xpath(self.x_bafg_home_logout_btn).click()
         sleep(1)
 
     def mediator_login_quit_sverification(self):
