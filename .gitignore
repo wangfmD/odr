@@ -130,3 +130,4 @@ venv.bak/
 *.out
 
 .idea/
+.DS_Store
