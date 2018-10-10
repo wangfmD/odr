@@ -6,10 +6,11 @@ from odrweb.page.browser import Page
 
 
 class CaseDjListPage(Page):
+    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
 
     def _into_disputelist(self):
         '''进入案件登记列表'''
-        self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+        self.find_element_by_xpath(self.x_case_input_list_a).click()
 
     def _get_mydispute_id(self):
         '''我的案件列表获取案件编号'''
@@ -173,76 +174,7 @@ class CaseDjListPage(Page):
         res = dispute_id != u"案件编号搜索失败"
         return res
 
-    def dispute_info_change(self):
-        '''已提交案件纠纷详情页面修改保存并校验'''
-        self._into_disputelist()
-        self._choose_commit()
-        jf_desc_before = self._get_jf_desc()
-        self._into_dispute_info()
-        self._dispute_info_change()
-        jf_desc_after = self._get_jf_desc()
-        res = jf_desc_before != jf_desc_after
-        return res
 
-    def into_dispute_info(self):
-        '''已提交案件进入纠纷详情页面并校验'''
-        self._into_disputelist()
-        self._choose_commit()
-        dispute_id_out = self._get_dispute_id()
-        self._into_dispute_info()
-        dispute_id_in = self._get_dispute_info_id()
-        res = dispute_id_out == dispute_id_in
-        return res
-
-    def mydispute_find(self):
-        '''已提交案件我的案件列表搜索'''
-        self._into_disputelist()
-        self._choose_commit()
-        dispute_id = self._get_dispute_id()
-        # 进入案件登记列表第五页
-        self.find_element_by_xpath('/html/body/div[4]/div[2]/div[7]/ul/li[8]/a').click()
-        self._find_scan(dispute_id)
-
-    def dispute_add_commit(self):
-        '''已提交案件列表增加纠纷-提交'''
-        self._into_disputelist()
-        self._choose_commit()
-        self._dispute_add()
-        jf_desc_add = self._dispute_add_commit()
-        jf_desc = self._get_jf_desc()
-        res = jf_desc_add == jf_desc
-        return res
-
-    def dispute_add_save_delete(self):
-        '''已提交案件列表增加纠纷-保存-删除'''
-        self._into_disputelist()
-        self._choose_commit()
-        self._dispute_add()
-        self._dispute_add_save()
-        self._choose_save()
-        dispute_id = self._get_dispute_id()
-        self._dispute_delete()
-        self._find_scan(dispute_id)
-
-
-
-    def into_mydispult_info(self):
-        '''进入我的案件列表纠纷详情'''
-        dispult_id_out = self._get_mydispute_id()
-        self._into_mydispult_info()
-        dispult_id_in = self._get_dispute_info_id()
-        res = dispult_id_out == dispult_id_in
-        return res
-
-    def mydispute_info_change(self):
-        '''我的案件列表等待调解案件修改保存'''
-        self._choose_mydispute_wait()
-        mydispult_desc_before = self._get_mydispute_desc()
-        self._into_mydispult_info()
-        self._dispute_info_change()
-        mydispult_desc_after = self._get_mydispute_desc()
-        res = mydispult_desc_after == mydispult_desc_before
-        return  res
 
 
 
