@@ -168,5 +168,12 @@ class OdrJfInput(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.setting_signature()
 
+    def test_16(self):
+        '''我的资料-保存'''
+        self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+        self.homepage.user_personal_center()
+        personalpage = PersonalPage(self.homepage)
+        personalpage.person_data_save()
+
 if __name__ == '__main__':
     unittest.main()
