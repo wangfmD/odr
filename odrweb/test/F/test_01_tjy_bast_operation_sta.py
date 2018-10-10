@@ -1,11 +1,6 @@
 # coding: utf-8
-import sys
 import unittest
-from time import sleep
 
-from odrweb.core.initdata import users
-from odrweb.page.caselistpage import TjyBaseOperation
-from odrweb.page.disputepage import DisputePageTjy
 from odrweb.page.homepage import HomePage
 
 
