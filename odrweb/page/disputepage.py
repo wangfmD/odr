@@ -6,6 +6,8 @@ from odrweb.page.browser import Page
 
 class DisputePageTjy(Page):
     '''调解员'''
+    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
+
     # 申请人代理人
     x_agent_natural_common      = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[1]/div/div/label[1]/span[1]/span'
     x_agent_non_natural_common  = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[1]/div/div/label[1]/span[1]/span'
@@ -297,9 +299,9 @@ class DisputePageTjy(Page):
     def verification_commit(self, **kwargs):
         '''调解员登记案件验证'''
         try:
-            self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+            self.find_element_by_xpath(self.x_case_input_list_a).click()
         except:
-            self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+            self.find_element_by_xpath(self.x_case_input_list_a).click()
 
         try:
             jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
@@ -342,14 +344,14 @@ class DisputePageTjy(Page):
 
     def commit(self, **kwargs):
         self._input_all(**kwargs)
-        # self._commit()
+        self._commit()
 
     def verification_save(self, **kwargs):
         '''调解员登记案件验证'''
         try:
-            self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+            self.find_element_by_xpath(self.x_case_input_list_a).click()
         except:
-            self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
+            self.find_element_by_xpath(self.x_case_input_list_a).click()
 
         try:
             jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text

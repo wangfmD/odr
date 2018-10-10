@@ -11,7 +11,7 @@ class CaseListBasePage(Page):
     modifcation_dispute_appeal = '**_**appeal'
     modifcation_dispute_type = u"金融借款合同纠纷"
     back_list = '//button[text()="返回列表"]'  # 返回列表
-
+    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
     def _make_mediate(self):
         '''预约调解'''
         self.find_element_by_xpath('//button[contains(text()," 预约调解")]').click()
@@ -129,7 +129,7 @@ class CaseListBasePage(Page):
         # appeal
         self.find_element_by_xpath('//h6[text()="申请诉求"]/following-sibling::p/textarea').clear()
         self.find_element_by_xpath('//h6[text()="申请诉求"]/following-sibling::p/textarea').send_keys("**_**appeal")
-        self.find_element_by_xpath('/html/body/section[2]/div[1]/edit/div[4]/button').click()
+        self.find_element_by_xpath('//button[text()="保存"]').click()
         sleep(2)
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
         sleep(0.5)
@@ -321,19 +321,23 @@ class InputCaseListPage(CaseListBasePage):
         self._dispute_delete()
 
     def dispute_add_commit(self, desc_ext):
+        '''案件登记列表-已提交-增加纠纷-提交
+        '''
         self._into_input_case_list()
         self.select_status(dispute_status=u'已提交')
-        self._goto_detail_info()
+        # self._goto_detail_info()
         self._dispute_add_input(desc_ext)
         self._input_dispute_add_commit()
 
     def dispute_add_save(self, desc_ext):
+        '''案件登记列表-已提交-增加纠纷-保存
+        '''
         # 进入纠纷登记列表
         self._into_input_case_list()
         # 选择未提交查询
         self.select_status(dispute_status=u'已提交')
         # 进入纠纷详情
-        self._goto_detail_info()
+        # self._goto_detail_info()
         # 修改内容
         self._dispute_add_input(desc_ext)
         # 保存
@@ -373,7 +377,7 @@ class InputCaseListPage(CaseListBasePage):
 
     def _into_input_case_list(self):
         '''进入案件登记列表'''
-        self.find_element_by_xpath('//div[text()="案件登记列表"]').click()
+        self.find_element_by_xpath(self.x_case_input_list_a).click()
 
     def _dispute_delete(self):
         self.find_element_by_xpath('//a[text()="删除"]').click()
