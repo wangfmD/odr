@@ -10,6 +10,13 @@ class AdminOrgan(Page):
 
     # 选择除响应期2天外
     x_choose_unresponsive_case = '//small[text()="（除响应期2天外）"]'
+    # 进入案件记录列表页面
+    x_form_record = '//a[contains(text()," 案件记录")]'
+    # 案件列表进入司法确认
+    x_form_record_judicial = '//a[contains(text(),"司法确认")]'
+    # 司法确认登记时间选择所有时间
+    x_form_record_judicial_alltime = '//li[contains(text(),"所有时间")]'
+
 
     def change_windows(self):
         '''切换窗口'''
@@ -351,4 +358,283 @@ class AdminOrgan(Page):
         # 点击导出按钮
         self.find_element_by_xpath('//input[@id="startDateGoods"]/../../button').click()
         print u"点击导出按钮成功"
+
+    def form_show_tjy(self):
+        '''统计报表-优秀内容展示-金牌调解员'''
+        self.form_show()
+        # 金牌调解员选择调解成功率
+        self.find_element_by_xpath('//label[text()="金牌调解员"]/../select').click()
+        self.find_element_by_xpath('//label[text()="金牌调解员"]/../select/option[2]').click()
+        tjy = self.find_element_by_xpath('//label[text()="金牌调解员"]/../select/option[2]').text
+        return tjy
+
+    def verification_form_show_tjy(self,tjy):
+        '''验证-统计报表-优秀内容展示-金牌调解员'''
+        try:
+            tjy_v = self.find_element_by_xpath('//th[text()="调解成功率"]').text
+        except:
+            tjy_v = "*None*"
+        print "result: ",tjy_v
+        print "except: ",tjy
+        res = tjy_v == tjy
+        return res
+
+    def form_show_organ(self):
+        '''统计报表-优秀内容展示-优秀调解机构'''
+        self.form_show()
+        # 优秀调解机构选择及时响应率
+        self.find_element_by_xpath('//label[text()="优秀调解机构"]/../select').click()
+        self.find_element_by_xpath('//label[text()="优秀调解机构"]/../select/option[2]').click()
+        organ = self.find_element_by_xpath('//label[text()="优秀调解机构"]/../select/option[2]').text
+        return organ
+
+    def verification_form_show_organ(self, organ):
+        '''验证-统计报表-优秀内容展示-优秀调解机构'''
+        try:
+            organ_v = self.find_element_by_xpath('//th[text()="及时响应率"]').text
+        except:
+            organ_v = "*None*"
+        print "result: ", organ_v
+        print "except: ", organ
+        res = organ_v == organ
+        return res
+
+    def form_show_city(self):
+        '''统计报表-优秀内容展示-优秀调解机构'''
+        self.form_show()
+        # 优秀调解机构选择及时响应率
+        self.find_element_by_xpath('//label[text()="优秀市"]/../select').click()
+        self.find_element_by_xpath('//label[text()="优秀市"]/../select/option[2]').click()
+        city = self.find_element_by_xpath('//label[text()="优秀市"]/../select/option[2]').text
+        return city
+
+    def verification_form_show_city(self, city):
+        '''验证-统计报表-优秀内容展示-优秀市'''
+        try:
+            city_v = self.find_element_by_xpath('//th[text()="及时响应率"]').text
+        except:
+            city_v = "*None*"
+        print "result: ", city_v
+        print "except: ", city
+        res = city_v == city
+        return res
+
+    def form_record_dispute_type(self):
+        '''案件记录-纠纷调解-调解类型'''
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        # 点击选择调解类型为消费维权
+        self.find_element_by_xpath('//li[contains(text(),"消费维权")]').click()
+        sleep(1)
+
+    def verification_form_record_dispute_type(self):
+        '''验证-案件记录-纠纷调解-调解类型'''
+        # 获取所选调解类型
+        type = self.find_element_by_xpath('//li[contains(text(),"消费维权")]').text
+        # 获取第一条案件纠纷类型
+        try:
+            type_v = self.find_element_by_xpath('//label[text()="纠纷类型"]/../p').text
+        except:
+            type_v = "*None*"
+        print "result: ",type_v
+        print "except: ",type
+        res = type_v == type
+        return res
+
+    def form_record_dispute_state(self):
+        '''案件记录-纠纷调解-调解状态'''
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        # 点击选择调解状态为等待调解
+        self.find_element_by_xpath('//li[contains(text(),"等待调解")]').click()
+        sleep(1)
+
+    def verification_form_record_dispute_state(self):
+        '''验证-案件记录-纠纷调解-调解类型'''
+        # 获取所选调解类型
+        type = self.find_element_by_xpath('//li[contains(text(),"等待调解")]').text
+        # 获取第一条案件纠纷类型
+        try:
+            type_v = self.find_element_by_xpath('//div[contains(text(),"等待调解")]').text
+        except:
+            type_v = "*None*"
+        print "result: ",type_v
+        print "except: ",type
+        res = type_v == type
+        return res
+
+    def form_record_dispute_time(self):
+        '''案件记录-纠纷调解-登记时间'''
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        # 点击登记时间所有时间
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(1)
+
+    def verification_form_record_dispute_time(self):
+        '''验证-案件记录-纠纷调解-登记时间'''
+        # 获取所有时间案件数量
+        num = self.find_element_by_xpath('//span[contains(text(),"案件数量")]/../span[2]/i[2]').text
+        if int(num)>10000:
+            nu = "true"
+        else:
+            nu = "false"
+        print u"案件数量: ",num
+        res = nu == "true"
+        return res
+
+    def form_record_dispute_area(self):
+        '''案件记录-纠纷调解-选择地区'''
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        # 选择市区为杭州市上城区
+        self.find_element_by_xpath('//option[contains(text(),"请选择市")]/..').click()
+        self.find_element_by_xpath('//option[text()="杭州市"]').click()
+        sleep(0.5)
+        self.find_element_by_xpath('//option[contains(text(),"请选择区/镇")]/..').click()
+        self.find_element_by_xpath('//option[text()="上城区"]').click()
+        sleep(0.5)
+
+    def verification_form_record_dispute_area(self):
+        '''验证-案件记录-纠纷调解-选择地区'''
+        try:
+            area = self.find_element_by_xpath('//label[text()="调解机构"]/../p').text
+        except:
+            area = "*None*"
+        area = area[0:9]
+        print "result: ", area
+        res = area == u"浙江省杭州市上城区"
+        return res
+
+    def form_record_dispute_number(self):
+        '''案件记录-纠纷调解-案件数量'''
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        # 获取案件数量
+        num = self.find_element_by_xpath('//span[contains(text(),"案件数量")]/../span[2]/i[2]').text
+        print u"案件数量: ",num
+
+    def form_record_dispute_search(self):
+        '''案件记录-纠纷调解-搜索'''
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        # 选择第二个案件编号
+        sea = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[4]/div/div').text
+        # 获取案件编号
+        search = sea[5:]
+        # 输入框输入案件编号
+        self.find_element_by_xpath('//input[@id="keyword"]').send_keys(search)
+        # 点击搜索按钮
+        self.find_element_by_xpath('//input[@id="keyword"]/../../a').click()
+        sleep(0.5)
+        return sea
+
+    def verification_form_record_dispute_search(self,sea):
+        '''验证-案件记录-纠纷调解-搜索'''
+        try:
+            sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[3]/div/div').text
+        except:
+            sea_v = "*None*"
+        print "result: ",sea_v
+        print "except: ",sea
+        res = sea == sea_v
+        return res
+
+    def form_record_dispute_reset(self):
+        '''案件记录-纠纷调解-重置'''
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        # 选择第二个案件编号
+        sea = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[4]/div/div').text
+        # 获取案件编号
+        search = sea[5:]
+        # 输入框输入案件编号
+        self.find_element_by_xpath('//input[@id="keyword"]').send_keys(search)
+        # 点击搜索按钮
+        self.find_element_by_xpath('//input[@id="keyword"]/../../a').click()
+        sleep(0.5)
+        self.find_element_by_xpath('//input[@id="keyword"]/../../a[2]').click()
+        return sea
+
+    def verification_form_record_dispute_reset(self,sea):
+        '''验证-案件记录-纠纷调解-重置'''
+        try:
+            sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[4]/div/div').text
+        except:
+            sea_v = "*None*"
+        print "result: ",sea_v
+        print "except: ",sea
+        res = sea == sea_v
+        return res
+
+    def form_record_dispute_excel(self):
+        """案件记录-纠纷调解-批量导出"""
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath('//button[contains(text(),"批量导出")]').click()
+        print u"批量导出成功"
+
+    def form_record_juduciai_type(self):
+        '''案件记录-司法确认-案件类型'''
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(0.5)
+        # 点击选择调解类型为消费维权
+        self.find_element_by_xpath('//li[contains(text(),"消费维权")]').click()
+        type = self.find_element_by_xpath('//li[contains(text(),"消费维权")]').text
+        sleep(1)
+        return type
+
+    def verification_form_record_judicial_type(self,type):
+        '''验证-案件记录-司法确认-案件类型'''
+        # 进入第一个案件的案件详情页面
+        self.find_element_by_xpath('//div[contains(text(),"案件详情")]').click()
+        sleep(1)
+        # 获取第一条案件纠纷类型
+        try:
+            type_v = self.find_element_by_xpath('//h6[contains(text(),"案件类型")]/../p').text
+        except:
+            type_v = "*None*"
+        print "result: ", type_v
+        print "except: ", type
+        res = type_v == type
+        return res
+
+    def form_record_judicial_state(self):
+        """案件记录-司法确认-案件状态"""
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(0.5)
+        # 点击选择调解状态为等待调解
+        self.find_element_by_xpath('//li[contains(text(),"不予受理")]').click()
+        sleep(1)
+
+    def verification_form_record_judicial_state(self):
+        '''验证-案件记录-司法确认-案件类型'''
+        # 获取所选案件类型
+        type = self.find_element_by_xpath('//li[contains(text(),"不予受理")]').text
+        # 获取第一条案件案件类型
+        try:
+            type_v = self.find_element_by_xpath('//p[contains(text(),"不予受理")]').text
+        except:
+            type_v = "*None*"
+        # 字符串收尾去空处理
+        type_v = type_v.strip()
+        type_v = type_v.replace(" "," ")
+        print "result: ", type_v
+        print "except: ", type
+        res = type_v == type
+        return res
 

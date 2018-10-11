@@ -210,23 +210,106 @@ class AdminOrigan(unittest.TestCase):
     #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
     #     adminorganpage = AdminOrgan(self.homepage)
     #     adminorganpage.form_show_excel()
-
-    def test_28(self):
-        '''统计报表-优秀内容展示-金牌调解员'''
-        self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
-        adminorganpage = AdminOrgan(self.homepage)
-
+    #
+    # def test_28(self):
+    #     '''统计报表-优秀内容展示-金牌调解员'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     tjy = adminorganpage.form_show_tjy()
+    #     res = adminorganpage.verification_form_show_tjy(tjy)
+    #     self.assertEqual(True,res)
+    #
     # def test_29(self):
     #     '''统计报表-优秀内容展示-优秀调解机构'''
     #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
     #     adminorganpage = AdminOrgan(self.homepage)
+    #     organ = adminorganpage.form_show_organ()
+    #     res = adminorganpage.verification_form_show_organ(organ)
+    #     self.assertEqual(True,res)
     #
     # def test_30(self):
     #     '''统计报表-优秀内容展示-优秀市'''
     #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
     #     adminorganpage = AdminOrgan(self.homepage)
+    #     city = adminorganpage.form_show_organ()
+    #     res = adminorganpage.verification_form_show_organ(city)
+    #     self.assertEqual(True,res)
+    #
+    # def test_31(self):
+    #     '''案件记录-纠纷调解-调解类型'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     adminorganpage.form_record_dispute_type()
+    #     res = adminorganpage.verification_form_record_dispute_type()
+    #     self.assertEqual(True,res)
+    #
+    # def test_32(self):
+    #     '''案件记录-纠纷调解-调解状态'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     adminorganpage.form_record_dispute_state()
+    #     res = adminorganpage.verification_form_record_dispute_state()
+    #     self.assertEqual(True,res)
+    #
+    # def test_33(self):
+    #     '''案件记录-纠纷调解-登记时间'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     adminorganpage.form_record_dispute_time()
+    #     res = adminorganpage.verification_form_record_dispute_time()
+    #     self.assertEqual(True,res)
+    #
+    # def test_34(self):
+    #     '''案件记录-纠纷调解-选择地区'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     adminorganpage.form_record_dispute_area()
+    #     res = adminorganpage.verification_form_record_dispute_area()
+    #     self.assertEqual(True,res)
+    #
+    # def test_35(self):
+    #     '''案件记录-纠纷调解-案件数量'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     adminorganpage.form_record_dispute_number()
+    #
+    # def test_36(self):
+    #     '''案件记录-纠纷调解-搜索'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     sea = adminorganpage.form_record_dispute_search()
+    #     res = adminorganpage.verification_form_record_dispute_search(sea)
+    #     self.assertEqual(True,res)
+    #
+    # def test_37(self):
+    #     '''案件记录-纠纷调解-重置'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     sea = adminorganpage.form_record_dispute_reset()
+    #     res = adminorganpage.verification_form_record_dispute_reset(sea)
+    #     self.assertEqual(True,res)
+    #
+    # def test_38(self):
+    #     '''案件记录-纠纷调解-批量导出'''
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     adminorganpage.form_record_dispute_excel()
+    #
+    # def test_39(self):
+    #     """案件记录-司法确认-案件类型"""
+    #     self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+    #     adminorganpage = AdminOrgan(self.homepage)
+    #     type = adminorganpage.form_record_juduciai_type()
+    #     res = adminorganpage.verification_form_record_judicial_type(type)
+    #     self.assertEqual(True,res)
 
-
+    def test_40(self):
+        """案件记录-司法确认-案件状态"""
+        self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+        adminorganpage = AdminOrgan(self.homepage)
+        adminorganpage.form_record_judicial_state()
+        res = adminorganpage.verification_form_record_judicial_state()
+        self.assertEqual(True,res)
 
 
 
