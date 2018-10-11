@@ -128,8 +128,6 @@ class SimpleJfInputSave(unittest.TestCase):
         res = simple_page.verification_save(**simple_jf_info)
         self.assertEqual(True,res)
 
-        pass
-
     def test_04(self):
         '''简易案件登记-申请人-代理人-被申请人-代理人'''
         simple_jf_info = {"applicant": u"段志勇",
