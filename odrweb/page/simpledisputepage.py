@@ -36,12 +36,14 @@ simple_jf_info = { "applicant": u"段志勇",
 
 class SimpleDisputePage(Page):
 
+    x_caseregisrer_list = '//div[contains(text(), "案件登记列表")]'
+
     def _into_simple_jf(self):
         '''进入添加简易纠纷登记页面'''
         # # 点击调解员页面案件登记列表
         # self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
         # 调解员登记列表-点击
-        self.find_element_by_xpath('//div[contains(text(), "案件登记列表")]').click()
+        self.find_element_by_xpath(self.x_caseregisrer_list).click()
         sleep(1)
         # 点击简易案件登记
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/a[1]').click()
@@ -104,14 +106,16 @@ class SimpleDisputePage(Page):
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[1]/p/span[1]').click()
         sleep(1)
         self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-        sleep(1)
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_caseregisrer_list).click()
 
     def commit(self):
         '''点击提交按钮'''
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[1]/p/span[2]').click()
         sleep(1)
         self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-        sleep(1)
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_caseregisrer_list).click()
 
     def verification_commit(self,**kwargs):
         try:
