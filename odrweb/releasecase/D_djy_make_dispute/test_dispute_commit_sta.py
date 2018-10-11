@@ -14,7 +14,8 @@ t = 1
 
 
 class DisputeCommit(unittest.TestCase):
-    '''机构登记员-纠纷-提交'''
+    """机构登记员-纠纷-提交
+    """
 
     def setUp(self):
         self.homepage = HomePage()
