@@ -311,6 +311,43 @@ class AdminOrigan(unittest.TestCase):
         res = adminorganpage.verification_form_record_judicial_state()
         self.assertEqual(True,res)
 
+    def test_41(self):
+        """案件记录-司法确认-登记时间"""
+        self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+        adminorganpage = AdminOrgan(self.homepage)
+        adminorganpage.form_record_judicial_time()
+        res = adminorganpage.verification_form_record_judicial_time()
+        self.assertEqual(True,res)
+            
+    def test_43(self):
+        """案件记录-司法确认-案件数量"""
+        self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+        adminorganpage = AdminOrgan(self.homepage)
+        adminorganpage.form_record_judicial_number()
+
+    def test_44(self):
+        """案件记录-司法确认-搜索"""
+        self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+        adminorganpage = AdminOrgan(self.homepage)
+        sea = adminorganpage.form_record_judicial_search()
+        res = adminorganpage.verification_form_record_judicial_search(sea)
+        self.assertEqual(True,res)
+
+    def test_45(self):
+        """案件记录-司法确认-重置"""
+        self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+        adminorganpage = AdminOrgan(self.homepage)
+        sea = adminorganpage.form_record_judicial_reset()
+        res = adminorganpage.verification_form_record_judicial_reset(sea)
+        self.assertEqual(True,res)
+
+    def test_46(self):
+        """案件记录-司法确认-批量导出"""
+        self.homepage.organization_login(users.user_shenadmin['username'], users.user_shenadmin['pwd'])
+        adminorganpage = AdminOrgan(self.homepage)
+        adminorganpage.form_record_judicial_excel()
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -638,3 +638,144 @@ class AdminOrgan(Page):
         res = type_v == type
         return res
 
+    def form_record_judicial_time(self):
+        """案件记录-司法确认-登记时间"""
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+
+    def verification_form_record_judicial_time(self):
+        """案件记录-司法确认-登记时间"""
+        # 获取所有时间案件数量
+        num = self.find_element_by_xpath('//span[contains(text(),"案件数量")]/../span[2]/i[2]').text
+        if int(num)>250:
+            nu = "true"
+        else:
+            nu = "false"
+        print u"案件数量: ",num
+        res = nu == "true"
+        return res
+
+    def form_record_judicial_area(self):
+        """案件记录-司法确认-选择地区"""
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(0.5)
+        # 选择市区为浙江省杭州市上城区
+        self.find_element_by_xpath('//option[contains(text(),"请选择省")]/..').click()
+        self.find_element_by_xpath('//option[contains(text(),"浙江省")]').click()
+        sleep(0.5)
+        self.find_element_by_xpath('//option[contains(text(),"请选择市")]/..').click()
+        self.find_element_by_xpath('//option[contains(text(),"杭州市")]').click()
+        sleep(0.5)
+        self.find_element_by_xpath('//option[contains(text(),"请选择区/镇")]/..').click()
+        self.find_element_by_xpath('//option[contains(text(),"上城区")]').click()
+        sleep(0.5)
+
+    def verification_form_record_judicial_area(self):
+        '''验证-案件记录-纠纷调解-选择地区'''
+        try:
+            area = self.find_element_by_xpath('//label[text()="申请法院"]/../p').text
+        except:
+            area = "*None*"
+        area = area[0:9]
+        print "result: ", area
+        res = area == u"浙江省杭州市上城区"
+        return res
+
+    def form_record_judicial_number(self):
+        """案件记录-司法确认-案件数量"""
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(0.5)
+        # 获取案件数量
+        num = self.find_element_by_xpath('//span[contains(text(),"案件数量")]/../span[2]/i[2]').text
+        print u"案件数量: ",num
+
+    def form_record_judicial_search(self):
+        """案件记录-司法确认-搜索"""
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(0.5)
+        # 选择第二个案件编号
+        sea = self.find_element_by_xpath('//div[contains(text(),"案件编号")]/../../../div[4]/div[1]/div[1]').text
+        # 获取案件编号
+        search = sea[5:]
+        print search
+        # 输入框输入案件编号
+        self.find_element_by_xpath('//input[@id="fuzzyContent"]').send_keys(search)
+        # 点击搜索按钮
+        self.find_element_by_xpath('//input[@id="fuzzyContent"]/../../a[1]').click()
+        sleep(0.5)
+        return sea
+
+    def verification_form_record_judicial_search(self, sea):
+        '''验证-案件记录-司法确认-搜索'''
+        try:
+            sea_v = self.find_element_by_xpath('//div[contains(text(),"案件编号")]/../../../div[3]/div[1]/div[1]').text
+        except:
+            sea_v = "*None*"
+        print "result: ", sea_v
+        print "except: ", sea
+        res = sea == sea_v
+        return res
+
+    def form_record_judicial_reset(self):
+        """案件记录-司法确认-重置"""
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(0.5)
+        # 选择第二个案件编号
+        sea = self.find_element_by_xpath('//div[contains(text(),"案件编号")]/../../../div[4]/div[1]/div[1]').text
+        # 获取案件编号
+        search = sea[5:]
+        # 输入框输入案件编号
+        self.find_element_by_xpath('//input[@id="fuzzyContent"]').send_keys(search)
+        # 点击搜索按钮
+        self.find_element_by_xpath('//input[@id="fuzzyContent"]/../../a').click()
+        sleep(0.5)
+        # 点击重置按钮
+        self.find_element_by_xpath('//input[@id="fuzzyContent"]/../../a[2]').click()
+        return sea
+
+    def verification_form_record_judicial_reset(self, sea):
+        '''验证-案件记录-纠纷调解-重置'''
+        try:
+            sea_v = self.find_element_by_xpath('//div[contains(text(),"案件编号")]/../../../div[4]/div[1]/div[1]').text
+        except:
+            sea_v = "*None*"
+        print "result: ", sea_v
+        print "except: ", sea
+        res = sea == sea_v
+        return res
+
+    def form_record_judicial_excel(self):
+        """案件记录-司法确认-批量导出"""
+        # 进入案件记录页面
+        self.find_element_by_xpath(self.x_form_record).click()
+        sleep(1)
+        self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
+        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        sleep(0.5)
+        self.find_element_by_xpath('//button[contains(text(),"批量导出")]').click()
+        print u"批量导出成功"
