@@ -14,7 +14,7 @@ t = 2
 
 
 class UserApply(unittest.TestCase):
-    '''用户-纠纷登记-申请人'''
+    '''用户纠纷登记-申请人'''
     dispute_info = {
         "jf_appeal": u"假一赔十",
         "applicant_name": u"申企业或机构名称",  #

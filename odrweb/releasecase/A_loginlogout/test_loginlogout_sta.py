@@ -5,7 +5,7 @@ from odrweb.core.initdata import users
 from odrweb.page.homepage import HomePage
 
 class OdrLoginAndQuit(unittest.TestCase):
-    '''平台用户登录登出'''
+    '''用户登录登出'''
 
     def setUp(self):
         self.homepage = HomePage()

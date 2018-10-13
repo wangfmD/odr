@@ -12,8 +12,8 @@ from odrweb.page.inclaimantinfo import InClaimantInfo
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-class NormalProxyMultiProposerClaimant(unittest.TestCase):
-    '''用户-复数申请人'''
+class MultiClaimant(unittest.TestCase):
+    '''用户纠纷登记-复数申/被请人'''
     def setUp(self):
         self.homepage = HomePage()
 

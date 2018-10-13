@@ -14,7 +14,7 @@ t = 2
 
 
 class UserAgent(unittest.TestCase):
-    '''用户-纠纷登记-代理人'''
+    '''用户纠纷登记-代理人'''
     dispute_info = {
         "jf_appeal": u"假一赔十",
         "applicant_name": u"企业或机构名称",  #
