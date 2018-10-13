@@ -356,6 +356,7 @@ class InputCaseListPage(CaseListBasePage):
     def _dispute_add_input(self, desc_ext):
         self.find_element_by_xpath('//a[text()="增加纠纷"]').click()
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').clear()
+        sleep(0.5)
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').send_keys(desc_ext)
 
     def _input_dispute_add_commit(self):
