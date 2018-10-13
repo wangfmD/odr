@@ -13,8 +13,8 @@ sys.setdefaultencoding("utf-8")
 
 t=1
 
-class OdrJfInput(unittest.TestCase):
-    '''纠纷登记-调解员'''
+class DisputeSave(unittest.TestCase):
+    '''调解员-纠纷保存'''
 
     def setUp(self):
         self.homepage = HomePage()

@@ -13,8 +13,9 @@ sys.setdefaultencoding("utf-8")
 t = 1
 
 
-class OdrJfInput(unittest.TestCase):
-    '''纠纷登记-机构登记员'''
+class DisputeCommit(unittest.TestCase):
+    """机构登记员-纠纷-提交
+    """
 
     def setUp(self):
         self.homepage = HomePage()
@@ -31,7 +32,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -70,7 +70,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -109,7 +108,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -148,7 +146,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -187,7 +184,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -226,7 +222,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -265,7 +260,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -304,7 +298,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "common",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
@@ -343,7 +336,6 @@ class OdrJfInput(unittest.TestCase):
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "agent_type": "",  # "" common special,
                        "agent_b_type": "special",  # common special,
-                       'none_mediator': True,
 
                        "jf_appeal": u"假一赔十",
                        "applicant_name": u"企业或机构名称",  #
