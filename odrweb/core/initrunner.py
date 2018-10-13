@@ -18,7 +18,7 @@ class TestRunner:
     def __init__(self):
         self.homePath = home_path
         self.test_dir = '.'
-        self.discover = unittest.defaultTestLoader.discover(self.test_dir, pattern='*_sta.py')
+        self.discover = unittest.defaultTestLoader.discover(self.test_dir, pattern='*_r.py')
         # 设置测试报告路径
         self.reportPath = os.path.join(self.homePath, "report")
 
