@@ -13,7 +13,7 @@ sys.setdefaultencoding("utf-8")
 t = 2
 
 
-class OdrJfInput(unittest.TestCase):
+class UserApply(unittest.TestCase):
     '''用户-纠纷登记-申请人'''
     dispute_info = {
         "jf_appeal": u"假一赔十",

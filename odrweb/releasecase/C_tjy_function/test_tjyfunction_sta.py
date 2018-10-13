@@ -10,7 +10,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 
-class OdrTjyFunc(unittest.TestCase):
+class TjyFuncCaseList(unittest.TestCase):
     '''调解员-纠纷调解案件列表'''
 
     #

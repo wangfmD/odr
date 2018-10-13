@@ -13,8 +13,8 @@ old = users.user_wfm['pwd']
 new = '22222222'
 
 
-class OdrUser(unittest.TestCase):
-    ''' 用户功能'''
+class UserSecure(unittest.TestCase):
+    ''' 用户功能-安全设置'''
 
     def setUp(self):
         self.homepage = HomePage()

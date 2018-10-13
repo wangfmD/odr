@@ -21,8 +21,8 @@ jf_info = {"jf_desc": u"假冒商品",
            }
 
 
-class OdrJfInput(unittest.TestCase):
-    '''纠纷登记'''
+class User(unittest.TestCase):
+    '''用户功能'''
 
     def setUp(self):
         self.homepage = HomePage()

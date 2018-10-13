@@ -13,7 +13,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 class NormalProxyMultiProposerClaimant(unittest.TestCase):
-    '''复数申请人'''
+    '''用户-复数申请人'''
     def setUp(self):
         self.homepage = HomePage()
 
