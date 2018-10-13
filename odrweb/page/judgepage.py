@@ -81,7 +81,7 @@ class JudgePage(Page):
         """个人信息修改保存"""
         self.find_element_by_xpath(self.x_account_info_link).click()
         self.find_element_by_xpath(self.x_account_info_whcd_input).clear()
-        self.find_element_by_xpath(self.x_account_info_whcd_input).send_keys(u"大学")
+        self.find_element_by_xpath(self.x_account_info_whcd_input).send_keys(u"大学-modify")
 
     def _get_case_id(self):
         """获取案件编号
