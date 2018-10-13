@@ -84,7 +84,8 @@ class JudgePage(Page):
         self.find_element_by_xpath(self.x_account_info_whcd_input).send_keys(u"大学")
 
     def _get_case_id(self):
-        """获取案件编号"""
+        """获取案件编号
+        """
         try:
             res = self.find_element_by_xpath('(//div[contains(text(),"案件编号：")])[2]').text
             _,id_ = res.split(u'：')
