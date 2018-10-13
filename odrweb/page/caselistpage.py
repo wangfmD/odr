@@ -2,6 +2,9 @@
 from time import sleep
 
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 from odrweb.page.browser import Page
 
@@ -76,16 +79,19 @@ class CaseListBasePage(Page):
         '''调解终止'''
         self.find_element_by_xpath('//span[contains(text(),"调解终止")]').click()
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
-        sleep(0.5)
-        try:
-            self.find_element_by_xpath('//li[contains(text(),"当事人达成和解")]').click()
-        except:
-            sleep(0.5)
-            self.find_element_by_xpath('//li[contains(text(),"当事人达成和解")]').click()
+        # 等待输入框弹出
+        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//li[contains(text(),"当事人达成和解")]')))
+        el.click()
+        # try:
+        #     self.find_element_by_xpath().click()
+        # except:
+        #     sleep(0.5)
+        #     self.find_element_by_xpath('//li[contains(text(),"当事人达成和解")]').click()
 
         self.find_element_by_xpath('//li[contains(text(), "其他")]').click()
         self.find_element_by_xpath('//li[contains(text(), "被申请人拒绝调解")]').click()
-        self.find_element_by_xpath('//span[text()="详细原因"]').parent.find_element_by_xpath('//div/textarea').send_keys(u'详细原因')
+        # self.find_element_by_xpath('//span[text()="详细原因"]').parent.find_element_by_xpath('//div/textarea').send_keys(u'详细原因')
+        self.find_element_by_xpath('//span[text()="详细原因"]/../div/textarea').send_keys(u'详细原因')
         # 确定
         self.find_element_by_xpath('//*[@id="myModal55"]/div/div[4]/input').click()
 
@@ -96,7 +102,8 @@ class CaseListBasePage(Page):
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
         self.find_element_by_xpath('//li[contains(text(),"其他")]').click()
         self.find_element_by_xpath('//li[contains(text(),"申请人撤回调解")]').click()
-        self.find_element_by_xpath('//span[text()="详细原因"]').parent.find_element_by_xpath('//div/textarea').send_keys(u'详细原因')
+        # self.find_element_by_xpath('//span[text()="详细原因"]').parent.find_element_by_xpath('//div/textarea').send_keys(u'详细原因')
+        self.find_element_by_xpath('//span[text()="详细原因"]/../div/textarea').send_keys(u'详细原因')
         # 确定
         self.find_element_by_xpath('//*[@id="myModal55"]/div/div[4]/input').click()
 
