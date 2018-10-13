@@ -2,6 +2,9 @@
 from time import sleep
 
 from odrweb.page.browser import Page
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代理人-被法人",
                "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -36,6 +39,7 @@ jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代�
 
 class PersonalPage(Page):
 
+    x_apply_ok_btn = '(//span[contains(text(), "确定")])[2]' # 个人登记纠纷-提交-确定 btn
 
     def _apply_info_dlr_input(self,**kwargs):
         if kwargs['applicant_type']==u'自然人':
@@ -130,9 +134,9 @@ class PersonalPage(Page):
 
         # 点击提交
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[2]/p[3]/span[2]').click()
-        sleep(1)
         # 弹出提示框，点击确定
-        self.driver.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, self.x_apply_ok_btn)))
+        el.click()
         sleep(1)
 
     def _agent_b(self, **kwargs):
