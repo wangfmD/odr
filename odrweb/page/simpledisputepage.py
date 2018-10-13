@@ -1,6 +1,9 @@
 # coding:utf-8
 
 from time import sleep
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from odrweb.page.browser import Page
 
@@ -52,7 +55,9 @@ class SimpleDisputePage(Page):
     def _input_applicant_info(self,**kwargs):
         '''填写申请人信息'''
         # 填写申请人姓名
-        self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[2]/div/div/input').send_keys(kwargs["applicant"])
+        input_ =WebDriverWait(self.driver, 12).until(EC.presence_of_element_located((By.XPATH, '//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[2]/div/div/input')))
+        input_.send_keys(kwargs["applicant"])
+        # self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[2]/div/div/input').send_keys(kwargs["applicant"])
         # 填写申请人电话号码
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[4]/div/div/input').send_keys(kwargs["applicant_tel"])
 

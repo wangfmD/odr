@@ -48,7 +48,9 @@ class CaseListBasePage(Page):
         self.find_element_by_xpath('//div[@id="reAllotSuc"]/div/div[3]/div/textarea').send_keys(u'已确认')
         self.find_element_by_xpath('//div[@id="reAllotSuc"]/div/div[4]/input').click()  # 确认
         sleep(1)
-        self.find_element_by_xpath('//div[@id="toLawConfirm"]/div/div[1]/div').click()
+        btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//div[@id="toLawConfirm"]/div/div[1]/div')))
+        btn.click()
+        # self.find_element_by_xpath('//div[@id="toLawConfirm"]/div/div[1]/div').click()
 
     def get_detail_dispute_status(self):
         '''获取纠纷详情中的纠纷状态'''
@@ -80,8 +82,8 @@ class CaseListBasePage(Page):
         self.find_element_by_xpath('//span[contains(text(),"调解终止")]').click()
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
         # 等待输入框弹出
-        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//li[contains(text(),"当事人达成和解")]')))
-        el.click()
+        btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//li[contains(text(),"当事人达成和解")]')))
+        btn.click()
         # try:
         #     self.find_element_by_xpath().click()
         # except:
@@ -225,7 +227,9 @@ class CaseListPage(CaseListBasePage):
 
     def search(self, target):
         self._go_dispute_list()
-        self.find_element_by_xpath('//input[@id="searchInput1"]').send_keys(target)
+        input_ = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By, '//input[@id="searchInput1"]')))
+        input_.send_keys(target)
+        # self.find_element_by_xpath('//input[@id="searchInput1"]').send_keys(target)
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[6]/div/span/span').click()
 
     def _go_dispute_list(self):
@@ -369,9 +373,13 @@ class InputCaseListPage(CaseListBasePage):
     def _input_dispute_add_commit(self):
         '''增加纠纷-提交'''
         # 提交
-        self.find_element_by_xpath('//span[contains(text(),"提交")]').click()
+        commit_btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(),"提交")]')))
+        commit_btn.click()
+        # self.find_element_by_xpath('//span[contains(text(),"提交")]').click()
         # 不发送
-        self.find_element_by_xpath('//span[contains(text(),"不发送")]').click()
+        no_send_btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(),"不发送")]')))
+        no_send_btn.click()
+        # self.find_element_by_xpath('//span[contains(text(),"不发送")]').click()
         sleep(1)
         # 确定
         self.find_element_by_xpath('//span[contains(text(),"确定")]').click()
