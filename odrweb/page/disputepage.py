@@ -120,12 +120,17 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath(self.x_applicant_non_natural_legal).click()
         elif kwargs['applicant_type'] == u"非法人组织":
             self.find_element_by_xpath(self.x_applicant_non_natural_organization).click()
-
+        self.find_element_by_xpath(self.x_applicant_non_natural_name).clear()
         self.find_element_by_xpath(self.x_applicant_non_natural_name).send_keys(kwargs["applicant_name"])
+        self.find_element_by_xpath(self.x_applicant_non_natural_credit_id).clear()
         self.find_element_by_xpath(self.x_applicant_non_natural_credit_id).send_keys(kwargs["world_credit_id"])
+        self.find_element_by_xpath(self.x_applicant_non_natural_applicant).clear()
         self.find_element_by_xpath(self.x_applicant_non_natural_applicant).send_keys(kwargs["applicant"])
+        self.find_element_by_xpath(self.x_applicant_non_natural_tel).clear()
         self.find_element_by_xpath(self.x_applicant_non_natural_tel).send_keys(kwargs["applicant_tel"])
+        self.find_element_by_xpath(self.x_applicant_non_natural_id).clear()
         self.find_element_by_xpath(self.x_applicant_non_natural_id).send_keys(kwargs["applicant_id"])
+        self.find_element_by_xpath(self.x_applicant_non_natural_addr).clear()
         self.find_element_by_xpath(self.x_applicant_non_natural_addr).send_keys(kwargs["applicant_addr"])
         # 输入地址
         self.find_element_by_xpath(self.x_applicant_non_natural_addr_selector).click()
@@ -163,10 +168,13 @@ class DisputePageTjy(Page):
             # 性别
             self.find_element_by_xpath(self.x_agent_natural_sex).click()
             # 姓名
+            self.find_element_by_xpath(self.x_agent_natural_name).clear()
             self.find_element_by_xpath(self.x_agent_natural_name).send_keys(kwargs['agent_name'])
             # 手机号码
+            self.find_element_by_xpath(self.x_agent_natural_name).clear()
             self.find_element_by_xpath(self.x_agent_natural_tel).send_keys(kwargs['agent_tel'])
             # 身份证
+            self.find_element_by_xpath(self.x_agent_natural_id).clear()
             self.find_element_by_xpath(self.x_agent_natural_id).send_keys(kwargs['agent_id'])
             # filename
             self.find_element_by_xpath(self.x_agent_natural_filename).send_keys('filename')
@@ -181,13 +189,17 @@ class DisputePageTjy(Page):
             # 性别
             self.find_element_by_xpath(self.x_agent_non_natural_sex).click()
             # 姓名
+            self.find_element_by_xpath(self.x_agent_non_natural_name).clear()
             self.find_element_by_xpath(self.x_agent_non_natural_name).send_keys(kwargs['agent_name'])
             # 手机号码
+            self.find_element_by_xpath(self.x_agent_non_natural_tel).clear()
             self.find_element_by_xpath(self.x_agent_non_natural_tel).send_keys(kwargs['agent_tel'])
             # 身份证
+            self.find_element_by_xpath(self.x_agent_non_natural_id).clear()
             self.find_element_by_xpath(self.x_agent_non_natural_id).send_keys(kwargs['agent_id'])
             # filename
             self.find_element_by_xpath(self.x_agent_non_natural_filename).send_keys('filename')
+        # 规避上传文件操作
         js ='app.caseData.applicants[0].dyfileName="1.jpg"'
         self.driver.execute_script(js)
 
@@ -198,7 +210,9 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath(self.x_disputer_natural_disputer).send_keys(kwargs['disputer'])
             self.find_element_by_xpath(self.x_disputer_natural_tel).clear()
             self.find_element_by_xpath(self.x_disputer_natural_tel).send_keys(kwargs['disputer_tel'])
+            self.find_element_by_xpath(self.x_disputer_natural_id).clear()
             self.find_element_by_xpath(self.x_disputer_natural_id).send_keys(kwargs["disputer_id"])
+            self.find_element_by_xpath(self.x_disputer_natural_addr).clear()
             self.find_element_by_xpath(self.x_disputer_natural_addr).send_keys(kwargs['disputer_addr'])
             self.find_element_by_xpath(self.x_disputer_natural_addr_selector).click()
             sleep(0.5)
@@ -211,11 +225,17 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath(self.x_disputer_non_natural_legal).click()
         elif kwargs['disputer_type'] == u"非法人组织":
             self.find_element_by_xpath(self.x_disputer_non_natural_organization).click()
+        self.find_element_by_xpath(self.x_disputer_non_natural_name).clear()
         self.find_element_by_xpath(self.x_disputer_non_natural_name).send_keys(kwargs["disputer_name"])
+        self.find_element_by_xpath(self.x_disputer_non_natural_credit_id).clear()
         self.find_element_by_xpath(self.x_disputer_non_natural_credit_id).send_keys(kwargs["disputer_world_credit_id"])
+        self.find_element_by_xpath(self.x_disputer_non_natural_disputer).clear()
         self.find_element_by_xpath(self.x_disputer_non_natural_disputer).send_keys(kwargs["disputer"])
+        self.find_element_by_xpath(self.x_disputer_non_natural_tel).clear()
         self.find_element_by_xpath(self.x_disputer_non_natural_tel).send_keys(kwargs["disputer_tel"])
+        self.find_element_by_xpath(self.x_disputer_non_natural_id).clear()
         self.find_element_by_xpath(self.x_disputer_non_natural_id).send_keys(kwargs["disputer_id"])
+        self.find_element_by_xpath(self.x_disputer_non_natural_addr).clear()
         self.find_element_by_xpath(self.x_disputer_non_natural_addr).send_keys(kwargs["disputer_addr"])
         # 输入地址
         self.find_element_by_xpath(self.x_disputer_non_natural_addr_selector).click()
@@ -263,7 +283,8 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath(self.x_b_agent_non_natural_filename).send_keys('filename')
 
     def _input_all(self, **kwargs):
-        '''录入纠纷信息'''
+        """录入纠纷信息
+        """
         self._dispute_info_input(**kwargs)
 
         self._applicant_info_input(**kwargs)
@@ -297,7 +318,8 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
 
     def verification_commit(self, **kwargs):
-        '''调解员登记案件验证'''
+        """调解员登记案件验证
+        """
         try:
             self.find_element_by_xpath(self.x_case_input_list_a).click()
         except:
@@ -383,7 +405,16 @@ class DisputePageTjy(Page):
 
 
 class DisputePageDjy(DisputePageTjy):
-    '''机构登记员'''
+    """机构登记员
+    """
+    x_homepage_a = '//a[text()="首页"]'
+    x_back_a =''
+    x_search_input = '//input[@placeholder="请输入编号/姓名/案号"]'
+    x_search_btn = '//input[@placeholder="请输入编号/姓名/案号"]/following-sibling::span'
+    x_dispute_list_info = '//a[text()="纠纷预览"]' # 纠纷预览
+    x_dispute_list_info_back = '//button[text()="返回列表"]'  # 返回列表
+    x_dispute_list_add = '//a[text()="增加纠纷"]' # 增加纠纷
+    x_dispute_list_del = '//a[text()="删除"]'  # 删除
 
     def _to_dispute_input(self):
         # 首页
@@ -472,6 +503,33 @@ class DisputePageDjy(DisputePageTjy):
             print "result: ", applicant
             print "expect: ", kwargs['applicant_name']
             return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
+
+    def search_by_name_or_id(self):
+        """登记员案件查询
+        """
+        self.find_element_by_xpath(self.x_search_input).clear()
+        self.find_element_by_xpath(self.x_search_input).send_keys()
+        self.find_element_by_xpath(self.x_search_btn).click()
+        sleep(1)
+
+    def get_search_No(self):
+        """获取第二条案件编号，查询使用
+        """
+        try:
+            res = self.find_element_by_xpath('//div[contains(text(), "纠纷编号：")]').text
+            _, no = res.split(u"：")
+        except:
+            no = "**None**"
+        return no
+
+    def list_add_dispute(self):
+        """机构登记列表-增加纠纷
+        """
+        self.find_element_by_xpath(self.x_dispute_list_add).click()
+        sleep(0.5)
+
+    def goto_homepage(self):
+        self.find_element_by_xpath(self.x_homepage_a).click()
 
 
 if __name__ == '__main__':

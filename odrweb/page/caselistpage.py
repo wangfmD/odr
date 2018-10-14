@@ -15,6 +15,7 @@ class CaseListBasePage(Page):
     modifcation_dispute_type = u"金融借款合同纠纷"
     back_list = '//button[text()="返回列表"]'  # 返回列表
     x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
+
     def _make_mediate(self):
         '''预约调解'''
         self.find_element_by_xpath('//button[contains(text()," 预约调解")]').click()
