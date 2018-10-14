@@ -203,43 +203,6 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_10(self):
-        '''机构登记列表-增加纠纷-保存'''
-        jf_info = {"jf_desc": u"机构登记列表-增加纠纷-提交",
-                   "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-                   "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
-                   "agent_type": "",  # "" common special,
-                   "agent_b_type": "",  # common special,
-                   }
-        jf_info_all.update(jf_info)
-
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.goto_homepage()
-        disputepage.list_add_dispute()
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
-
-    def test_11(self):
-        '''机构登记列表-增加纠纷-提交'''
-        jf_info = {"jf_desc": u"机构登记列表-增加纠纷-提交",
-                   "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-                   "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
-                   "agent_type": "",  # "" common special,
-                   "agent_b_type": "",  # common special,
-                   }
-        jf_info_all.update(jf_info)
-
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.goto_homepage()
-        disputepage.list_add_dispute()
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
 
 if __name__ == '__main__':
     unittest.main()
