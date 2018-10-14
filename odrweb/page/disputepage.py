@@ -2,6 +2,9 @@
 from time import sleep
 
 from odrweb.page.browser import Page
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class DisputePageTjy(Page):
@@ -408,19 +411,19 @@ class DisputePageDjy(DisputePageTjy):
     """机构登记员
     """
     x_homepage_a = '//a[text()="首页"]'
-    x_back_a =''
+    x_dispute_input_btn ='//input[@placeholder="请输入编号/姓名/案号"]/../../../a'  # 机构登记按键
     x_search_input = '//input[@placeholder="请输入编号/姓名/案号"]'
     x_search_btn = '//input[@placeholder="请输入编号/姓名/案号"]/following-sibling::span'
     x_dispute_list_info = '//a[text()="纠纷预览"]' # 纠纷预览
-    x_dispute_list_info_back = '//button[text()="返回列表"]'  # 返回列表
+    x_dispute_list_info_back_a = '//button[text()="返回列表"]'  # 返回列表
     x_dispute_list_add = '//a[text()="增加纠纷"]' # 增加纠纷
     x_dispute_list_del = '//a[text()="删除"]'  # 删除
 
-    def _to_dispute_input(self):
+    def _goto_dispute_input(self):
         # 首页
-        self.find_element_by_xpath('//*[@id="app"]/div/div[1]/div/div/div[2]/a[1]').click()
+        self.find_element_by_xpath(self.x_homepage_a).click()
         # 机构登记
-        self.find_element_by_xpath('/html/body/div[4]/div[1]/a').click()
+        self.find_element_by_xpath(self.x_dispute_input_btn).click()
 
     def _dispute_info_input(self, **kwargs):
         '''纠纷信息录入'''
@@ -504,11 +507,11 @@ class DisputePageDjy(DisputePageTjy):
             print "expect: ", kwargs['applicant_name']
             return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
 
-    def search_by_name_or_id(self):
+    def act_search_by_name_or_id(self, search_ctx):
         """登记员案件查询
         """
         self.find_element_by_xpath(self.x_search_input).clear()
-        self.find_element_by_xpath(self.x_search_input).send_keys()
+        self.find_element_by_xpath(self.x_search_input).send_keys(search_ctx)
         self.find_element_by_xpath(self.x_search_btn).click()
         sleep(1)
 
@@ -522,15 +525,71 @@ class DisputePageDjy(DisputePageTjy):
             no = "**None**"
         return no
 
-    def list_add_dispute(self):
+    def act_list_add_dispute(self):
         """机构登记列表-增加纠纷
         """
         self.find_element_by_xpath(self.x_dispute_list_add).click()
         sleep(0.5)
 
-    def goto_homepage(self):
+    def act_list_del_dispute(self):
+        """机构登记列表-删除
+        """
+        self.find_element_by_xpath(self.x_dispute_list_del).click()
+        # 等待是否删除的确认btn
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
+        ok_btn.click()
+        # 等待删除成功的btn
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
+        ok_btn.click()
+
+    def act_goto_homepage(self):
+        """首页
+        """
         self.find_element_by_xpath(self.x_homepage_a).click()
 
+    def act_dispute_list_info_back(self):
+        """机构登记列表-纠纷预览-返回列表
+        """
+        self.act_goto_homepage()
+        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath(self.x_dispute_list_info_back_a).click()
+
+    def act_dispute_list_info_save(self):
+        """机构登记列表-纠纷预览-保存
+        """
+        self.act_goto_homepage()
+        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').clear()
+        self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').send_keys(u"进入纠纷预览-保存")
+        self.find_element_by_xpath('//button[contains(text(),"保存")]').click()
+        # 等待点击保存后的确定btn
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
+        ok_btn.click()
+
+    def act_dispute_list_info_commit(self):
+        """机构登记列表-纠纷预览-提交
+        """
+        self.act_goto_homepage()
+        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').clear()
+        self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').send_keys(u"进入纠纷预览-保存")
+        self.find_element_by_xpath('//button[contains(text(),"提交")]').click()
+        # 等待点击提交后是否发送短信btn
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="不发送"]')))
+        ok_btn.click()
+        # 等待点击保存后的确定btn
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
+        ok_btn.click()
+
+    def act_dispute_list_info_schedule(self):
+        """机构登记列表-纠纷预览-解纷进度
+        """
+        self.act_goto_homepage()
+        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath('//span[text()="解纷进度"]').click()
+        # 等待纠纷进度弹出框的确定btn
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//h4[text()="纠纷进度"]/../../div[3]/button')))
+        ok_btn.click()
 
 if __name__ == '__main__':
     pass
