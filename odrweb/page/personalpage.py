@@ -398,16 +398,16 @@ class PersonalPage(Page):
         self.find_element_by_xpath('(//button[text()="确定"])[3]').click()
 
     def tel_binding(self):
-        '''绑定手机-取消
-        '''
+        """绑定手机-取消
+        """
         self.find_element_by_xpath(self.x_security_setting).click()
         self.find_element_by_xpath('//td[text()="绑定手机"]/../td[4]/a').click()
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//span[text()="取消"])[2]')))
         element.click()
 
     def mail_binding(self):
-        '''绑定邮箱-取消
-        '''
+        """绑定邮箱-取消
+        """
         self.find_element_by_xpath(self.x_security_setting).click()
         self.find_element_by_xpath('//td[text()="绑定邮箱"]/../td[4]/a').click()
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//span[text()="取消"])[3]')))
@@ -415,8 +415,8 @@ class PersonalPage(Page):
         # self.find_element_by_xpath('(//span[text()="取消"])[3]').click()
 
     def setting_signature(self):
-        '''预留签名-取消
-        '''
+        """预留签名-取消
+        """
         self.find_element_by_xpath(self.x_security_setting).click()
         self.find_element_by_xpath('//td[text()="预留签名"]/../td[4]/a').click()
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="取 消"]')))
