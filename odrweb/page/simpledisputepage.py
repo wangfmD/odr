@@ -42,7 +42,7 @@ class SimpleDisputePage(Page):
     x_caseregisrer_list = '//div[contains(text(), "案件登记列表")]'
 
     def _into_simple_jf(self):
-        '''进入添加简易纠纷登记页面'''
+        """进入添加简易纠纷登记页面"""
         # # 点击调解员页面案件登记列表
         # self.find_element_by_xpath('/html/body/div[4]/div[1]/button[2]').click()
         # 调解员登记列表-点击
@@ -53,7 +53,7 @@ class SimpleDisputePage(Page):
         sleep(1)
 
     def _input_applicant_info(self,**kwargs):
-        '''填写申请人信息'''
+        """填写申请人信息"""
         # 填写申请人姓名
         input_ =WebDriverWait(self.driver, 12).until(EC.presence_of_element_located((By.XPATH, '//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[2]/div/div/input')))
         input_.send_keys(kwargs["applicant"])
@@ -62,14 +62,14 @@ class SimpleDisputePage(Page):
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[4]/div/div/input').send_keys(kwargs["applicant_tel"])
 
     def _input_disputer_info(self, **kwargs):
-        '''填写被申请人信息'''
+        """填写被申请人信息"""
         # 填写被申请人姓名
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[2]/div/div/input').send_keys(kwargs["disputer"])
         # 填写被申请人电话号码
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[4]/div/div/input').send_keys(kwargs["disputer_tel"])
 
     def _input_agent_info(self,**kwargs):
-        '''填写申请人代理人信息'''
+        """填写申请人代理人信息"""
         # 填写申请人代理人姓名
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[13]/div[2]/div[1]/div/div/input').send_keys(kwargs["agent_name"])
         # 填写申请人代理人电话号码
@@ -78,7 +78,7 @@ class SimpleDisputePage(Page):
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[1]/div/div/div[13]/div[2]/div[4]/div/div/input').send_keys(kwargs["agent_id"])
 
     def _input_agent_b_info(self,**kwargs):
-        '''填写被申请人代理人信息'''
+        """填写被申请人代理人信息"""
         # 填写被申请人代理人姓名
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[13]/div[2]/div[1]/div/div/input').send_keys(kwargs["agent_name_b"])
         # 填写被申请人代理人电话号码
@@ -87,7 +87,7 @@ class SimpleDisputePage(Page):
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[13]/div[2]/div[4]/div/div/input').send_keys(kwargs["agent_id_b"])
 
     def _input_dispute_info(self,**kwargs):
-        '''填写纠纷详情'''
+        """填写纠纷详情"""
         # 选择纠纷类型为消费维权
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[3]/div[2]/div[1]/div/div/label[2]/span[2]').click()
         # 填写纠纷争议事实事项
@@ -107,7 +107,7 @@ class SimpleDisputePage(Page):
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/form/div[3]/div[2]/div[9]/div/div/input').send_keys(kwargs["jf_time"])
 
     def save(self):
-        '''点击保存按钮'''
+        """点击保存按钮"""
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[1]/p/span[1]').click()
         sleep(1)
         self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
@@ -115,7 +115,7 @@ class SimpleDisputePage(Page):
         self.find_element_by_xpath(self.x_caseregisrer_list).click()
 
     def commit(self):
-        '''点击提交按钮'''
+        """点击提交按钮"""
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[1]/p/span[2]').click()
         sleep(1)
         self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
@@ -156,7 +156,7 @@ class SimpleDisputePage(Page):
 
 
     def simple_jf_input(self,**kwargs):
-        '''简易案件-申请人-被申请人'''
+        """简易案件-申请人-被申请人"""
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         self._input_disputer_info(**kwargs)
@@ -165,7 +165,7 @@ class SimpleDisputePage(Page):
 
 
     def simple_jf_agent_commit(self,**kwargs):
-        '''简易案件-申请人-代理人-被申请人'''
+        """简易案件-申请人-代理人-被申请人"""
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         self._input_agent_info(**kwargs)
@@ -173,7 +173,7 @@ class SimpleDisputePage(Page):
         self._input_dispute_info(**kwargs)
 
     def simple_jf_agent_b_commit(self,**kwargs):
-        '''简易案件-申请人-被申请人-代理人'''
+        """简易案件-申请人-被申请人-代理人"""
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         self._input_disputer_info(**kwargs)
@@ -181,7 +181,7 @@ class SimpleDisputePage(Page):
         self._input_dispute_info(**kwargs)
 
     def simple_jf_agent_agent_b_commit(self,**kwargs):
-        '''简易案件-申请人-代理人-被申请人-代理人'''
+        """简易案件-申请人-代理人-被申请人-代理人"""
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         self._input_agent_info(**kwargs)
@@ -192,7 +192,7 @@ class SimpleDisputePage(Page):
 
 
     def simple_jf_add_delete(self,**kwargs):
-        '''简易案件-添加申请人-删除申请人'''
+        """简易案件-添加申请人-删除申请人"""
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         # 点击添加申请人
@@ -208,7 +208,7 @@ class SimpleDisputePage(Page):
 
 
     def simple_jf_add_applicant_disputer(self,**kwargs):
-        '''简易案件-两个申请人-两个申请人代理人-两个被申请人-一个被申请人代理人'''
+        """简易案件-两个申请人-两个申请人代理人-两个被申请人-一个被申请人代理人"""
         self._into_simple_jf()
         self._input_applicant_info(**kwargs)
         self._input_agent_info(**kwargs)

@@ -206,7 +206,7 @@ class PersonalPage(Page):
         self.driver.execute_script(js)
 
     def _into_mediate(self):
-        ''' 个人中心选择我是申请人进入调解'''
+        """ 个人中心选择我是申请人进入调解"""
 
         # 点击选择我要调解
         self.driver.find_element_by_xpath('//div[@id="personal-content"]/div[1]/div[2]/div[3]/div[2]').click()
@@ -256,15 +256,15 @@ class PersonalPage(Page):
         sleep(1)
 
     def _user_apply_logel(self):
-        '''选择申请人为法人'''
+        """选择申请人为法人"""
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[1]/div/div/label[2]/span[2]').click()
 
     def _user_apply_organization(self):
-        '''选择申请人为非法组织'''
+        """选择申请人为非法组织"""
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[1]/div/div/label[3]/span[2]').click()
 
     def _apply_info_input(self, **kwargs):
-        '''申请人为法人、非法人组织信息填写'''
+        """申请人为法人、非法人组织信息填写"""
 
         # 填写申请人企业信息、社会信用代码
         if kwargs['applicant_type'] == u'法人':
@@ -279,7 +279,7 @@ class PersonalPage(Page):
         sleep(1)
 
     def _user_applied_natuural(self, **kwargs):
-        '''被申请人身份为自然人'''
+        """被申请人身份为自然人"""
         sleep(1)
         # 填写被申请人姓名、电话号码
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[2]/div/div/input').send_keys(kwargs["disputer"])
@@ -292,18 +292,18 @@ class PersonalPage(Page):
         # sleep(2)
 
     def _user_applied_logel(self):
-        '''选择被申请人为法人'''
+        """选择被申请人为法人"""
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[1]/div/div/label[2]/span[2]').click()
         sleep(1)
 
     def _user_applied_organization(self):
-        '''选择被申请人为非法人组织'''
+        """选择被申请人为非法人组织"""
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[5]/div[2]/div[1]/form/div/div[1]/div/div/label[3]/span[2]').click()
 
         sleep(1)
 
     def _applied_info_input(self, **kwargs):
-        '''被申请人为法人、非法人组织信息填写'''
+        """被申请人为法人、非法人组织信息填写"""
 
         if kwargs['disputer_type'] == u'法人':
             self._user_applied_logel()
@@ -392,7 +392,7 @@ class PersonalPage(Page):
         self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div/div[2]/div[2]/div[2]/div').click()
 
     def dlr_apply_natural(self, **kwargs):
-        ''' 用户作为代理人申请人为自然人'''
+        """ 用户作为代理人申请人为自然人"""
         # 填写申请人姓名
         self.driver.find_element_by_xpath('//div[@id="app"]/div/div[4]/div[2]/div[1]/form/div/div[2]/div/div/input').send_keys(kwargs["jf_applyName"])
         # 填写申请人联系电话

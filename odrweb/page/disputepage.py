@@ -8,7 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class DisputePageTjy(Page):
-    '''调解员'''
+    """调解员纠纷登记
+    """
     x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
 
     # 申请人代理人
@@ -78,7 +79,8 @@ class DisputePageTjy(Page):
 
 
     def _dispute_info_input(self, **kwargs):
-        '''纠纷信息录入'''
+        """纠纷信息录入
+        """
         # 调解员登记列表-点击
         self.find_element_by_xpath('//div[contains(text(), "案件登记列表")]').click()
         # 点击案件登记列表
@@ -97,7 +99,8 @@ class DisputePageTjy(Page):
         sleep(1)
 
     def _applicant_info_input(self, **kwargs):
-        '''申请人信息录入'''
+        """申请人信息录入
+        """
 
         if kwargs['applicant_type'] == u"自然人":
             self.find_element_by_xpath(self.x_applicant_natural_applicant).clear()
@@ -207,7 +210,8 @@ class DisputePageTjy(Page):
         self.driver.execute_script(js)
 
     def _applicant_b_input(self, **kwargs):
-        '''被申请人input'''
+        """被申请人input
+        """
         if kwargs['disputer_type'] == u"自然人":
             self.find_element_by_xpath(self.x_disputer_natural_disputer).clear()
             self.find_element_by_xpath(self.x_disputer_natural_disputer).send_keys(kwargs['disputer'])
@@ -249,7 +253,8 @@ class DisputePageTjy(Page):
         self.find_element_by_css_selector('#app > div > div.paalyMains > form > div.beApplyMan > div > div > div.el-form-item.city.is-required > div > div.city-picker-dropdown > div > div.city-select-content > div.city-select.county > dl > dd > a:nth-child(5)').click()
 
     def _agent_b(self, **kwargs):
-
+        """被申请人代理人输入
+        """
         if kwargs['disputer_type'] == u"自然人":
             if kwargs['agent_b_type'] == 'common':
                 # 一般授权代理人
@@ -298,7 +303,8 @@ class DisputePageTjy(Page):
             self._agent_b(**kwargs)
 
     def _commit(self):
-        # 提交
+        """提交
+        """
         # self.find_element_by_xpath('//div[@id="app"]/div/div[4]/div/div[2]/p[3]/span[2]').click()
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[1]/p/span[2]').click()
         sleep(1)
@@ -350,10 +356,8 @@ class DisputePageTjy(Page):
             return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
 
     def _save(self):
-        '''
-        调解员登记纠纷-保存
-
-        '''
+        """ 调解员登记纠纷-保存
+        """
         # 保存
         self.driver.find_element_by_css_selector("span.lastStep").click()
 
@@ -372,7 +376,8 @@ class DisputePageTjy(Page):
         self._commit()
 
     def verification_save(self, **kwargs):
-        '''调解员登记案件验证'''
+        """调解员登记案件验证
+        """
         try:
             self.find_element_by_xpath(self.x_case_input_list_a).click()
         except:
@@ -408,7 +413,7 @@ class DisputePageTjy(Page):
 
 
 class DisputePageDjy(DisputePageTjy):
-    """机构登记员
+    """机构登记员纠纷登记
     """
     x_homepage_a = '//a[text()="首页"]'
     x_dispute_input_btn ='//input[@placeholder="请输入编号/姓名/案号"]/../../../a'  # 机构登记按键
@@ -426,7 +431,8 @@ class DisputePageDjy(DisputePageTjy):
         self.find_element_by_xpath(self.x_dispute_input_btn).click()
 
     def _dispute_info_input(self, **kwargs):
-        '''纠纷信息录入'''
+        """纠纷信息录入
+        """
 
         self.find_element_by_css_selector("textarea.el-textarea__inner").clear()
         self.find_element_by_css_selector("textarea.el-textarea__inner").send_keys(kwargs["jf_desc"])
@@ -447,7 +453,8 @@ class DisputePageDjy(DisputePageTjy):
         sleep(1)
 
     def _input_all(self, **kwargs):
-        '''录入纠纷信息'''
+        """录入纠纷信息
+        """
         self._dispute_info_input(**kwargs)
 
         self._applicant_info_input(**kwargs)

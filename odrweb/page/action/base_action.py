@@ -10,11 +10,11 @@ base_url = "https://uatodr.odrcloud.net"
 
 
 def user_login(driver, name, pwd):
-    '''
+    """
     普通用户登录
     :param driver:
     :return:
-    '''
+    """
 
     driver.get(base_url + "/")
     # 进入登录页面
@@ -32,11 +32,11 @@ def user_login(driver, name, pwd):
 
 
 def company_login(driver, name, pwd):
-    '''
+    """
     企业登录
     :param driver:
     :return:
-    '''
+    """
     driver.get(base_url + "/")
     driver.find_element_by_xpath(u"//a[contains(text(),'立即登录')]").click()
     sleep(2)
@@ -51,11 +51,11 @@ def company_login(driver, name, pwd):
 
 
 def mediator_login(driver, name, pwd):
-    '''
+    """
     调解员/办案法官登录
     :param driver:
     :return:
-    '''
+    """
     driver.get(base_url + "/")
     # 进入登录页面
     driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[1]/a').click()
@@ -71,11 +71,11 @@ def mediator_login(driver, name, pwd):
 
 
 def organization_user_login(driver, name, pwd):
-    '''
+    """
     机构登记员登录
     :param driver:
     :return:
-    '''
+    """
     driver.get(base_url + "/")
     # 进入登录页面
     driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[1]/a').click()
@@ -93,11 +93,11 @@ def organization_user_login(driver, name, pwd):
 
 
 def organization_login(driver, name, pwd):
-    '''
+    """
     调解机构登录
     :param driver:
     :return:
-    '''
+    """
     driver.get(base_url + "/")
     # 进入登录页面
     driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[1]/a').click()
@@ -115,11 +115,11 @@ def organization_login(driver, name, pwd):
 
 
 def counselor_login(driver, name, pwd):
-    '''
+    """
     咨询师登录
     :param driver:
     :return:
-    '''
+    """
     driver.get(base_url + "/")
     # 进入登录页面
     driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[2]/a').click()
@@ -135,11 +135,11 @@ def counselor_login(driver, name, pwd):
 
 
 def customer_login(driver, name, pwd):
-    '''
+    """
     客服人员登录
     :param driver:
     :return:
-    '''
+    """
     driver.get(base_url + "/")
     # 进入登录页面
     driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[2]/a').click()
@@ -157,11 +157,11 @@ def customer_login(driver, name, pwd):
 
 
 def consult_input(driver):
-    '''
+    """
 
     :param driver:
     :return:
-    '''
+    """
 
     driver.find_element_by_link_text(u"进入个人中心").click()
     # driver.find_element_by_name("type").click()
@@ -185,11 +185,11 @@ def consult_input(driver):
 
 
 def login_yun(driver, name, pwd):
-    '''
+    """
 
     :param driver:
     :return:
-    '''
+    """
     driver.get(base_url + "/")
     # 进入云解登录page
     driver.find_element_by_xpath('//div[@id="app"]/div[6]/div[1]/div[1]/ul[1]/li[6]/a').click()

@@ -8,24 +8,24 @@ from utils.tools import DbConn
 class MissionCenter(Page):
 
     def in_mission_center(self):
-        '''进入任务中心'''
+        """进入任务中心"""
         self.find_element_by_xpath('//a[@href="#/missions"]').click()
         sleep(0.5)
         i = self.case_count()
         print("当前页展示" + i + "个纠纷")
 
     def search_case_by_id_or_name(self, **kwargs):
-        '''搜索案件'''
+        """搜索案件"""
         self.find_element_by_xpath('//input[@id="keyword"]').send_keys(kwargs["编号/姓名/案号"])
         self.find_element_by_xpath('//a[text()="搜索"]').click()
         sleep(1)
 
     def clear_search_case_area(self):
-        '''点击重置纠纷搜索输入框'''
+        """点击重置纠纷搜索输入框"""
         self.find_element_by_xpath('//a[text()="重置"]').click()
 
     def case_uptodate_check(self):
-        '''临期案件检查'''
+        """临期案件检查"""
         try:
             self.find_element_by_xpath('//input[@class="case-uptoData-check"]').click()
             return True
@@ -33,8 +33,8 @@ class MissionCenter(Page):
             return False
 
     def case_detail(self, count=None):
-        '''纠纷详情'''
-        '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
+        """纠纷详情"""
+        """count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个"""
         if count is None:
             count = 1
 
@@ -53,8 +53,8 @@ class MissionCenter(Page):
 
 
     def case_acceptance(self, count=None):
-        '''受理'''
-        '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
+        """受理"""
+        """count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个"""
         if count is None:
             count = 1
 
@@ -64,8 +64,8 @@ class MissionCenter(Page):
         k[j].click()
 
     def case_refuse(self, count=None):
-        '''不受理'''
-        '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
+        """不受理"""
+        """count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个"""
         if count is None:
             count = 1
 
@@ -75,8 +75,8 @@ class MissionCenter(Page):
         k[j].click()
 
     def case_select_mediator(self, count=None):
-        '''分配调解员/重新分配'''
-        '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
+        """分配调解员/重新分配"""
+        """count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个"""
         if count is None:
             count = 1
 
@@ -89,8 +89,8 @@ class MissionCenter(Page):
         #k[j].click()
 
     def case_change_organization(self, count=None):
-        '''转移调解机构'''
-        '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
+        """转移调解机构"""
+        """count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个"""
         if count is None:
             count = 1
 
@@ -100,11 +100,11 @@ class MissionCenter(Page):
         k[j].click()
 
     def input_change_reason(self, reason_):
-        '''输入转移机构理由'''
+        """输入转移机构理由"""
         self.find_element_by_xpath('//div[@class="toReason_div"]/textarea').send_keys(reason_)
 
     def choose_change_organization(self, name_):
-        '''选择转移机构'''
+        """选择转移机构"""
         k = self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').text
         if k != "":
             self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').clear()
@@ -115,7 +115,7 @@ class MissionCenter(Page):
         sleep(2)
 
     def verfc_change_organization(self, casenumber):
-        '''调解机构转移校验'''
+        """调解机构转移校验"""
         connect = DbConn()
         sql = "SELECT ORGANIZATION_ID FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
         result = connect.execQury(sql)
@@ -128,8 +128,8 @@ class MissionCenter(Page):
 
     def case_progress(self, count=None):
         try:
-            '''调解进程'''
-            '''count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个'''
+            """调解进程"""
+            """count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个"""
             if count is None:
                 count = 1
 
@@ -142,15 +142,15 @@ class MissionCenter(Page):
             return False
 
     def tip_agree(self):
-        '''重要提示-确定'''
+        """重要提示-确定"""
         self.find_element_by_xpath('//div[text()="重要提示"]/../div/a[text()="确定"]').click()
 
     def info_agree(self):
-        '''信息-确定'''
+        """信息-确定"""
         self.find_element_by_xpath('//div[text()="信息"]/../div/a[text()="确定"]').click()
 
     def case_mediator_choose(self, **kwargs):
-        '''案件分配调解员选择,需要传调解员姓名'''
+        """案件分配调解员选择,需要传调解员姓名"""
         k = self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').text
         if k != "":
             self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').clear()
@@ -160,7 +160,7 @@ class MissionCenter(Page):
         self.info_agree()
 
     def case_type(self, ctype=None):
-        '''调解类型'''
+        """调解类型"""
         try:
             if ctype is None:
                 casetype = u"所有类型"
@@ -191,7 +191,7 @@ class MissionCenter(Page):
             return False
 
     def case_status(self, cstatus=None):
-        '''调解状态'''
+        """调解状态"""
         try:
             if cstatus is None:
                 casestatus = u"所有状态"
@@ -204,7 +204,7 @@ class MissionCenter(Page):
             return False
 
     def case_time(self, ctime=None, startTime=None, endTime=None):
-        '''登记时间'''
+        """登记时间"""
         try:
             if ctime is None:
                 casetime = u"所有时间"
@@ -231,13 +231,13 @@ class MissionCenter(Page):
 
 
     def case_count(self):
-        '''统计当前页有多少纠纷'''
+        """统计当前页有多少纠纷"""
         i = self.find_elements_by_xpath('//div[@class="case-number ng-binding"]')
         j = str(len(i))
         return j
 
     def click_batch_process(self):
-        '''批量受理案件按钮'''
+        """批量受理案件按钮"""
         try:
             self.find_element_by_xpath('//button[@class="confirm_cam"]').click()
             return True
@@ -245,7 +245,7 @@ class MissionCenter(Page):
             return False
 
     def click_refuse_type(self, type_=None):
-        '''拒绝原因'''
+        """拒绝原因"""
         if type_ is None:
             refusetype = u"非本机构管辖"
         else:
@@ -254,17 +254,17 @@ class MissionCenter(Page):
         self.find_element_by_xpath('//span[text()="原因"]/../ul/li[text()="' + refusetype + '"]').click()
 
     def input_refuse_detail(self, detail_):
-        '''填写拒绝理由'''
+        """填写拒绝理由"""
         self.find_element_by_xpath('//div[@class="box-textarea"]/textarea').send_keys(detail_)
 
     def click_commit_refuse(self):
-        '''确认拒绝'''
+        """确认拒绝"""
         self.find_element_by_xpath('//div[@class="btn-box"]/input[@value="确定"]').click()
 
 
 
     def verfc_total_case_number_visitable(self,totalnumber):
-        '''案件总量是否数字'''
+        """案件总量是否数字"""
         try:
             check = int(totalnumber)
             return True
@@ -272,7 +272,7 @@ class MissionCenter(Page):
             return False
 
     def verfc_case_search_successful(self, totalnumber):
-        '''搜索结果是否唯一'''
+        """搜索结果是否唯一"""
         try:
             check1 = int(totalnumber)
             check2 = int(self.case_count())
@@ -284,7 +284,7 @@ class MissionCenter(Page):
             return False
 
     def verfc_case_search_clear_successful(self, totalnumber1_, totalnumber2_, totalnumber3_):
-        '''搜索结果重置校验'''
+        """搜索结果重置校验"""
         try:
             check = int(totalnumber2_)
             if check == 1 and totalnumber1_ == totalnumber3_:
@@ -295,7 +295,7 @@ class MissionCenter(Page):
             return False
 
     def get_an_unaccept_case(self):
-        '''获取一个未受理纠纷编号（status=20）'''
+        """获取一个未受理纠纷编号（status=20）"""
         status = "20"  # 未受理纠纷状态枚举值
         ORGANIZATION_ID = "3300000000000005"  # 北明测试机构
         connect = DbConn()
@@ -306,7 +306,7 @@ class MissionCenter(Page):
         return casenumber
 
     def verfc_case_acceptable(self, casenumber):
-        '''断言：案件状态是否为已受理（status=06）'''
+        """断言：案件状态是否为已受理（status=06）"""
         connect = DbConn()
         sql = "SELECT status FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
         result = connect.execQury(sql)
@@ -317,7 +317,7 @@ class MissionCenter(Page):
             return False
 
     def verfc_case_unacceptable(self, casenumber):
-        '''断言：案件状态是否为不受理（status=05）'''
+        """断言：案件状态是否为不受理（status=05）"""
         connect = DbConn()
         sql = "SELECT status FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
         result = connect.execQury(sql)
@@ -329,7 +329,7 @@ class MissionCenter(Page):
             return False
 
     def verfc_case_assignable(self, casenumber):
-        '''断言：案件状态是否为已分配（status=21）'''
+        """断言：案件状态是否为已分配（status=21）"""
         connect = DbConn()
         sql = "SELECT status FROM `LAW_CASE`WHERE CASE_NO='" + casenumber + "'"
         result = connect.execQury(sql)

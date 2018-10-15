@@ -41,16 +41,16 @@ class OrgRegCase(Page):
 
 
     def _choose_case_type(self, **kwargs):
-        '''点选纠纷类型'''
+        """点选纠纷类型"""
         self.find_element_by_xpath('//span[text()="' + kwargs["纠纷类型"] + '"]').click()
 
     def _input_case_detail(self, **kwargs):
-        '''填写纠纷描述'''
+        """填写纠纷描述"""
         self.find_element_by_xpath('//label[text()="纠纷描述："]/..//div[@class="el-textarea"]/textarea').click()
         self.find_element_by_xpath('//label[text()="纠纷描述："]/..//div[@class="el-textarea"]/textarea').send_keys(kwargs["纠纷描述"])
 
     def _input_my_reason(self, **kwargs):
-        '''填写我的诉求'''
+        """填写我的诉求"""
         self.find_element_by_xpath('//label[text()="我的诉求："]/..//div[@class="el-textarea"]/textarea').click()
         self.find_element_by_xpath('//label[text()="我的诉求："]/..//div[@class="el-textarea"]/textarea').send_keys(kwargs["我的诉求"])
 

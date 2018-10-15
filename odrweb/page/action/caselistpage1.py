@@ -9,11 +9,11 @@ class CaseDjListPage(Page):
     x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
 
     def _into_disputelist(self):
-        '''进入案件登记列表'''
+        """进入案件登记列表"""
         self.find_element_by_xpath(self.x_case_input_list_a).click()
 
     def _get_mydispute_id(self):
-        '''我的案件列表获取案件编号'''
+        """我的案件列表获取案件编号"""
         # 获取案件编号
         try:
             jf_id = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[1]').text
@@ -23,7 +23,7 @@ class CaseDjListPage(Page):
             return dispute_id
 
     def _choose_mydispute_wait(self):
-        '''选择案件状态为等待调解'''
+        """选择案件状态为等待调解"""
         # 点击选择案件状态
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[4]/select').click()
         # 选择案件状态为等待调解
@@ -31,7 +31,7 @@ class CaseDjListPage(Page):
         sleep(1)
 
     def _get_mydispute_desc(self):
-        '''我的案件列表页面获取纠纷描述'''
+        """我的案件列表页面获取纠纷描述"""
         sleep(1)
         jf_desc = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[9]/p').text
         return jf_desc
@@ -41,19 +41,19 @@ class CaseDjListPage(Page):
 
 
     def _choose_commit(self):
-        '''选择已提交案件'''
+        """选择已提交案件"""
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[1]/select').click()
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[1]/select/option[3]').click()
         sleep(1)
 
     def _dispute_add(self):
-        '''进入增加纠纷页面'''
+        """进入增加纠纷页面"""
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[2]/a[2]').click()
         sleep(1)
 
 
     def _dispute_add_commit(self):
-        '''增加纠纷页面提交'''
+        """增加纠纷页面提交"""
         # 点击提交按钮
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[1]/p/span[2]').click()
         sleep(1)
@@ -68,7 +68,7 @@ class CaseDjListPage(Page):
         return jf_desc_add
 
     def _dispute_add_save(self):
-        '''增加纠纷页面保存'''
+        """增加纠纷页面保存"""
         # 点击提交按钮
         self.find_element_by_xpath('//div[@id="app"]/div/div[2]/div[1]/p/span[1]').click()
         sleep(1)
@@ -76,7 +76,7 @@ class CaseDjListPage(Page):
         self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
 
     def _dispute_delete(self):
-        '''纠纷列表删除保存纠纷'''
+        """纠纷列表删除保存纠纷"""
         # 点击删除按钮
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[2]/a[3]').click()
         sleep(1)
@@ -112,13 +112,13 @@ class CaseDjListPage(Page):
         return res
 
     def _choose_save(self):
-        '''选择未提交案件'''
+        """选择未提交案件"""
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[1]/select').click()
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[1]/select/option[2]').click()
         sleep(1)
 
     def _get_dispute_id(self):
-        '''案件登记列表获取案件纠纷编号'''
+        """案件登记列表获取案件纠纷编号"""
         # 获取案件编号
         try:
             jf_id = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[1]/div[1]').text
@@ -131,24 +131,24 @@ class CaseDjListPage(Page):
         return dispute_id
 
     def _get_dispute_info_id(self):
-        '''案件详情页面获取案件登记编号'''
+        """案件详情页面获取案件登记编号"""
         dispute_id = self.find_element_by_xpath('/html/body/section[2]/div[1]/div/span[2]').text
         return dispute_id
 
     def _find_scan(self, dispute_id):
-        '''案件编号查询案件'''
+        """案件编号查询案件"""
         # 输入案件编号
         self.find_element_by_xpath('//input[@id="searchInput2"]').send_keys(dispute_id)
         # 点击搜索按钮
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[2]/div/span').click()
 
     def _get_jf_desc(self):
-        '''获取纠纷描述'''
+        """获取纠纷描述"""
         jf_desc = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
         return jf_desc
 
     def _into_dispute_info(self):
-        '''进入纠纷详情页面'''
+        """进入纠纷详情页面"""
         # 点击进入纠纷预览
         self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[2]/a[1]').click()
         sleep(1)
@@ -165,7 +165,7 @@ class CaseDjListPage(Page):
         self.find_element_by_xpath('/html/body/section[1]/button').click()
 
     def verification_dispute_id(self):
-        '''案件编号校验'''
+        """案件编号校验"""
         dispute_id = self._get_dispute_id()
         if dispute_id:
             print  dispute_id
