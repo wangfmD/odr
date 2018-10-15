@@ -1,10 +1,11 @@
 # coding: utf-8
 import sys
 import unittest
-
+from datetime import datetime
 from odrweb.core.initdata import init
 from odrweb.page.homepage import HomePage
 from odrweb.page.nologinhomepage import NoLoginHomePage
+
 
 
 class HomepageNoLogin(unittest.TestCase):
@@ -76,15 +77,20 @@ class HomepageNoLogin(unittest.TestCase):
         res = nologinpage.verification_skip_login_page()
         self.assertEqual(True,res)
 
-    def test_07(self,**kwargs):
-        '''服务内容-法律咨询-在线咨询-直接咨询-进入咨询'''
-        consult = {"consult_desc": u"假冒伪劣",
-                   "consult_ask": u"假一赔十"}
-        nologinpage = NoLoginHomePage(self.homepage)
-        nologinpage.get_url()
-        nologinpage.head_service_manwork_consult(**consult)
-        res = nologinpage.verification_head_service_manwork_consult(**consult)
-        self.assertEqual(True, res)
+    def test_07(self):
+        """服务内容-法律咨询-在线咨询-直接咨询-进入咨询
+        """
+
+        now_hour = int(datetime.now().strftime("H%"))
+        if now_hour >= 9 and now_hour < 17:
+
+            consult = {"consult_desc": u"假冒伪劣",
+                       "consult_ask": u"假一赔十"}
+            nologinpage = NoLoginHomePage(self.homepage)
+            nologinpage.get_url()
+            nologinpage.head_service_manwork_consult(**consult)
+            res = nologinpage.verification_head_service_manwork_consult(**consult)
+            self.assertEqual(True, res)
 
 
     def test_08(self):
