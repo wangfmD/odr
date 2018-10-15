@@ -2,6 +2,7 @@
 from time import sleep
 from odrweb.page.browser import Page
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
 from utils.tools import DbConn
 
 
@@ -9,7 +10,9 @@ class MissionCenter(Page):
 
     def in_mission_center(self):
         """进入任务中心"""
-        self.find_element_by_xpath('//a[@href="#/missions"]').click()
+        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath('//a[@href="#/missions"]')).click()
+
+        #  self.find_element_by_xpath('//a[@href="#/missions"]').click()
         sleep(0.5)
         i = self.case_count()
         print("当前页展示" + i + "个纠纷")
@@ -110,8 +113,11 @@ class MissionCenter(Page):
             self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').clear()
         self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').send_keys(name_)
         self.find_element_by_xpath('//h4[text()="调解机构筛选"]/..//button[text()="搜索"]').click()
-        self.find_element_by_xpath('//button[text()="转出"]').click()
-        self.find_element_by_xpath('//div[text()="温馨提示"]/..//a[text()="确认"]').click()  #温馨提示-确认
+        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath('//button[text()="转出"]')).click()
+        #  self.find_element_by_xpath('//button[text()="转出"]').click()
+        sleep(1)
+        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath('//div[text()="温馨提示"]/..//a[text()="确认"]')).click()
+        #  self.find_element_by_xpath('//div[text()="温馨提示"]/..//a[text()="确认"]').click()  #温馨提示-确认
         sleep(2)
 
     def verfc_change_organization(self, casenumber):
@@ -135,7 +141,9 @@ class MissionCenter(Page):
 
             j = int(count) - 1   # 数组下标处理
             print("查看第"+str(count)+"个纠纷调解进度")
+            WebDriverWait(self.driver, 10).until(lambda x: x.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="progress(one.id,one.statusName)"]'))
             k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="progress(one.id,one.statusName)"]')
+
             k[j].click()
             return True
         except:

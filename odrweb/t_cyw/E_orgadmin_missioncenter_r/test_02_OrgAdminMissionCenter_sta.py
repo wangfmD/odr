@@ -101,9 +101,6 @@ class OrgCaseOpera(unittest.TestCase):
         result = orgpage.verfc_total_case_number_visitable(total_casenumber)
         self.assertEquals(result, True, msg='案件总量显示不为数字')
 
-
-
-
     def test_06(self):
         '''案件编号精确搜索'''
 
@@ -166,8 +163,6 @@ class OrgCaseOpera(unittest.TestCase):
         result = orgpage.click_batch_process()
         self.assertEquals(result, True, msg='批量受理按钮点击失败')
 
-
-
     def test_09(self):
         '''机构管理员查看纠纷详情'''
 
@@ -216,7 +211,6 @@ class OrgCaseOpera(unittest.TestCase):
         sleep(1)
         result = orgpage.verfc_case_acceptable(casenumber)
         self.assertEquals(result, True, msg='案件受理失败')
-
 
     def test_11(self):
         '''机构管理员不受理纠纷'''
@@ -278,7 +272,6 @@ class OrgCaseOpera(unittest.TestCase):
         result = orgpage.verfc_case_assignable(casenumber)
         self.assertEquals(result, True, msg='案件分配调解员失败')
 
-
     def test_13(self):
         '''机构管理员重新分配机构'''
 
@@ -304,8 +297,6 @@ class OrgCaseOpera(unittest.TestCase):
         result = orgpage.verfc_change_organization(casenumber)
         self.assertEquals(result, True, msg='调解机构转移失败')
 
-
-
     def test_14(self):
         '''机构管理员查看进度'''
 
@@ -325,8 +316,6 @@ class OrgCaseOpera(unittest.TestCase):
         orgpage.search_case_by_id_or_name(**case_optioninfo)  # 检索纠纷
         result = orgpage.case_progress()  # 点击查看进度
         self.assertEquals(result, True, msg='查看进度失败')
-
-
 
     # def xtest_006(self):
     #     '''机构管理员重新分配案件'''
