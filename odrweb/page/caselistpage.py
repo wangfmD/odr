@@ -42,7 +42,7 @@ class CaseListBasePage(Page):
         """
         sleep(0.5)
         try:
-            conference_title = self.find_element_by_xpath('/html/body/section[2]/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/i').text
+            conference_title = self.find_element_by_xpath('(//span[text()="会议名"])[1]/following-sibling::i').text  # 纠纷详情页面，第一个会议名称
         except:
             conference_title = "**None**"
         return conference_title
@@ -333,7 +333,8 @@ class CaseListPage(CaseListBasePage):
         self.find_element_by_xpath('//a[contains(text(),"纠纷详情")]').click()
         sleep(1)
         # 获取纠纷编号
-        dispute_id = self.find_element_by_xpath('/html/body/section[2]/div[1]/div/span[2]').text
+        span_el = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//span[text()="纠纷编号"]/following-sibling::span')))
+        dispute_id = span_el.text
         return dispute_id
 
 
@@ -401,6 +402,8 @@ class InputCaseListPage(CaseListBasePage):
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').clear()
         sleep(0.5)
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').send_keys(desc_ext)
+        js ='app.caseData.applicants[0].dyfileName="1.jpg"'
+        self.driver.execute_script(js)
 
     def _input_dispute_add_commit(self):
         """增加纠纷-提交
