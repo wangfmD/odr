@@ -1,10 +1,8 @@
 # coding:utf-8
 from time import sleep
 
-from odrweb.page.browser import Page
-from selenium.webdriver.support.select import Select
 from odrweb.core.initdata import init
-
+from odrweb.page.browser import Page
 
 base_url = init.base_url
 
@@ -38,8 +36,6 @@ class NoLoginHomePage(Page):
     # 获取点击申请调解页面的调解类型
     x_tail_law = '//div[@id="app"]/div[1]/div[1]/div[2]/dl/dt'
 
-
-
     def get_url(self):
         '''进入T2环境ODR'''
         self.driver.get(base_url)
@@ -52,7 +48,6 @@ class NoLoginHomePage(Page):
         self.find_element_by_xpath(self.x_head_service_law).click()
         # 点击选择在线咨询
         self.find_element_by_xpath(self.x_head_service_law_online).click()
-
 
     def change_windows(self):
         '''切换窗口'''
@@ -68,8 +63,7 @@ class NoLoginHomePage(Page):
         print "result:", chat
         print "except:", u"您好，我是平台咨询机器人"
         res = chat == u"您好，我是平台咨询机器人"
-        return  res
-
+        return res
 
     def head_service_online_law(self):
         '''在线咨询法律咨询'''
@@ -162,7 +156,7 @@ class NoLoginHomePage(Page):
         res = login == u"欢迎登录"
         return res
 
-    def head_service_manwork_consult(self,**kwargs):
+    def head_service_manwork_consult(self, **kwargs):
         '''人工咨询直接发起咨询'''
         # 点击服务内容
         self.find_element_by_xpath(self.x_head_service).click()
@@ -189,8 +183,7 @@ class NoLoginHomePage(Page):
         self.find_element_by_xpath('//div[@id="table"]/div[2]/table/tbody/tr[1]/td[6]/button').click()
         sleep(1)
 
-
-    def verification_head_service_manwork_consult(self,**kwargs):
+    def verification_head_service_manwork_consult(self, **kwargs):
         '''验证人工咨询直接发起咨询'''
         # 点击查看纠纷详情
         self.find_element_by_xpath('/html/body/div[2]/div[3]/div[2]/div[1]/div[1]/div[2]/button[1]').click()
@@ -199,7 +192,7 @@ class NoLoginHomePage(Page):
         try:
             desc = self.find_element_by_xpath('//div[@id="checkReports"]/div/div/div[2]/div/div[1]/p').text
         except:
-            desc =  "**None**"
+            desc = "**None**"
         print "result:", desc
         print "except:", kwargs["consult_desc"]
         res = desc == kwargs["consult_desc"]
@@ -354,9 +347,9 @@ class NoLoginHomePage(Page):
         self.find_element_by_xpath('//div[@id="app"]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]').click()
         # 获取详情中法院名称
         ogr_name_12 = self.find_element_by_xpath('//div[@id="app"]/div[2]/div/div/div[2]/div[1]/div[2]/div[1]').text
-        return ogr_name_11,ogr_name_12
+        return ogr_name_11, ogr_name_12
 
-    def verification_head_resource_organization_info(self,ogr_name_11,ogr_name_12):
+    def verification_head_resource_organization_info(self, ogr_name_11, ogr_name_12):
         '''校验服务资源机构详情'''
         print "result:", ogr_name_12
         print "except:", ogr_name_11
@@ -377,9 +370,9 @@ class NoLoginHomePage(Page):
         sleep(6)
         # 获取搜索后法院名称
         ogr_name_22 = self.find_element_by_xpath('//div[@id="app"]/div[1]/div[1]/div[2]/div[1]/div/div[1]/div[2]/div[1]').text
-        return ogr_name_21,ogr_name_22
+        return ogr_name_21, ogr_name_22
 
-    def verification_head_resource_organization_search(self,ogr_name_21,ogr_name_22):
+    def verification_head_resource_organization_search(self, ogr_name_21, ogr_name_22):
         '''校验服务资源机构搜索'''
         print "result:", ogr_name_21
         print "except:", ogr_name_22
@@ -400,9 +393,9 @@ class NoLoginHomePage(Page):
         self.find_element_by_xpath('//div[@id="app"]/div[1]/div[1]/div[2]/div[2]/div[1]/div[3]/div').click()
         # 获取详情服务人员名称
         per_name_12 = self.find_element_by_xpath('//div[@id="app"]/div[2]/div/div/div[2]/div/div[2]/div[1]/div[1]').text
-        return per_name_11,per_name_12
+        return per_name_11, per_name_12
 
-    def verification_head_resource_serpersonal_info(self,per_name_11,per_name_12):
+    def verification_head_resource_serpersonal_info(self, per_name_11, per_name_12):
         '''校验服务资源服务人员详情'''
         print "result:", per_name_12
         print "except:", per_name_11
@@ -425,9 +418,9 @@ class NoLoginHomePage(Page):
         sleep(5)
         # 获取搜索后服务人员名称
         per_name_22 = self.find_element_by_xpath('//div[@id="app"]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[1]/span[1]').text
-        return per_name_21,per_name_22
+        return per_name_21, per_name_22
 
-    def verification_head_resource_serpersonal_search(self,per_name_21,per_name_22):
+    def verification_head_resource_serpersonal_search(self, per_name_21, per_name_22):
         '''校验服务资源服务人员搜索'''
         print "result:", per_name_22
         print "except:", per_name_21
@@ -467,9 +460,9 @@ class NoLoginHomePage(Page):
         sleep(1)
         # 获取新闻标题
         title_2 = self.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div/div[1]/div/div[2]').text
-        return title_1,title_2
+        return title_1, title_2
 
-    def verification_head_news(self,title_1,title_2):
+    def verification_head_news(self, title_1, title_2):
         '''校验服务资源服务人员搜索'''
         print "result:", title_2
         print "except:", title_1
@@ -482,7 +475,6 @@ class NoLoginHomePage(Page):
         self.find_element_by_xpath(self.x_head_help).click()
         # 点击常见问题用户注册
         self.find_element_by_xpath('//div[@id="app"]/div[4]/div[2]/ul/li[1]/div[2]/div[1]/a[1]/span').click()
-
 
     def head_help_common_login(self):
         '''帮助中心常见问题用户登陆'''
@@ -523,7 +515,6 @@ class NoLoginHomePage(Page):
         # 点击常见问题用纠纷服务调解
         self.find_element_by_xpath('//div[@id="app"]/div[4]/div[2]/ul/li[2]/div[2]/div[1]/a[1]/span').click()
 
-
     def verification_head_help_common_mediate(self):
         '''校验帮助中心常见问题纠纷调解服务'''
         try:
@@ -541,7 +532,6 @@ class NoLoginHomePage(Page):
         self.find_element_by_xpath(self.x_head_help).click()
         # 点击常见问题用户法律咨询服务
         self.find_element_by_xpath('//div[@id="app"]/div[4]/div[2]/ul/li[2]/div[2]/div[1]/a[2]/span').click()
-
 
     def verification_head_help_common_consult(self):
         '''校验帮助中心常见问题法律咨询服务'''
@@ -561,7 +551,6 @@ class NoLoginHomePage(Page):
         # 点击常见问题用在线评估服务
         self.find_element_by_xpath('//div[@id="app"]/div[4]/div[2]/ul/li[2]/div[2]/div[2]/a[1]/span').click()
 
-
     def verification_head_help_common_assess(self):
         '''校验帮助中心常见问题在线评估服务'''
         try:
@@ -579,7 +568,6 @@ class NoLoginHomePage(Page):
         self.find_element_by_xpath(self.x_head_help).click()
         # 点击常见问题服务资源
         self.find_element_by_xpath('//div[@id="app"]/div[4]/div[2]/ul/li[2]/div[2]/div[2]/a[2]/span').click()
-
 
     def verification_head_help_common_services(self):
         '''校验帮助中心常见问题服务资源'''
@@ -610,7 +598,6 @@ class NoLoginHomePage(Page):
         res = text == u"1. 如何申请调解 ?"
         return res
 
-
     def head_help_common_online(self):
         '''帮助中心常见问题在线评估'''
         # 点击帮助中心
@@ -618,7 +605,7 @@ class NoLoginHomePage(Page):
         # 点击常见问题用在线评估
         self.find_element_by_xpath('//div[@id="app"]/div[4]/div[2]/ul/li[3]/div[2]/div[1]/a[2]/span').click()
 
-    def     verification_head_help_common_online(self):
+    def verification_head_help_common_online(self):
         '''校验帮助中心常见问题在线评估'''
         try:
             text = self.find_element_by_xpath(self.x_head_common_first).text
@@ -683,7 +670,6 @@ class NoLoginHomePage(Page):
         res = text == u"1. 如何完成实名认证 ?"
         return res
 
-
     def head_help_common_modification(self):
         '''帮助中心常见问题修改密码'''
         # 点击帮助中心
@@ -702,7 +688,6 @@ class NoLoginHomePage(Page):
         res = text == u"1. 如何修改密码 ?"
         return res
 
-
     def head_help_common_personal(self):
         '''帮助中心常见问题个人信息'''
         # 点击帮助中心
@@ -720,7 +705,6 @@ class NoLoginHomePage(Page):
         print "except:", u"1. 如何完善个人信息 ?"
         res = text == u"1. 如何完善个人信息 ?"
         return res
-
 
     def head_help_common_signature(self):
         '''帮助中心常见问题手写签名'''
@@ -754,7 +738,7 @@ class NoLoginHomePage(Page):
         except:
             enrol = "*None*"
         print "result:", enrol
-        print "except:",  u"手机号注册"
+        print "except:", u"手机号注册"
         res = enrol == u"手机号注册"
         return res
 
@@ -772,7 +756,7 @@ class NoLoginHomePage(Page):
         except:
             enrol = "*None*"
         print "result:", enrol
-        print "except:",  u"已有账户，立即登录"
+        print "except:", u"已有账户，立即登录"
         res = enrol == u"已有账户，立即登录"
         return res
 
@@ -797,7 +781,7 @@ class NoLoginHomePage(Page):
         except:
             enrol = "*None*"
         print "result:", enrol
-        print "except:",  u"人工咨询流程"
+        print "except:", u"人工咨询流程"
         res = enrol == u"人工咨询流程"
         return res
 
@@ -990,7 +974,6 @@ class NoLoginHomePage(Page):
         res = text == u"合同纠纷"
         return res
 
-
     def tail_law_traffic(self):
         '''尾部交通事故'''
         # 点击尾部交通事故
@@ -1006,7 +989,6 @@ class NoLoginHomePage(Page):
         print "except:", u"交通事故"
         res = text == u"交通事故"
         return res
-
 
     def tail_law_borrow(self):
         '''尾部借贷纠纷'''

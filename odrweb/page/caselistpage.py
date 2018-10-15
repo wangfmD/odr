@@ -10,6 +10,8 @@ from odrweb.page.browser import Page
 
 
 class CaseListBasePage(Page):
+    """调解员首页的基础类
+    """
     modifcation_dispute_desc = "**_**modification"
     modifcation_dispute_appeal = '**_**appeal'
     modifcation_dispute_type = u"金融借款合同纠纷"
@@ -190,6 +192,8 @@ class CaseListBasePage(Page):
 
 
 class CaseListPage(CaseListBasePage):
+    """纠纷调解案件列表
+    """
     case_list_select = '/html/body/div[4]/div[2]/div[1]/div[4]/select'  # 我的案件筛选选择框
 
     def _into_mycase_list(self):

@@ -11,7 +11,8 @@ sys.setdefaultencoding("utf-8")
 
 
 class TjyFunc(unittest.TestCase):
-    '''调解员-案件登记列表'''
+    """调解员-案件登记列表
+    """
 
     #
     def setUp(self):
