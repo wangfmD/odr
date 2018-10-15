@@ -274,7 +274,7 @@ class CaseListPage(CaseListBasePage):
                 search = None
         else:
             try:
-                search = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[3]/div/div/div/div[4]/div[1]/div[6]/div[1]/p').text
+                search = self.find_element_by_xpath('(//label[text()="申请人"])[3]/following-sibling::p').text
             except:
                 search = None
         return search
@@ -297,7 +297,7 @@ class CaseListPage(CaseListBasePage):
         """
         sleep(1)
         try:
-            result = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[6]/div[1]/p').text
+            result = self.find_element_by_xpath('(//label[text()="申请人"])[1]/following-sibling::p').text
         except:
             result = "**None**"
         print "result: ", result
