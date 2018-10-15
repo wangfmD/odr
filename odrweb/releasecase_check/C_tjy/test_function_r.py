@@ -66,7 +66,7 @@ class TjyFuncCaseList(unittest.TestCase):
         '''等待调解-预约调解'''
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
-        case_list_page.mediate_vedio_create()
+        case_list_page.mediate_video_create()
         # 获取返回页面纠纷状态
         conference_title = case_list_page.get_conference_title()
         result = case_list_page.verification_dispute_status(conference_title, "conference_title")
@@ -126,7 +126,7 @@ class TjyFuncCaseList(unittest.TestCase):
         '''正在调解-预约调解'''
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
-        case_list_page.mediate_vedio_create(dispute_status=u'正在调解')
+        case_list_page.mediate_video_create(dispute_status=u'正在调解')
         # 获取返回页面纠纷状态
         conference_title = case_list_page.get_conference_title()
         result = case_list_page.verification_dispute_status(conference_title, "conference_title")
