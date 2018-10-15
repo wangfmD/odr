@@ -364,21 +364,21 @@ class InputCaseListPage(CaseListBasePage):
         self._dispute_delete()
 
     def dispute_add_commit(self, desc_ext):
-        """案件登记列表-已提交-增加纠纷-提交
+        """案件登记列表-全部-增加纠纷-提交
         """
         self._into_input_case_list()
-        self.select_status(dispute_status=u'已提交')
+        self.select_status(dispute_status=u'全部')  # 其他状态概率选择到简易案件
         # self._goto_detail_info()
         self._dispute_add_input(desc_ext)
         self._input_dispute_add_commit()
 
     def dispute_add_save(self, desc_ext):
-        """案件登记列表-已提交-增加纠纷-保存
+        """案件登记列表-全部-增加纠纷-保存
         """
         # 进入纠纷登记列表
         self._into_input_case_list()
         # 选择未提交查询
-        self.select_status(dispute_status=u'已提交')
+        self.select_status(dispute_status=u'全部')
         # 进入纠纷详情
         # self._goto_detail_info()
         # 修改内容
