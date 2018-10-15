@@ -401,7 +401,10 @@ class PersonalPage(Page):
         """绑定手机-取消
         """
         self.find_element_by_xpath(self.x_security_setting).click()
-        self.find_element_by_xpath('//td[text()="绑定手机"]/../td[4]/a').click()
+        # 等待修改按键
+        modify_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//td[text()="绑定手机"]/../td[4]/a')))
+        modify_btn.click()
+        # self.find_element_by_xpath('//td[text()="绑定手机"]/../td[4]/a').click()
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//span[text()="取消"])[2]')))
         element.click()
 
@@ -409,7 +412,10 @@ class PersonalPage(Page):
         """绑定邮箱-取消
         """
         self.find_element_by_xpath(self.x_security_setting).click()
-        self.find_element_by_xpath('//td[text()="绑定邮箱"]/../td[4]/a').click()
+        # 等待修改按键
+        modify_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//td[text()="绑定邮箱"]/../td[4]/a')))
+        modify_btn.click()
+        # self.find_element_by_xpath('//td[text()="绑定邮箱"]/../td[4]/a').click()
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//span[text()="取消"])[3]')))
         element.click()
         # self.find_element_by_xpath('(//span[text()="取消"])[3]').click()
@@ -418,7 +424,10 @@ class PersonalPage(Page):
         """预留签名-取消
         """
         self.find_element_by_xpath(self.x_security_setting).click()
-        self.find_element_by_xpath('//td[text()="预留签名"]/../td[4]/a').click()
+        # 等待修改按键
+        modify_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//td[text()="预留签名"]/../td[4]/a')))
+        modify_btn.click()
+        # self.find_element_by_xpath('//td[text()="预留签名"]/../td[4]/a').click()
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="取 消"]')))
         element.click()
         # self.find_element_by_xpath('//span[text()="取 消"]').click()
