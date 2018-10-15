@@ -1,11 +1,6 @@
-# coding:utf-8
+# -*- coding: utf-8 -*-
 from time import sleep
 
-from selenium import webdriver
-
-# base_url = 'https://train.odrcloud.cn:8443'
-# IE11URL_ytj = 'https://train.odrcloud.cn:8443/jsp/pages/accountLogin.jsp?page=14588154523857'
-# from selenium.common.exceptions import ElementNotInteractableException
 from odrweb.core.initdata import init
 from odrweb.page.browser import Page
 
@@ -14,15 +9,18 @@ IE11URL_ytj = 'https://uatodr.odrcloud.net/jsp/pages/accountLogin.jsp?page=14588
 
 
 class HomePage(Page):
+    """首页登录
+    """
 
     select_user_quit_a = '//div[@id="app"]/header/div[2]/div[2]/ul/li[2]/a'  # 个人中心页面 头部的 （退出）
-    x_bafg_home_logout_btn = '//a[text()="退出"]'                            # 办案法官登录页面-退出btn
+    x_bafg_home_logout_btn = '//a[text()="退出"]'  # 办案法官登录页面-退出btn
 
     def quit(self):
         self.driver.quit()
 
     def _get_register_text(self):
-        """获取 立刻注册 link内容: 立即注册>"""
+        """获取 立刻注册 link内容: 立即注册>
+        """
         try:
             text = self.driver.find_element_by_xpath('//div[@id="app"]/div[2]/div[3]/a').text
         except:
@@ -53,6 +51,7 @@ class HomePage(Page):
     def user_head_login(self, name, pwd):
         """
         普通用户头部登录
+        :param name:
         :param driver:
         :return:
         """
@@ -97,21 +96,20 @@ class HomePage(Page):
         return result
 
     def user_head_login_quit(self):
-        """用户头部登出"""
+        """用户头部登出
+        """
         self.driver.find_element_by_xpath(self.select_user_quit_a).click()
         sleep(1)
 
     def user_personal_center(self):
-        """"""
+        """进入个人中心
+        """
         self.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[2]/a').click()
         sleep(0.5)
         return self.driver
 
     def company_login(self, name, pwd):
-        """
-        企业登录
-        :param driver:
-        :return:
+        """企业登录
         """
         self.driver.get(base_url + "/")
         self.driver.find_element_by_xpath(u"//a[contains(text(),'立即登录')]").click()
@@ -205,6 +203,8 @@ class HomePage(Page):
     def organization_user_login(self, name, pwd):
         """
         机构登记员登录
+        :param pwd:
+        :param name:
         :param driver: 机构登记员：1805130007 密码：123456
         :return:
         """
@@ -323,7 +323,6 @@ class HomePage(Page):
     def counselor_login(self, name, pwd):
         """
         咨询师登录  3606706616 000000
-        :param driver:
         :return:
         """
         self.driver.get(base_url + "/")
@@ -512,38 +511,5 @@ class HomePage(Page):
         return result
 
 
-def t():
-    browser = webdriver.Chrome()
-    # browser=webdriver.Ie()
-    browser.maximize_window()
-
-    browser.implicitly_wait(5)
-
-    # login(browser)
-    # consult_input(browser)
-    # company_login(browser)
-
-    # mediator_login(browser)
-    # organization_user_login(browser)
-    # organization_login(browser)
-    # mediator_login(browser)
-    # customer_login(browser)
-    # counselor_login(browser)
-    # login_yun(browser)
-
-    # user_login(browser, users.user_wfm['username'], users.user_wfm['pwd'])
-    # mediator_login(browser, users.user_tjy['username'], users.user_tjy['pwd'])
-    # mediator_login(browser, users.user_bafg['username'], users.user_bafg['pwd'])
-    # organization_user_login(browser, users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-    # organization_login(browser, users.user_bmxlzxysxxjg['username'], users.user_bmxlzxysxxjg['pwd'])
-    # customer_login(browser, users.user_kf['username'], users.user_kf['pwd'])
-    # counselor_login(browser, users.user_zxs['username'], users.user_zxs['pwd'])
-    # login_yun(browser, users.user_wfm['username'], users.user_wfm['pwd'])
-
-    # organization_login(browser, users.user_shenadmin['username'], users.user_shenadmin['pwd'])
-    # organization_login(browser, users.user_quadmin['username'], users.user_quadmin['pwd'])
-    # organization_login(browser, users.user_shiadmin['username'], users.user_shiadmin['pwd'])
-
-
 if __name__ == '__main__':
-    t()
+    pass

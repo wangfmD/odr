@@ -1,4 +1,4 @@
-# coding:utf-8
+# -*- coding: utf-8 -*-
 from time import sleep
 from odrweb.page.browser import Page
 
