@@ -12,7 +12,7 @@ from odrweb.page.homepage import HomePage
 
 
 class AdminOrigan(unittest.TestCase):
-    '''行政部门测试用例'''
+    '''行政机构管理员'''
 
     def setUp(self):
         self.homepage = HomePage()
