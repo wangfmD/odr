@@ -11,7 +11,7 @@ sys.setdefaultencoding("utf-8")
 
 
 class TjyFuncCaseList(unittest.TestCase):
-    '''调解员-纠纷调解案件列表'''
+    """调解员-纠纷调解案件列表"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -22,7 +22,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''等待调解-调解成功'''
+        """等待调解-调解成功"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_success()
@@ -32,7 +32,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_02(self):
-        '''等待调解-调解失败'''
+        """等待调解-调解失败"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_failed()
@@ -42,7 +42,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_03(self):
-        '''等待调解-调解终止'''
+        """等待调解-调解终止"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_stop()
@@ -52,7 +52,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_04(self):
-        '''等待调解-调解撤回'''
+        """等待调解-调解撤回"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_revocation()
@@ -62,7 +62,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_05(self):
-        '''等待调解-预约调解'''
+        """等待调解-预约调解"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_video_create()
@@ -73,7 +73,7 @@ class TjyFuncCaseList(unittest.TestCase):
 
     #
     def test_06(self):
-        '''等待调解-调解重新分配'''
+        """等待调解-调解重新分配"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_redistribution()
@@ -83,7 +83,7 @@ class TjyFuncCaseList(unittest.TestCase):
         # self.assertEqual(True, result)
 
     def test_07(self):
-        '''正在调解-调解成功'''
+        """正在调解-调解成功"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_success(dispute_status=u'正在调解')
@@ -93,7 +93,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_08(self):
-        '''正在调解-调解失败'''
+        """正在调解-调解失败"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_failed()
@@ -103,7 +103,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_09(self):
-        '''正在调解-调解终止'''
+        """正在调解-调解终止"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_stop(dispute_status=u'正在调解')
@@ -113,7 +113,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_10(self):
-        '''正在调解-调解撤回'''
+        """正在调解-调解撤回"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_revocation(dispute_status=u'正在调解')
@@ -123,7 +123,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_11(self):
-        '''正在调解-预约调解'''
+        """正在调解-预约调解"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_video_create(dispute_status=u'正在调解')
@@ -134,7 +134,7 @@ class TjyFuncCaseList(unittest.TestCase):
 
     #
     def test_12(self):
-        '''正在调解-调解重新分配'''
+        """正在调解-调解重新分配"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         case_list_page.mediate_redistribution(dispute_status=u'正在调解')
@@ -144,7 +144,7 @@ class TjyFuncCaseList(unittest.TestCase):
         # self.assertEqual(True, result)
 
     def test_13(self):
-        '''案件列表-纠纷编号查询'''
+        """案件列表-纠纷编号查询"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         search = case_list_page._get_search()
@@ -154,7 +154,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_14(self):
-        '''案件列表-姓名查询'''
+        """案件列表-姓名查询"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
         search = case_list_page._get_search(type_="name")
@@ -164,7 +164,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_15(self):
-        '''案件列表-状态筛选-等待调解'''
+        """案件列表-状态筛选-等待调解"""
         dispute_status = u'等待调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
@@ -174,7 +174,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_16(self):
-        '''案件列表-状态筛选-正在调解'''
+        """案件列表-状态筛选-正在调解"""
         dispute_status = u'正在调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
@@ -184,7 +184,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_17(self):
-        '''案件列表-状态筛选-调解成功'''
+        """案件列表-状态筛选-调解成功"""
         dispute_status = u'调解成功'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
@@ -194,7 +194,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_18(self):
-        '''案件列表-状态筛选-调解失败'''
+        """案件列表-状态筛选-调解失败"""
         dispute_status = u'调解失败'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
@@ -204,7 +204,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_19(self):
-        '''案件列表-状态筛选-撤回调解'''
+        """案件列表-状态筛选-撤回调解"""
         dispute_status = u'撤回调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
@@ -214,7 +214,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_20(self):
-        '''案件列表-状态筛选-调解终止'''
+        """案件列表-状态筛选-调解终止"""
         dispute_status = u'终止调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
@@ -224,7 +224,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_21(self):
-        '''案件列表-等待调解-修改保存'''
+        """案件列表-等待调解-修改保存"""
         dispute_status = u'等待调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
@@ -234,7 +234,7 @@ class TjyFuncCaseList(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_22(self):
-        '''案件列表-正在调解-修改保存'''
+        """案件列表-正在调解-修改保存"""
         dispute_status = u'正在调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = CaseListPage(self.homepage)
