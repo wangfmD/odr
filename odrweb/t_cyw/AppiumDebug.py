@@ -7,7 +7,6 @@ import traceback
 from appium.webdriver.common.touch_action import TouchAction
 
 
-
 def swipe_down(driver, t=500, n=1):
     '''向下拉滑'''
     size = driver.get_window_size()
