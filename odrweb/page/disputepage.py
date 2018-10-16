@@ -322,8 +322,12 @@ class DisputePageTjy(Page):
     def verification_commit(self, **kwargs):
         """调解员登记案件验证
         """
-        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_case_input_list_a)))
-        ok_btn.click()
+        # 用例有执行失败的场景，添加异常处理，提高执行成功率。
+        try:
+            ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_case_input_list_a)))
+            ok_btn.click()
+        except:
+            self.find_element_by_xpath(self.x_case_input_list_a).click()
 
         try:
             jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
