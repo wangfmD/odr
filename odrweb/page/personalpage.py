@@ -380,6 +380,36 @@ def t():
     per = PersonalPage(homepage)
     per.consult(**jf_consult)
 
+class PersonalCenter(Page):
+
+    def conciliation_list(self):
+        # 点开调解列表
+        self.find_element_by_xpath('//a[text()="调解"]').click()
+
+    def get_last_conciliation_number(self):
+        # 获取最新的纠纷编号
+        number = self.find_element_by_xpath('//div[@class="list-item"][1]//div[@class="case-detail"]//li[2]').text
+        return number
+
+    def in_conciliation(self):
+        # 选择我要调解
+        self.find_element_by_xpath('//div[text()="我要调解"]').click() #点击我要调解
+        sleep(1)
+        self.find_element_by_xpath('//div[text()="重要提示"]/..//a[text()="确定"]').click() #重要提示-确定
+
+    def verfc_conciliation_create_successful(self,  number1, number2):
+        # 新旧案件编号不等说明新增成功
+        if number1 == number2:
+            return False
+        else:
+            return True
+
+class RolerChoose(Page):
+
+    def normal_proxy(self):
+        # 选择一般代理人身份
+        self.find_element_by_xpath("//div[contains(text(),'我是代理人')]/../div/div/div/div[contains(text(),'申请调解')]").click()
+
 
 if __name__ == '__main__':
     t()
