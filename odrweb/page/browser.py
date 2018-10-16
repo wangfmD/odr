@@ -9,8 +9,15 @@ from odrweb.core.initdata import init
 TYPES = {'firefox': webdriver.Firefox,
          'chrome': webdriver.Chrome,
          'ie': webdriver.Ie,
-         'phantomjs': webdriver.PhantomJS,
-         'se360': webdriver.se360}
+         'phantomjs': webdriver.PhantomJS}
+
+
+try:
+    SE = {'se360': webdriver.se360}
+    TYPES.update(SE)
+except:
+    print('360浏览器方法不存在，请注意添加')
+
 
 
 class UnSupportBrowserTypeError(Exception):
