@@ -50,8 +50,8 @@ class DisputeSave(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''机构登记员-登记纠纷提交-申自然人-被自然人'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申自然人-被自然人",
+        '''机构登记员-登记纠纷保存-申自然人-被自然人'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申自然人-被自然人",
                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -67,8 +67,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_02(self):
-        '''机构登记员-登记纠纷提交-申自然人-被法人'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申自然人-被法人",
+        '''机构登记员-登记纠纷保存-申自然人-被法人'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申自然人-被法人",
                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -84,8 +84,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_03(self):
-        '''机构登记员-登记纠纷提交-申自然人-被非法人组织'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申自然人-被非法人组织",
+        '''机构登记员-登记纠纷保存-申自然人-被非法人组织'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申自然人-被非法人组织",
                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -101,8 +101,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_04(self):
-        '''机构登记员-登记纠纷提交-申法人-被自然人'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申法人-被自然人",
+        '''机构登记员-登记纠纷保存-申法人-被自然人'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申法人-被自然人",
                    "applicant_type": u"法人",  # 自然人 法人 非法人组织
                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -118,8 +118,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_05(self):
-        '''机构登记员-登记纠纷提交-申法人-被法人'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申法人-被法人",
+        '''机构登记员-登记纠纷保存-申法人-被法人'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申法人-被法人",
                    "applicant_type": u"法人",  # 自然人 法人 非法人组织
                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -135,8 +135,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_06(self):
-        '''机构登记员-登记纠纷提交-申法人-被非法人组织'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申法人-被非法人组织",
+        '''机构登记员-登记纠纷保存-申法人-被非法人组织'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申法人-被非法人组织",
                    "applicant_type": u"法人",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -152,8 +152,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_07(self):
-        '''机构登记员-登记纠纷提交-申非法人组织-被自然人'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申非法人组织-被自然人",
+        '''机构登记员-登记纠纷保存-申非法人组织-被自然人'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申非法人组织-被自然人",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -169,8 +169,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_08(self):
-        '''机构登记员-登记纠纷提交-申非法人组织-被法人'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申非法人组织-被法人",
+        '''机构登记员-登记纠纷保存-申非法人组织-被法人'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申非法人组织-被法人",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,
@@ -186,8 +186,8 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_09(self):
-        '''机构登记员-登记纠纷提交-申非法人组织-被非法人组织'''
-        jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申非法人组织-被非法人组织",
+        '''机构登记员-登记纠纷保存-申非法人组织-被非法人组织'''
+        jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申非法人组织-被非法人组织",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "agent_type": "",  # "" common special,

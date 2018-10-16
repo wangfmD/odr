@@ -10,7 +10,7 @@ sys.setdefaultencoding("utf-8")
 
 
 class SimpleJfInputCommit(unittest.TestCase):
-    '''简易案件登记提交'''
+    '''调解员-简易案件提交'''
 
     def setUp(self):
         self.homepage = HomePage()

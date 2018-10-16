@@ -27,8 +27,6 @@ class InProposerInfo(Page):
 
 
 
-
-
     def _ProposerCheck(self,count, **kwargs):
 
         #print("count=", count)
@@ -192,13 +190,6 @@ class InProposerInfo(Page):
 
             self.find_element_by_xpath(
                 MainXpath + '/div/label[text()="详细地址："]/../div/div/input').send_keys(kwargs["roler"][j]["详细地址"])  # 详细地址
-
-
-
-
-
-
-
 
     def _UpdateFile(self):
         js = 'app.$data.dynamicValidateForm.domains.forEach(e=>{e.Dfile={createId:null,createPersonnelRole:null,deleteMark:null,fileName:".gitconfig",filePath:"/powerOfAttorney/201808/4872c3f0440046aea35df9a6b6c2e7ee.gitconfig",fileSuffix:"gitconfig",id:null,lawCaseId:null,litigantId:null,name:"授权委托书",remarks:null,syncMark:"0",type:null}})'

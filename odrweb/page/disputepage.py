@@ -333,7 +333,12 @@ class DisputePageTjy(Page):
             ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_case_input_list_a)))
             ok_btn.click()
 
+        # 打印提交成功的case id
+        case_id = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
+        print "case commit suc {}".format(case_id)
+
         try:
+            # 获取纠纷信息
             jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
         except:
             jf_desc = "*None*"
@@ -342,13 +347,12 @@ class DisputePageTjy(Page):
         print "expect: ", kwargs['jf_desc']
 
         try:
+            # 获取申请人姓名
             applicant = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[2]/div[1]/p').text
         except:
             applicant = "*None*"
 
-        # 打印提交成功的case id
-        case_id = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
-        print "case commit suc {}".format(case_id)
+
 
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
@@ -387,6 +391,10 @@ class DisputePageTjy(Page):
         except:
             self.find_element_by_xpath(self.x_case_input_list_a).click()
 
+        # 打印 保存成功的case id
+        case_id = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
+        print "case save suc {}".format(case_id)
+
         try:
             jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
         except:
@@ -397,9 +405,7 @@ class DisputePageTjy(Page):
             applicant = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[2]/div[1]/p').text
         except:
             applicant = "*None*"
-        # 打印 保存成功的case id
-        case_id = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
-        print "case save suc {}".format(case_id)
+
 
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
