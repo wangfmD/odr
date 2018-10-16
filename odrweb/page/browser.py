@@ -9,7 +9,8 @@ from odrweb.core.initdata import init
 TYPES = {'firefox': webdriver.Firefox,
          'chrome': webdriver.Chrome,
          'ie': webdriver.Ie,
-         'phantomjs': webdriver.PhantomJS}
+         'phantomjs': webdriver.PhantomJS,
+         'se360': webdriver.se360}
 
 
 class UnSupportBrowserTypeError(Exception):
