@@ -3,7 +3,7 @@ import unittest
 from time import sleep
 import sys
 from odrweb.page.homepage import HomePage
-from odrweb.page.inpersonalcenter import PersonalCenter
+from odrweb.page.personalpage import PersonalCenter
 from odrweb.page.inrolerchoose import RolerChoose
 from odrweb.page.inconciliationinfo import ConciliationInfo
 from odrweb.page.inproposerinfo import InProposerInfo
