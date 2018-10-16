@@ -153,17 +153,18 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_search_No(search)
         self.assertEqual(True, result)
 
-    def test_14(self):
-        """案件列表-姓名查询"""
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        case_list_page = CaseListPage(self.homepage)
-        search = case_list_page._get_search(type_="name")
-        case_list_page.search(search)
-        # 获取返回页面纠纷状态
-        result = case_list_page.verification_search_name(search)
-        self.assertEqual(True, result)
+    # 没有测试数据，放置在添加纠纷场景中测试
+    # def test_14(self):
+    #     """案件列表-姓名查询"""
+    #     self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+    #     case_list_page = CaseListPage(self.homepage)
+    #     search = case_list_page._get_search(type_="name")
+    #     case_list_page.search(search)
+    #     # 获取返回页面纠纷状态
+    #     result = case_list_page.verification_search_name(search)
+    #     self.assertEqual(True, result)
 
-    def test_15(self):
+    def test_14(self):
         """案件列表-状态筛选-等待调解"""
         dispute_status = u'等待调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -173,7 +174,7 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_select_status(dispute_status)
         self.assertEqual(True, result)
 
-    def test_16(self):
+    def test_15(self):
         """案件列表-状态筛选-正在调解"""
         dispute_status = u'正在调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -183,7 +184,7 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_select_status(dispute_status)
         self.assertEqual(True, result)
 
-    def test_17(self):
+    def test_16(self):
         """案件列表-状态筛选-调解成功"""
         dispute_status = u'调解成功'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -193,7 +194,7 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_select_status(dispute_status)
         self.assertEqual(True, result)
 
-    def test_18(self):
+    def test_17(self):
         """案件列表-状态筛选-调解失败"""
         dispute_status = u'调解失败'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -203,7 +204,7 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_select_status(dispute_status)
         self.assertEqual(True, result)
 
-    def test_19(self):
+    def test_18(self):
         """案件列表-状态筛选-撤回调解"""
         dispute_status = u'撤回调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -213,7 +214,7 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_select_status(dispute_status)
         self.assertEqual(True, result)
 
-    def test_20(self):
+    def test_19(self):
         """案件列表-状态筛选-调解终止"""
         dispute_status = u'终止调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -223,7 +224,7 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_select_status(dispute_status)
         self.assertEqual(True, result)
 
-    def test_21(self):
+    def test_20(self):
         """案件列表-等待调解-修改保存"""
         dispute_status = u'等待调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -233,7 +234,7 @@ class TjyFuncCaseList(unittest.TestCase):
         result = case_list_page.verification_dispute_modification()
         self.assertEqual(True, result)
 
-    def test_22(self):
+    def test_21(self):
         """案件列表-正在调解-修改保存"""
         dispute_status = u'正在调解'
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])

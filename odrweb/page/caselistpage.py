@@ -42,7 +42,7 @@ class CaseListBasePage(Page):
         """
         sleep(0.5)
         try:
-            conference_title = self.find_element_by_xpath('/html/body/section[2]/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/i').text
+            conference_title = self.find_element_by_xpath('(//span[text()="会议名"])[1]/following-sibling::i').text  # 纠纷详情页面，第一个会议名称
         except:
             conference_title = "**None**"
         return conference_title
@@ -274,7 +274,7 @@ class CaseListPage(CaseListBasePage):
                 search = None
         else:
             try:
-                search = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[3]/div/div/div/div[4]/div[1]/div[6]/div[1]/p').text
+                search = self.find_element_by_xpath('(//label[text()="申请人"])[3]/following-sibling::p').text
             except:
                 search = None
         return search
@@ -297,7 +297,7 @@ class CaseListPage(CaseListBasePage):
         """
         sleep(1)
         try:
-            result = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[4]/div[1]/div[6]/div[1]/p').text
+            result = self.find_element_by_xpath('(//label[text()="申请人"])[1]/following-sibling::p').text
         except:
             result = "**None**"
         print "result: ", result
@@ -333,7 +333,8 @@ class CaseListPage(CaseListBasePage):
         self.find_element_by_xpath('//a[contains(text(),"纠纷详情")]').click()
         sleep(1)
         # 获取纠纷编号
-        dispute_id = self.find_element_by_xpath('/html/body/section[2]/div[1]/div/span[2]').text
+        span_el = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//span[text()="纠纷编号"]/following-sibling::span')))
+        dispute_id = span_el.text
         return dispute_id
 
 
@@ -363,21 +364,21 @@ class InputCaseListPage(CaseListBasePage):
         self._dispute_delete()
 
     def dispute_add_commit(self, desc_ext):
-        """案件登记列表-已提交-增加纠纷-提交
+        """案件登记列表-全部-增加纠纷-提交
         """
         self._into_input_case_list()
-        self.select_status(dispute_status=u'已提交')
+        self.select_status(dispute_status=u'全部')  # 其他状态概率选择到简易案件
         # self._goto_detail_info()
         self._dispute_add_input(desc_ext)
         self._input_dispute_add_commit()
 
     def dispute_add_save(self, desc_ext):
-        """案件登记列表-已提交-增加纠纷-保存
+        """案件登记列表-全部-增加纠纷-保存
         """
         # 进入纠纷登记列表
         self._into_input_case_list()
         # 选择未提交查询
-        self.select_status(dispute_status=u'已提交')
+        self.select_status(dispute_status=u'全部')
         # 进入纠纷详情
         # self._goto_detail_info()
         # 修改内容
@@ -401,6 +402,8 @@ class InputCaseListPage(CaseListBasePage):
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').clear()
         sleep(0.5)
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').send_keys(desc_ext)
+        js ='app.caseData.applicants[0].dyfileName="1.jpg"'
+        self.driver.execute_script(js)
 
     def _input_dispute_add_commit(self):
         """增加纠纷-提交

@@ -4,6 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
+from odrweb.page.caselistpage import CaseListPage
 from odrweb.page.disputepage import DisputePageTjy
 from odrweb.page.homepage import HomePage
 
@@ -50,15 +51,15 @@ class DisputeCommit(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        """调解员-登记纠纷提交-申自然人代理人-被自然人
+        """调解员-登记纠纷提交-申自然人-被自然人
         """
-        jf_info = {"jf_desc": u"调解员-登记纠纷提交-申自然人代理人-被自然人",
-                   "applicant_type": u"自然人",  # 自然人 法人 非法人组织
-                   "disputer_type": u"自然人",  # 自然人 法人 非法人组织
-                   "agent_type": "special",  # "" common special,
-                   "agent_b_type": "",  # common special,
+        jf_info = {"jf_desc": u"调解员-登记纠纷提交-申自然人-被自然人",
+                       "applicant_type": u"自然人",  # 自然人 法人 非法人组织
+                       "disputer_type": u"自然人",  # 自然人 法人 非法人组织
+                       "agent_type": "",  # "" common special,
+                       "agent_b_type": "",  # common special,
 
-                   }
+                       }
         jf_info_all.update(jf_info)
 
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -88,6 +89,16 @@ class DisputeCommit(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_03(self):
+        """案件列表-姓名查询"""
+        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+        case_list_page = CaseListPage(self.homepage)
+        search = case_list_page._get_search(type_="name")
+        case_list_page.search(search)
+        # 获取返回页面纠纷状态
+        result = case_list_page.verification_search_name(search)
+        self.assertEqual(True, result)
+
+    def test_04(self):
         """调解员-登记纠纷提交-申自然人代理人-被非法人组织
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申自然人代理人-被非法人组织",
@@ -106,7 +117,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_04(self):
+    def test_05(self):
         """调解员-登记纠纷提交-申法人代理人-被自然人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申法人代理人-被自然人",
@@ -125,7 +136,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_05(self):
+    def test_06(self):
         """调解员-登记纠纷提交-申法人代理人-被法人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申法人代理人-被法人",
@@ -144,7 +155,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_06(self):
+    def test_07(self):
         """调解员-登记纠纷提交-申法人代理人-被非法人组织
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申法人代理人-被非法人组织",
@@ -163,7 +174,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_07(self):
+    def test_08(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被自然人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代理人-被自然人",
@@ -182,7 +193,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_08(self):
+    def test_09(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被法人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代理人-被法人",
@@ -201,7 +212,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_09(self):
+    def test_10(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被非法人组织
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代理人-被非法人组织",
@@ -220,7 +231,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_10(self):
+    def test_11(self):
         """调解员-登记纠纷提交-申自然人代理人-被自然人代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申自然人代理人-被自然人代理人",
@@ -239,7 +250,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_11(self):
+    def test_12(self):
         """调解员-登记纠纷提交-申自然人代理人-被法人代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申自然人代理人-被法人代理人",
@@ -258,7 +269,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_12(self):
+    def test_13(self):
         """调解员-登记纠纷提交-申自然人代理人-被非法人组织代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申自然人代理人-被非法人组织代理人",
@@ -277,7 +288,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_13(self):
+    def test_14(self):
         """调解员-登记纠纷提交-申法人代理人-被自然人代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申法人代理人-被自然人代理人",
@@ -296,7 +307,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_14(self):
+    def test_15(self):
         """调解员-登记纠纷提交-申法人代理人-被法人代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申法人代理人-被法人代理人",
@@ -315,7 +326,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_15(self):
+    def test_16(self):
         """调解员-登记纠纷提交-申法人代理人-被非法人组织代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申法人代理人-被非法人组织代理人",
@@ -334,7 +345,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_16(self):
+    def test_17(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被自然人代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代理人-被自然人代理人",
@@ -353,7 +364,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_17(self):
+    def test_18(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被法人代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代理人-被法人代理人",
@@ -372,7 +383,7 @@ class DisputeCommit(unittest.TestCase):
         res = disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
-    def test_18(self):
+    def test_19(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被非法人组织代理人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织代理人-被非法人组织代理人",

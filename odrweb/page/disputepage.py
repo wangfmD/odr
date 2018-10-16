@@ -316,23 +316,14 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath(self.x_no_sendmsg).click()
         sleep(2)
         # 确定
-        try:
-            try:
-                self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-            except:
-                sleep(2)
-                self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
-        except:
-            sleep(3)
-            self.find_element_by_xpath('/html/body/div[2]/div/div[3]/button/span').click()
+        ok_btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "确定")]')))
+        ok_btn.click()
 
     def verification_commit(self, **kwargs):
         """调解员登记案件验证
         """
-        try:
-            self.find_element_by_xpath(self.x_case_input_list_a).click()
-        except:
-            self.find_element_by_xpath(self.x_case_input_list_a).click()
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_case_input_list_a)))
+        ok_btn.click()
 
         try:
             jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
@@ -428,7 +419,9 @@ class DisputePageDjy(DisputePageTjy):
         # 首页
         self.find_element_by_xpath(self.x_homepage_a).click()
         # 机构登记
-        self.find_element_by_xpath(self.x_dispute_input_btn).click()
+        input_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_dispute_input_btn)))
+        input_btn.click()
+        # self.find_element_by_xpath(self.x_dispute_input_btn).click()
 
     def _dispute_info_input(self, **kwargs):
         """纠纷信息录入
