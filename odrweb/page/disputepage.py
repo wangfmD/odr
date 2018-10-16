@@ -76,6 +76,7 @@ class DisputePageTjy(Page):
     x_applicant_non_natural_addr_selector= '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[9]/div/span/span[1]'
 
     x_no_sendmsg = '//span[contains(text(),"不发送")]'
+    x_inputlist_1_case_id_div = '//div[contains(text(), "纠纷编号：")]' # 案件登记列表，一个行的案件编号
 
 
     def _dispute_info_input(self, **kwargs):
@@ -323,11 +324,14 @@ class DisputePageTjy(Page):
         """调解员登记案件验证
         """
         # 用例有执行失败的场景，添加异常处理，提高执行成功率。
+        # 进入案件登记列表
         try:
             ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_case_input_list_a)))
             ok_btn.click()
         except:
-            self.find_element_by_xpath(self.x_case_input_list_a).click()
+            self.driver.refresh()
+            ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_case_input_list_a)))
+            ok_btn.click()
 
         try:
             jf_desc = self.driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
@@ -341,6 +345,11 @@ class DisputePageTjy(Page):
             applicant = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[2]/div[1]/p').text
         except:
             applicant = "*None*"
+
+        # 打印提交成功的case id
+        case_id = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
+        print "case commit suc {}".format(case_id)
+
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
             print "expect: ", kwargs['applicant']
@@ -388,6 +397,10 @@ class DisputePageTjy(Page):
             applicant = self.find_element_by_xpath('/html/body/div[4]/div[2]/div[2]/div/div/div/div[2]/div[1]/div[2]/div[1]/p').text
         except:
             applicant = "*None*"
+        # 打印 保存成功的case id
+        case_id = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
+        print "case save suc {}".format(case_id)
+
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
             print "expect: ", kwargs['applicant']
