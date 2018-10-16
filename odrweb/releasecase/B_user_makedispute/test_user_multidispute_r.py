@@ -4,10 +4,9 @@ from time import sleep
 import sys
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalCenter
-from odrweb.page.inrolerchoose import RolerChoose
-from odrweb.page.inconciliationinfo import ConciliationInfo
-from odrweb.page.inproposerinfo import InProposerInfo
-from odrweb.page.inclaimantinfo import InClaimantInfo
+from odrweb.page.disputeinfo import ConciliationInfo
+from odrweb.page.disputeinfo import InProposerInfo
+from odrweb.page.disputeinfo import InClaimantInfo
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
