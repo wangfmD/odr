@@ -80,8 +80,7 @@ class HomepageNoLogin(unittest.TestCase):
     def test_07(self):
         """服务内容-法律咨询-在线咨询-直接咨询-进入咨询
         """
-
-        now_hour = int(datetime.now().strftime("H%"))
+        now_hour = int(datetime.now().strftime("%H"))
         if now_hour >= 9 and now_hour < 17:
 
             consult = {"consult_desc": u"假冒伪劣",
