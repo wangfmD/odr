@@ -22,7 +22,7 @@ jf_info = {"jf_desc": u"假冒商品",
 
 
 class User(unittest.TestCase):
-    '''用户功能'''
+    '''普通用户-基本功能'''
 
     def setUp(self):
         self.homepage = HomePage()
