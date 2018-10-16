@@ -167,7 +167,11 @@ class AdminOrgan(Page):
         # 输入日期，选择日期输入框第一个
         # self.find_element_by_xpath('//tr[@class="MTitle"]/../tr[2]/td[1]').click()
         # 点击查询按钮
-        self.find_element_by_xpath('//div[@class="ng-hide"]/../button[text()="查询"]').click()
+        sleep(1)
+        sel_btn = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//div[@class="ng-hide"]/../button[text()="查询"]')))
+        sel_btn.click()
+        # self.find_element_by_xpath('//div[@class="ng-hide"]/../button[text()="查询"]').click()
         # 输出该段时间平台访问量数量
         print self.find_element_by_xpath('//div[text()="浙江省 (平台总访问量："]/span').text
 
@@ -176,7 +180,10 @@ class AdminOrgan(Page):
         """
         self.form_map()
         # 点击业务报表
-        self.find_element_by_xpath('//li[text()="业务报表"]').click()
+        sleep(1)
+        form_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//li[text()="业务报表"]')))
+        form_btn.click()
+        # self.find_element_by_xpath('//li[text()="业务报表"]').click()
 
     def verification_form_business(self):
         """验证-统计报表-业务报表
@@ -211,7 +218,9 @@ class AdminOrgan(Page):
         self.form_map()
         sleep(1)
         # 点击未响应案件统计
-        self.find_element_by_xpath('//li[text()="未响应案件统计"]').click()
+        no_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//li[text()="未响应案件统计"]')))
+        no_btn.click()
+        # self.find_element_by_xpath('//li[text()="未响应案件统计"]').click()
 
     def verification_form_unresponsive(self):
         """验证-统计报表-未响应案件统计
@@ -292,6 +301,7 @@ class AdminOrgan(Page):
         """
         self.form_map()
         # 点击进入案件类型对应表
+        sleep(0.5)
         self.find_element_by_xpath('//li[text()="案件类型对应表"]').click()
 
     def verification_form_casetype(self):
@@ -371,6 +381,7 @@ class AdminOrgan(Page):
         self.form_map()
         # 点击进入优秀内容展示
         self.find_element_by_xpath('//li[contains(text(),"优秀内容展示")]').click()
+        sleep(1)
 
     def verification_form_show(self):
         """验证-统计报表-优秀内容展示
@@ -473,7 +484,10 @@ class AdminOrgan(Page):
         self.find_element_by_xpath(self.x_form_record).click()
         sleep(1)
         # 点击选择调解类型为消费维权
-        self.find_element_by_xpath('//li[contains(text(),"消费维权")]').click()
+        tp_btn = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//li[contains(text(),"消费维权")]')))
+        tp_btn.click()
+        # self.find_element_by_xpath('//li[contains(text(),"消费维权")]').click()
         sleep(1)
 
     def verification_form_record_dispute_type(self):
@@ -523,7 +537,10 @@ class AdminOrgan(Page):
         self.find_element_by_xpath(self.x_form_record).click()
         sleep(1)
         # 点击登记时间所有时间
-        self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
+        altm_btm = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, self.x_form_record_judicial_alltime)))
+        altm_btm.click()
+        # self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
         sleep(1)
 
     def verification_form_record_dispute_time(self):
@@ -546,15 +563,20 @@ class AdminOrgan(Page):
         self.find_element_by_xpath(self.x_form_record).click()
         sleep(1)
         # 选择市区为杭州市上城区
-        self.find_element_by_xpath('//option[contains(text(),"请选择市")]/..').click()
+        city_a = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"请选择市")]/..')))
+        city_a.click()
+        # self.find_element_by_xpath('//option[contains(text(),"请选择市")]/..').click()
         # 等待市可被选择点击
         element_city = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//option[text()="杭州市"]')))
         element_city.click()
         # self.find_element_by_xpath('//option[text()="杭州市"]').click()
-        sleep(0.5)
-        self.find_element_by_xpath('//option[contains(text(),"请选择区/镇")]/..').click()
         # 等待区/镇可被选择点击
+        element_cty_a = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"请选择区/镇")]/..')))
+        element_cty_a.click()
+        # self.find_element_by_xpath('//option[contains(text(),"请选择区/镇")]/..').click()
         element_cty = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//option[text()="上城区"]')))
         element_cty.click()
@@ -595,14 +617,22 @@ class AdminOrgan(Page):
         self.find_element_by_xpath('//input[@id="keyword"]').send_keys(search)
         # 点击搜索按钮
         self.find_element_by_xpath('//input[@id="keyword"]/../../a').click()
-        sleep(0.5)
+        sleep(1)
         return sea
 
     def verification_form_record_dispute_search(self, sea):
         """验证-案件记录-纠纷调解-搜索
         """
         try:
-            sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[3]/div/div').text
+            try:
+                try:
+                    sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[3]/div/div').text
+                except:
+                    sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[3]/div/div').text
+                    sleep(1)
+            except:
+                sea_v = "*None*"
+                sleep(1)
         except:
             sea_v = "*None*"
         print "result: ", sea_v
@@ -623,6 +653,7 @@ class AdminOrgan(Page):
         self.find_element_by_xpath('//input[@id="keyword"]').send_keys(search)
         # 点击搜索按钮
         self.find_element_by_xpath('//input[@id="keyword"]/../../a').click()
+        sleep(0.5)
         # 点击重置按钮
         reset = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//input[@id="keyword"]/../../a[2]')))
@@ -634,7 +665,11 @@ class AdminOrgan(Page):
         """验证-案件记录-纠纷调解-重置
         """
         try:
-            sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[4]/div/div').text
+            try:
+                sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[4]/div/div').text
+            except:
+                sea_v = self.find_element_by_xpath('//div[contains(text(),"纠纷编号")]/../../../div[4]/div/div').text
+                sleep(1)
         except:
             sea_v = "*None*"
         print "result: ", sea_v
@@ -650,7 +685,7 @@ class AdminOrgan(Page):
         self.find_element_by_xpath('//button[contains(text(),"批量导出")]').click()
         print u"批量导出成功"
 
-    def form_record_juduciai_type(self):
+    def form_record_judicial_type(self):
         """案件记录-司法确认-案件类型
         """
         # 进入案件记录页面
@@ -663,20 +698,25 @@ class AdminOrgan(Page):
         # 点击选择调解类型为消费维权
         self.find_element_by_xpath('//li[contains(text(),"消费维权")]').click()
         type_i = self.find_element_by_xpath('//li[contains(text(),"消费维权")]').text
+        # sleep(1)
         return type_i
 
     def verification_form_record_judicial_type(self, type_i):
         """验证-案件记录-司法确认-案件类型
         """
         # 进入第一个案件的案件详情页面
-        page = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//div[contains(text(),"案件详情")]')))
-        page.click()
-        # self.find_element_by_xpath('//div[contains(text(),"案件详情")]').click()
+        page_btn = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//div[contains(text(),"案件编号")]/following-sibling::*')))
+        page_btn.click()
+        # self.find_element_by_xpath('//div[contains(text(),"案件编号")]/following-sibling::*').click()
         sleep(1)
         # 获取第一条案件纠纷类型
         try:
-            type_v = self.find_element_by_xpath('//h6[contains(text(),"案件类型")]/../p').text
+            try:
+                type_v = self.find_element_by_xpath('//h6[contains(text(),"案件类型")]/../p').text
+            except:
+                type_v = self.find_element_by_xpath('//h6[contains(text(),"案件类型")]/../p').text
+                sleep(1)
         except:
             type_v = "*None*"
         print "result: ", type_v
@@ -723,6 +763,7 @@ class AdminOrgan(Page):
         self.find_element_by_xpath(self.x_form_record).click()
         sleep(1)
         self.find_element_by_xpath(self.x_form_record_judicial).click()
+        sleep(0.5)
         # 选择全部时间
         atm = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.x_form_record_judicial_alltime)))
@@ -733,7 +774,14 @@ class AdminOrgan(Page):
         """案件记录-司法确认-登记时间
         """
         # 获取所有时间案件数量
-        num = self.find_element_by_xpath('//span[contains(text(),"案件数量")]/../span[2]/i[2]').text
+        try:
+            try:
+                num = self.find_element_by_xpath('//span[contains(text(),"案件数量")]/../span[2]/i[2]').text
+            except:
+                num = self.find_element_by_xpath('//span[contains(text(),"案件数量")]/../span[2]/i[2]').text
+                sleep(1)
+        except:
+            num = "*None*"
         if int(num) > 250:
             nu = "true"
         else:
@@ -753,17 +801,27 @@ class AdminOrgan(Page):
         self.find_element_by_xpath(self.x_form_record_judicial_alltime).click()
         sleep(0.5)
         # 选择市区为浙江省杭州市上城区
-        self.find_element_by_xpath('//option[contains(text(),"请选择省")]/..').click()
+        pro_a = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"请选择省")]/..')))
+        pro_a.click()
+        # self.find_element_by_xpath('//option[contains(text(),"请选择省")]/..').click()
         pro = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"浙江省")]')))
         pro.click()
         # self.find_element_by_xpath('//option[contains(text(),"浙江省")]').click()
-        self.find_element_by_xpath('//option[contains(text(),"请选择市")]/..').click()
+        sleep(0.5)
+        city = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"请选择市")]/..')))
+        city.click()
+        # self.find_element_by_xpath('//option[contains(text(),"请选择市")]/..').click()
         city = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"杭州市")]')))
         city.click()
         # self.find_element_by_xpath('//option[contains(text(),"杭州市")]').click()
-        self.find_element_by_xpath('//option[contains(text(),"请选择区/镇")]/..').click()
+        cty = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"请选择区/镇")]/..')))
+        cty.click()
+        # self.find_element_by_xpath('//option[contains(text(),"请选择区/镇")]/..').click()
         cty = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//option[contains(text(),"上城区")]')))
         cty.click()
