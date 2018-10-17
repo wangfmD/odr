@@ -147,7 +147,7 @@ class CaseListBasePage(Page):
         self.find_element_by_xpath('//div[@id="reAllot"]/div/div[4]/input').click()
 
     def _dispute_modification(self):
-        """我的案件列表-纠纷详情-保存
+        """纠纷详情-保存：适应案件登记列表、纠纷调解案件列表
         """
         Select(self.find_element_by_xpath('//div[@id="checkCaseform"]/form/div[1]/p/select')).select_by_visible_text(u"金融借款合同纠纷")
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').clear()
