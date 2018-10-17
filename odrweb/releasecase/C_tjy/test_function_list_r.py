@@ -34,6 +34,9 @@ class TjyFunc(unittest.TestCase):
 
     def test_2(self):
         """纠纷登记列表-添加纠纷-提交"""
+        # 1，纠纷登记列表-已提交-添加纠纷
+        # 2，修改纠纷描述
+        # 3，-提交
         desc=u"纠纷登记列表-添加纠纷-提交"
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = InputCaseListPage(self.homepage)
