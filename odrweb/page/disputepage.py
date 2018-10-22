@@ -6,11 +6,56 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+class TjyBasePage(Page):
+    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
+    x_case_list_a = '//li[text()="纠纷调解案件列表"]'             #纠纷调解案件列表
+
+class JudicialInputPage(TjyBasePage):
+    # 司法确认
+    x_fy_select = '' # 申请受理法院 选择
+    # 申请人
+    # 联系方式
+    # 居住地址
+    def act_judicial_input(self):
+        """司法确认录入
+        """
+        # 点击进入司法确认
+        self.find_element_by_xpath(self.x_case_list_a).click()
+        self.find_element_by_xpath('//font[text()="新增司法确认"]').click()
+        # 法院下拉框选择
+        self.find_element_by_xpath('//div[contains(text(), "申请受理法院：")]/div[2]/div/input').click()
+        self.find_element_by_xpath('//span[text()="浙江省杭州市上城区人民法院"]').click()
+
+
+        self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div[2]//div[2]/input').send_keys(u"钱桂林")
+        self.find_element_by_xpath('//input[@placeholder="请输入手机号码"]').send_keys('13160077223')
+        self.find_element_by_xpath('//input[@placeholder="请输入证件号码"]').send_keys('321023199508166636')
+        # 居住地址选择
+        self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[1]/../div[2]/div[1]').click()        # 省
+        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '(//span[contains(text(),"浙江省")])[16]')))
+        el.click()
+        # self.find_element_by_xpath('(//span[contains(text(),"浙江省")])[16]').click()
+        self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[1]/../div[2]/div[2]').click()        # 市
+        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '(//span[contains(text(), "杭州市")])[15]')))
+        el.click()
+        # self.find_element_by_xpath('(//span[contains(text(), "杭州市")])[15]').click()
+        self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[1]/../div[2]/div[3]').click()        # 区
+        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '(//span[contains(text(), "上城区")])[2]')))
+        el.click()
+        # self.find_element_by_xpath('(//span[contains(text(), "上城区")])[2]').click()
+        self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[1]/../div[2]/div[4]').click()        # 街道
+        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "清波街道")]')))
+        el.click()
+        # self.find_element_by_xpath('//span[contains(text(), "长庆街道")]').click()
+        self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[1]/../div[2]/div[5]//input[@placeholder="请输入详细地址"]').send_keys('3#')
+
+
 
 class DisputePageTjy(Page):
     """调解员纠纷登记
     """
     x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
+    x_case_list_a = '//li[text()="纠纷调解案件列表"]'             #纠纷调解案件列表
 
     # 申请人代理人
     x_agent_natural_common      = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[1]/div/div/label[1]/span[1]/span'
@@ -77,6 +122,7 @@ class DisputePageTjy(Page):
 
     x_no_sendmsg = '//span[contains(text(),"不发送")]'
     x_inputlist_1_case_id_div = '//div[contains(text(), "纠纷编号：")]' # 案件登记列表，一个行的案件编号
+
 
 
     def _dispute_info_input(self, **kwargs):
