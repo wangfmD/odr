@@ -7,7 +7,7 @@ import SendKeys
 import win32con
 
 
-def file_upload():
+def _file_upload():
     """文件上传：ctrl-v & enter
     """
     sleep(1)
@@ -36,6 +36,10 @@ def get_windows_text():
     d = w.GetClipboardData(win32con.CF_TEXT)
     w.CloseClipboard()
     return d
+
+def file_upload(file_path):
+    set_windows_clipboard(file_path) #'D:\\00jt\\1.png'
+    _file_upload()
 
 def demo():
     from odrweb.core.initdata import users
