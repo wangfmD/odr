@@ -27,14 +27,14 @@ class HomePage(Page):
             text = "**None**"
         return text
 
-    def user_login(self, name, pwd):
+    def user_login(self, name, pwd, url=base_url):
         """
         普通用户登录
         :param driver:
         :return:
         """
 
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         # 进入登录页面
         self.driver.find_element_by_xpath(u"//a[contains(text(),'立即登录')]").click()
         # 输入手机号码
@@ -48,7 +48,7 @@ class HomePage(Page):
         sleep(2)
         self.driver.refresh()
 
-    def user_head_login(self, name, pwd):
+    def user_head_login(self, name, pwd, url=base_url):
         """
         普通用户头部登录
         :param name:
@@ -56,7 +56,7 @@ class HomePage(Page):
         :return:
         """
 
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         # 进入登录页面
         self.driver.find_element_by_xpath('//div[@id="app"]/header/div[2]/div[2]/ul/li[1]/a').click()
         # 输入手机号码
@@ -108,10 +108,10 @@ class HomePage(Page):
         sleep(0.5)
         return self.driver
 
-    def company_login(self, name, pwd):
+    def company_login(self, name, pwd, url=base_url):
         """企业登录
         """
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         self.driver.find_element_by_xpath(u"//a[contains(text(),'立即登录')]").click()
         sleep(2)
         self.driver.find_element_by_xpath('//ul[@id="titleTips"]/li[2]').click()
@@ -124,13 +124,13 @@ class HomePage(Page):
 
         # '//*[@id="titleTips"]/p'
 
-    def mediator_login(self, name, pwd):
+    def mediator_login(self, name, pwd, url=base_url):
         """
         调解员/办案法官登录
         :param driver: 调解员宋红波：13817765056 000000  / 办案法官：13067812519 000000
         :return:
         """
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         # 进入登录页面
         self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[1]/a').click()
         # 输入手机号码
@@ -200,7 +200,7 @@ class HomePage(Page):
         result = reg_link == u'立即注册>'
         return result
 
-    def organization_user_login(self, name, pwd):
+    def organization_user_login(self, name, pwd, url=base_url):
         """
         机构登记员登录
         :param pwd:
@@ -208,7 +208,7 @@ class HomePage(Page):
         :param driver: 机构登记员：1805130007 密码：123456
         :return:
         """
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         # 进入登录页面
         self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[1]/a').click()
         # 切换
@@ -260,13 +260,13 @@ class HomePage(Page):
         result = reg_link == u'立即注册>'
         return result
 
-    def organization_login(self, name, pwd):
+    def organization_login(self, name, pwd, url=base_url):
         """
         调解机构登录
         :param driver: 北明心理咨询演示学习机构：17612156739 123456
         :return:
         """
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         # 进入登录页面
         self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[1]/a').click()
         # 切换列表项
@@ -320,12 +320,12 @@ class HomePage(Page):
         # result = reg_link == u'立即登录'
         return result
 
-    def counselor_login(self, name, pwd):
+    def counselor_login(self, name, pwd, url=base_url):
         """
         咨询师登录  3606706616 000000
         :return:
         """
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         # 进入登录页面
         self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[2]/a').click()
         # 输入手机号码
@@ -371,13 +371,13 @@ class HomePage(Page):
         result = reg_link == u'立即注册>'
         return result
 
-    def customer_login(self, name, pwd):
+    def customer_login(self, name, pwd, url=base_url):
         """
         客服人员登录 13600527465 000000
         :param driver:
         :return:
         """
-        self.driver.get(base_url + "/")
+        self.driver.get(url + "/")
         # 进入登录页面
         self.driver.find_element_by_xpath('//div[@id="app"]/div[1]/div[2]/div[6]/span[2]/a').click()
         # 切换列表项
@@ -451,7 +451,7 @@ class HomePage(Page):
         # driver.find_element_by_xpath("/html/body/div[2]/div/div/div/form/div[6]/button").click()
         # driver.find_element_by_xpath("(//button[@type='button'])[2]").click()
 
-    def login_yun(self, name, pwd):
+    def login_yun(self, name, pwd, url=base_url):
         """
 
         :param driver:
