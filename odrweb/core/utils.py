@@ -136,12 +136,27 @@ def sendReport(file_new):
     smtp.quit()
     logger.info('test report has send out!')
 
+def is_male(user_id):
+    """根据身份证id，判断性别
+    """
+    try:
+        flag = int(user_id[16])
+        if (flag % 2) ==0:
+            return False
+        else:
+            return True
+    except:
+        res = True
+
+    return res
+
 
 if __name__ == '__main__':
-    sql = "select CUR_VER from middle_db_version ORDER BY CUR_VER desc LIMIT 1"
-    c = sqlOperating()
-    result = c.execQury(sql)
-    for lie in result:
-        for k, v in lie.iteritems():
-            print k, "=", lie[k]
+    # sql = "select CUR_VER from middle_db_version ORDER BY CUR_VER desc LIMIT 1"
+    # c = sqlOperating()
+    # result = c.execQury(sql)
+    # for lie in result:
+    #     for k, v in lie.iteritems():
+    #         print k, "=", lie[k]
+    print is_male('321023199508166626')
 # print mediaAddr
