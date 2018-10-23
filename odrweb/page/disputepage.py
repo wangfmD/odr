@@ -1,44 +1,51 @@
 # -*- coding:utf-8 -*-
 from time import sleep
 
+from odrweb.core.utils import is_male
 from odrweb.page.browser import Page
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+from odrweb.core.upload import file_upload
+
 class TjyBasePage(Page):
     x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
-    x_case_list_a = '//li[text()="纠纷调解案件列表"]'             #纠纷调解案件列表
+    x_case_list_a = '//li[text()="纠纷调解案件列表"]'  # 纠纷调解案件列表
+    x_apply_judicial_list_li = '//li[text()="申请司法确认列表"]'
+    x_add_judicial_btn = '//font[text()="新增司法确认"]'
 
 
-jf_info = {"jf_desc": u"调解员-登记纠纷提交-申法人代理人-被非法人组织代理人",
-           "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-           "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
-           "agent_type": "special",  # "" common special,
-           "agent_b_type": "special",  # common special,
+jf_info = {
+    "jf_desc": u"调解员-登记纠纷提交-申法人代理人-被非法人组织代理人",
+    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
+    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
+    "agent_type": "special",  # "" common special,
+    "agent_b_type": "special",  # common special,
 
-           "jf_appeal": u"假一赔十",
-           "applicant_name": u"企业或机构名称",  #
-           "world_credit_id": "abcde1234567890",
-           "applicant": u"钱桂林",
-           "applicant_tel": "13160077223",
-           "applicant_id": "321023199508166636",
-           "applicant_addr": u"1栋2单元303",
 
-           "disputer": u"王发明",
-           "disputer_tel": "13913031374",
-           "disputer_world_credit_id": "zxcvbnmasdfghjk123",
-           "disputer_name": u"企业或机构名称",
-           "disputer_id": "",
-           "disputer_addr": u"10栋1单元101",
+    "jf_appeal": u"假一赔十",
+    "applicant_name": u"企业或机构名称",  #
+    "world_credit_id": "abcde1234567890",
+    "applicant": u"钱桂林",
+    "applicant_tel": "13160077223",
+    "applicant_id": "321023199508166636",
+    "applicant_addr": u"1栋2单元303",
 
-           "agent_name": u"徐传珠",
-           "agent_tel": "15295745648",
-           "agent_id": "321281199507077775",
+    "disputer": u"顾乐",
+    "disputer_tel": "18362983886",
+    "disputer_world_credit_id": "zxcvbnmasdfghjk123",
+    "disputer_name": u"企业或机构名称",
+    "disputer_id": "321283199503266424",
+    "disputer_addr": u"10栋1单元101",
 
-           "agent_b_name": u"段志勇",
-           "agent_b_tel": "15895996954",
-           "agent_b_id": ""
+    "agent_name": u"徐传珠",
+    "agent_tel": "15295745648",
+    "agent_id": "321281199507077775",
+
+    "agent_b_name": u"陈瑶玮",
+    "agent_b_tel": "17625908729",
+    "agent_b_id": "320102199107292810"
            }
 
 class JudicialInputPage(TjyBasePage):
@@ -47,13 +54,13 @@ class JudicialInputPage(TjyBasePage):
     # 申请人
     # 联系方式
     # 居住地址
-    def act_judicial_input(self, **kwargs):
+    def act_judicial_commit(self, **kwargs):
         """司法确认录入
         """
         # 点击进入纠纷调解案件列表
         self.find_element_by_xpath(self.x_case_list_a).click()
         # 点击进入司法确认
-        self.find_element_by_xpath('//font[text()="新增司法确认"]').click()
+        self.find_element_by_xpath(self.x_add_judicial_btn).click()
         # 法院下拉框选择
         self.find_element_by_xpath('//div[contains(text(), "申请受理法院：")]/div[2]/div/input').click()
         el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="浙江省杭州市上城区人民法院"]')))
@@ -81,6 +88,11 @@ class JudicialInputPage(TjyBasePage):
         self.find_element_by_xpath('//input[@placeholder="请输入手机号码"]').send_keys(kwargs['applicant_tel'])
         self.find_element_by_xpath('//input[@placeholder="请输入证件号码"]').clear()
         self.find_element_by_xpath('//input[@placeholder="请输入证件号码"]').send_keys(kwargs['applicant_id'])
+        # 根据身份证号，判断性别
+        if is_male(kwargs['applicant_id']):
+            self.find_element_by_xpath('((//div[text()="性别："])[1]/following-sibling::div/label/span/span)[1]').click()
+        else:
+            self.find_element_by_xpath('((//div[text()="性别："])[1]/following-sibling::div/label/span/span)[2]').click()
         # 居住地址选择
         self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[1]/../div[2]/div[1]').click()        # 省
         el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '(//span[contains(text(),"浙江省")])[16]')))
@@ -114,30 +126,44 @@ class JudicialInputPage(TjyBasePage):
             self.find_element_by_xpath('(//div[text()="委托代理人："])[1]/following-sibling::div/div[2]//input[@placeholder="请输入代理人姓名"]').send_keys(kwargs['agent_name'])
             self.find_element_by_xpath('(//div[text()="手机号码："]/following-sibling::div/div//input[@placeholder="请输入代理人手机号码"])[1]').send_keys(kwargs['agent_tel'])
             self.find_element_by_xpath('(//div[text()="身份证号："]/following-sibling::div/div//input[@placeholder="请输入代理人身份证号码"])[1]').send_keys(kwargs['agent_id'])
+            # 根据身份证号，判断性别
+            if is_male(kwargs['agent_id']):
+                self.find_element_by_xpath('((//div[text()="性别："])[2]/following-sibling::div/label/span/span)[1]').click()
+            else:
+                self.find_element_by_xpath('((//div[text()="性别："])[2]/following-sibling::div/label/span/span)[2]').click()
             self.find_element_by_xpath('(//div[text()="文书送达地址："]/following-sibling::div/div//input[@placeholder="请输入文书送达地址"])[1]').send_keys('3#')
 
 
         # 申请人2
         if kwargs['disputer_type']==u'自然人':
             self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div[2]//div[2]/input)[2]').clear()
-            self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div[2]//div[2]/input)[2]').send_keys(u"钱桂林")
+            self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div[2]//div[2]/input)[2]').send_keys(kwargs['disputer'])
         else:
             self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div/div[1]/div/input[@placeholder="请选择"])[2]').click()
             if kwargs['disputer_type']==u'法人':
                 self.find_element_by_xpath('(//span[text()="法人"])[2]').click()
-                self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div[2]//div[2]/input[@placeholder="请输入企业名称"])').send_keys(kwargs['applicant_name'])
+                self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div[2]//div[2]/input)').send_keys(kwargs['applicant_name'])
                 self.find_element_by_xpath('(//div[text()="社会信用代码："]/following-sibling::div/div/input[@placeholder="请输入社会信用代码"])[2]').send_keys(kwargs['world_credit_id'])
-                self.find_element_by_xpath('//div[text()="法定代表人："]/following-sibling::div/div/input[@placeholder="请输入法定代表人姓名"]').send_keys(kwargs['applicant'])
+                self.find_element_by_xpath('//div[text()="法定代表人："]/following-sibling::div/div/input').send_keys(kwargs['applicant'])
             if kwargs['disputer_type']==u'非法人组织':
                 self.find_element_by_xpath('(//span[text()="非法人组织"])[2]').click()
-                self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div[2]//div[2]/input[@placeholder="请输入机构名称"])').send_keys(kwargs['applicant_name'])
-                self.find_element_by_xpath('(//div[text()="社会信用代码："]/following-sibling::div/div/input[@placeholder="请输入社会信用代码"])[2]').send_keys(kwargs['world_credit_id'])
-                self.find_element_by_xpath('//div[text()="机构代表人："]/following-sibling::div/div/input[@placeholder="请输入机构代表人姓名"]').send_keys(kwargs['applicant'])
+                self.find_element_by_xpath('(//div[contains(text(), "申请人：")]/../div[2]//div[2]/input)[2]').send_keys(kwargs['applicant_name'])
+                if kwargs['applicant_type'] != u"自然人":
+                    self.find_element_by_xpath('(//div[text()="社会信用代码："]/following-sibling::div/div/input)[2]').send_keys(kwargs['world_credit_id'])
+                    self.find_element_by_xpath('(//div[text()="机构代表人："]/following-sibling::div/div/input)[2]').send_keys(kwargs['disputer'])
+                else:
+                    self.find_element_by_xpath('(//div[text()="社会信用代码："]/following-sibling::div/div/input)[1]').send_keys(kwargs['world_credit_id'])
+                    self.find_element_by_xpath('(//div[text()="机构代表人："]/following-sibling::div/div/input)[1]').send_keys(kwargs['disputer'])
 
         self.find_element_by_xpath('(//input[@placeholder="请输入手机号码"])[2]').clear()
-        self.find_element_by_xpath('(//input[@placeholder="请输入手机号码"])[2]').send_keys('13160077223')
+        self.find_element_by_xpath('(//input[@placeholder="请输入手机号码"])[2]').send_keys(kwargs['disputer_tel'])
         self.find_element_by_xpath('(//input[@placeholder="请输入证件号码"])[2]').clear()
-        self.find_element_by_xpath('(//input[@placeholder="请输入证件号码"])[2]').send_keys('321023199508166636')
+        self.find_element_by_xpath('(//input[@placeholder="请输入证件号码"])[2]').send_keys(kwargs['disputer_id'])
+        # 根据身份证号，判断性别
+        if is_male(kwargs['disputer_id']):
+            self.find_element_by_xpath('((//div[text()="性别："])[3]/following-sibling::div/label/span/span)[1]').click()
+        else:
+            self.find_element_by_xpath('((//div[text()="性别："])[3]/following-sibling::div/label/span/span)[2]').click()
         # 居住地址选择
         self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[2]/../div[2]/div[1]').click()        # 省
         el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '(//span[contains(text(),"浙江省")])[16]')))
@@ -157,7 +183,7 @@ class JudicialInputPage(TjyBasePage):
         el.click()
         self.find_element_by_xpath('(//div[contains(text(), "居住地址：")])[2]/../div[2]/div[5]//input[@placeholder="请输入详细地址"]').send_keys('3#')
 
-        # 代理人
+        # 代理人2
         if kwargs['agent_b_type'] == 'special':
             self.find_element_by_xpath('(//div[text()="委托代理人："])[2]/following-sibling::div/div/div/input').click()
             el = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH, '(//span[text()="特殊授权代理人"])[2]')))
@@ -168,19 +194,74 @@ class JudicialInputPage(TjyBasePage):
             el.click()
         if kwargs['agent_b_type'] != "":
             self.find_element_by_xpath('(//div[text()="委托代理人："])[2]/following-sibling::div/div[2]//input[@placeholder="请输入代理人姓名"]').clear()
-            self.find_element_by_xpath('(//div[text()="委托代理人："])[2]/following-sibling::div/div[2]//input[@placeholder="请输入代理人姓名"]').send_keys(kwargs['agent_name'])
+            self.find_element_by_xpath('(//div[text()="委托代理人："])[2]/following-sibling::div/div[2]//input[@placeholder="请输入代理人姓名"]').send_keys(kwargs['agent_b_name'])
             self.find_element_by_xpath('(//div[text()="手机号码："]/following-sibling::div/div//input[@placeholder="请输入代理人手机号码"])[2]').send_keys(kwargs['agent_b_tel'])
             self.find_element_by_xpath('(//div[text()="身份证号："]/following-sibling::div/div//input[@placeholder="请输入代理人身份证号码"])[2]').send_keys(kwargs['agent_b_id'])
+            # 根据身份证号，判断性别
+            if is_male(kwargs['agent_b_id']):
+                self.find_element_by_xpath('((//div[text()="性别："])[4]/following-sibling::div/label/span/span)[1]').click()
+            else:
+                self.find_element_by_xpath('((//div[text()="性别："])[4]/following-sibling::div/label/span/span)[2]').click()
             self.find_element_by_xpath('(//div[text()="文书送达地址："]/following-sibling::div/div//input[@placeholder="请输入文书送达地址"])[2]').send_keys('4#')
+
         # 请求事项
-        self.find_element_by_xpath('//textarea[@placeholder="请输入请求内容"]').send_keys(u'请求确认人民调解协议效力')
+        self.find_element_by_xpath('//textarea[@placeholder="请输入请求内容"]').send_keys(kwargs['jf_desc'])
+
+        # 证据材料
+        self.find_element_by_xpath('//div[text()="证据附件："]/following-sibling::div/label/div').click()
+        file_upload('D:\\00jt\\1.png')
+        sleep(1)
+        self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[2]').click()
+        file_upload('D:\\00jt\\1.png')
+        sleep(1)
+        self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[3]').click()
+        file_upload('D:\\00jt\\1.png')
+        sleep(1)
+        self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[4]').click()
+        file_upload('D:\\00jt\\1.png')
+        sleep(1)
+        if kwargs['agent_type'] != "":
+            # 代理人身份证明
+            self.find_element_by_xpath('//div[contains(text(), " 新增材料")]').click()
+            sleep(0.2)
+            self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[5]').click()
+            file_upload('D:\\00jt\\1.png')
+            sleep(1)
+
+        if kwargs['agent_b_type'] != "":
+            # 代理人身份证明
+            self.find_element_by_xpath('//div[contains(text(), " 新增材料")]').click()
+            sleep(0.2)
+            if kwargs['agent_type'] != "":
+                self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[6]').click()
+            else:
+                self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[5]').click()
+            file_upload('D:\\00jt\\1.png')
+            sleep(0.5)
+
         # 其他事项
         self.find_element_by_xpath('//span[contains(text(), "调解员已核实当事人的真实身份")]/../span/span').click()
         self.find_element_by_xpath('//span[contains(text(), "确认当事人提供的证据材料为原件")]/../span/span').click()
 
         # 提交申请
-        self.find_element_by_xpath('//button[text()="提交申请1"]').click()
+        self.find_element_by_xpath('//button[text()="提交申请"]').click()
+        # 确认
+        ok_el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
+        ok_el.click()
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_add_judicial_btn)))
 
+    def verification_judicial_commit(self, expect):
+        # 进入申请司法确认列表
+        self.find_element_by_xpath(self.x_apply_judicial_list_li).click()
+        sleep(0.5)
+        try:
+            result = self.find_element_by_xpath('//div[text()="案由"]/following-sibling::div').text
+        except:
+            result = "**None**"
+
+        print "expect: ", expect
+        print "result: ", result
+        return expect == result
 
 class DisputePageTjy(Page):
     """调解员纠纷登记
