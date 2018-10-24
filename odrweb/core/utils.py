@@ -1,8 +1,8 @@
 # coding:utf-8
 import os
-import MySQLdb
+import pymysql
 import smtplib
-from MySQLdb import cursors
+from pymysql import cursors
 from email import encoders
 from email.header import Header
 from email.mime.base import MIMEBase
@@ -22,7 +22,7 @@ class sqlOperating:
 
     def __init__(self, host=host, user=user, passwd=passwd, db=db, port=13306):
         try:
-            self.con = MySQLdb.connect(host=host,
+            self.con = pymysql.connect(host=host,
                                        user=user,
                                        passwd=passwd,
                                        db=db,
@@ -31,7 +31,7 @@ class sqlOperating:
             print "DB connection info:"
             print "  >>host: {0}\n  >>user: {1}\n  >>password: {2}\n  >>database: " \
                   "{3}\n  >>port:{4}".format(host, user, passwd, db, port)
-        except MySQLdb.Error, e:
+        except pymysql.Error, e:
             print "Mysql Err %d:%s" % (e.args[0], e.args[1])
 
     def execQury(self, sql):
