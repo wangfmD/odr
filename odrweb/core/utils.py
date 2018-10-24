@@ -8,7 +8,6 @@ from email.header import Header
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from logger import logger
 
 
 class sqlOperating:
@@ -108,7 +107,6 @@ def sendReportWithAtt(attachment, *args):
     smtp.sendmail(msgRoot['From'], msgRoot['To'].split(','),
                   msgRoot.as_string())
     smtp.quit()
-    logger.info('test report has send out!')
 
 
 def sendReport(file_new):
@@ -134,7 +132,6 @@ def sendReport(file_new):
     smtp.sendmail(msg['From'], msg['To'].split(','), msg.as_string())
 
     smtp.quit()
-    logger.info('test report has send out!')
 
 def is_male(user_id):
     """根据身份证id，判断性别
