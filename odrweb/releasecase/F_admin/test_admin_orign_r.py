@@ -16,12 +16,12 @@ class AdminOrigan(unittest.TestCase):
     '''行政机构管理员'''
 
     def setUp(self):
-        self.homepage = BrowserWhole().page
+        self.homepage = HomePage()
         print "\n--------------------"
 
     def tearDown(self):
         pass
-        self.homepage.quit()
+        self.homepage.driver.quit()
 
     def test_01(self):
         '''首页-纠纷总量展示'''
