@@ -6,6 +6,7 @@ import unittest
 from time import sleep
 from odrweb.core.initdata import users
 from odrweb.page.adminorganpage import AdminOrgan
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.homepage import HomePage
 
 
@@ -15,7 +16,7 @@ class AdminOrigan(unittest.TestCase):
     '''行政机构管理员'''
 
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):

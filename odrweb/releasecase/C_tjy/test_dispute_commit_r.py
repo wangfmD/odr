@@ -4,6 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.caselistpage import CaseListPage
 from odrweb.page.disputepage import DisputePageTjy
 from odrweb.page.homepage import HomePage
@@ -43,7 +44,7 @@ class DisputeCommit(unittest.TestCase):
     """调解员-纠纷提交"""
 
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):

@@ -16,7 +16,9 @@ class HomePage(Page):
     x_bafg_home_logout_btn = '//a[text()="退出"]'  # 办案法官登录页面-退出btn
 
     def quit(self):
-        self.driver.quit()
+        self.driver.delete_all_cookies()
+        self.driver.refresh()
+
 
     def _get_register_text(self):
         """获取 立刻注册 link内容: 立即注册>

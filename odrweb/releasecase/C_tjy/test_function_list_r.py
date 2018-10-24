@@ -3,6 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.caselistpage import InputCaseListPage
 from odrweb.page.homepage import HomePage
 
@@ -15,7 +16,7 @@ class TjyFunc(unittest.TestCase):
 
     #
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):

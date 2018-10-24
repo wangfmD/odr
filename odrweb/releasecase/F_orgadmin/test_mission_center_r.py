@@ -2,6 +2,8 @@
 import unittest
 from time import sleep
 import sys
+
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.homepage import HomePage
 from odrweb.page.organizationadmin import MissionCenter
 
@@ -13,7 +15,7 @@ sys.setdefaultencoding("utf-8")
 class OrgCaseOpera(unittest.TestCase):
     '''机构管理员'''
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
 
     def tearDown(self):
         self.homepage.quit()

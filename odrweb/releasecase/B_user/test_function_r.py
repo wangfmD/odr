@@ -4,6 +4,7 @@ import unittest
 
 from odrweb.core.initdata import users
 # from odrweb.page.disputepage import DisputePage
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalPage
 
@@ -25,7 +26,7 @@ class User(unittest.TestCase):
     '''普通用户-基本功能'''
 
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):

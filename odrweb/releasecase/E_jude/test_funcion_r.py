@@ -3,6 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.homepage import HomePage
 from odrweb.page.judgepage import JudgePage
 
@@ -14,7 +15,7 @@ class JugeFunc(unittest.TestCase):
     """
 
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):

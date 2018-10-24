@@ -2,6 +2,7 @@
 import sys
 import unittest
 from odrweb.core.initdata import users
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.simpledisputepage import SimpleDisputePage
 from odrweb.page.homepage import HomePage
 
@@ -13,7 +14,7 @@ class SimpleJfInputCommit(unittest.TestCase):
     '''调解员-简易案件提交'''
 
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):

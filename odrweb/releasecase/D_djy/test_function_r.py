@@ -4,6 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.disputepage import DisputePageDjy
 from odrweb.page.homepage import HomePage
 
@@ -42,7 +43,7 @@ class DjyFunc(unittest.TestCase):
     '''机构登记员-基本功能'''
 
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):

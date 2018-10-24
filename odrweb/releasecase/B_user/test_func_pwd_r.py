@@ -3,6 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
+from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalPage
 
@@ -17,7 +18,7 @@ class UserSecure(unittest.TestCase):
     ''' 普通用户-安全设置'''
 
     def setUp(self):
-        self.homepage = HomePage()
+        self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):
