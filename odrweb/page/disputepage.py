@@ -905,26 +905,6 @@ def org_process(status, case_id):
     print obj.group()
 
 
-#     str_= """
-#     <!DOCTYPE html>
-# <html>
-# <head>
-# <meta charset="utf-8">
-# <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-# <title>首页</title>
-# </head>
-# <body>
-# <script type="text/javascript">
-# var jsonObject = {"msg":"状态设置成功","status":true};
-# if(jsonObject.status){
-# 	alert("设置成功");
-# }else {
-# 	alert(jsonObject.msg);
-# }
-# </script>
-# </body>
-# </html>
-#     """
 
 if __name__ == '__main__':
-    org_process("1", '166A401D29591')
+    org_process("2", '166A56CF32C23')
