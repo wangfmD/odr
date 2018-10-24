@@ -1,0 +1,5 @@
+pypiwin32==219
+selenium==3.0.2
+xlrd==1.0.0
+SendKeys==0.3
+tools==0.1.9
