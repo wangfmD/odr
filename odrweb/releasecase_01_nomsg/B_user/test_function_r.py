@@ -4,6 +4,7 @@ import unittest
 
 from odrweb.core.initdata import users
 # from odrweb.page.disputepage import DisputePage
+from odrweb.core.utils import _funcname_docstring
 from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalPage
@@ -40,14 +41,21 @@ class User(unittest.TestCase):
                       "jf_desc": u"假冒商品",
                       "jf_appeal": u"假一赔十"}
         # 执行
-        self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
-        self.homepage.user_personal_center()
+        try:
+            self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+            self.homepage.user_personal_center()
 
-        personalpage = PersonalPage(self.homepage)
-        personalpage.evaluate(**jf_consult)
-        # 验证
-        result = personalpage.verification_evaluate(jf_consult["jf_desc"])
-        self.assertEqual(True,result)
+            personalpage = PersonalPage(self.homepage)
+            personalpage.evaluate(**jf_consult)
+            # 验证
+            result = personalpage.verification_evaluate(jf_consult["jf_desc"])
+            self.assertEqual(True,result)
+        except:
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
 
     def test_02(self):

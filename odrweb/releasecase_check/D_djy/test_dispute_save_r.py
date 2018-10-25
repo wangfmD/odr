@@ -4,6 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
+from odrweb.core.utils import _funcname_docstring
 from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.disputepage import DisputePageDjy
 from odrweb.page.homepage import HomePage
@@ -40,18 +41,17 @@ jf_info_all = {
 
 
 class DisputeSave(unittest.TestCase):
-    '''机构登记员-纠纷-保存'''
+    """机构登记员-纠纷-保存"""
 
     def setUp(self):
-        self.homepage = BrowserWhole().page
+        self.homepage = HomePage()
         print "\n--------------------"
 
     def tearDown(self):
-        pass
-        self.homepage.quit()
+        self.homepage.driver.quit()
 
     def test_01(self):
-        '''机构登记员-登记纠纷保存-申自然人-被自然人'''
+        """机构登记员-登记纠纷保存-申自然人-被自然人"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申自然人-被自然人",
                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -60,15 +60,24 @@ class DisputeSave(unittest.TestCase):
                    'none_mediator': True,
                    }
         jf_info_all.update(jf_info)
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_02(self):
-        '''机构登记员-登记纠纷保存-申自然人-被法人'''
+        """机构登记员-登记纠纷保存-申自然人-被法人"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申自然人-被法人",
                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -77,15 +86,23 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_03(self):
-        '''机构登记员-登记纠纷保存-申自然人-被非法人组织'''
+        """机构登记员-登记纠纷保存-申自然人-被非法人组织"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申自然人-被非法人组织",
                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -94,15 +111,23 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_04(self):
-        '''机构登记员-登记纠纷保存-申法人-被自然人'''
+        """机构登记员-登记纠纷保存-申法人-被自然人"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申法人-被自然人",
                    "applicant_type": u"法人",  # 自然人 法人 非法人组织
                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -111,15 +136,23 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_05(self):
-        '''机构登记员-登记纠纷保存-申法人-被法人'''
+        """机构登记员-登记纠纷保存-申法人-被法人"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申法人-被法人",
                    "applicant_type": u"法人",  # 自然人 法人 非法人组织
                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -128,15 +161,23 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_06(self):
-        '''机构登记员-登记纠纷保存-申法人-被非法人组织'''
+        """机构登记员-登记纠纷保存-申法人-被非法人组织"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申法人-被非法人组织",
                    "applicant_type": u"法人",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -145,15 +186,23 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_07(self):
-        '''机构登记员-登记纠纷保存-申非法人组织-被自然人'''
+        """机构登记员-登记纠纷保存-申非法人组织-被自然人"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申非法人组织-被自然人",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -162,15 +211,23 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_08(self):
-        '''机构登记员-登记纠纷保存-申非法人组织-被法人'''
+        """机构登记员-登记纠纷保存-申非法人组织-被法人"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申非法人组织-被法人",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -179,15 +236,23 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_09(self):
-        '''机构登记员-登记纠纷保存-申非法人组织-被非法人组织'''
+        """机构登记员-登记纠纷保存-申非法人组织-被非法人组织"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷保存-申非法人组织-被非法人组织",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -196,12 +261,20 @@ class DisputeSave(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.save(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_save(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.save(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_save(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
 
 if __name__ == '__main__':

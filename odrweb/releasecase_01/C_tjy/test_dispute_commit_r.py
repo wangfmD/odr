@@ -4,6 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
+from odrweb.core.utils import _funcname_docstring
 from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.caselistpage import CaseListPage
 from odrweb.page.disputepage import DisputePageTjy
@@ -54,20 +55,28 @@ class DisputeCommit(unittest.TestCase):
         """调解员-登记纠纷提交-申自然人-被自然人
         """
         jf_info = {"jf_desc": u"调解员-登记纠纷提交-申自然人-被自然人",
-                       "applicant_type": u"自然人",  # 自然人 法人 非法人组织
-                       "disputer_type": u"自然人",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
+                   "applicant_type": u"自然人",  # 自然人 法人 非法人组织
+                   "disputer_type": u"自然人",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
 
-                       }
+                   }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_02(self):
         """调解员-登记纠纷提交-申自然人代理人-被法人
@@ -81,22 +90,39 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_03(self):
         """案件列表-姓名查询"""
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        case_list_page = CaseListPage(self.homepage)
-        search = case_list_page._get_search(type_="name")
-        case_list_page.search(search)
-        # 获取返回页面纠纷状态
-        result = case_list_page.verification_search_name(search)
-        self.assertEqual(True, result)
+
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            case_list_page = CaseListPage(self.homepage)
+            search = case_list_page._get_search(type_="name")
+            case_list_page.search(search)
+            # 获取返回页面纠纷状态
+            result = case_list_page.verification_search_name(search)
+            self.assertEqual(True, result)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_04(self):
         """调解员-登记纠纷提交-申自然人代理人-被非法人组织
@@ -110,12 +136,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_05(self):
         """调解员-登记纠纷提交-申法人代理人-被自然人
@@ -129,12 +163,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_06(self):
         """调解员-登记纠纷提交-申法人代理人-被法人
@@ -148,12 +190,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_07(self):
         """调解员-登记纠纷提交-申法人代理人-被非法人组织
@@ -167,12 +217,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_08(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被自然人
@@ -186,12 +244,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_09(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被法人
@@ -205,12 +271,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_10(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被非法人组织
@@ -224,12 +298,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_11(self):
         """调解员-登记纠纷提交-申自然人代理人-被自然人代理人
@@ -243,12 +325,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_12(self):
         """调解员-登记纠纷提交-申自然人代理人-被法人代理人
@@ -262,12 +352,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_13(self):
         """调解员-登记纠纷提交-申自然人代理人-被非法人组织代理人
@@ -281,12 +379,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_14(self):
         """调解员-登记纠纷提交-申法人代理人-被自然人代理人
@@ -300,12 +406,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_15(self):
         """调解员-登记纠纷提交-申法人代理人-被法人代理人
@@ -319,12 +433,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_16(self):
         """调解员-登记纠纷提交-申法人代理人-被非法人组织代理人
@@ -338,12 +460,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_17(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被自然人代理人
@@ -357,12 +487,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_18(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被法人代理人
@@ -376,12 +514,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_19(self):
         """调解员-登记纠纷提交-申非法人组织代理人-被非法人组织代理人
@@ -395,12 +541,20 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        disputepage = DisputePageTjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            disputepage = DisputePageTjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
 
 if __name__ == '__main__':

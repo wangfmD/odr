@@ -4,6 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
+from odrweb.core.utils import _funcname_docstring
 from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.simpledisputepage import SimpleDisputePage
 from odrweb.page.homepage import HomePage
@@ -13,7 +14,7 @@ sys.setdefaultencoding("utf-8")
 
 
 class SimpleJfInputSave(unittest.TestCase):
-    '''调解员-简易案件保存'''
+    """调解员-简易案件保存"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -23,7 +24,7 @@ class SimpleJfInputSave(unittest.TestCase):
         self.homepage.driver.quit()
 
     def test_01(self):
-        '''简易案件登记-申请人-被申请人'''
+        """简易案件登记-申请人-被申请人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -50,16 +51,25 @@ class SimpleJfInputSave(unittest.TestCase):
                           "jf_action": u"验证类型",
                           "jf_time": u"三天"
                           }
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        simple_page = SimpleDisputePage(self.homepage)
-        simple_page.simple_jf_input(**simple_jf_info)
-        simple_page.save()
-        res = simple_page.verification_save(**simple_jf_info)
-        self.assertEqual(True,res)
 
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            simple_page = SimpleDisputePage(self.homepage)
+            simple_page.simple_jf_input(**simple_jf_info)
+            simple_page.save()
+            res = simple_page.verification_save(**simple_jf_info)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_02(self):
-        '''简易案件登记-申请人-代理人-被申请人'''
+        """简易案件登记-申请人-代理人-被申请人"""
+
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -86,15 +96,23 @@ class SimpleJfInputSave(unittest.TestCase):
                           "jf_action": u"验证类型",
                           "jf_time": u"三天"
                           }
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        simple_page = SimpleDisputePage(self.homepage)
-        simple_page.simple_jf_agent_commit(**simple_jf_info)
-        simple_page.save()
-        res = simple_page.verification_save(**simple_jf_info)
-        self.assertEqual(True,res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            simple_page = SimpleDisputePage(self.homepage)
+            simple_page.simple_jf_agent_commit(**simple_jf_info)
+            simple_page.save()
+            res = simple_page.verification_save(**simple_jf_info)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_03(self):
-        '''简易案件登记-申请人-被申请人-代理人'''
+        """简易案件登记-申请人-被申请人-代理人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -121,15 +139,23 @@ class SimpleJfInputSave(unittest.TestCase):
                           "jf_action": u"验证类型",
                           "jf_time": u"三天"
                           }
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        simple_page = SimpleDisputePage(self.homepage)
-        simple_page.simple_jf_agent_b_commit(**simple_jf_info)
-        simple_page.save()
-        res = simple_page.verification_save(**simple_jf_info)
-        self.assertEqual(True,res)
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            simple_page = SimpleDisputePage(self.homepage)
+            simple_page.simple_jf_agent_b_commit(**simple_jf_info)
+            simple_page.save()
+            res = simple_page.verification_save(**simple_jf_info)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
     def test_04(self):
-        '''简易案件登记-申请人-代理人-被申请人-代理人'''
+        """简易案件登记-申请人-代理人-被申请人-代理人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -161,10 +187,10 @@ class SimpleJfInputSave(unittest.TestCase):
         simple_page.simple_jf_agent_agent_b_commit(**simple_jf_info)
         simple_page.save()
         res = simple_page.verification_save(**simple_jf_info)
-        self.assertEqual(True,res)
+        self.assertEqual(True, res)
 
     def test_05(self):
-        '''简易案件登记-添加申请人、被申请人-删除申请人、被申请人'''
+        """简易案件登记-添加申请人、被申请人-删除申请人、被申请人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -191,16 +217,21 @@ class SimpleJfInputSave(unittest.TestCase):
                           "jf_action": u"验证类型",
                           "jf_time": u"三天"
                           }
-        self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-        simple_page = SimpleDisputePage(self.homepage)
-        simple_page.simple_jf_add_delete(**simple_jf_info)
-        simple_page.save()
-        res = simple_page.verification_save(**simple_jf_info)
-        self.assertEqual(True,res)
-
+        try:
+            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+            simple_page = SimpleDisputePage(self.homepage)
+            simple_page.simple_jf_add_delete(**simple_jf_info)
+            simple_page.save()
+            res = simple_page.verification_save(**simple_jf_info)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            name = _funcname_docstring(self)
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
 
 
 if __name__ == '__main__':
     unittest.main()
-
-
