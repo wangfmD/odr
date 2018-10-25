@@ -11,23 +11,19 @@ TYPES = {'firefox': webdriver.Firefox,
          'ie': webdriver.Ie,
          'phantomjs': webdriver.PhantomJS}
 
-
 try:
     SE = {'se360': webdriver.se360}
     TYPES.update(SE)
 except:
-    print('360浏览器方法不存在，请注意添加')
-
+    pass
 
 
 class UnSupportBrowserTypeError(Exception):
     pass
 
 
-
-
 dir = os.path.dirname
-home_path = dir(dir(os.path.abspath(dir(__file__))))
+home_path = dir(os.path.abspath(dir(__file__)))
 
 REPORT_PATH = os.path.join(home_path, "report")
 
@@ -40,7 +36,6 @@ class Browser(object):
                 self.browser = TYPES[self._type]
                 self.driver = self.browser()
 
-
                 print "Browser:", browser_type
             else:
                 raise UnSupportBrowserTypeError(u'仅支持%s!' % ', '.join(TYPES.keys()))
@@ -48,13 +43,22 @@ class Browser(object):
             self.driver = None
 
     def save_screen_shot(self, name='screen_shot'):
-        day = time.strftime('%Y%m%d', time.localtime(time.time()))
-        screenshot_path = REPORT_PATH + '\screenshot_%s' % day
+        """截图
+        """
+        day = time.strftime('%Y%m%d%H', time.localtime(time.time()))
+        screenshot_path = os.path.join(REPORT_PATH, 'screenshot_%s' % day)
         if not os.path.exists(screenshot_path):
             os.makedirs(screenshot_path)
 
         tm = time.strftime('%H%M%S', time.localtime(time.time()))
-        screenshot = self.driver.save_screenshot(screenshot_path + '\\%s_%s.png' % (name, tm))
+        file_name = os.path.join(screenshot_path, '%s_%s.png' % (name, tm))
+        # screenshot = self.driver.save_screenshot(screenshot_path + '\\%s_%s.png' % (name, tm))
+        screenshot = self.driver.save_screenshot(file_name)
+
+        if screenshot:
+            print file_name
+        else:
+            print "screen_shot failed"
         return screenshot
 
     def close(self):
@@ -65,7 +69,6 @@ class Browser(object):
 
 
 class Page(Browser):
-
     def __init__(self, page=None, browser_type=init.browser):
         if page:
             self.driver = page.driver
@@ -75,7 +78,7 @@ class Page(Browser):
         self.driver.implicitly_wait(5)
 
         if sys.platform == 'darwin':
-            self.driver.set_window_size(1849,1001)
+            self.driver.set_window_size(1849, 1001)
         else:
             try:
                 self.driver.maximize_window()
@@ -84,6 +87,7 @@ class Page(Browser):
 
     def get_driver(self):
         return self.driver
+
     #
     # def find_element(self, *args):
     #     return self.driver.find_element(*args)
@@ -114,26 +118,20 @@ class Page(Browser):
     def find_element_by_css_selector(self, *args):
         return self.driver.find_element_by_css_selector(*args)
 
-    def find_element_by_link_text(self,*args):
+    def find_element_by_link_text(self, *args):
         return self.driver.find_element_by_link_text(*args)
 
-    def find_elements_by_xpath(self,*args):
+    def find_elements_by_xpath(self, *args):
         return self.driver.find_elements_by_xpath(*args)
 
 
-
-
-
-
 class HomePage(Page):
-
     def baidu(self):
         self.driver.get("http://www.baidu.com")
         time.sleep(10)
 
 
 class UserPage(Page):
-
     def sina(self):
         self.driver.get("http://www.sina.com")
         time.sleep(10)
@@ -141,12 +139,15 @@ class UserPage(Page):
 
 def tt():
     homepage = HomePage()
-    homepage.baidu()
-    userpage = UserPage(homepage)
-    userpage.sina()
-
+    # homepage.baidu()
+    # userpage = UserPage(homepage)
+    # userpage.sina()
+    print homepage.save_screen_shot("dd的")
+    #
+    # dr = webdriver.Chrome()
+    # dr.save_screenshot()
 
 
 if __name__ == '__main__':
-    # tt()
-    print TYPES
+    tt()
+    # print REPORT_PATH
