@@ -2,6 +2,7 @@
 import re
 from time import sleep
 
+import os
 import requests
 
 from odrweb.core.utils import is_male
@@ -194,28 +195,31 @@ class JudicialInputPage(TjyBasePage):
         self.find_element_by_xpath('(//div[text()="文书送达地址："]/following-sibling::div/div//input[@placeholder="请输入文书送达地址"])[2]').send_keys(u'4#文书地址')
 
     def _judicial_tail_input(self, **kwargs):
+        # 上传文件路径
+        from odrweb.core.utils import HOMEPATH
+        upload_file = os.path.join(HOMEPATH, 'data', 'upload.png')
         # 请求事项
         self.find_element_by_xpath('//textarea[@placeholder="请输入请求内容"]').send_keys(kwargs['jf_desc'])
 
         # 证据材料
         self.find_element_by_xpath('//div[text()="证据附件："]/following-sibling::div/label/div').click()
-        file_upload('D:\\00jt\\1.png')
+        file_upload(upload_file)
         sleep(1)
         self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[2]').click()
-        file_upload('D:\\00jt\\1.png')
+        file_upload(upload_file)
         sleep(1)
         self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[3]').click()
-        file_upload('D:\\00jt\\1.png')
+        file_upload(upload_file)
         sleep(1)
         self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[4]').click()
-        file_upload('D:\\00jt\\1.png')
+        file_upload(upload_file)
         sleep(1)
         if kwargs['agent_type'] != "":
             # 代理人身份证明
             self.find_element_by_xpath('//div[contains(text(), " 新增材料")]').click()
             sleep(0.2)
             self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[5]').click()
-            file_upload('D:\\00jt\\1.png')
+            file_upload(upload_file)
             sleep(1)
 
         if kwargs['agent_b_type'] != "":
@@ -226,7 +230,7 @@ class JudicialInputPage(TjyBasePage):
                 self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[6]').click()
             else:
                 self.find_element_by_xpath('(//div[text()="证据附件："]/following-sibling::div/label/div)[5]').click()
-            file_upload('D:\\00jt\\1.png')
+            file_upload(upload_file)
             sleep(0.5)
 
         # 其他事项
@@ -907,4 +911,6 @@ def org_process(status, case_id):
 
 
 if __name__ == '__main__':
-    org_process("2", '166A56CF32C23')
+    # org_process("2", '166A56CF32C23')
+    from odrweb.core.utils import HOMEPATH
+    print os.path.join(HOMEPATH,'data','upload.png')
