@@ -12,8 +12,8 @@ from odrweb.page.browser import Page
 class CaseListBasePage(Page):
     """调解员首页的基础类
     """
-    modifcation_dispute_desc = "**_**modification"
-    modifcation_dispute_appeal = '**_**appeal'
+    modifcation_dispute_desc = u"纠纷登记-纠纷预览-纠纷描述修改-保存"
+    modifcation_dispute_appeal = u'纠纷登记-纠纷预览-纠纷诉求修改-保存'
     modifcation_dispute_type = u"金融借款合同纠纷"
     back_list = '//button[text()="返回列表"]'  # 返回列表
     x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
@@ -147,14 +147,14 @@ class CaseListBasePage(Page):
         self.find_element_by_xpath('//div[@id="reAllot"]/div/div[4]/input').click()
 
     def _dispute_modification(self):
-        """我的案件列表-纠纷详情-保存
+        """纠纷详情-保存：适应案件登记列表、纠纷调解案件列表
         """
         Select(self.find_element_by_xpath('//div[@id="checkCaseform"]/form/div[1]/p/select')).select_by_visible_text(u"金融借款合同纠纷")
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').clear()
-        self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').send_keys("**_**modification")
+        self.find_element_by_xpath('//h6[text()="纠纷描述"]/following-sibling::p/textarea').send_keys(self.modifcation_dispute_desc)
         # appeal
         self.find_element_by_xpath('//h6[text()="申请诉求"]/following-sibling::p/textarea').clear()
-        self.find_element_by_xpath('//h6[text()="申请诉求"]/following-sibling::p/textarea').send_keys("**_**appeal")
+        self.find_element_by_xpath('//h6[text()="申请诉求"]/following-sibling::p/textarea').send_keys(self.modifcation_dispute_appeal)
         self.find_element_by_xpath('//button[text()="保存"]').click()
         sleep(2)
         self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
@@ -367,7 +367,7 @@ class InputCaseListPage(CaseListBasePage):
         """案件登记列表-全部-增加纠纷-提交
         """
         self._into_input_case_list()
-        self.select_status(dispute_status=u'全部')  # 其他状态概率选择到简易案件
+        self.select_status(dispute_status=u'已提交')  # 其他状态概率选择到简易案件
         # self._goto_detail_info()
         self._dispute_add_input(desc_ext)
         self._input_dispute_add_commit()

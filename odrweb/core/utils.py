@@ -1,14 +1,13 @@
 # coding:utf-8
 import os
-import MySQLdb
+import pymysql
 import smtplib
-from MySQLdb import cursors
+from pymysql import cursors
 from email import encoders
 from email.header import Header
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from logger import logger
 
 
 class sqlOperating:
@@ -22,7 +21,7 @@ class sqlOperating:
 
     def __init__(self, host=host, user=user, passwd=passwd, db=db, port=13306):
         try:
-            self.con = MySQLdb.connect(host=host,
+            self.con = pymysql.connect(host=host,
                                        user=user,
                                        passwd=passwd,
                                        db=db,
@@ -31,7 +30,7 @@ class sqlOperating:
             print "DB connection info:"
             print "  >>host: {0}\n  >>user: {1}\n  >>password: {2}\n  >>database: " \
                   "{3}\n  >>port:{4}".format(host, user, passwd, db, port)
-        except MySQLdb.Error, e:
+        except pymysql.Error, e:
             print "Mysql Err %d:%s" % (e.args[0], e.args[1])
 
     def execQury(self, sql):
@@ -108,7 +107,6 @@ def sendReportWithAtt(attachment, *args):
     smtp.sendmail(msgRoot['From'], msgRoot['To'].split(','),
                   msgRoot.as_string())
     smtp.quit()
-    logger.info('test report has send out!')
 
 
 def sendReport(file_new):
@@ -134,14 +132,28 @@ def sendReport(file_new):
     smtp.sendmail(msg['From'], msg['To'].split(','), msg.as_string())
 
     smtp.quit()
-    logger.info('test report has send out!')
+
+def is_male(user_id):
+    """根据身份证id，判断性别
+    """
+    try:
+        flag = int(user_id[16])
+        if (flag % 2) ==0:
+            return False
+        else:
+            return True
+    except:
+        res = True
+
+    return res
 
 
 if __name__ == '__main__':
-    sql = "select CUR_VER from middle_db_version ORDER BY CUR_VER desc LIMIT 1"
-    c = sqlOperating()
-    result = c.execQury(sql)
-    for lie in result:
-        for k, v in lie.iteritems():
-            print k, "=", lie[k]
+    # sql = "select CUR_VER from middle_db_version ORDER BY CUR_VER desc LIMIT 1"
+    # c = sqlOperating()
+    # result = c.execQury(sql)
+    # for lie in result:
+    #     for k, v in lie.iteritems():
+    #         print k, "=", lie[k]
+    print is_male('321023199508166626')
 # print mediaAddr
