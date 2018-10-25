@@ -9,6 +9,9 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+dir = os.path.dirname
+HOMEPATH = dir(os.path.abspath(dir(__file__)))
+
 
 class sqlOperating:
     '''数据库操作'''
@@ -133,12 +136,13 @@ def sendReport(file_new):
 
     smtp.quit()
 
+
 def is_male(user_id):
     """根据身份证id，判断性别
     """
     try:
         flag = int(user_id[16])
-        if (flag % 2) ==0:
+        if (flag % 2) == 0:
             return False
         else:
             return True
@@ -148,6 +152,15 @@ def is_male(user_id):
     return res
 
 
+def _funcname_docstring(self):
+    """返回方法名称+docstring"""
+    # getdoc(getattr(self, getframeinfo(currentframe()).function))
+    prdfix, _ = self.__str__().split(" ")
+    # print type(self.__doc__.decode('utf8'))
+    file_name = "".join([self.__doc__.decode('utf8'), "_", prdfix])
+    return file_name
+
+
 if __name__ == '__main__':
     # sql = "select CUR_VER from middle_db_version ORDER BY CUR_VER desc LIMIT 1"
     # c = sqlOperating()
@@ -155,5 +168,6 @@ if __name__ == '__main__':
     # for lie in result:
     #     for k, v in lie.iteritems():
     #         print k, "=", lie[k]
-    print is_male('321023199508166626')
-# print mediaAddr
+    # print is_male('321023199508166626')
+    # print mediaAddr
+    print HOMEPATH
