@@ -3,7 +3,7 @@ import unittest
 from time import sleep
 import sys
 
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalCenter
 from odrweb.page.disputeinfo import ConciliationInfo
@@ -16,6 +16,7 @@ sys.setdefaultencoding("utf-8")
 class MultiClaimant(unittest.TestCase):
     '''用户纠纷登记-复数申/被请人'''
     def setUp(self):
+
         self.homepage = BrowserWhole().page
 
     def tearDown(self):

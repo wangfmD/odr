@@ -6,7 +6,7 @@ import unittest
 from time import sleep
 from odrweb.core.initdata import users
 from odrweb.page.adminorganpage import AdminOrgan
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.homepage import HomePage
 
 

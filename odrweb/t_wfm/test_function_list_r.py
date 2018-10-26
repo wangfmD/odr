@@ -1,9 +1,9 @@
 # coding: utf-8
 import sys
 import unittest
+import traceback
 
 from odrweb.core.initdata import users
-from odrweb.core.utils import _funcname_docstring
 
 from odrweb.page.caselistpage import InputCaseListPage
 from odrweb.page.homepage import HomePage
@@ -15,7 +15,12 @@ sys.setdefaultencoding("utf-8")
 class TjyFunc(unittest.TestCase):
     """调解员-案件登记列表"""
 
-    #
+    def _funcname_docstring(self):
+        """返回方法名称+docstring"""
+        prdfix, _ = self.__str__().split(" ")
+        file_name = "".join([prdfix,"_",self.__doc__])
+        return file_name
+
     def setUp(self):
         self.homepage = HomePage()
         print "\n--------------------"
@@ -26,7 +31,6 @@ class TjyFunc(unittest.TestCase):
     def test_1(self):
         """纠纷登记列表-添加纠纷-保存"""
         desc=u"纠纷登记列表-添加纠纷-保存"
-
         try:
             self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
             case_list_page = InputCaseListPage(self.homepage)
@@ -34,42 +38,34 @@ class TjyFunc(unittest.TestCase):
             # 获取返回页面纠纷状态
             result = case_list_page.verification_add_save(desc)
             self.assertEqual(True, result)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            name = _funcname_docstring(self)
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
+        except:
+            self.homepage.save_screen_shot(self._funcname_docstring())
+            self.assertEqual(True,False, u"执行失败")
+            traceback.print_exc()
 
     def test_2(self):
         """纠纷登记列表-添加纠纷-提交"""
         # 1，纠纷登记列表-已提交-添加纠纷
         # 2，修改纠纷描述
         # 3，-提交
-        desc=u"纠纷登记列表-添加纠纷-提交"
-
         try:
+            desc=u"纠纷登记列表-添加纠纷-提交"
             self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
             case_list_page = InputCaseListPage(self.homepage)
             case_list_page.dispute_add_commit(desc)
             # 获取返回页面纠纷状态
             result = case_list_page.verification_add_commit(desc)
             self.assertEqual(True, result)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            name = _funcname_docstring(self)
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
+        except:
+            self.homepage.save_screen_shot(self._funcname_docstring())
+            self.assertEqual(True,False, u"执行失败")
+            traceback.print_exc()
 
     def test_3(self):
         """纠纷登记列表-纠纷预览-保存"""
         # 1，纠纷登记列表-已提交-纠纷预览
         # 2，修改纠纷描述、诉求
         # 3，保存
-
         try:
             self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
             case_list_page = InputCaseListPage(self.homepage)
@@ -77,17 +73,13 @@ class TjyFunc(unittest.TestCase):
             # 获取返回页面纠纷状态
             result = case_list_page.verification_dispute_modification()
             self.assertEqual(True, result)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            name = _funcname_docstring(self)
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
+        except:
+            self.homepage.save_screen_shot(self._funcname_docstring())
+            self.assertEqual(True,False, u"执行失败")
+            traceback.print_exc()
 
     def test_4(self):
         """纠纷登记列表-删除"""
-
         try:
             self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
             case_list_page = InputCaseListPage(self.homepage)
@@ -95,13 +87,10 @@ class TjyFunc(unittest.TestCase):
             # 获取返回页面纠纷状态
             # result = case_list_page.verification_dispute_modification()
             # self.assertEqual(True, result)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            name = _funcname_docstring(self)
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
+        except:
+            self.homepage.save_screen_shot(self._funcname_docstring())
+            self.assertEqual(True,False, u"执行失败")
+            traceback.print_exc()
 
     def test_5(self):
         """纠纷登记列表-查询-纠纷编号"""
@@ -115,13 +104,10 @@ class TjyFunc(unittest.TestCase):
             #
             result = case_list_page.verification_search_No(dis_id)
             self.assertEqual(True, result)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            name = _funcname_docstring(self)
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
+        except:
+            self.homepage.save_screen_shot(self._funcname_docstring())
+            self.assertEqual(True,False, u"执行失败")
+            traceback.print_exc()
 
 if __name__ == '__main__':
     unittest.main()

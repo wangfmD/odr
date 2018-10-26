@@ -4,8 +4,6 @@ import unittest
 
 from odrweb.core.initdata import users
 # from odrweb.page.disputepage import DisputePage
-from odrweb.page.browserinstance import BrowserWhole
-from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalPage
 
 reload(sys)
@@ -26,12 +24,12 @@ class User(unittest.TestCase):
     '''普通用户-基本功能'''
 
     def setUp(self):
+
         self.homepage = BrowserWhole().page
         print "\n--------------------"
 
     def tearDown(self):
         self.homepage.quit()
-
 
     def test_01(self):
         '''个人中心-我要评估'''
@@ -47,8 +45,7 @@ class User(unittest.TestCase):
         personalpage.evaluate(**jf_consult)
         # 验证
         result = personalpage.verification_evaluate(jf_consult["jf_desc"])
-        self.assertEqual(True,result)
-
+        self.assertEqual(True, result)
 
     def test_02(self):
         '''个人中心-我要咨询'''
@@ -71,7 +68,7 @@ class User(unittest.TestCase):
 
     def test_04(self):
         '''咨询列表-人工咨询-查询'''
-        name = u'吴晓洁' # 咨询师姓名
+        name = u'吴晓洁'  # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
@@ -80,16 +77,15 @@ class User(unittest.TestCase):
 
     def test_05(self):
         '''咨询列表-人工咨询-返回'''
-        name = u'吴晓洁' # 咨询师姓名
+        name = u'吴晓洁'  # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.manual_consult_select_back()
 
-
     def test_06(self):
         '''咨询列表-人工咨询-结束咨询'''
-        name = u'吴晓洁' # 咨询师姓名
+        name = u'吴晓洁'  # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
@@ -105,9 +101,8 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.act_manual_consult_apply()
         #
-        result= personalpage.verfc_act_manual_consult_apply()
+        result = personalpage.verfc_act_manual_consult_apply()
         self.assertEqual(result, True)
-
 
     def test_08(self):
         '''调解列表-查询'''
@@ -116,9 +111,8 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         dispute_id = personalpage.get_dispute_search_id()
         personalpage.act_dispute_search(dispute_id)
-        result= personalpage.verfc_act_dispute_search_by_id(dispute_id)
+        result = personalpage.verfc_act_dispute_search_by_id(dispute_id)
         self.assertEqual(result, True)
-
 
     def test_09(self):
         '''调解列表-调解进度'''
@@ -175,6 +169,7 @@ class User(unittest.TestCase):
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.person_data_save()
+
 
 if __name__ == '__main__':
     unittest.main()

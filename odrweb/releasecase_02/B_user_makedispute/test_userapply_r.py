@@ -4,7 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.homepage import HomePage
 from odrweb.page.jfpersonalpage import PersonalPage
 
@@ -43,6 +43,7 @@ class UserApply(unittest.TestCase):
     }
 
     def setUp(self):
+
         self.homepage = BrowserWhole().page
         print "\n--------------------"
 

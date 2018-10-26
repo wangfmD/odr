@@ -5,7 +5,7 @@ from time import sleep
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.caselistpage import CaseListPage
 from odrweb.page.disputepage import DisputePageTjy
 from odrweb.page.homepage import HomePage

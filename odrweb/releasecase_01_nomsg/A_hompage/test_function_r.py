@@ -3,7 +3,7 @@ import sys
 import unittest
 from datetime import datetime
 from odrweb.core.initdata import init
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.homepage import HomePage
 from odrweb.page.nologinhomepage import NoLoginHomePage
 
