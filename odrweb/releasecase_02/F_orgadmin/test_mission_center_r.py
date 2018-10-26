@@ -3,7 +3,7 @@ import unittest
 from time import sleep
 import sys
 
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.homepage import HomePage
 from odrweb.page.organizationadmin import MissionCenter
 

@@ -911,6 +911,6 @@ def org_process(status, case_id):
 
 
 if __name__ == '__main__':
-    # org_process("2", '166A56CF32C23')
-    from odrweb.core.utils import HOMEPATH
-    print os.path.join(HOMEPATH,'data','upload.png')
+    org_process("1", '166A56656B560')
+    # from odrweb.core.utils import HOMEPATH
+    # print os.path.join(HOMEPATH,'data','upload.png')

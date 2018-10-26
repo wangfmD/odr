@@ -4,7 +4,7 @@ import unittest
 from time import sleep
 
 from odrweb.core.initdata import users
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.disputepage import DisputePageDjy
 from odrweb.page.homepage import HomePage
 

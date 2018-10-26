@@ -3,7 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
-from odrweb.page.browserinstance import BrowserWhole
+
 from odrweb.page.caselistpage import InputCaseListPage
 from odrweb.page.homepage import HomePage
 

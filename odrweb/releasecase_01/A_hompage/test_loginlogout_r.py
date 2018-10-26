@@ -2,8 +2,8 @@
 import unittest
 
 from odrweb.core.initdata import users
-from odrweb.page.browserinstance import BrowserWhole
 from odrweb.page.homepage import HomePage
+
 
 class OdrLoginAndQuit(unittest.TestCase):
     '''用户登录登出'''
@@ -25,7 +25,7 @@ class OdrLoginAndQuit(unittest.TestCase):
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_login_quit()
         result = self.homepage.user_login_quit_verification()
-        self.assertEqual(result,True)
+        self.assertEqual(result, True)
 
     def test_03(self):
         '''调解员登录'''
@@ -39,6 +39,7 @@ class OdrLoginAndQuit(unittest.TestCase):
         self.homepage.mediator_quit()
         result = self.homepage.mediator_login_quit_sverification()
         self.assertEqual(result, True)
+
     #
     def test_05(self):
         '''办案法官登录'''
@@ -165,8 +166,7 @@ class OdrLoginAndQuit(unittest.TestCase):
         self.homepage.user_head_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_head_login_quit()
         result = self.homepage.user_login_quit_verification()
-        self.assertEqual(result,True)
-
+        self.assertEqual(result, True)
 
 
 if __name__ == '__main__':

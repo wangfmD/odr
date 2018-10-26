@@ -4,6 +4,7 @@ import sys
 import time
 
 from selenium import webdriver
+
 from odrweb.core.initdata import init
 
 TYPES = {'firefox': webdriver.Firefox,
@@ -26,6 +27,34 @@ dir = os.path.dirname
 home_path = dir(os.path.abspath(dir(__file__)))
 
 REPORT_PATH = os.path.join(home_path, "report")
+
+
+class Screen(object):
+    """这个应该截图功能的装饰器"""
+
+    def __init__(self):
+        self.driver = None
+
+    def __call__(self, f):
+        def inner(*args):
+            try:
+                return f(*args)
+            except Exception as msg:
+                print "EXCEPTION >> {}".format(msg)
+                day = time.strftime('%Y%m%d%H', time.localtime(time.time()))
+                screenshot_path = os.path.join(REPORT_PATH, 'screenshot_%s' % day)
+                if not os.path.exists(screenshot_path):
+                    os.makedirs(screenshot_path)
+
+                tm = time.strftime('%H%M%S', time.localtime(time.time()))
+                name = "".join([f.__name__, "_", f.__doc__.decode('utf8')])
+                file_name = os.path.join(screenshot_path, '%s_%s.png' % (name, tm))
+                print "截图为：", file_name
+                res = args[0].homepage.driver.save_screenshot(file_name)
+
+                raise
+
+        return inner
 
 
 class Browser(object):
