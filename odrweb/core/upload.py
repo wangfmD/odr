@@ -1,10 +1,13 @@
 # -*- coding:utf-8 -*-
 from time import sleep
 
-import win32api
-import win32clipboard as w
-import SendKeys
-import win32con
+try:
+    import win32api
+    import win32clipboard as w
+    import SendKeys
+    import win32con
+except ImportError:
+    pass
 
 
 def _file_upload():
