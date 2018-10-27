@@ -4,6 +4,7 @@ import sys
 import time
 
 from selenium import webdriver
+chrome = webdriver.Chrome()
 
 from odrweb.core.initdata import init
 
@@ -41,6 +42,7 @@ class Screen(object):
                 return f(*args)
             except Exception as msg:
                 print "EXCEPTION >> {}".format(msg)
+
                 day = time.strftime('%Y%m%d%H', time.localtime(time.time()))
                 screenshot_path = os.path.join(REPORT_PATH, 'screenshot_%s' % day)
                 if not os.path.exists(screenshot_path):
@@ -50,6 +52,7 @@ class Screen(object):
                 name = "".join([f.__name__, "_", f.__doc__.decode('utf8')])
                 file_name = os.path.join(screenshot_path, '%s_%s.png' % (name, tm))
                 print "截图为：", file_name
+                print "\n"
                 res = args[0].homepage.driver.save_screenshot(file_name)
 
                 raise
@@ -83,7 +86,8 @@ class Browser(object):
         screenshot = self.driver.save_screenshot(file_name)
 
         if screenshot:
-            print file_name
+            print "截图为：",  file_name
+            print "\n"
         else:
             print "screen_shot failed"
         return screenshot
@@ -127,19 +131,7 @@ class Page(Browser):
             el = self.driver.find_element_by_xpath(*args)
         except:
             time.sleep(0.5)
-            try:
-                el = self.driver.find_element_by_xpath(*args)
-            except:
-                time.sleep(0.5)
-                try:
-                    el = self.driver.find_element_by_xpath(*args)
-                except:
-                    time.sleep(0.5)
-                    try:
-                        el = self.driver.find_element_by_xpath(*args)
-                    except:
-                        time.sleep(0.5)
-                        el = self.driver.find_element_by_xpath(*args)
+            el = self.driver.find_element_by_xpath(*args)
         return el
 
     def find_element_by_css_selector(self, *args):
