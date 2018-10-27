@@ -43,13 +43,22 @@ jf_info_all = {
 
 class DisputeCommit(unittest.TestCase):
     """调解员-纠纷提交"""
+    homepage=None
+
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
 
     def setUp(self):
-        self.homepage = HomePage()
+        print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
         """调解员-登记纠纷提交-申自然人-被自然人

@@ -1,5 +1,7 @@
 # coding:utf-8
 import os
+from inspect import getdoc, getframeinfo, currentframe
+
 import pymysql
 import smtplib
 from pymysql import cursors
@@ -154,10 +156,10 @@ def is_male(user_id):
 
 def _funcname_docstring(self):
     """返回方法名称+docstring"""
-    # getdoc(getattr(self, getframeinfo(currentframe()).function))
+    docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
     prdfix, _ = self.__str__().split(" ")
     # print type(self.__doc__.decode('utf8'))
-    file_name = "".join([self.__doc__.decode('utf8'), "_", prdfix])
+    file_name = "".join([prdfix, "_", docstr.decode('utf8')])
     return file_name
 
 

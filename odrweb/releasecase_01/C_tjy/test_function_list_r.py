@@ -15,13 +15,21 @@ sys.setdefaultencoding("utf-8")
 class TjyFunc(unittest.TestCase):
     """调解员-案件登记列表"""
 
-    #
+    homepage = None
+
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
+
     def setUp(self):
-        self.homepage = HomePage()
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_1(self):
         """纠纷登记列表-添加纠纷-保存"""

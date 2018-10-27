@@ -64,8 +64,6 @@ class Browser(object):
             if self._type in TYPES:
                 self.browser = TYPES[self._type]
                 self.driver = self.browser()
-
-                print "Browser:", browser_type
             else:
                 raise UnSupportBrowserTypeError(u'仅支持%s!' % ', '.join(TYPES.keys()))
         else:

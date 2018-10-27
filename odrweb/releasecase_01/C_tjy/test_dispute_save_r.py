@@ -42,13 +42,21 @@ jf_info_all = {
 
 class DisputeSave(unittest.TestCase):
     """调解员-纠纷保存"""
+    homepage=None
+
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
 
     def setUp(self):
-        self.homepage = HomePage()
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
         """调解员-登记纠纷保存-申自然人-被自然人"""
