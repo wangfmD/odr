@@ -335,6 +335,7 @@ class CaseListPage(CaseListBasePage):
         # 获取纠纷编号
         span_el = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//span[text()="纠纷编号"]/following-sibling::span')))
         dispute_id = span_el.text
+        print "###案件编号：{},进入纠纷详情页面###".format(dispute_id)
         return dispute_id
 
 
@@ -364,11 +365,10 @@ class InputCaseListPage(CaseListBasePage):
         self._dispute_delete()
 
     def dispute_add_commit(self, desc_ext):
-        """案件登记列表-全部-增加纠纷-提交
+        """案件登记列表-已提交-增加纠纷-提交
         """
         self._into_input_case_list()
         self.select_status(dispute_status=u'已提交')  # 其他状态概率选择到简易案件
-        # self._goto_detail_info()
         self._dispute_add_input(desc_ext)
         self._input_dispute_add_commit()
 
@@ -479,8 +479,13 @@ class InputCaseListPage(CaseListBasePage):
         try:
             dis_desc = self.find_element_by_xpath('//label[contains(text(),"纠纷描述")]/following-sibling::p').text
             # dis_desc = res.split("___")[-1]
+            case_id = self.find_element_by_xpath('(//div[contains(text(),"纠纷编号：")])[1]').text
         except:
             dis_desc = "**None**"
+            case_id = "**None**"
+
+            raise
+
         # 打印期望值和测试值
         print "result: ", dis_desc
         print "expect: ", expect

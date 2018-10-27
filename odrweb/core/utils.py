@@ -1,13 +1,14 @@
 # coding:utf-8
 import os
-import pymysql
 import smtplib
-from pymysql import cursors
 from email import encoders
 from email.header import Header
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+import pymysql
+from pymysql import cursors
 
 dir = os.path.dirname
 HOMEPATH = dir(os.path.abspath(dir(__file__)))
@@ -152,12 +153,12 @@ def is_male(user_id):
     return res
 
 
-def _funcname_docstring(self):
+def _funcname_docstring(self, docstr):
     """返回方法名称+docstring"""
-    # getdoc(getattr(self, getframeinfo(currentframe()).function))
+    # docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
     prdfix, _ = self.__str__().split(" ")
     # print type(self.__doc__.decode('utf8'))
-    file_name = "".join([self.__doc__.decode('utf8'), "_", prdfix])
+    file_name = "".join([prdfix, "_", docstr])
     return file_name
 
 

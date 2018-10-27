@@ -1,10 +1,12 @@
 # coding:utf-8
 
 from time import sleep
-from odrweb.page.browser import Page
-from selenium.webdriver.support.ui import WebDriverWait
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+from odrweb.page.browser import Page
 
 
 class AdminOrgan(Page):
