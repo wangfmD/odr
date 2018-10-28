@@ -39,7 +39,7 @@ jf_info_all = {
 
 
 class DjyFunc(unittest.TestCase):
-    '''机构登记员-基本功能'''
+    """机构登记员-基本功能"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -50,7 +50,7 @@ class DjyFunc(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''机构登记员-首页-登记纠纷保存-申自然人-被自然人'''
+        """机构登记员-首页-登记纠纷保存-申自然人-被自然人"""
         jf_info = {"jf_desc": u"机构登记员-首页-登记纠纷保存-申自然人-被自然人",
                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                    "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -68,7 +68,7 @@ class DjyFunc(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_02(self):
-        '''首页-输入查询'''
+        """首页-输入查询"""
         self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
         disputepage = DisputePageDjy(self.homepage)
         disputepage.act_goto_homepage()
@@ -76,31 +76,31 @@ class DjyFunc(unittest.TestCase):
         disputepage.act_search_by_name_or_id(case_id)
 
     def test_03(self):
-        '''纠纷预览-返回列表'''
+        """纠纷预览-返回列表"""
         self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
         disputepage = DisputePageDjy(self.homepage)
         disputepage.act_dispute_list_info_back()
 
     def test_04(self):
-        '''纠纷预览-解纷进度'''
+        """纠纷预览-解纷进度"""
         self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
         disputepage = DisputePageDjy(self.homepage)
         disputepage.act_dispute_list_info_schedule()
 
     def test_05(self):
-        '''纠纷预览-保存'''
+        """纠纷预览-保存"""
         self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
         disputepage = DisputePageDjy(self.homepage)
         disputepage.act_dispute_list_info_save()
 
     def test_06(self):
-        '''纠纷预览-提交'''
+        """纠纷预览-提交"""
         self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
         disputepage = DisputePageDjy(self.homepage)
         disputepage.act_dispute_list_info_commit()
 
     def test_07(self):
-        '''机构登记列表-增加纠纷-保存'''
+        """机构登记列表-增加纠纷-保存"""
         jf_info = {"jf_desc": u"机构登记列表-增加纠纷-提交",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -119,7 +119,7 @@ class DjyFunc(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_08(self):
-        '''构登记列表-删除'''
+        """构登记列表-删除"""
         self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
         disputepage = DisputePageDjy(self.homepage)
         disputepage.act_goto_homepage()
@@ -127,7 +127,7 @@ class DjyFunc(unittest.TestCase):
         print u"登记员删除未提交纠纷成功"
 
     def test_09(self):
-        '''机构登记列表-增加纠纷-提交'''
+        """机构登记列表-增加纠纷-提交"""
         jf_info = {"jf_desc": u"机构登记列表-增加纠纷-提交",
                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                    "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织

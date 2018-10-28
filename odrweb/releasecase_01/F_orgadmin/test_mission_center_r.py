@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 from time import sleep
-import sys
 
 from odrweb.core.utils import _funcname_docstring
-
 from odrweb.page.homepage import HomePage
 from odrweb.page.organizationadmin import MissionCenter
 
@@ -15,12 +14,20 @@ sys.setdefaultencoding("utf-8")
 class OrgCaseOpera(unittest.TestCase):
     """机构管理员"""
 
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
+
     def setUp(self):
-        self.homepage = HomePage()
+        print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
         """任务中心调解类型"""

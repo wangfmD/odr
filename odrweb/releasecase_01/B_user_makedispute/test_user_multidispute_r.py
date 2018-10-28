@@ -1,30 +1,38 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 from time import sleep
-import sys
 
 from odrweb.core.utils import _funcname_docstring
-
+from odrweb.page.disputeinfo import ConciliationInfo
+from odrweb.page.disputeinfo import InClaimantInfo
+from odrweb.page.disputeinfo import InProposerInfo
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalCenter, RolerChoose
-from odrweb.page.disputeinfo import ConciliationInfo
-from odrweb.page.disputeinfo import InProposerInfo
-from odrweb.page.disputeinfo import InClaimantInfo
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 class MultiClaimant(unittest.TestCase):
-    '''用户纠纷登记-复数申/被请人'''
+    """用户纠纷登记-复数申/被请人"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
+
     def setUp(self):
-        self.homepage = HomePage()
+        print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人、非法人组织(3v3)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人、非法人组织(3v3)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -178,7 +186,7 @@ class MultiClaimant(unittest.TestCase):
             raise
 
     # def test_02(self):
-    #     '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人(3v2)'''
+    #     """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人(3v2)"""
     #     userinfo={
     #         "UserName": "17625908729",
     #         "PassWord": "11111111"} #登录用户配置
@@ -306,7 +314,7 @@ class MultiClaimant(unittest.TestCase):
     #     self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
     #
     # def test_03(self):
-    #     '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织(3v2)'''
+    #     """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织(3v2)"""
     #     userinfo={
     #         "UserName": "17625908729",
     #         "PassWord": "11111111"}  # 登录用户配置
@@ -434,7 +442,7 @@ class MultiClaimant(unittest.TestCase):
     #     self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
     #
     # def test_04(self):
-    #     '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织(3v2)'''
+    #     """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织(3v2)"""
     #     userinfo={
     #         "UserName": "17625908729",
     #         "PassWord": "11111111"} #登录用户配置
@@ -564,7 +572,7 @@ class MultiClaimant(unittest.TestCase):
     #     self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
     #
     # def test_05(self):
-    #     '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人、非法人组织(2v3)'''
+    #     """一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人、非法人组织(2v3)"""
     #     userinfo={
     #         "UserName": "17625908729",
     #         "PassWord": "11111111"} #登录用户配置
@@ -692,7 +700,7 @@ class MultiClaimant(unittest.TestCase):
     #     self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
     #
     # def test_06(self):
-    #     '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
+    #     """一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)"""
     #     userinfo={
     #         "UserName": "17625908729",
     #         "PassWord": "11111111"} #登录用户配置
@@ -820,7 +828,7 @@ class MultiClaimant(unittest.TestCase):
     #     self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
     #
     # def test_07(self):
-    #     '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
+    #     """一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)"""
     #     userinfo={
     #         "UserName": "17625908729",
     #         "PassWord": "11111111"} #登录用户配置
@@ -950,7 +958,7 @@ class MultiClaimant(unittest.TestCase):
     #     self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_08(self):
-        '''一般代理人身份登录录入纠纷：申请人：法人|被申请人：自然人、法人、非法人组织(1v3)'''
+        """一般代理人身份登录录入纠纷：申请人：法人|被申请人：自然人、法人、非法人组织(1v3)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -1066,7 +1074,7 @@ class MultiClaimant(unittest.TestCase):
         self.assertEqual(result, True, msg='新旧案件编号相同，新增失败')
 
     def test_09(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人(3v1)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人(3v1)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置

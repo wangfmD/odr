@@ -14,7 +14,7 @@ t = 2
 
 
 class OdrJfInput(unittest.TestCase):
-    # '''纠纷登记'''
+    # """纠纷登记"""
     #
     def setUp(self):
         self.homepage = HomePage()
@@ -26,7 +26,7 @@ class OdrJfInput(unittest.TestCase):
 
     # @unittest.skip
     def test_01(self):
-        '''用户-登记纠纷-申自然人特殊代理人-被自然人'''
+        """用户-登记纠纷-申自然人特殊代理人-被自然人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申自然人特殊代理人-被自然人",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -69,7 +69,7 @@ class OdrJfInput(unittest.TestCase):
 
     # @unittest.skip
     def test_02(self):
-        '''用户-登记纠纷-申自然人特殊代理人-被法人代理人'''
+        """用户-登记纠纷-申自然人特殊代理人-被法人代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申自然人特殊代理人-被法人代理人",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -111,7 +111,7 @@ class OdrJfInput(unittest.TestCase):
 
     # @unittest.skip
     def test_03(self):
-        '''用户-登记纠纷-申自然人特殊代理人-被非法人组织代理人'''
+        """用户-登记纠纷-申自然人特殊代理人-被非法人组织代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申自然人特殊代理人-被非法人组织代理人",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -152,7 +152,7 @@ class OdrJfInput(unittest.TestCase):
         personalpage.verfication_commit_dlr(**jf_info_all)
 
     def test_04(self):
-        '''用户-登记纠纷-申法人代理人-被自然人代理人'''
+        """用户-登记纠纷-申法人代理人-被自然人代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申法人代理人-被自然人代理人",
                        "applicant_type": u"法人",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -194,7 +194,7 @@ class OdrJfInput(unittest.TestCase):
 
     # @unittest.skip
     def test_05(self):
-        '''用户-登记纠纷-申法人代理人-被法人'''
+        """用户-登记纠纷-申法人代理人-被法人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申法人代理人-被法人",
                        "applicant_type": u"法人",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -237,7 +237,7 @@ class OdrJfInput(unittest.TestCase):
 
     # @unittest.skip
     def test_06(self):
-        '''用户-登记纠纷-申法人代理人-被非法人组织代理人'''
+        """用户-登记纠纷-申法人代理人-被非法人组织代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申法人代理人-被非法人组织代理人",
                        "applicant_type": u"法人",  # 自然人 法人 非法人组织
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -280,7 +280,7 @@ class OdrJfInput(unittest.TestCase):
 
 
     def test_07(self):
-        '''用户-登记纠纷-申非法人组织特殊代理人-被自然人代理人'''
+        """用户-登记纠纷-申非法人组织特殊代理人-被自然人代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申非法人组织特殊代理人-被自然人代理人",
                        "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -323,7 +323,7 @@ class OdrJfInput(unittest.TestCase):
 
     # @unittest.skip
     def test_08(self):
-        '''用户-登记纠纷-申非法人组织特殊代理人-被法人代理人'''
+        """用户-登记纠纷-申非法人组织特殊代理人-被法人代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申非法人组织特殊代理人-被法人代理人",
                        "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -366,7 +366,7 @@ class OdrJfInput(unittest.TestCase):
 
     # @unittest.skip
     def test_09(self):
-        '''用户-登记纠纷-申非法人组织特殊代理人-被非法人组织'''
+        """用户-登记纠纷-申非法人组织特殊代理人-被非法人组织"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申非法人组织特殊代理人-被非法人组织",
                        "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织

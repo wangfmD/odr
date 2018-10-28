@@ -22,7 +22,7 @@ jf_info = {"jf_desc": u"假冒商品",
 
 
 class OdrJfInput(unittest.TestCase):
-    '''纠纷登记'''
+    """纠纷登记"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -33,7 +33,7 @@ class OdrJfInput(unittest.TestCase):
 
 
     def test_01(self):
-        '''用户-我要评估'''
+        """用户-我要评估"""
         # 测试数据
         jf_consult = {"jf_type": u"消费维权",
                       "jf_desc": u"假冒商品",
@@ -50,7 +50,7 @@ class OdrJfInput(unittest.TestCase):
 
 
     def test_02(self):
-        '''用户-我要咨询'''
+        """用户-我要咨询"""
         jf_consult = {"jf_type": u"消费维权",
                       "jf_desc": u"假冒商品",
                       "jf_appeal": u"假一赔十"}

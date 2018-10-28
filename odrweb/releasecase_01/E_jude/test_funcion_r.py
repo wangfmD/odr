@@ -4,7 +4,6 @@ import unittest
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-
 from odrweb.page.homepage import HomePage
 from odrweb.page.judgepage import JudgePage
 
@@ -15,12 +14,20 @@ class JugeFunc(unittest.TestCase):
     """办案法官-基本功能
     """
 
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
+
     def setUp(self):
-        self.homepage = HomePage()
+        print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
         """选择查询-待确认"""

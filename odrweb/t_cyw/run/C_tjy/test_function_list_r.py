@@ -24,7 +24,7 @@ class TjyFunc(unittest.TestCase):
         self.homepage.quit()
 
     def test_1(self):
-        '''纠纷登记列表-添加纠纷-保存'''
+        """纠纷登记列表-添加纠纷-保存"""
         desc=u"纠纷登记列表-添加纠纷-保存"
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = InputCaseListPage(self.homepage)
@@ -34,7 +34,7 @@ class TjyFunc(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_2(self):
-        '''纠纷登记列表-添加纠纷-提交'''
+        """纠纷登记列表-添加纠纷-提交"""
         desc=u"纠纷登记列表-添加纠纷-提交"
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = InputCaseListPage(self.homepage)
@@ -44,7 +44,7 @@ class TjyFunc(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_3(self):
-        '''纠纷登记列表-纠纷详情-保存'''
+        """纠纷登记列表-纠纷详情-保存"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = InputCaseListPage(self.homepage)
         case_list_page.case_modification_save()
@@ -53,7 +53,7 @@ class TjyFunc(unittest.TestCase):
         self.assertEqual(True, result)
 
     def test_4(self):
-        '''纠纷登记列表-删除'''
+        """纠纷登记列表-删除"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = InputCaseListPage(self.homepage)
         case_list_page.dispute_delete()
@@ -62,7 +62,7 @@ class TjyFunc(unittest.TestCase):
         # self.assertEqual(True, result)
 
     def test_5(self):
-        '''纠纷登记列表-查询-纠纷编号'''
+        """纠纷登记列表-查询-纠纷编号"""
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         case_list_page = InputCaseListPage(self.homepage)
         case_list_page._into_input_case_list()

@@ -1,16 +1,17 @@
 # coding: utf-8
 import sys
 import unittest
+
 from odrweb.core.initdata import users
-from odrweb.page.simpledisputepage import SimpleDisputePage
 from odrweb.page.homepage import HomePage
+from odrweb.page.simpledisputepage import SimpleDisputePage
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 
 class SimpleJfInputCommit(unittest.TestCase):
-    '''调解员-简易案件提交'''
+    """调解员-简易案件提交"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -21,7 +22,7 @@ class SimpleJfInputCommit(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''简易案件登记-申请人-被申请人'''
+        """简易案件登记-申请人-被申请人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -57,7 +58,7 @@ class SimpleJfInputCommit(unittest.TestCase):
 
 
     def test_02(self):
-        '''简易案件-申请人-代理人-被申请人'''
+        """简易案件-申请人-代理人-被申请人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -92,7 +93,7 @@ class SimpleJfInputCommit(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_03(self):
-        '''简易案件-申请人-被申请人-代理人'''
+        """简易案件-申请人-被申请人-代理人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -127,7 +128,7 @@ class SimpleJfInputCommit(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_04(self):
-        '''简易案件-申请人-代理人-被申请人-代理人'''
+        """简易案件-申请人-代理人-被申请人-代理人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -163,7 +164,7 @@ class SimpleJfInputCommit(unittest.TestCase):
 
 
     def test_05(self):
-        '''简易案件登记-添加申请人、被申请人-删除申请人、被申请人'''
+        """简易案件登记-添加申请人、被申请人-删除申请人、被申请人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",
@@ -199,7 +200,7 @@ class SimpleJfInputCommit(unittest.TestCase):
 
 
     def test_06(self):
-        '''简易案件-两个申请人-两个申请人代理人-两个被申请人-一个被申请人代理人'''
+        """简易案件-两个申请人-两个申请人代理人-两个被申请人-一个被申请人代理人"""
         simple_jf_info = {"applicant": u"段志勇",
                           "applicant_tel": "15895996954",
                           "applicant_id": "",

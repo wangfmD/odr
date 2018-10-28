@@ -14,7 +14,7 @@ new = '22222222'
 
 
 class UserSecure(unittest.TestCase):
-    ''' 普通用户-安全设置'''
+    """ 普通用户-安全设置"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -24,7 +24,7 @@ class UserSecure(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''用户修改密码'''
+        """用户修改密码"""
         print "oldpwd: ", old
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -32,7 +32,7 @@ class UserSecure(unittest.TestCase):
         personalpage.modify_passwd(old, new)
 
     def test_02(self):
-        '''用户改回原密码'''
+        """用户改回原密码"""
         print "oldpwd: ", old
         self.homepage.user_login(users.user_wfm['username'], new)
         self.homepage.user_personal_center()

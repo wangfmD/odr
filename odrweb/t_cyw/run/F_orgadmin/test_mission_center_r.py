@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 from time import sleep
-import sys
+
 from odrweb.page.homepage import HomePage
 from odrweb.page.organizationadmin import MissionCenter
-
-
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 class OrgCaseOpera(unittest.TestCase):
-    '''机构管理员'''
+    """机构管理员"""
     def setUp(self):
         self.homepage = HomePage()
 
@@ -20,7 +19,7 @@ class OrgCaseOpera(unittest.TestCase):
         print "\n--------------------"
 
     def test_01(self):
-        '''任务中心调解类型'''
+        """任务中心调解类型"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -37,7 +36,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='任务中心调解类型选择失败')
 
     def test_02(self):
-        '''任务中心调解状态'''
+        """任务中心调解状态"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -54,7 +53,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='任务中心调解状态选择失败')
 
     def test_03(self):
-        '''任务中心登记时间'''
+        """任务中心登记时间"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -71,7 +70,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='任务中心登记时间选择失败')
 
     def test_04(self):
-        '''机构管理员查看临期案件'''
+        """机构管理员查看临期案件"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -86,7 +85,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='只看到期案件点选失败')
 
     def test_05(self):
-        '''案件总量'''
+        """案件总量"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -105,7 +104,7 @@ class OrgCaseOpera(unittest.TestCase):
 
 
     def test_06(self):
-        '''案件编号精确搜索'''
+        """案件编号精确搜索"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -126,7 +125,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='案件编号精确搜索结果唯一性校验失败')
 
     def test_07(self):
-        '''案件搜索重置'''
+        """案件搜索重置"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -152,7 +151,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='搜索重置功能校验失败')
 
     def test_08(self):
-        '''批量受理按钮'''
+        """批量受理按钮"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -169,7 +168,7 @@ class OrgCaseOpera(unittest.TestCase):
 
 
     def test_09(self):
-        '''机构管理员查看纠纷详情'''
+        """机构管理员查看纠纷详情"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -190,7 +189,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='切换纠纷详情页面失败')
 
     def test_10(self):
-        '''机构管理员受理纠纷'''
+        """机构管理员受理纠纷"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -219,7 +218,7 @@ class OrgCaseOpera(unittest.TestCase):
 
 
     def test_11(self):
-        '''机构管理员不受理纠纷'''
+        """机构管理员不受理纠纷"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -248,7 +247,7 @@ class OrgCaseOpera(unittest.TestCase):
         self.assertEquals(result, True, msg='案件不受理失败')
 
     def test_12(self):
-        '''机构管理员受理纠纷、分配调解员'''
+        """机构管理员受理纠纷、分配调解员"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -280,7 +279,7 @@ class OrgCaseOpera(unittest.TestCase):
 
 
     def test_13(self):
-        '''机构管理员重新分配机构'''
+        """机构管理员重新分配机构"""
 
         org_admin = {
             "机构账号": "17612156739",
@@ -307,7 +306,7 @@ class OrgCaseOpera(unittest.TestCase):
 
 
     def test_14(self):
-        '''机构管理员查看进度'''
+        """机构管理员查看进度"""
 
         org_admin = {
             "机构账号": "5958234274",
@@ -329,7 +328,7 @@ class OrgCaseOpera(unittest.TestCase):
 
 
     # def xtest_006(self):
-    #     '''机构管理员重新分配案件'''
+    #     """机构管理员重新分配案件"""
     #
     #     org_admin = {
     #         "机构账号": "17612156739",

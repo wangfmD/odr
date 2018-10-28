@@ -14,7 +14,7 @@ sys.setdefaultencoding("utf-8")
 t=1
 
 class DisputeSave(unittest.TestCase):
-    '''调解员-纠纷保存'''
+    """调解员-纠纷保存"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -25,7 +25,7 @@ class DisputeSave(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''调解员-登记纠纷提交-申自然人-被自然人'''
+        """调解员-登记纠纷提交-申自然人-被自然人"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申自然人-被自然人",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -63,7 +63,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_02(self):
-        '''调解员-登记纠纷提交-申自然人-被法人'''
+        """调解员-登记纠纷提交-申自然人-被法人"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申自然人-被法人",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -101,7 +101,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_03(self):
-        '''调解员-登记纠纷提交-申自然人-被非法人组织'''
+        """调解员-登记纠纷提交-申自然人-被非法人组织"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申自然人-被非法人组织",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -139,7 +139,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_04(self):
-        '''调解员-登记纠纷提交-申法人-被自然人'''
+        """调解员-登记纠纷提交-申法人-被自然人"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申法人-被自然人",
                        "applicant_type": u"法人",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -177,7 +177,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_05(self):
-        '''调解员-登记纠纷提交-申法人-被法人'''
+        """调解员-登记纠纷提交-申法人-被法人"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申法人-被法人",
                        "applicant_type": u"法人",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -215,7 +215,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_06(self):
-        '''调解员-登记纠纷提交-申法人-被非法人组织'''
+        """调解员-登记纠纷提交-申法人-被非法人组织"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申法人-被非法人组织",
                        "applicant_type": u"法人",  # 自然人 法人 非法人组织
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
@@ -253,7 +253,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_07(self):
-        '''调解员-登记纠纷提交-申非法人组织-被自然人'''
+        """调解员-登记纠纷提交-申非法人组织-被自然人"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织-被自然人",
                        "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -291,7 +291,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_08(self):
-        '''调解员-登记纠纷提交-申非法人组织-被法人'''
+        """调解员-登记纠纷提交-申非法人组织-被法人"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织-被法人",
                        "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -329,7 +329,7 @@ class DisputeSave(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_09(self):
-        '''调解员-登记纠纷提交-申非法人组织-被非法人组织'''
+        """调解员-登记纠纷提交-申非法人组织-被非法人组织"""
         jf_info_all = {"jf_desc": u"调解员-登记纠纷提交-申非法人组织-被非法人组织",
                        "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织

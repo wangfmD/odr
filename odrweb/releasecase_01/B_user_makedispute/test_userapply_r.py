@@ -5,7 +5,6 @@ from time import sleep
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-
 from odrweb.page.homepage import HomePage
 from odrweb.page.jfpersonalpage import PersonalPage
 
@@ -16,7 +15,7 @@ t = 2
 
 
 class UserApply(unittest.TestCase):
-    '''用户纠纷登记-申请人'''
+    """用户纠纷登记-申请人"""
     dispute_info = {
         "jf_appeal": u"假一赔十",
         "applicant_name": u"申企业或机构名称",  #
@@ -43,15 +42,23 @@ class UserApply(unittest.TestCase):
         "agent_b_id": ""
     }
 
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
+
     def setUp(self):
-        self.homepage = HomePage()
+        print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
-        '''用户-登记纠纷-申自然人-被自然人'''
+        """用户-登记纠纷-申自然人-被自然人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申自然人-被自然人",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -77,7 +84,7 @@ class UserApply(unittest.TestCase):
             raise
 
     def test_02(self):
-        '''用户-登记纠纷-申自然人特殊代理人-被自然人特殊代理人'''
+        """用户-登记纠纷-申自然人特殊代理人-被自然人特殊代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申自然人特殊代理人-被自然人特殊代理人",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"自然人",  # 自然人 法人 非法人组织
@@ -104,7 +111,7 @@ class UserApply(unittest.TestCase):
             raise
 
     def test_03(self):
-        '''用户-登记纠纷-申法人-被非法人组织'''
+        """用户-登记纠纷-申法人-被非法人组织"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申法人-被非法人组织",
                        "applicant_type": u"自然人",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织
@@ -131,7 +138,7 @@ class UserApply(unittest.TestCase):
             raise
 
     def test_04(self):
-        '''用户-登记纠纷-申非法人组织特殊代理人-被法人代理人'''
+        """用户-登记纠纷-申非法人组织特殊代理人-被法人代理人"""
         jf_info_all = {"jf_desc": u"用户-登记纠纷-申非法人组织特殊代理人-被法人代理人",
                        "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
                        "disputer_type": u"法人",  # 自然人 法人 非法人组织

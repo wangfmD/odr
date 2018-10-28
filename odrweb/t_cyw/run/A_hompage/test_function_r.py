@@ -1,14 +1,12 @@
 # coding: utf-8
-import sys
 import unittest
 
-from odrweb.core.initdata import init
 from odrweb.page.homepage import HomePage
 from odrweb.page.nologinhomepage import NoLoginHomePage
 
 
 class HomepageNoLogin(unittest.TestCase):
-    '''未登录首页基本操作'''
+    """未登录首页基本操作"""
 
 
     def setUp(self):
@@ -20,7 +18,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''服务内容-法律咨询-在线咨询-聊天对话'''
+        """服务内容-法律咨询-在线咨询-聊天对话"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_online()
@@ -29,7 +27,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_02(self):
-        '''服务内容-法律咨询-在线咨询-法律咨询'''
+        """服务内容-法律咨询-在线咨询-法律咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_online()
@@ -39,7 +37,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_03(self):
-        '''服务内容-法律咨询-在线咨询-解纷方式'''
+        """服务内容-法律咨询-在线咨询-解纷方式"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_online()
@@ -49,7 +47,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_04(self):
-        '''服务内容-法律咨询-在线咨询-相关案例'''
+        """服务内容-法律咨询-在线咨询-相关案例"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_online()
@@ -59,7 +57,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_05(self):
-        '''服务内容-法律咨询-在线咨询-辅助工具'''
+        """服务内容-法律咨询-在线咨询-辅助工具"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_online()
@@ -69,7 +67,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_06(self):
-        '''服务内容-法律咨询-在线咨询-登陆咨询'''
+        """服务内容-法律咨询-在线咨询-登陆咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_manwork_login()
@@ -77,7 +75,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_07(self,**kwargs):
-        '''服务内容-法律咨询-在线咨询-直接咨询-进入咨询'''
+        """服务内容-法律咨询-在线咨询-直接咨询-进入咨询"""
         consult = {"consult_desc": u"假冒伪劣",
                    "consult_ask": u"假一赔十"}
         nologinpage = NoLoginHomePage(self.homepage)
@@ -88,7 +86,7 @@ class HomepageNoLogin(unittest.TestCase):
 
 
     def test_08(self):
-        '''服务内容-在线评估'''
+        """服务内容-在线评估"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_assessment()
@@ -96,7 +94,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_09(self):
-        '''服务内容-在线调解-调解类别-申请调解'''
+        """服务内容-在线调解-调解类别-申请调解"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_dispute_type_dispute()
@@ -104,7 +102,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_10(self):
-        '''服务内容-在线调解-调解类别-法律咨询'''
+        """服务内容-在线调解-调解类别-法律咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_dispute_type_consult()
@@ -113,7 +111,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_11(self):
-        '''服务内容-在线调解-纠纷调解中心-婚姻家事'''
+        """服务内容-在线调解-纠纷调解中心-婚姻家事"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_dispute_center_marriage()
@@ -121,7 +119,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_12(self):
-        '''服务内容-在线调解-纠纷调解中心-道路纠纷'''
+        """服务内容-在线调解-纠纷调解中心-道路纠纷"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_dispute_center_traffic()
@@ -129,7 +127,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_13(self):
-        '''服务内容-在线调解-纠纷调解中心-律师调解中心'''
+        """服务内容-在线调解-纠纷调解中心-律师调解中心"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_dispute_center_lawer()
@@ -137,7 +135,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_14(self):
-        '''服务内容-仲裁服务'''
+        """服务内容-仲裁服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_arbitration()
@@ -146,7 +144,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_15(self):
-        '''服务内容-诉讼服务'''
+        """服务内容-诉讼服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_service_lawshit()
@@ -154,7 +152,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_16(self):
-        '''服务资源-机构资源-机构详情'''
+        """服务资源-机构资源-机构详情"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         ogr_name_11, ogr_name_12 = nologinpage.head_resource_organization_info()
@@ -162,7 +160,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_17(self):
-        '''服务资源-机构资源-机构搜索'''
+        """服务资源-机构资源-机构搜索"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         ogr_name_21,ogr_name_22 = nologinpage.head_resource_organization_search()
@@ -170,7 +168,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_18(self):
-        '''服务资源-服务人员-服务人员详情'''
+        """服务资源-服务人员-服务人员详情"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         per_name_11, per_name_12 = nologinpage.head_resource_serpersonal_info()
@@ -178,7 +176,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_19(self):
-        '''服务资源-服务人员-服务人员搜索'''
+        """服务资源-服务人员-服务人员搜索"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         per_name_21, per_name_22 = nologinpage.head_resource_serpersonal_search()
@@ -186,7 +184,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_20(self):
-        '''服务资源-服务人员-更多擅长领域'''
+        """服务资源-服务人员-更多擅长领域"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_resource_serpersonal_more()
@@ -194,7 +192,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_21(self):
-        '''新闻动态'''
+        """新闻动态"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         title_1, title_2 = nologinpage.head_news()
@@ -202,7 +200,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_22(self):
-        '''帮助中心-常见问题-新手指南-用户注册'''
+        """帮助中心-常见问题-新手指南-用户注册"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_enrol()
@@ -210,7 +208,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_23(self):
-        '''帮助中心-常见问题-新手指南-用户登陆'''
+        """帮助中心-常见问题-新手指南-用户登陆"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_login()
@@ -218,7 +216,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_24(self):
-        '''帮助中心-常见问题-新手指南-忘记密码'''
+        """帮助中心-常见问题-新手指南-忘记密码"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_password()
@@ -226,7 +224,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_25(self):
-        '''帮助中心-常见问题-新手指南-用户注册协议'''
+        """帮助中心-常见问题-新手指南-用户注册协议"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_agreement()
@@ -234,7 +232,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_26(self):
-        '''帮助中心-常见问题-平台服务-纠纷调解服务'''
+        """帮助中心-常见问题-平台服务-纠纷调解服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_mediate()
@@ -242,7 +240,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_27(self):
-        '''帮助中心-常见问题-平台服务-法律咨询服务'''
+        """帮助中心-常见问题-平台服务-法律咨询服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_consult()
@@ -250,7 +248,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_28(self):
-        '''帮助中心-常见问题-平台服务-在线评估服务'''
+        """帮助中心-常见问题-平台服务-在线评估服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_assess()
@@ -258,7 +256,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_29(self):
-        '''帮助中心-常见问题-平台服务-服务资源'''
+        """帮助中心-常见问题-平台服务-服务资源"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_services()
@@ -266,7 +264,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_30(self):
-        '''帮助中心-常见问题-使用流程-申请调解'''
+        """帮助中心-常见问题-使用流程-申请调解"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_apply()
@@ -274,7 +272,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_31(self):
-        '''帮助中心-常见问题-使用流程-在线评估'''
+        """帮助中心-常见问题-使用流程-在线评估"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_online()
@@ -282,7 +280,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_32(self):
-        '''帮助中心-常见问题-使用流程-在线咨询'''
+        """帮助中心-常见问题-使用流程-在线咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_law()
@@ -290,7 +288,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_33(self):
-        '''帮助中心-常见问题-使用流程-查看结果'''
+        """帮助中心-常见问题-使用流程-查看结果"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_result()
@@ -298,7 +296,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_34(self):
-        '''帮助中心-常见问题-帐号设置-实名认证'''
+        """帮助中心-常见问题-帐号设置-实名认证"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_autonym()
@@ -306,7 +304,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_35(self):
-        '''帮助中心-常见问题-帐号设置-修改密码'''
+        """帮助中心-常见问题-帐号设置-修改密码"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_modification()
@@ -314,7 +312,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_36(self):
-        '''帮助中心-常见问题-帐号设置-个人信息'''
+        """帮助中心-常见问题-帐号设置-个人信息"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_personal()
@@ -322,7 +320,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_37(self):
-        '''帮助中心-常见问题-帐号设置-手写签名'''
+        """帮助中心-常见问题-帐号设置-手写签名"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_common_signature()
@@ -330,7 +328,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_38(self):
-        '''帮助中心-自助服务-注册'''
+        """帮助中心-自助服务-注册"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_self_enrol()
@@ -338,7 +336,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_39(self):
-        '''帮助中心-自助服务-忘记密码'''
+        """帮助中心-自助服务-忘记密码"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_self_forget()
@@ -346,7 +344,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_40(self):
-        '''帮助中心-自助服务-实名认证'''
+        """帮助中心-自助服务-实名认证"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_self_redirect()
@@ -354,7 +352,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_41(self):
-        '''帮助中心-自助服务-法律咨询'''
+        """帮助中心-自助服务-法律咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_self_consult()
@@ -362,7 +360,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_42(self):
-        '''帮助中心-自助服务-申请调解'''
+        """帮助中心-自助服务-申请调解"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_self_apply()
@@ -370,7 +368,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_43(self):
-        '''帮助中心-自助服务-在线评估'''
+        """帮助中心-自助服务-在线评估"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_self_assess()
@@ -378,7 +376,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_44(self):
-        '''帮助中心-自助服务-查看调解结果'''
+        """帮助中心-自助服务-查看调解结果"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_self_result()
@@ -386,7 +384,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_45(self):
-        '''帮助中心-在线咨询-智能机器人'''
+        """帮助中心-在线咨询-智能机器人"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_consult_robot()
@@ -395,7 +393,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_46(self):
-        '''帮助中心-常见问题'''
+        """帮助中心-常见问题"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_comproblem()
@@ -403,7 +401,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True, res)
 
     def test_47(self):
-        '''帮助中心-在线咨询'''
+        """帮助中心-在线咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.head_help_online()
@@ -412,7 +410,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_48(self):
-        '''首页-法律咨询'''
+        """首页-法律咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.mid_law()
@@ -420,7 +418,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_49(self):
-        '''首页-在线评估'''
+        """首页-在线评估"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.mid_assess()
@@ -428,7 +426,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_50(self):
-        '''首页-在线调解'''
+        """首页-在线调解"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.mid_mediate()
@@ -436,7 +434,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_51(self):
-        '''首页-仲裁服务'''
+        """首页-仲裁服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.mid_arbitration()
@@ -445,7 +443,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_52(self):
-        '''首页-诉讼服务'''
+        """首页-诉讼服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.mid_lawshit()
@@ -454,7 +452,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_53(self):
-        '''首页-用户中心-如何申请调解'''
+        """首页-用户中心-如何申请调解"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_user_mediate()
@@ -462,7 +460,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_54(self):
-        '''首页-用户中心-如何快速咨询'''
+        """首页-用户中心-如何快速咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_user_consult()
@@ -470,7 +468,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_55(self):
-        '''首页-用户中心-如何申请评估'''
+        """首页-用户中心-如何申请评估"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_user_assess()
@@ -478,7 +476,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_56(self):
-        '''首页-用户中心-如何查看结果'''
+        """首页-用户中心-如何查看结果"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_user_result()
@@ -486,7 +484,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_57(self):
-        '''首页-用户中心-调解中心'''
+        """首页-用户中心-调解中心"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_user_center()
@@ -495,7 +493,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_58(self):
-        '''首页-平台服务-纠纷调解'''
+        """首页-平台服务-纠纷调解"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_service_mediate()
@@ -503,7 +501,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_59(self):
-        '''首页-平台服务-法律咨询'''
+        """首页-平台服务-法律咨询"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_service_consult()
@@ -511,7 +509,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_60(self):
-        '''首页-平台服务-在线评估'''
+        """首页-平台服务-在线评估"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_service_assess()
@@ -519,7 +517,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_61(self):
-        '''首页-平台服务-在线仲裁'''
+        """首页-平台服务-在线仲裁"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_service_arbitration()
@@ -528,7 +526,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_62(self):
-        '''首页-平台服务-诉讼服务'''
+        """首页-平台服务-诉讼服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_service_lawshit()
@@ -537,7 +535,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_63(self):
-        '''首页-平台服务-反家暴服务'''
+        """首页-平台服务-反家暴服务"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_service_fjb()
@@ -546,7 +544,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_64(self):
-        '''首页-法律指南-婚姻继承'''
+        """首页-法律指南-婚姻继承"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_law_marriage()
@@ -554,7 +552,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_65(self):
-        '''首页-法律指南-合同纠纷'''
+        """首页-法律指南-合同纠纷"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_law_argument()
@@ -562,7 +560,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_66(self):
-        '''首页-法律指南-交通事故'''
+        """首页-法律指南-交通事故"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_law_traffic()
@@ -570,7 +568,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_67(self):
-        '''首页-法律指南-借贷纠纷'''
+        """首页-法律指南-借贷纠纷"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_law_borrow()
@@ -578,7 +576,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_68(self):
-        '''首页-关于我们-商务合作'''
+        """首页-关于我们-商务合作"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_ours_business()
@@ -586,7 +584,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_69(self):
-        '''首页-关于我们-联系方式'''
+        """首页-关于我们-联系方式"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_ours_contant()
@@ -594,7 +592,7 @@ class HomepageNoLogin(unittest.TestCase):
         self.assertEqual(True,res)
 
     def test_70(self):
-        '''首页-关于我们-服务条款'''
+        """首页-关于我们-服务条款"""
         nologinpage = NoLoginHomePage(self.homepage)
         nologinpage.get_url()
         nologinpage.tail_ours_service()

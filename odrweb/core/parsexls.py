@@ -21,12 +21,12 @@ base_path = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 
 class XlsFile(object):
     def __init__(self, absolute_path=None, xls_name=None):
-        '''
+        """
         文件名和绝对路径二选一，如都传参取绝对路径
         推荐使用文件
         :param absolute_path: 绝对路径
         :param xls_name: 文件名称
-        '''
+        """
         # logging.info("xls_path: {}".format(self.xls_path))
         # 当没有全路径和文件名时，报错；有全路径时，读全路径；没有全路径读默认路径下指定文件（全路径要包含文件名啊）
         if absolute_path is None and xls_name is None:

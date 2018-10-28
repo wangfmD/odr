@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 from time import sleep
-import sys
+
 from odrweb.page.homepage import HomePage
 from odrweb.page.orgregpage import OrgRegCase
-
-
-
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 class OrgCaseOpera(unittest.TestCase):
-    '''机构登记员登记案件'''
+    """机构登记员登记案件"""
     def setUp(self):
         self.homepage = HomePage()
         userinfo={
@@ -26,7 +24,7 @@ class OrgCaseOpera(unittest.TestCase):
         print('=====================================================================')
 
     def test_01(self):
-        '''申请人：自然人、法人、非法人组织/被申请人:自然人、法人、非法人组织3v3'''
+        """申请人：自然人、法人、非法人组织/被申请人:自然人、法人、非法人组织3v3"""
         org_reg_page = OrgRegCase(self.homepage)
 
 

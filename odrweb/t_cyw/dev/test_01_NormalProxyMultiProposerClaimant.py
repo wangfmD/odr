@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 from time import sleep
-import sys
+
+from odrweb.page.disputeinfo import ConciliationInfo
+from odrweb.page.disputeinfo import InClaimantInfo
+from odrweb.page.disputeinfo import InProposerInfo
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalCenter
-from odrweb.page.disputeinfo import ConciliationInfo
-from odrweb.page.disputeinfo import InProposerInfo
-from odrweb.page.disputeinfo import InClaimantInfo
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 class NormalProxyMultiProposerClaimant(unittest.TestCase):
-    '''复数申请人'''
+    """复数申请人"""
     def setUp(self):
         self.homepage = HomePage()
 
@@ -20,7 +21,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         self.homepage.quit()
 
     def test_01(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人、非法人组织(3v3)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人、非法人组织(3v3)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -153,7 +154,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_02(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人、非法人组织(2v3)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人、非法人组织(2v3)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -272,7 +273,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_03(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -391,7 +392,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_04(self):
-        '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)'''
+        """一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人、非法人组织(2v3)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -512,7 +513,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_05(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人(3v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、法人(3v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -631,7 +632,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_06(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织(3v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：自然人、非法人组织(3v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -750,7 +751,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_07(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织(3v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人、非法人组织|被申请人：法人、非法人组织(3v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -872,7 +873,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_08(self):
-        '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：法人、非法人组织(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：法人、非法人组织(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -981,7 +982,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_09(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、非法人组织(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、非法人组织(2v2)"""
         userinfo = {
             "UserName": "17625908729",
             "PassWord": "11111111"}  # 登录用户配置
@@ -1086,7 +1087,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_10(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、法人(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -1191,7 +1192,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_11(self):
-        '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、非法人组织(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、非法人组织(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -1298,7 +1299,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_12(self):
-        '''一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：法人、非法人组织|被申请人：自然人、法人(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -1405,7 +1406,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_13(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：法人、非法人组织(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：法人、非法人组织(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -1512,7 +1513,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_14(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、非法人组织|被申请人：自然人、法人(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -1617,7 +1618,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_15(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：法人、非法人组织(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：法人、非法人组织(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置
@@ -1724,7 +1725,7 @@ class NormalProxyMultiProposerClaimant(unittest.TestCase):
         claimantinfopage.input_claimant_info(**multiclaimant)
 
     def test_16(self):
-        '''一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、非法人组织(2v2)'''
+        """一般代理人身份登录录入纠纷：申请人：自然人、法人|被申请人：自然人、非法人组织(2v2)"""
         userinfo={
             "UserName": "17625908729",
             "PassWord": "11111111"} #登录用户配置

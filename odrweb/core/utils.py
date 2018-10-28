@@ -15,7 +15,7 @@ HOMEPATH = dir(os.path.abspath(dir(__file__)))
 
 
 class sqlOperating:
-    '''数据库操作'''
+    """数据库操作"""
     host = '10.1.41.20'
     # hostadd = db_conf['hostadd']
     user = 'root'

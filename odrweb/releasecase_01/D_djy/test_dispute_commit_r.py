@@ -5,7 +5,6 @@ from time import sleep
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-
 from odrweb.page.disputepage import DisputePageDjy
 from odrweb.page.homepage import HomePage
 
@@ -44,12 +43,20 @@ class DisputeCommit(unittest.TestCase):
     """机构登记员-纠纷-提交
     """
 
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
+
     def setUp(self):
-        self.homepage = HomePage()
+        print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
         """机构登记员-登记纠纷提交-申自然人-被自然人代理人"""

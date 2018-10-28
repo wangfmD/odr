@@ -22,7 +22,7 @@ jf_info = {"jf_desc": u"假冒商品",
 
 
 class User(unittest.TestCase):
-    '''用户功能'''
+    """用户功能"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -33,7 +33,7 @@ class User(unittest.TestCase):
 
 
     def test_01(self):
-        '''个人中心-我要评估'''
+        """个人中心-我要评估"""
         # 测试数据
         jf_consult = {"jf_type": u"消费维权",
                       "jf_desc": u"假冒商品",
@@ -50,7 +50,7 @@ class User(unittest.TestCase):
 
 
     def test_02(self):
-        '''个人中心-我要咨询'''
+        """个人中心-我要咨询"""
         jf_consult = {"jf_type": u"消费维权",
                       "jf_desc": u"假冒商品",
                       "jf_appeal": u"假一赔十"}
@@ -62,14 +62,14 @@ class User(unittest.TestCase):
         personalpage.verification_consult(jf_consult['jf_desc'])
 
     def test_03(self):
-        '''咨询列表-评估'''
+        """咨询列表-评估"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.act_manual_consult_2_assessment()
 
     def test_04(self):
-        '''咨询列表-人工咨询-查询'''
+        """咨询列表-人工咨询-查询"""
         name = u'吴晓洁' # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -78,7 +78,7 @@ class User(unittest.TestCase):
         personalpage.verification_manual_consult_search(name)
 
     def test_05(self):
-        '''咨询列表-人工咨询-返回'''
+        """咨询列表-人工咨询-返回"""
         name = u'吴晓洁' # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -87,7 +87,7 @@ class User(unittest.TestCase):
 
 
     def test_06(self):
-        '''咨询列表-人工咨询-结束咨询'''
+        """咨询列表-人工咨询-结束咨询"""
         name = u'吴晓洁' # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
@@ -95,7 +95,7 @@ class User(unittest.TestCase):
         personalpage.manual_consult_select_end()
 
     def test_07(self):
-        '''咨询列表-申请调解'''
+        """咨询列表-申请调解"""
         #
 
         #
@@ -109,7 +109,7 @@ class User(unittest.TestCase):
 
 
     def test_08(self):
-        '''调解列表-查询'''
+        """调解列表-查询"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
@@ -120,56 +120,56 @@ class User(unittest.TestCase):
 
 
     def test_09(self):
-        '''调解列表-调解进度'''
+        """调解列表-调解进度"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_schedule()
 
     def test_10(self):
-        '''调解列表-纠纷详情-返回列表'''
+        """调解列表-纠纷详情-返回列表"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_detail_info_back()
 
     def test_11(self):
-        '''调解列表-纠纷详情-保存'''
+        """调解列表-纠纷详情-保存"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_detail_info_save()
 
     def test_12(self):
-        '''调解列表-纠纷详情-解纷进度'''
+        """调解列表-纠纷详情-解纷进度"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_detail_info_schedule()
 
     def test_13(self):
-        '''绑定手机-取消'''
+        """绑定手机-取消"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.tel_binding()
 
     def test_14(self):
-        '''绑定邮箱-取消'''
+        """绑定邮箱-取消"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.mail_binding()
 
     def test_15(self):
-        '''预留签名-取消'''
+        """预留签名-取消"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.setting_signature()
 
     def test_16(self):
-        '''我的资料-保存'''
+        """我的资料-保存"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)

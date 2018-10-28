@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
 import re
-from time import sleep
-from appium import webdriver
 import traceback
-from appium.webdriver.common.touch_action import TouchAction
+from time import sleep
+
+from appium import webdriver
 
 
 def swipe_down(driver, t=500, n=1):
-    '''向下拉滑'''
+    """向下拉滑"""
     size = driver.get_window_size()
     x1 = size['width'] * 0.5          # x坐标
     y1 = size['height'] * 0.25        # 起始y坐标
@@ -17,7 +17,7 @@ def swipe_down(driver, t=500, n=1):
         driver.swipe(x1, y1, x1, y2, t)
 
 def swipe_up(driver, t=500, n=1):
-    '''向上推滑'''
+    """向上推滑"""
     size = driver.get_window_size()
     x1 = size['width'] * 0.5          # x坐标
     y1 = size['height'] * 0.75        # 起始y坐标

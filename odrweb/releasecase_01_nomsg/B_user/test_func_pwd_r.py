@@ -4,7 +4,6 @@ import unittest
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalPage
 
@@ -16,7 +15,7 @@ new = '22222222'
 
 
 class UserSecure(unittest.TestCase):
-    ''' 普通用户-安全设置'''
+    """ 普通用户-安全设置"""
 
     def setUp(self):
         self.homepage = HomePage()
@@ -26,7 +25,7 @@ class UserSecure(unittest.TestCase):
         self.homepage.driver.quit()
 
     def test_01(self):
-        '''用户修改密码'''
+        """用户修改密码"""
         print "oldpwd: ", old
         try:
             self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -42,7 +41,7 @@ class UserSecure(unittest.TestCase):
             raise
 
     def test_02(self):
-        '''用户改回原密码'''
+        """用户改回原密码"""
         print "oldpwd: ", old
         try:
             self.homepage.user_login(users.user_wfm['username'], new)
