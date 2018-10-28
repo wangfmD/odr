@@ -1,13 +1,13 @@
 # coding: utf-8
 import sys
 import unittest
-from time import sleep
+from inspect import getdoc, getframeinfo, currentframe
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-
-from odrweb.page.simpledisputepage import SimpleDisputePage
+from odrweb.page.browser import Screen
 from odrweb.page.homepage import HomePage
+from odrweb.page.simpledisputepage import SimpleDisputePage
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -15,13 +15,22 @@ sys.setdefaultencoding("utf-8")
 
 class SimpleJfInputSave(unittest.TestCase):
     """调解员-简易案件保存"""
+    homepage = None
+
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
 
     def setUp(self):
-        self.homepage = HomePage()
+        print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
         """简易案件登记-申请人-被申请人"""
@@ -62,7 +71,8 @@ class SimpleJfInputSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -106,7 +116,8 @@ class SimpleJfInputSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -149,11 +160,13 @@ class SimpleJfInputSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
 
+    @Screen()
     def test_04(self):
         """简易案件登记-申请人-代理人-被申请人-代理人"""
         simple_jf_info = {"applicant": u"段志勇",
@@ -227,7 +240,8 @@ class SimpleJfInputSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise

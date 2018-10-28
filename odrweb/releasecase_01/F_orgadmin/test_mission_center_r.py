@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import unittest
+from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
 from odrweb.core.utils import _funcname_docstring
@@ -8,11 +9,12 @@ from odrweb.page.homepage import HomePage
 from odrweb.page.organizationadmin import MissionCenter
 
 reload(sys)
-sys.setdefaultencoding("utf-8")
+syssetdefaultencoding("utf-8")
 
 
 class OrgCaseOpera(unittest.TestCase):
     """机构管理员"""
+    homepage = None
 
     @classmethod
     def setUpClass(cls):
@@ -49,7 +51,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -74,7 +77,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -99,7 +103,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -122,7 +127,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -146,7 +152,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -175,7 +182,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -210,7 +218,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -233,7 +242,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -262,7 +272,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -297,7 +308,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -333,7 +345,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -372,7 +385,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -404,7 +418,8 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -433,12 +448,11 @@ class OrgCaseOpera(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
-
-
 
             # def xtest_006(self):
             #     """机构管理员重新分配案件"""

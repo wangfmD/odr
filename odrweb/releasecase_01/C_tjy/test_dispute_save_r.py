@@ -1,10 +1,12 @@
 # coding: utf-8
 import sys
 import unittest
+from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
+from odrweb.page.browser import Screen
 from odrweb.page.disputepage import DisputePageTjy
 from odrweb.page.homepage import HomePage
 
@@ -78,7 +80,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -103,7 +106,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -128,11 +132,13 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
 
+    @Screen()
     def test_04(self):
         """调解员-登记纠纷保存-申法人-被自然人"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申法人-被自然人",
@@ -169,7 +175,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -194,7 +201,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -220,7 +228,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -245,7 +254,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -270,7 +280,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise

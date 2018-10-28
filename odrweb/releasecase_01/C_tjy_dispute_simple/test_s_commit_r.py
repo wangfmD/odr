@@ -1,6 +1,7 @@
 # coding: utf-8
 import sys
 import unittest
+from inspect import getdoc, getframeinfo, currentframe
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
@@ -13,6 +14,7 @@ sys.setdefaultencoding("utf-8")
 
 class SimpleJfInputCommit(unittest.TestCase):
     """调解员-简易案件提交"""
+    homepage = None
 
     @classmethod
     def setUpClass(cls):
@@ -68,7 +70,8 @@ class SimpleJfInputCommit(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -111,7 +114,8 @@ class SimpleJfInputCommit(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -154,7 +158,8 @@ class SimpleJfInputCommit(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -197,7 +202,8 @@ class SimpleJfInputCommit(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -241,7 +247,8 @@ class SimpleJfInputCommit(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -285,7 +292,8 @@ class SimpleJfInputCommit(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise

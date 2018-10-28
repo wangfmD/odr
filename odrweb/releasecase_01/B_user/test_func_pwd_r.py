@@ -1,6 +1,7 @@
 # coding: utf-8
 import sys
 import unittest
+from inspect import getdoc, getframeinfo, currentframe
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
@@ -16,6 +17,7 @@ new = '22222222'
 
 class UserSecure(unittest.TestCase):
     """ 普通用户-安全设置"""
+    homepage = None
 
     @classmethod
     def setUpClass(cls):
@@ -43,7 +45,8 @@ class UserSecure(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -59,7 +62,8 @@ class UserSecure(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise

@@ -1,12 +1,12 @@
 # coding: utf-8
 import sys
 import unittest
+from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-
-from odrweb.page.caselistpage import CaseListPage
+from odrweb.page.browser import Screen
 from odrweb.page.disputepage import DisputePageTjy
 from odrweb.page.homepage import HomePage
 
@@ -42,13 +42,21 @@ jf_info_all = {
 
 class DisputeSave(unittest.TestCase):
     """调解员-纠纷保存"""
+    homepage = None
+
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
 
     def setUp(self):
-        self.homepage = HomePage()
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_01(self):
         """调解员-登记纠纷保存-申自然人-被自然人"""
@@ -72,7 +80,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -80,11 +89,11 @@ class DisputeSave(unittest.TestCase):
     def test_02(self):
         """调解员-登记纠纷保存-申自然人-被法人"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申自然人-被法人",
-                       "applicant_type": u"自然人",  # 自然人 法人 非法人组织
-                       "disputer_type": u"法人",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
-                       }
+                   "applicant_type": u"自然人",  # 自然人 法人 非法人组织
+                   "disputer_type": u"法人",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
+                   }
         jf_info_all.update(jf_info)
 
         try:
@@ -97,20 +106,20 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
-
 
     def test_03(self):
         """调解员-登记纠纷保存-申自然人-被非法人组织"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申自然人-被非法人组织",
-                       "applicant_type": u"自然人",  # 自然人 法人 非法人组织
-                       "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
-                       }
+                   "applicant_type": u"自然人",  # 自然人 法人 非法人组织
+                   "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
+                   }
         jf_info_all.update(jf_info)
 
         try:
@@ -123,20 +132,21 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
 
-
+    @Screen()
     def test_04(self):
         """调解员-登记纠纷保存-申法人-被自然人"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申法人-被自然人",
-                       "applicant_type": u"法人",  # 自然人 法人 非法人组织
-                       "disputer_type": u"自然人",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
-                       }
+                   "applicant_type": u"法人",  # 自然人 法人 非法人组织
+                   "disputer_type": u"自然人",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
+                   }
         jf_info_all.update(jf_info)
         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
         disputepage = DisputePageTjy(self.homepage)
@@ -148,11 +158,11 @@ class DisputeSave(unittest.TestCase):
     def test_05(self):
         """调解员-登记纠纷保存-申法人-被法人"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申法人-被法人",
-                       "applicant_type": u"法人",  # 自然人 法人 非法人组织
-                       "disputer_type": u"法人",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
-                       }
+                   "applicant_type": u"法人",  # 自然人 法人 非法人组织
+                   "disputer_type": u"法人",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
+                   }
         jf_info_all.update(jf_info)
 
         try:
@@ -165,7 +175,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -173,11 +184,11 @@ class DisputeSave(unittest.TestCase):
     def test_06(self):
         """调解员-登记纠纷保存-申法人-被非法人组织"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申法人-被非法人组织",
-                       "applicant_type": u"法人",  # 自然人 法人 非法人组织
-                       "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
-                       }
+                   "applicant_type": u"法人",  # 自然人 法人 非法人组织
+                   "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
+                   }
         jf_info_all.update(jf_info)
 
         try:
@@ -190,7 +201,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -198,12 +210,12 @@ class DisputeSave(unittest.TestCase):
     def test_07(self):
         """调解员-登记纠纷保存-申非法人组织-被自然人"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申非法人组织-被自然人",
-                       "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-                       "disputer_type": u"自然人",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
+                   "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
+                   "disputer_type": u"自然人",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
 
-                       }
+                   }
         jf_info_all.update(jf_info)
 
         try:
@@ -216,7 +228,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -224,11 +237,11 @@ class DisputeSave(unittest.TestCase):
     def test_08(self):
         """调解员-登记纠纷保存-申非法人组织-被法人"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申非法人组织-被法人",
-                       "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-                       "disputer_type": u"法人",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
-                       }
+                   "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
+                   "disputer_type": u"法人",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
+                   }
         jf_info_all.update(jf_info)
 
         try:
@@ -241,7 +254,8 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -249,11 +263,11 @@ class DisputeSave(unittest.TestCase):
     def test_09(self):
         """调解员-登记纠纷保存-申非法人组织-被非法人组织"""
         jf_info = {"jf_desc": u"调解员-登记纠纷保存-申非法人组织-被非法人组织",
-                       "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-                       "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": "",  # common special,
-                       }
+                   "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
+                   "disputer_type": u"非法人组织",  # 自然人 法人 非法人组织
+                   "agent_type": "",  # "" common special,
+                   "agent_b_type": "",  # common special,
+                   }
         jf_info_all.update(jf_info)
 
         try:
@@ -266,10 +280,12 @@ class DisputeSave(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+
 
 if __name__ == '__main__':
     unittest.main()

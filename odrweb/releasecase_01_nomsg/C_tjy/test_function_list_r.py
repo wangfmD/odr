@@ -1,10 +1,10 @@
 # coding: utf-8
 import sys
 import unittest
+from inspect import currentframe, getframeinfo, getdoc
 
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
-
 from odrweb.page.caselistpage import InputCaseListPage
 from odrweb.page.homepage import HomePage
 
@@ -15,17 +15,25 @@ sys.setdefaultencoding("utf-8")
 class TjyFunc(unittest.TestCase):
     """调解员-案件登记列表"""
 
-    #
+    homepage = None
+
+    @classmethod
+    def setUpClass(cls):
+        cls.homepage = HomePage()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.homepage.driver.quit()
+
     def setUp(self):
-        self.homepage = HomePage()
         print "\n--------------------"
 
     def tearDown(self):
-        self.homepage.driver.quit()
+        self.homepage.quit()
 
     def test_1(self):
         """纠纷登记列表-添加纠纷-保存"""
-        desc=u"纠纷登记列表-添加纠纷-保存"
+        desc = u"纠纷登记列表-添加纠纷-保存"
 
         try:
             self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -37,7 +45,8 @@ class TjyFunc(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -47,7 +56,7 @@ class TjyFunc(unittest.TestCase):
         # 1，纠纷登记列表-已提交-添加纠纷
         # 2，修改纠纷描述
         # 3，-提交
-        desc=u"纠纷登记列表-添加纠纷-提交"
+        desc = u"纠纷登记列表-添加纠纷-提交"
 
         try:
             self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
@@ -59,13 +68,15 @@ class TjyFunc(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
 
     def test_3(self):
         """纠纷登记列表-纠纷预览-保存"""
+
         # 1，纠纷登记列表-已提交-纠纷预览
         # 2，修改纠纷描述、诉求
         # 3，保存
@@ -80,7 +91,8 @@ class TjyFunc(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -98,7 +110,8 @@ class TjyFunc(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -118,10 +131,12 @@ class TjyFunc(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+
 
 if __name__ == '__main__':
     unittest.main()

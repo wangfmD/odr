@@ -3,8 +3,7 @@ import sys
 import unittest
 
 from odrweb.core.initdata import users
-# from odrweb.page.disputepage import DisputePage
-from odrweb.core.utils import _funcname_docstring
+from odrweb.page.browser import Screen
 from odrweb.page.homepage import HomePage
 from odrweb.page.personalpage import PersonalPage
 
@@ -24,6 +23,7 @@ jf_info = {"jf_desc": u"假冒商品",
 
 class User(unittest.TestCase):
     """普通用户-基本功能"""
+    homepage = None
 
     @classmethod
     def setUpClass(cls):
@@ -40,7 +40,7 @@ class User(unittest.TestCase):
     def tearDown(self):
         self.homepage.quit()
 
-
+    @Screen()
     def test_01(self):
         """个人中心-我要评估"""
         # 测试数据
@@ -48,23 +48,17 @@ class User(unittest.TestCase):
                       "jf_desc": u"假冒商品",
                       "jf_appeal": u"假一赔十"}
         # 执行
-        try:
-            self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
-            self.homepage.user_personal_center()
 
-            personalpage = PersonalPage(self.homepage)
-            personalpage.evaluate(**jf_consult)
-            # 验证
-            result = personalpage.verification_evaluate(jf_consult["jf_desc"])
-            self.assertEqual(True,result)
-        except:
-            # class function name_class docstring
-            name = _funcname_docstring(self)
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
+        self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+        self.homepage.user_personal_center()
 
+        personalpage = PersonalPage(self.homepage)
+        personalpage.evaluate(**jf_consult)
+        # 验证
+        result = personalpage.verification_evaluate(jf_consult["jf_desc"])
+        self.assertEqual(True, result)
 
+    @Screen()
     def test_02(self):
         """个人中心-我要咨询"""
         jf_consult = {"jf_type": u"消费维权",
@@ -77,6 +71,7 @@ class User(unittest.TestCase):
         self.homepage.user_personal_center()
         personalpage.verification_consult(jf_consult['jf_desc'])
 
+    @Screen()
     def test_03(self):
         """咨询列表-评估"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -84,32 +79,33 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.act_manual_consult_2_assessment()
 
+    @Screen()
     def test_04(self):
         """咨询列表-人工咨询-查询"""
-        name = u'吴晓洁' # 咨询师姓名
+        name = u'吴晓洁'  # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.manual_consult_search(name)
         personalpage.verification_manual_consult_search(name)
 
+    @Screen()
     def test_05(self):
         """咨询列表-人工咨询-返回"""
-        name = u'吴晓洁' # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.manual_consult_select_back()
 
-
+    @Screen()
     def test_06(self):
         """咨询列表-人工咨询-结束咨询"""
-        name = u'吴晓洁' # 咨询师姓名
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.manual_consult_select_end()
 
+    @Screen()
     def test_07(self):
         """咨询列表-申请调解"""
         #
@@ -120,10 +116,10 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.act_manual_consult_apply()
         #
-        result= personalpage.verfc_act_manual_consult_apply()
+        result = personalpage.verfc_act_manual_consult_apply()
         self.assertEqual(result, True)
 
-
+    @Screen()
     def test_08(self):
         """调解列表-查询"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -131,10 +127,10 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         dispute_id = personalpage.get_dispute_search_id()
         personalpage.act_dispute_search(dispute_id)
-        result= personalpage.verfc_act_dispute_search_by_id(dispute_id)
+        result = personalpage.verfc_act_dispute_search_by_id(dispute_id)
         self.assertEqual(result, True)
 
-
+    @Screen()
     def test_09(self):
         """调解列表-调解进度"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -142,6 +138,7 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_schedule()
 
+    @Screen()
     def test_10(self):
         """调解列表-纠纷详情-返回列表"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -149,6 +146,7 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_detail_info_back()
 
+    @Screen()
     def test_11(self):
         """调解列表-纠纷详情-保存"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -156,6 +154,7 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_detail_info_save()
 
+    @Screen()
     def test_12(self):
         """调解列表-纠纷详情-解纷进度"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -163,6 +162,7 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.act_dispute_detail_info_schedule()
 
+    @Screen()
     def test_13(self):
         """绑定手机-取消"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -170,6 +170,7 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.tel_binding()
 
+    @Screen()
     def test_14(self):
         """绑定邮箱-取消"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -177,6 +178,7 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.mail_binding()
 
+    @Screen()
     def test_15(self):
         """预留签名-取消"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
@@ -184,12 +186,14 @@ class User(unittest.TestCase):
         personalpage = PersonalPage(self.homepage)
         personalpage.setting_signature()
 
+    @Screen()
     def test_16(self):
         """我的资料-保存"""
         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
         self.homepage.user_personal_center()
         personalpage = PersonalPage(self.homepage)
         personalpage.person_data_save()
+
 
 if __name__ == '__main__':
     unittest.main()

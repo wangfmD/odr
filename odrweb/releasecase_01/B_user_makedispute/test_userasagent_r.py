@@ -1,6 +1,7 @@
 # coding: utf-8
 import sys
 import unittest
+from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
 from odrweb.core.initdata import users
@@ -41,6 +42,7 @@ class UserAgent(unittest.TestCase):
         "agent_b_tel": "15895996954",
         "agent_b_id": ""
     }
+    homepage = None
 
     @classmethod
     def setUpClass(cls):
@@ -56,7 +58,6 @@ class UserAgent(unittest.TestCase):
 
     def tearDown(self):
         self.homepage.quit()
-
 
     def test_01(self):
         """用户代理人身份-登记纠纷-申自然人特殊代理人-被自然人"""
@@ -80,7 +81,8 @@ class UserAgent(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
@@ -107,7 +109,8 @@ class UserAgent(unittest.TestCase):
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
-            name = _funcname_docstring(self)
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
             raise
