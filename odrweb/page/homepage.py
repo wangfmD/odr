@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from time import sleep
 
+from selenium.common.exceptions import UnexpectedAlertPresentException
+
 from odrweb.core.initdata import init
 from odrweb.page.browser import Page
 
@@ -16,7 +18,14 @@ class HomePage(Page):
     x_bafg_home_logout_btn = '//a[text()="退出"]'  # 办案法官登录页面-退出btn
 
     def quit(self):
-        self.driver.delete_all_cookies()
+        try:
+            self.driver.delete_all_cookies()
+        except UnexpectedAlertPresentException as msg:
+            alert_=self.driver.switch_to_alert()
+            alert_.accept()
+            self.driver.delete_all_cookies()
+
+
         self.driver.refresh()
 
 

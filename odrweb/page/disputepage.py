@@ -1,27 +1,28 @@
 # -*- coding:utf-8 -*-
+import os
 import re
 from time import sleep
 
-import os
 import requests
-
-from odrweb.core.utils import is_male
-from odrweb.page.browser import Page
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from odrweb.core.upload import file_upload
+from odrweb.core.utils import is_male
+from odrweb.page.browser import Page
+
 
 class TjyBasePage(Page):
-    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
+    x_case_input_list_a = '//div[text()="案件登记列表"]'  # 案件登记列表链接
     x_case_list_a = '//li[text()="纠纷调解案件列表"]'  # 纠纷调解案件列表
     x_apply_judicial_list_li = '//li[text()="申请司法确认列表"]'
     x_add_judicial_btn = '//font[text()="新增司法确认"]'
 
+
 class JudicialInputPage(TjyBasePage):
     # 司法确认
-    x_fy_select = '' # 申请受理法院 选择
+    x_fy_select = ''  # 申请受理法院 选择
 
     def _goto_judicial_input_page(self, **kwargs):
         # 点击进入纠纷调解案件列表
@@ -34,7 +35,7 @@ class JudicialInputPage(TjyBasePage):
         el.click()
         # 法院下拉框选择
         self.find_element_by_xpath('//div[contains(text(), "申请受理法院：")]/div[2]/div/input').click()
-        el = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="浙江省杭州市上城区人民法院"]')))
+        el = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="浙江省杭州市上城区人民法院"]')))
         el.click()
 
     def _applicant_1_input(self, **kwargs):
@@ -269,7 +270,6 @@ class JudicialInputPage(TjyBasePage):
         print u"申请司法确认案件编号", judicial_case_id
         return judicial_case_id
 
-
     def verification_judicial_commit(self, expect):
         try:
             # 获取申请司法确认列表，首条案件的案由
@@ -285,76 +285,74 @@ class JudicialInputPage(TjyBasePage):
 class DisputePageTjy(Page):
     """调解员纠纷登记
     """
-    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
-    x_case_list_a = '//li[text()="纠纷调解案件列表"]'             #纠纷调解案件列表
+    x_case_input_list_a = '//div[text()="案件登记列表"]'  # 案件登记列表链接
+    x_case_list_a = '//li[text()="纠纷调解案件列表"]'  # 纠纷调解案件列表
 
     # 申请人代理人
-    x_agent_natural_common      = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[1]/div/div/label[1]/span[1]/span'
-    x_agent_non_natural_common  = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[1]/div/div/label[1]/span[1]/span'
-    x_agent_natural_special     = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[1]/div/div/label[2]/span[1]/span'
+    x_agent_natural_common = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[1]/div/div/label[1]/span[1]/span'
+    x_agent_non_natural_common = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[1]/div/div/label[1]/span[1]/span'
+    x_agent_natural_special = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[1]/div/div/label[2]/span[1]/span'
     x_agent_non_natural_special = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[1]/div/div/label[2]/span[1]/span'
-    x_agent_natural_sex         = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[2]/div/div/label[1]/span[1]/span'
-    x_agent_non_natural_sex     = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[2]/div/div/label[1]/span[1]/span'
-    x_agent_natural_name        = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[3]/div/div/input'
-    x_agent_non_natural_name    = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[3]/div/div/input'
-    x_agent_natural_tel         = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[4]/div/div/input'
-    x_agent_non_natural_tel     = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[4]/div/div/input'
-    x_agent_natural_id          = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[5]/div/div/input'
-    x_agent_non_natural_id      = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[5]/div/div/input'
-    x_agent_natural_filename    = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[6]/div/div/div/div/input'
-    x_agent_non_natural_filename= '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[6]/div/div/div/div/input'
+    x_agent_natural_sex = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[2]/div/div/label[1]/span[1]/span'
+    x_agent_non_natural_sex = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[2]/div/div/label[1]/span[1]/span'
+    x_agent_natural_name = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[3]/div/div/input'
+    x_agent_non_natural_name = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[3]/div/div/input'
+    x_agent_natural_tel = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[4]/div/div/input'
+    x_agent_non_natural_tel = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[4]/div/div/input'
+    x_agent_natural_id = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[5]/div/div/input'
+    x_agent_non_natural_id = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[5]/div/div/input'
+    x_agent_natural_filename = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div[2]/div[6]/div/div/div/div/input'
+    x_agent_non_natural_filename = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[12]/div[2]/div[6]/div/div/div/div/input'
     # 被申请人代理人
-    x_b_agent_natural_common      = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[1]/div/div/label[1]/span[1]/span'
-    x_b_agent_non_natural_common  = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[1]/div/div/label[1]/span[1]/span'
-    x_b_agent_natural_special     = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[1]/div/div/label[2]/span[1]/span'
+    x_b_agent_natural_common = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[1]/div/div/label[1]/span[1]/span'
+    x_b_agent_non_natural_common = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[1]/div/div/label[1]/span[1]/span'
+    x_b_agent_natural_special = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[1]/div/div/label[2]/span[1]/span'
     x_b_agent_non_natural_special = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[1]/div/div/label[2]/span[1]/span'
-    x_b_agent_natural_sex         = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[2]/div/div/label[1]/span[1]/span'
-    x_b_agent_non_natural_sex     = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[2]/div/div/label[1]/span[1]/span'
-    x_b_agent_natural_name        = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[3]/div/div/input'
-    x_b_agent_non_natural_name    = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[3]/div/div/input'
-    x_b_agent_natural_tel         = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[4]/div/div/input'
-    x_b_agent_non_natural_tel     = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[4]/div/div/input'
-    x_b_agent_natural_id          = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[5]/div/div/input'
-    x_b_agent_non_natural_id      = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[5]/div/div/input'
-    x_b_agent_natural_filename    = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[6]/div/div/div/div/input'
-    x_b_agent_non_natural_filename= '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[6]/div/div/div/div/input'
+    x_b_agent_natural_sex = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[2]/div/div/label[1]/span[1]/span'
+    x_b_agent_non_natural_sex = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[2]/div/div/label[1]/span[1]/span'
+    x_b_agent_natural_name = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[3]/div/div/input'
+    x_b_agent_non_natural_name = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[3]/div/div/input'
+    x_b_agent_natural_tel = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[4]/div/div/input'
+    x_b_agent_non_natural_tel = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[4]/div/div/input'
+    x_b_agent_natural_id = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[5]/div/div/input'
+    x_b_agent_non_natural_id = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[5]/div/div/input'
+    x_b_agent_natural_filename = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div[2]/div[6]/div/div/div/div/input'
+    x_b_agent_non_natural_filename = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[12]/div[2]/div[6]/div/div/div/div/input'
     # 被申请人
-    x_disputer_natural_disputer         = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[2]/div/div/input'
-    x_disputer_natural_tel              = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[4]/div/div/input'
-    x_disputer_natural_id               = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[6]/div/div/input'
-    x_disputer_natural_addr             = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[8]/div/div/input'
-    x_disputer_natural_addr_selector    = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/span/span[1]'
+    x_disputer_natural_disputer = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[2]/div/div/input'
+    x_disputer_natural_tel = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[4]/div/div/input'
+    x_disputer_natural_id = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[6]/div/div/input'
+    x_disputer_natural_addr = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[8]/div/div/input'
+    x_disputer_natural_addr_selector = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/span/span[1]'
 
-    x_disputer_non_natural_legal        = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[1]/div/div/label[2]/span[2]'
+    x_disputer_non_natural_legal = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[1]/div/div/label[2]/span[2]'
     x_disputer_non_natural_organization = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[1]/div/div/label[3]/span[2]'
-    x_disputer_non_natural_name         = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[2]/div/div[1]/input'
-    x_disputer_non_natural_credit_id    = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[3]/div/div/input'
-    x_disputer_non_natural_disputer     = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[4]/div/div/input'
-    x_disputer_non_natural_tel          = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[6]/div/div/input'
-    x_disputer_non_natural_id           = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[8]/div/div/input'
-    x_disputer_non_natural_addr         = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div/div/input'
-    x_disputer_non_natural_addr_selector= '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[9]/div/span/span[1]'
+    x_disputer_non_natural_name = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[2]/div/div[1]/input'
+    x_disputer_non_natural_credit_id = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[3]/div/div/input'
+    x_disputer_non_natural_disputer = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[4]/div/div/input'
+    x_disputer_non_natural_tel = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[6]/div/div/input'
+    x_disputer_non_natural_id = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[8]/div/div/input'
+    x_disputer_non_natural_addr = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[10]/div/div/input'
+    x_disputer_non_natural_addr_selector = '//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[9]/div/span/span[1]'
     # 被申请人
-    x_applicant_natural_applicant        = '//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[2]/div/div[1]/input'
-    x_applicant_natural_tel              = '//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[4]/div/div/input'
-    x_applicant_natural_addr             = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[8]/div/div/input'
-    x_applicant_natural_id               = "(//input[@type='text'])[8]"
-    x_applicant_natural_addr_selector    = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[7]/div/span/span[1]'
+    x_applicant_natural_applicant = '//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[2]/div/div[1]/input'
+    x_applicant_natural_tel = '//div[@id="app"]/div/div[2]/form/div[2]/div/div/div[4]/div/div/input'
+    x_applicant_natural_addr = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[8]/div/div/input'
+    x_applicant_natural_id = "(//input[@type='text'])[8]"
+    x_applicant_natural_addr_selector = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[7]/div/span/span[1]'
 
-    x_applicant_non_natural_legal        = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[1]/div/div/label[2]/span[2]'
+    x_applicant_non_natural_legal = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[1]/div/div/label[2]/span[2]'
     x_applicant_non_natural_organization = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[1]/div/div/label[3]/span[2]'
-    x_applicant_non_natural_name         = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[2]/div/div[1]/input'
-    x_applicant_non_natural_credit_id    = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[3]/div/div/input'
-    x_applicant_non_natural_applicant    = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[4]/div/div/input'
-    x_applicant_non_natural_tel          = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[6]/div/div/input'
-    x_applicant_non_natural_id           = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[8]/div/div/input'
-    x_applicant_non_natural_addr         = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div/div/input'
-    x_applicant_non_natural_addr_selector= '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[9]/div/span/span[1]'
+    x_applicant_non_natural_name = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[2]/div/div[1]/input'
+    x_applicant_non_natural_credit_id = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[3]/div/div/input'
+    x_applicant_non_natural_applicant = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[4]/div/div/input'
+    x_applicant_non_natural_tel = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[6]/div/div/input'
+    x_applicant_non_natural_id = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[8]/div/div/input'
+    x_applicant_non_natural_addr = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[10]/div/div/input'
+    x_applicant_non_natural_addr_selector = '//*[@id="app"]/div/div[2]/form/div[2]/div/div/div[9]/div/span/span[1]'
 
     x_no_sendmsg = '//span[contains(text(),"不发送")]'
-    x_inputlist_1_case_id_div = '//div[contains(text(), "纠纷编号：")]' # 案件登记列表，一个行的案件编号
-
-
+    x_inputlist_1_case_id_div = '//div[contains(text(), "纠纷编号：")]'  # 案件登记列表，一个行的案件编号
 
     def _dispute_info_input(self, **kwargs):
         """纠纷信息录入
@@ -484,7 +482,7 @@ class DisputePageTjy(Page):
             # filename
             self.find_element_by_xpath(self.x_agent_non_natural_filename).send_keys('filename')
         # 规避上传文件操作
-        js ='app.caseData.applicants[0].dyfileName="1.jpg"'
+        js = 'app.caseData.applicants[0].dyfileName="1.jpg"'
         self.driver.execute_script(js)
 
     def _applicant_b_input(self, **kwargs):
@@ -501,10 +499,10 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath(self.x_disputer_natural_addr).send_keys(kwargs['disputer_addr'])
             self.find_element_by_xpath(self.x_disputer_natural_addr_selector).click()
             sleep(0.5)
-            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[1]/dl[4]/dd/a[5]').click() #浙江
-            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[2]/dl/dd/a[1]').click()  #市
-            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[3]/dl/dd/a[1]').click()  #区
-            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[4]/dl/dd/a[1]').click()  #街道
+            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[1]/dl[4]/dd/a[5]').click()  # 浙江
+            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[2]/dl/dd/a[1]').click()  # 市
+            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[3]/dl/dd/a[1]').click()  # 区
+            self.find_element_by_xpath('//*[@id="app"]/div/div[2]/form/div[3]/div/div/div[7]/div/div[1]/div/div[2]/div[4]/dl/dd/a[1]').click()  # 街道
             return
         elif kwargs['disputer_type'] == u"法人":
             self.find_element_by_xpath(self.x_disputer_non_natural_legal).click()
@@ -594,7 +592,7 @@ class DisputePageTjy(Page):
             self.find_element_by_xpath(self.x_no_sendmsg).click()
         sleep(2)
         # 确定
-        ok_btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "确定")]')))
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "确定")]')))
         ok_btn.click()
 
     def verification_commit(self, **kwargs):
@@ -611,8 +609,9 @@ class DisputePageTjy(Page):
             ok_btn.click()
 
         # 打印提交成功的case id
-        case_id = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
-        print "case commit suc {}".format(case_id)
+        res = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
+        print "case commit suc {}".format(res)
+        _,case_id = res.split(u'：')
 
         try:
             # 获取纠纷信息
@@ -629,16 +628,14 @@ class DisputePageTjy(Page):
         except:
             applicant = "*None*"
 
-
-
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
             print "expect: ", kwargs['applicant']
-            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant'], case_id
         else:
             print "result: ", applicant
             print "expect: ", kwargs['applicant_name']
-            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name'], case_id
 
     def _save(self):
         """ 调解员登记纠纷-保存
@@ -683,7 +680,6 @@ class DisputePageTjy(Page):
         except:
             applicant = "*None*"
 
-
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
             print "expect: ", kwargs['applicant']
@@ -707,12 +703,12 @@ class DisputePageDjy(DisputePageTjy):
     """机构登记员纠纷登记
     """
     x_homepage_a = '//a[text()="首页"]'
-    x_dispute_input_btn ='//input[@placeholder="请输入编号/姓名/案号"]/../../../a'  # 机构登记按键
+    x_dispute_input_btn = '//input[@placeholder="请输入编号/姓名/案号"]/../../../a'  # 机构登记按键
     x_search_input = '//input[@placeholder="请输入编号/姓名/案号"]'
     x_search_btn = '//input[@placeholder="请输入编号/姓名/案号"]/following-sibling::span'
-    x_dispute_list_info = '//a[text()="纠纷预览"]' # 纠纷预览
+    x_dispute_list_info = '//a[text()="纠纷预览"]'  # 纠纷预览
     x_dispute_list_info_back_a = '//button[text()="返回列表"]'  # 返回列表
-    x_dispute_list_add = '//a[text()="增加纠纷"]' # 增加纠纷
+    x_dispute_list_add = '//a[text()="增加纠纷"]'  # 增加纠纷
     x_dispute_list_del = '//a[text()="删除"]'  # 删除
 
     def _goto_dispute_input(self):
@@ -851,14 +847,14 @@ class DisputePageDjy(DisputePageTjy):
         """机构登记列表-纠纷预览-返回列表
         """
         self.act_goto_homepage()
-        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath(self.x_dispute_list_info).click()  # 进入纠纷预览
         self.find_element_by_xpath(self.x_dispute_list_info_back_a).click()
 
     def act_dispute_list_info_save(self):
         """机构登记列表-纠纷预览-保存
         """
         self.act_goto_homepage()
-        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath(self.x_dispute_list_info).click()  # 进入纠纷预览
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').clear()
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').send_keys(u"进入纠纷预览-保存")
         self.find_element_by_xpath('//button[contains(text(),"保存")]').click()
@@ -870,7 +866,7 @@ class DisputePageDjy(DisputePageTjy):
         """机构登记列表-纠纷预览-提交
         """
         self.act_goto_homepage()
-        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath(self.x_dispute_list_info).click()  # 进入纠纷预览
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').clear()
         self.find_element_by_xpath('//h6[text()="纠纷描述"]/../p/textarea').send_keys(u"进入纠纷预览-保存")
         self.find_element_by_xpath('//button[contains(text(),"提交")]').click()
@@ -885,11 +881,12 @@ class DisputePageDjy(DisputePageTjy):
         """机构登记列表-纠纷预览-解纷进度
         """
         self.act_goto_homepage()
-        self.find_element_by_xpath(self.x_dispute_list_info).click()        # 进入纠纷预览
+        self.find_element_by_xpath(self.x_dispute_list_info).click()  # 进入纠纷预览
         self.find_element_by_xpath('//span[text()="解纷进度"]').click()
         # 等待纠纷进度弹出框的确定btn
         ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//h4[text()="纠纷进度"]/../../div[3]/button')))
         ok_btn.click()
+
 
 def org_process(status, case_id):
     """司法确认接口受理状态
@@ -897,17 +894,16 @@ def org_process(status, case_id):
     # status：id=0 不受理；id=1；受理；id=2 退回
     url_pre = 'https://train.odrcloud.cn:8443/lawsuit/confirmStatus?id={}&caseNo='.format(status)
 
-    url = "".join([url_pre,case_id])
+    url = "".join([url_pre, case_id])
     # print url
     try:
         r = requests.get(url)
         res_content = r.text
     except:
-        res_content  = r'{"msg": "request failed"}'
+        res_content = r'{"msg": "request failed"}'
     # print r.text
-    obj = re.search(r'{"msg":.*}', res_content)     # 匹配内容
+    obj = re.search(r'{"msg":.*}', res_content)  # 匹配内容
     print obj.group()
-
 
 
 if __name__ == '__main__':

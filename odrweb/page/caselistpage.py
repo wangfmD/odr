@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 from time import sleep
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 
 from odrweb.page.browser import Page
 
@@ -16,7 +16,10 @@ class CaseListBasePage(Page):
     modifcation_dispute_appeal = u'纠纷登记-纠纷预览-纠纷诉求修改-保存'
     modifcation_dispute_type = u"金融借款合同纠纷"
     back_list = '//button[text()="返回列表"]'  # 返回列表
-    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
+    x_case_input_list_a = '//div[text()="案件登记列表"]'  # 案件登记列表链接
+    x_case_list_btn = '/html/body/div[4]/div[2]/div[1]/div[6]/div/span/span'  # '纠纷调解案件列表' 查询按键
+
+    # '/html/body/div[4]/div[2]/div[1]/div[6]/div/span'
 
     def _make_mediate(self):
         """预约调解
@@ -41,10 +44,9 @@ class CaseListBasePage(Page):
         """获取视频会议名称
         """
         sleep(0.5)
-        try:
-            conference_title = self.find_element_by_xpath('(//span[text()="会议名"])[1]/following-sibling::i').text  # 纠纷详情页面，第一个会议名称
-        except:
-            conference_title = "**None**"
+
+        conference_title = self.find_element_by_xpath('(//span[text()="会议名"])[1]/following-sibling::i').text  # 纠纷详情页面，第一个会议名称
+
         return conference_title
 
     def _mediate_success(self):
@@ -54,7 +56,7 @@ class CaseListBasePage(Page):
         self.find_element_by_xpath('//div[@id="reAllotSuc"]/div/div[3]/div/textarea').send_keys(u'已确认')
         self.find_element_by_xpath('//div[@id="reAllotSuc"]/div/div[4]/input').click()  # 确认
         sleep(1)
-        btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//div[@id="toLawConfirm"]/div/div[1]/div')))
+        btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//div[@id="toLawConfirm"]/div/div[1]/div')))
         btn.click()
         # self.find_element_by_xpath('//div[@id="toLawConfirm"]/div/div[1]/div').click()
 
@@ -89,12 +91,12 @@ class CaseListBasePage(Page):
         """调解终止
         """
         self.find_element_by_xpath('//span[contains(text(),"调解终止")]').click()
-        ok_btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(),"确定")]')))
+        ok_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(),"确定")]')))
         ok_btn.click()
         # self.find_element_by_xpath('//a[contains(text(),"确定")]').click()
         sleep(0.5)
         # 等待输入框弹出
-        btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//li[contains(text(),"当事人达成和解")]')))
+        btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//li[contains(text(),"当事人达成和解")]')))
         btn.click()
         # try:
         #     self.find_element_by_xpath().click()
@@ -201,16 +203,17 @@ class CaseListPage(CaseListBasePage):
         """
         self.find_element_by_xpath("//button[contains(text(), '我的案件列表')]").click()
 
-    def case_modification_save(self, dispute_status=u'等待调解'):
+    def case_modification_save(self, search=None, dispute_status=u'等待调解'):
         """纠纷详情-保存
         """
-        self._goto_detail_info(dispute_status=dispute_status)
+        self._goto_detail_info(search=search, dispute_status=dispute_status)
         self._dispute_modification()
 
-    def mediate_video_create(self, dispute_status=u'等待调解'):
+    def mediate_video_create(self, search=None, dispute_status=u'等待调解'):
         """预约调解
         """
-        dispute_id = self._goto_detail_info(dispute_status=dispute_status)
+        dispute_id = self._goto_detail_info(search=search, dispute_status=dispute_status)
+
         print "{} 设置:{}->{}".format(dispute_id, dispute_status, u"预约调解")
         self._make_mediate()
 
@@ -255,7 +258,18 @@ class CaseListPage(CaseListBasePage):
         input_ = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@id="searchInput1"]')))
         input_.send_keys(target)
         # self.find_element_by_xpath('//input[@id="searchInput1"]').send_keys(target)
-        self.find_element_by_xpath('/html/body/div[4]/div[2]/div[1]/div[6]/div/span/span').click()
+        self.find_element_by_xpath(self.x_case_list_btn).click()
+
+    def search_all(self, search=None, dispute_status=None):
+        """选择查询+输入查询"""
+        self._go_dispute_list()
+        if dispute_status is not None:
+            Select(self.find_element_by_xpath(self.case_list_select)).select_by_visible_text(dispute_status)
+        if search is not None:
+            input_ = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@id="searchInput1"]')))
+            input_.send_keys(search)
+            sleep(0.2)
+            self.find_element_by_xpath(self.x_case_list_btn).click()
 
     def _go_dispute_list(self):
         # 进入纠纷调解案件列表
@@ -322,12 +336,11 @@ class CaseListPage(CaseListBasePage):
         print "expect: ", expect
         return dispute_status == expect
 
-    def _goto_detail_info(self, dispute_status=u'等待调解'):
+    def _goto_detail_info(self, search=None, dispute_status=u"全部案件"):
         """进入纠纷详情页面
         """
         # 进入纠纷调解案件列表
-        self.find_element_by_xpath('//li[contains(text(), "纠纷调解案件列表")]').click()
-        Select(self.find_element_by_xpath(self.case_list_select)).select_by_visible_text(dispute_status)
+        self.search_all(search=search, dispute_status=dispute_status)
         sleep(0.5)
         # self.find_element_by_xpath('/html/body/div[4]/div[1]/button[1]').click()
         self.find_element_by_xpath('//a[contains(text(),"纠纷详情")]').click()
@@ -387,15 +400,35 @@ class InputCaseListPage(CaseListBasePage):
         self._input_dispute_add_save()
 
     def case_modification_save(self):
+        """案件登记列表
+        """
         self.select_status(dispute_status=u'已提交')
-        self._goto_detail_info()
-        self._dispute_modification()
+        case_type = self._goto_detail_info()
+        if case_type == "org_case":
+            self._dispute_modification()
+        else:
+            pass  # todo
 
     def _goto_detail_info(self):
-        """纠纷预览
+        """案件登记列表-纠纷预览
         """
+        # 登记案件的类型
+        case_type = self.find_element_by_xpath('//div[@class="caseTtye fl"]/div').text  # 机构登记 简易案件
+        # 打印纠纷编号
+        if case_type == u'机构登记':
+            span_el = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//div[contains(text(),"纠纷编号")]')))
+            _, dispute_id = span_el.text.split(u"：")
+            print "###案件编号：{},进入纠纷详情页面--简易案件###".format(dispute_id)
+            case_type_res = "org_case"
+        else:
+            span_el = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//div[contains(text(),"字号：")]')))
+            _, dispute_id = span_el.text.split(u"：")
+            print "###案件编号：{},进入纠纷详情页面###--机构登记".format(dispute_id)
+            case_type_res = "simple_case"
+
         self.find_element_by_xpath('//a[text()="纠纷预览"]').click()
         sleep(1)
+        return case_type_res
 
     def _dispute_add_input(self, desc_ext):
         self.find_element_by_xpath('//a[text()="增加纠纷"]').click()
@@ -404,18 +437,18 @@ class InputCaseListPage(CaseListBasePage):
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').clear()
         sleep(0.5)
         self.find_element_by_xpath('//label[text()="纠纷描述："]/following-sibling::div/div/div/textarea').send_keys(desc_ext)
-        js ='app.caseData.applicants[0].dyfileName="1.jpg"'
+        js = 'app.caseData.applicants[0].dyfileName="1.jpg"'
         self.driver.execute_script(js)
 
     def _input_dispute_add_commit(self):
         """增加纠纷-提交
         """
         # 提交
-        commit_btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(),"提交")]')))
+        commit_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(),"提交")]')))
         commit_btn.click()
         # self.find_element_by_xpath('//span[contains(text(),"提交")]').click()
         # 不发送
-        no_send_btn = WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(),"不发送")]')))
+        no_send_btn = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(),"不发送")]')))
         no_send_btn.click()
         # self.find_element_by_xpath('//span[contains(text(),"不发送")]').click()
         sleep(1)

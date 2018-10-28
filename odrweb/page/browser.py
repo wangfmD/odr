@@ -4,6 +4,7 @@ import sys
 import time
 
 from selenium import webdriver
+from selenium.common.exceptions import UnexpectedAlertPresentException
 
 from odrweb.core.initdata import init
 
@@ -82,13 +83,20 @@ class Browser(object):
         tm = time.strftime('%H%M%S', time.localtime(time.time()))
         file_name = os.path.join(screenshot_path, '%s_%s.png' % (name, tm))
         # screenshot = self.driver.save_screenshot(screenshot_path + '\\%s_%s.png' % (name, tm))
-        screenshot = self.driver.save_screenshot(file_name)
+        try:
+            screenshot = self.driver.save_screenshot(file_name)
+        except UnexpectedAlertPresentException as msg:
+            # alert_ = self.driver.switch_to_alert()
+            self.driver.switch_to.alert.accept()
+            # alert_.accept()
+            screenshot = self.driver.save_screenshot(file_name)
 
         if screenshot:
-            print "截图为：", file_name
-            print "\n"
+            print "###截图为：{}###".format(file_name)
+
         else:
-            print "screen_shot failed"
+            print "###screen_shot failed###"
+        print "\n"
         return screenshot
 
     def close(self):
