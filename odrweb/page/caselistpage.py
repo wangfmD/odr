@@ -43,7 +43,7 @@ class CaseListBasePage(Page):
     def get_conference_title(self):
         """获取视频会议名称
         """
-        sleep(0.5)
+        sleep(1)
 
         conference_title = self.find_element_by_xpath('(//span[text()="会议名"])[1]/following-sibling::i').text  # 纠纷详情页面，第一个会议名称
 
