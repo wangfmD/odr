@@ -227,7 +227,7 @@ class DjyFunc(unittest.TestCase):
             disputepage.act_list_add_dispute()
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res = disputepage.verification_commit(**jf_info_all)
+            res, _= disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)

@@ -64,7 +64,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_02(self):
@@ -81,7 +81,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_03(self):
@@ -98,7 +98,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_04(self):
@@ -115,7 +115,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_05(self):
@@ -132,7 +132,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_06(self):
@@ -149,7 +149,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_07(self):
@@ -166,7 +166,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_08(self):
@@ -183,7 +183,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
     def test_09(self):
@@ -200,7 +200,7 @@ class DisputeCommit(unittest.TestCase):
         disputepage = DisputePageDjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        res = disputepage.verification_commit(**jf_info_all)
+        res, _= disputepage.verification_commit(**jf_info_all)
         self.assertEqual(True, res)
 
 

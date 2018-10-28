@@ -59,7 +59,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
     #
     def test_02(self):
@@ -97,7 +97,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_03(self):
@@ -135,7 +135,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_04(self):
@@ -173,7 +173,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_05(self):
@@ -211,7 +211,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_06(self):
@@ -249,7 +249,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_07(self):
@@ -287,7 +287,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_08(self):
@@ -325,7 +325,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_09(self):
@@ -363,7 +363,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_10(self):
@@ -401,7 +401,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         # sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_11(self):
@@ -439,7 +439,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_12(self):
@@ -477,7 +477,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_13(self):
@@ -515,7 +515,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_14(self):
@@ -553,7 +553,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_15(self):
@@ -591,7 +591,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_16(self):
@@ -629,7 +629,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_17(self):
@@ -667,7 +667,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
     def test_18(self):
@@ -705,7 +705,7 @@ class OdrJfInput(unittest.TestCase):
         disputepage = DisputePageTjy(self.homepage)
         disputepage.commit(**jf_info_all)
         sleep(t)
-        # res = disputepage.verification_commit(**jf_info_all)
+        # res, _= disputepage.verification_commit(**jf_info_all)
         # self.assertEqual(True, res)
 
 

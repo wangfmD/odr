@@ -629,3 +629,7 @@ class TjyFuncCaseList(unittest.TestCase):
             self.end = datetime.datetime.now()
             duration = (self.end - self.start).seconds
             print "###case duration: {}###".format(duration)
+
+
+if __name__ == '__main__':
+    unittest.main()
