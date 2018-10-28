@@ -4,7 +4,6 @@ import sys
 import time
 
 from selenium import webdriver
-chrome = webdriver.Chrome()
 
 from odrweb.core.initdata import init
 
@@ -86,7 +85,7 @@ class Browser(object):
         screenshot = self.driver.save_screenshot(file_name)
 
         if screenshot:
-            print "截图为：",  file_name
+            print "截图为：", file_name
             print "\n"
         else:
             print "screen_shot failed"
@@ -106,7 +105,7 @@ class Page(Browser):
         else:
             super(Page, self).__init__(browser_type=browser_type)
 
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(2)
 
         if sys.platform == 'darwin':
             self.driver.set_window_size(1849, 1001)
