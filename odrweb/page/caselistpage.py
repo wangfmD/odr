@@ -218,7 +218,7 @@ class CaseListPage(CaseListBasePage):
         self._make_mediate()
 
     def mediate_success(self, dispute_status=u'等待调解'):
-        dispute_id = self._goto_detail_info()
+        dispute_id = self._goto_detail_info(dispute_status=dispute_status)
         print "{} 设置:{}->{}".format(dispute_id, dispute_status, u"调解成功")
         self._dispute_status()
         self._mediate_success()
