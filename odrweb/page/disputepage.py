@@ -885,7 +885,7 @@ class DisputePageDjy(DisputePageTjy):
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
             print "expect: ", kwargs['applicant']
-            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant'], case_id
         else:
             print "result: ", applicant
             print "expect: ", kwargs['applicant_name']
