@@ -9,7 +9,7 @@ from odrweb.page.homepage import HomePage
 from odrweb.page.organizationadmin import MissionCenter
 
 reload(sys)
-syssetdefaultencoding("utf-8")
+sys.setdefaultencoding("utf-8")
 
 
 class OrgCaseOpera(unittest.TestCase):

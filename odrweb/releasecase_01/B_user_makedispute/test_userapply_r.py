@@ -4,6 +4,8 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
+import datetime
+
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
 from odrweb.page.homepage import HomePage
@@ -54,6 +56,7 @@ class UserApply(unittest.TestCase):
         cls.homepage.driver.quit()
 
     def setUp(self):
+        self.start = datetime.datetime.now()
         print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
@@ -86,6 +89,10 @@ class UserApply(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_02(self):
         """用户-登记纠纷-申自然人特殊代理人-被自然人特殊代理人"""
@@ -114,62 +121,74 @@ class UserApply(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
-    def test_03(self):
-        """用户-登记纠纷-申法人-被非法人组织"""
-        jf_info_all = {"jf_desc": u"用户-登记纠纷-申法人-被非法人组织",
-                       "applicant_type": u"自然人",  # 自然人 法人 非法人组织
-                       "disputer_type": u"法人",  # 自然人 法人 非法人组织
-                       "agent_type": "",  # "" common special,
-                       "agent_b_type": ""  # common special,
-
-                       }
-        jf_info_all.update(self.dispute_info)
-
-        try:
-            self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
-            self.homepage.user_personal_center()
-            sleep(0.5)
-            personalpage = PersonalPage(self.homepage)
-            personalpage._input_all(**jf_info_all)
-            sleep(t)
-            personalpage.verfication_commit_dlr(**jf_info_all)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
-            name = _funcname_docstring(self, docstr.decode('utf8'))
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
-
-    def test_04(self):
-        """用户-登记纠纷-申非法人组织特殊代理人-被法人代理人"""
-        jf_info_all = {"jf_desc": u"用户-登记纠纷-申非法人组织特殊代理人-被法人代理人",
-                       "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
-                       "disputer_type": u"法人",  # 自然人 法人 非法人组织
-                       "agent_type": "special",  # "" common special,
-                       "agent_b_type": "special",  # common special,
-                       # "mode": "agent",
-                       }
-        jf_info_all.update(self.dispute_info)
-
-        try:
-            self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
-            self.homepage.user_personal_center()
-            sleep(0.5)
-            personalpage = PersonalPage(self.homepage)
-            personalpage._input_all(**jf_info_all)
-            sleep(t)
-            personalpage.verfication_commit_dlr(**jf_info_all)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
-            name = _funcname_docstring(self, docstr.decode('utf8'))
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
+    # def test_03(self):
+    #     """用户-登记纠纷-申法人-被非法人组织"""
+    #     jf_info_all = {"jf_desc": u"用户-登记纠纷-申法人-被非法人组织",
+    #                    "applicant_type": u"自然人",  # 自然人 法人 非法人组织
+    #                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
+    #                    "agent_type": "",  # "" common special,
+    #                    "agent_b_type": ""  # common special,
+    #
+    #                    }
+    #     jf_info_all.update(self.dispute_info)
+    #
+    #     try:
+    #         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+    #         self.homepage.user_personal_center()
+    #         sleep(0.5)
+    #         personalpage = PersonalPage(self.homepage)
+    #         personalpage._input_all(**jf_info_all)
+    #         sleep(t)
+    #         personalpage.verfication_commit_dlr(**jf_info_all)
+    #     except Exception as msg:
+    #         print "EXCEPTION >> {}".format(msg)
+    #         # class function name_class docstring
+    #         docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+    #         name = _funcname_docstring(self, docstr.decode('utf8'))
+    #         # 截图
+    #         self.homepage.save_screen_shot(name)
+    #         raise
+    #     finally:
+    #         self.end = datetime.datetime.now()
+    #         duration = (self.end - self.start).seconds
+    #         print "###case duration: {}###".format(duration)
+    #
+    # def test_04(self):
+    #     """用户-登记纠纷-申非法人组织特殊代理人-被法人代理人"""
+    #     jf_info_all = {"jf_desc": u"用户-登记纠纷-申非法人组织特殊代理人-被法人代理人",
+    #                    "applicant_type": u"非法人组织",  # 自然人 法人 非法人组织
+    #                    "disputer_type": u"法人",  # 自然人 法人 非法人组织
+    #                    "agent_type": "special",  # "" common special,
+    #                    "agent_b_type": "special",  # common special,
+    #                    # "mode": "agent",
+    #                    }
+    #     jf_info_all.update(self.dispute_info)
+    #
+    #     try:
+    #         self.homepage.user_login(users.user_wfm['username'], users.user_wfm['pwd'])
+    #         self.homepage.user_personal_center()
+    #         sleep(0.5)
+    #         personalpage = PersonalPage(self.homepage)
+    #         personalpage._input_all(**jf_info_all)
+    #         sleep(t)
+    #         personalpage.verfication_commit_dlr(**jf_info_all)
+    #     except Exception as msg:
+    #         print "EXCEPTION >> {}".format(msg)
+    #         # class function name_class docstring
+    #         docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+    #         name = _funcname_docstring(self, docstr.decode('utf8'))
+    #         # 截图
+    #         self.homepage.save_screen_shot(name)
+    #         raise
+    #     finally:
+    #         self.end = datetime.datetime.now()
+    #         duration = (self.end - self.start).seconds
+    #         print "###case duration: {}###".format(duration)
 
 
 if __name__ == '__main__':

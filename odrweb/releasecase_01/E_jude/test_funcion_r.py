@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import sys
 import unittest
 from inspect import getdoc, getframeinfo, currentframe
@@ -26,6 +27,7 @@ class JugeFunc(unittest.TestCase):
         cls.homepage.driver.quit()
 
     def setUp(self):
+        self.start = datetime.datetime.now()
         print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
@@ -50,6 +52,10 @@ class JugeFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_02(self):
         """选择查询-确认有效"""
@@ -69,6 +75,10 @@ class JugeFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_03(self):
         """选择查询-驳回申请"""
@@ -89,6 +99,10 @@ class JugeFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_04(self):
         """输入查询-案件编号全匹配"""
@@ -109,6 +123,10 @@ class JugeFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_05(self):
         """进入案件详情"""
@@ -124,6 +142,10 @@ class JugeFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_06(self):
         """案件详情-返回列表"""
@@ -140,6 +162,10 @@ class JugeFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_07(self):
         """法官个人信息修改"""
@@ -156,3 +182,7 @@ class JugeFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)

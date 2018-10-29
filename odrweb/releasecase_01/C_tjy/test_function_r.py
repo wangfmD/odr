@@ -275,28 +275,28 @@ class TjyFuncCaseList(unittest.TestCase):
             duration = (self.end - self.start).seconds
             print "###case duration: {}###".format(duration)
 
-    def test_10(self):
-        """正在调解-预约调解"""
-        try:
-            self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
-            case_list_page = CaseListPage(self.homepage)
-            case_list_page.mediate_video_create(dispute_status=u'正在调解')
-            # 获取返回页面纠纷状态
-            conference_title = case_list_page.get_conference_title()
-            result = case_list_page.verification_dispute_status(conference_title, "conference_title")
-            self.assertEqual(True, result)
-        except Exception as msg:
-            print "EXCEPTION >> {}".format(msg)
-            # class function name_class docstring
-            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
-            name = _funcname_docstring(self, docstr.decode('utf8'))
-            # 截图
-            self.homepage.save_screen_shot(name)
-            raise
-        finally:
-            self.end = datetime.datetime.now()
-            duration = (self.end - self.start).seconds
-            print "###case duration: {}###".format(duration)
+    # def test_10(self):
+    #     """正在调解-预约调解"""
+    #     try:
+    #         self.homepage.mediator_login(users.user_tjy['username'], users.user_tjy['pwd'])
+    #         case_list_page = CaseListPage(self.homepage)
+    #         case_list_page.mediate_video_create(dispute_status=u'正在调解')
+    #         # 获取返回页面纠纷状态
+    #         conference_title = case_list_page.get_conference_title()
+    #         result = case_list_page.verification_dispute_status(conference_title, "conference_title")
+    #         self.assertEqual(True, result)
+    #     except Exception as msg:
+    #         print "EXCEPTION >> {}".format(msg)
+    #         # class function name_class docstring
+    #         docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+    #         name = _funcname_docstring(self, docstr.decode('utf8'))
+    #         # 截图
+    #         self.homepage.save_screen_shot(name)
+    #         raise
+    #     finally:
+    #         self.end = datetime.datetime.now()
+    #         duration = (self.end - self.start).seconds
+    #         print "###case duration: {}###".format(duration)
 
     #
     def test_11(self):

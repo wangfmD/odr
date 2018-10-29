@@ -4,6 +4,8 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
+import datetime
+
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
 from odrweb.page.homepage import HomePage
@@ -53,6 +55,7 @@ class UserAgent(unittest.TestCase):
         cls.homepage.driver.quit()
 
     def setUp(self):
+        self.start = datetime.datetime.now()
         print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
@@ -86,6 +89,10 @@ class UserAgent(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_02(self):
         """用户代理人身份-登记纠纷-申非法人组织特殊代理人-被法人代理人"""
@@ -114,6 +121,10 @@ class UserAgent(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
 
 if __name__ == '__main__':
