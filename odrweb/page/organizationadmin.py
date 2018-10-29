@@ -1,8 +1,10 @@
 # coding:utf-8
 from time import sleep
-from odrweb.page.browser import Page
+
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
+
+from odrweb.page.browser import Page
 from utils.tools import DbConn
 
 
@@ -41,8 +43,8 @@ class MissionCenter(Page):
         if count is None:
             count = 1
 
-        j = int(count) - 1   # 数组下标处理
-        print("查看第"+ str(count) +"个纠纷的详情")
+        j = int(count) - 1  # 数组下标处理
+        print("查看第" + str(count) + "个纠纷的详情")
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="detailsDispute(one)"]')
         k[j].click()
         sleep(1)
@@ -52,17 +54,14 @@ class MissionCenter(Page):
         except:
             return False
 
-
-
-
     def case_acceptance(self, count=None):
         """受理"""
         """count为选入参数，传值可以控制操作当前页面第N个纠纷，默认为第一个"""
         if count is None:
             count = 1
 
-        j = int(count) - 1   # 数组下标处理
-        print("受理第"+str(count)+"个纠纷")
+        j = int(count) - 1  # 数组下标处理
+        print("受理第" + str(count) + "个纠纷")
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="acceptance($index)"]')
         k[j].click()
 
@@ -72,8 +71,8 @@ class MissionCenter(Page):
         if count is None:
             count = 1
 
-        j = int(count) - 1   # 数组下标处理
-        print("拒绝受理第"+str(count)+"个纠纷")
+        j = int(count) - 1  # 数组下标处理
+        print("拒绝受理第" + str(count) + "个纠纷")
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="refuse_Acceptance_LawCase($index)"]')
         k[j].click()
 
@@ -83,13 +82,12 @@ class MissionCenter(Page):
         if count is None:
             count = 1
 
-
-        j = int(count) - 1   # 数组下标处理
-        print("给第"+str(count)+"个纠纷分配调解员")
+        j = int(count) - 1  # 数组下标处理
+        print("给第" + str(count) + "个纠纷分配调解员")
         k = self.driver.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="selMediator($index)"]')
         sleep(1)
         ActionChains(self.driver).move_to_element(k[j]).click(k[j]).perform()
-        #k[j].click()
+        # k[j].click()
 
     def case_change_organization(self, count=None):
         """转移调解机构"""
@@ -97,8 +95,8 @@ class MissionCenter(Page):
         if count is None:
             count = 1
 
-        j = int(count) - 1   # 数组下标处理
-        print("给第"+str(count)+"个纠纷转移调解机构")
+        j = int(count) - 1  # 数组下标处理
+        print("给第" + str(count) + "个纠纷转移调解机构")
         k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="changeOrg(one.caseNo,one.orgName)"]')
         k[j].click()
 
@@ -131,7 +129,6 @@ class MissionCenter(Page):
         else:
             return False
 
-
     def case_progress(self, count=None):
         try:
             """调解进程"""
@@ -139,8 +136,8 @@ class MissionCenter(Page):
             if count is None:
                 count = 1
 
-            j = int(count) - 1   # 数组下标处理
-            print("查看第"+str(count)+"个纠纷调解进度")
+            j = int(count) - 1  # 数组下标处理
+            print("查看第" + str(count) + "个纠纷调解进度")
             WebDriverWait(self.driver, 10).until(lambda x: x.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="progress(one.id,one.statusName)"]'))
             k = self.find_elements_by_xpath('//div[@class="details ng-scope"]/div/div/button[@ng-click="progress(one.id,one.statusName)"]')
 
@@ -164,7 +161,7 @@ class MissionCenter(Page):
             self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').clear()
         self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/input').send_keys(kwargs["分配调解员姓名"])
         self.find_element_by_xpath('//h4[text()="选择调解员"]/../div/div[@class="search-counselor"]/button').click()
-        self.find_element_by_xpath('//span[text()="'+kwargs["分配调解员姓名"]+'"]/../../../div/button').click()
+        self.find_element_by_xpath('//span[text()="' + kwargs["分配调解员姓名"] + '"]/../../../div/button').click()
         self.info_agree()
 
     def case_type(self, ctype=None):
@@ -176,16 +173,16 @@ class MissionCenter(Page):
                 casetype = ctype
 
             casetypelist = {
-                    u"所有类型",
-                    u"婚姻继承",
-                    u"消费维权",
-                    u"劳动争议",
-                    u"借贷纠纷",
-                    u"物业纠纷",
-                    u"相邻关系",
-                    u"知识产权",
-                    u"房屋买卖",
-                    u"房屋租赁"
+                u"所有类型",
+                u"婚姻继承",
+                u"消费维权",
+                u"劳动争议",
+                u"借贷纠纷",
+                u"物业纠纷",
+                u"相邻关系",
+                u"知识产权",
+                u"房屋买卖",
+                u"房屋租赁"
             }
 
             if casetype in casetypelist:
@@ -234,9 +231,8 @@ class MissionCenter(Page):
 
     def get_total_case_num(self):
         total = self.find_element_by_xpath('//span[text()="案件数量"]/..//i[@class="ng-binding"]').text
-        print("案件计数："+ total)
+        print("案件计数：" + total)
         return total
-
 
     def case_count(self):
         """统计当前页有多少纠纷"""
@@ -269,9 +265,7 @@ class MissionCenter(Page):
         """确认拒绝"""
         self.find_element_by_xpath('//div[@class="btn-box"]/input[@value="确定"]').click()
 
-
-
-    def verfc_total_case_number_visitable(self,totalnumber):
+    def verfc_total_case_number_visitable(self, totalnumber):
         """案件总量是否数字"""
         try:
             check = int(totalnumber)
@@ -346,15 +340,3 @@ class MissionCenter(Page):
             return True
         else:
             return False
-
-
-
-
-
-
-
-
-
-
-
-

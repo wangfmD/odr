@@ -369,7 +369,7 @@ class OrgCaseOpera(unittest.TestCase):
 
             case_optioninfo = {
                 "编号/姓名/案号": casenumber,
-                "分配调解员姓名": u"TS(宋红波）"
+                "分配调解员姓名": u"宋红波"
             }
 
             print(case_optioninfo["编号/姓名/案号"])
@@ -453,28 +453,3 @@ class OrgCaseOpera(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
-
-            # def xtest_006(self):
-            #     """机构管理员重新分配案件"""
-            #
-            #     org_admin = {
-            #         "机构账号": "17612156739",
-            #         "机构密码": "123456"
-            #     }
-            #
-            #     self.homepage.organization_login(org_admin["机构账号"], org_admin["机构密码"])
-            #
-            #     orgpage = MissionCenter(self.homepage)
-            #     orgpage.in_mission_center()
-            #
-            #     case_optioninfo = {
-            #         "编号/姓名/案号": "1661FB5842888",
-            #         "分配调解员姓名": u"徐传珠"
-            #
-            #     }
-            #     orgpage.search_case_by_id_or_name(**case_optioninfo)  # 检索纠纷
-            #     orgpage.case_select_mediator()  # 点击重新分配
-            #     orgpage.case_mediator_choose(**case_optioninfo)
-            #     orgpage.tip_agree()   # 重要提示 确定
-            #     orgpage.info_agree()  # 信息 确定
-            #     sleep(1)
