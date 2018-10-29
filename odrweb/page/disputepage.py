@@ -6,6 +6,7 @@ from time import sleep
 import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from odrweb.core.upload import file_upload
@@ -14,15 +15,90 @@ from odrweb.page.browser import Page
 
 
 class TjyBasePage(Page):
-    x_case_input_list_a = '//div[text()="案件登记列表"]'  # 案件登记列表链接
-    x_case_list_a = '//li[text()="纠纷调解案件列表"]'  # 纠纷调解案件列表
+    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
+    x_case_list_a = '//li[text()="纠纷调解案件列表"]'           # 纠纷调解案件列表
     x_apply_judicial_list_li = '//li[text()="申请司法确认列表"]'
     x_add_judicial_btn = '//font[text()="新增司法确认"]'
+    x_judicial_list_div= '//div[text()="在线司法确认列表"]'     # 在线司法确认列表
 
 
 class JudicialInputPage(TjyBasePage):
     # 司法确认
     x_fy_select = ''  # 申请受理法院 选择
+
+    def act_search_judicial_list(self, search_content=None, select_status=u'全部案件'):
+        """在线司法确认列表-查询
+            待确认 确认有效 驳回申请
+        """
+        # 进入-在线司法确认列表
+        self.find_element_by_xpath(self.x_judicial_list_div).click()
+        # 下拉选择
+        Select(self.find_element_by_xpath('//select')).select_by_visible_text(select_status)
+        # 输入查询
+        if search_content is not None:
+            self.find_element_by_xpath('//input[@placeholder="请输入编号/案号"]').send_keys(search_content)
+            self.find_element_by_xpath('//input[@placeholder="请输入编号/案号"]/following-sibling::span').click()
+
+    def verfc_act_search_judicial_list_status(self, expect):
+        """在线司法确认列表-状态查询验证"""
+        sleep(1)
+        # 案件状态
+        case_status = self.find_element_by_xpath('//div[text()="案件状态"]/following-sibling::div').text
+        # 案件编号
+        _, case_id = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text.split(u"：")
+        print "search result: 司法确认案件编号：{}，案件状态：{}".format(case_id, case_status)
+        print "expect: ", expect
+        print "result: ", case_status
+        return case_status == expect, case_id
+
+    def verfc_act_search_judicial_list_search_content(self, expect):
+        """在线司法确认列表-状态查询验证"""
+        sleep(1)
+        # 案件状态
+        case_status = self.find_element_by_xpath('//div[text()="案件状态"]/following-sibling::div').text
+        # 案件编号
+        _, case_id = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text.split(u"：")
+        print "search result: 司法确认案件编号：{}，案件状态：{}".format(case_id, case_status)
+        print "expect: ", expect
+        print "result: ", case_id
+        return case_id == expect
+
+    def act_search_apply_judicial_list(self, search_content=None, select_status=u'全部案件'):
+        """申请司法确认列表-查询
+            全部案件 不受理 法院退回 待分配 待确认 确认有效 驳回申请
+        """
+        # 进入-申请司法确认列表
+        self.find_element_by_xpath(self.x_apply_judicial_list_li).click()
+        # 下拉选择
+        Select(self.find_element_by_xpath('//select')).select_by_visible_text(select_status)
+        # 输入查询
+        if search_content is not None:
+            self.find_element_by_xpath('//input[@placeholder="请输入编号/姓名/案号"]').send_keys(search_content)
+            self.find_element_by_xpath('//input[@placeholder="请输入编号/姓名/案号"]/../span').click()
+
+    def verfc_act_search_apply_judicial_status(self, expect):
+        """申请司法确认列表-状态查询验证"""
+        sleep(1)
+        # 案件状态
+        case_status = self.find_element_by_xpath('//div[text()="案件状态"]/following-sibling::div').text
+        # 案件编号
+        _, case_id = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text.split(u"：")
+        print "search result: 司法确认案件编号：{}，案件状态：{}".format(case_id, case_status)
+        print "expect: ", expect
+        print "result: ", case_status
+        return case_status == expect
+
+    def verfc_act_search_apply_judicial_search_content(self, expect):
+        """申请司法确认列表-状态查询验证"""
+        sleep(1)
+        # 案件状态
+        case_status = self.find_element_by_xpath('//div[text()="案件状态"]/following-sibling::div').text
+        # 案件编号
+        _, case_id = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text.split(u"：")
+        print "search result: 司法确认案件编号：{}，案件状态：{}".format(case_id, case_status)
+        print "expect: ", expect
+        print "result: ", case_id
+        return case_id == expect
 
     def _goto_judicial_input_page(self, **kwargs):
         # 点击进入纠纷调解案件列表
@@ -244,7 +320,10 @@ class JudicialInputPage(TjyBasePage):
         # 确认
         ok_el = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
         ok_el.click()
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_apply_judicial_list_li)))
+        try:
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_apply_judicial_list_li)))
+        except:
+            self.driver.refresh()
 
         # 进入申请司法确认列表
         self.find_element_by_xpath(self.x_apply_judicial_list_li).click()
@@ -271,15 +350,18 @@ class JudicialInputPage(TjyBasePage):
         return judicial_case_id
 
     def verification_judicial_commit(self, expect):
-        try:
-            # 获取申请司法确认列表，首条案件的案由
-            result = self.find_element_by_xpath('//div[text()="请求内容"]/following-sibling::div').text
-        except:
-            result = "**None**"
+        self.find_element_by_xpath(self.x_apply_judicial_list_li).click()
 
+        sleep(0.5)
+
+        # 获取申请司法确认列表，首条案件的案由
+        result = self.find_element_by_xpath('//div[text()="请求内容"]/following-sibling::div').text
+        # 案件编号
+        _, case_id = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text.split(u"：")
+        print "###add judicial case id: {}###".format(case_id)
         print "expect: ", expect
         print "result: ", result
-        return expect == result
+        return expect == result, case_id
 
 
 class DisputePageTjy(Page):
@@ -611,7 +693,7 @@ class DisputePageTjy(Page):
         # 打印提交成功的case id
         res = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
         print "case commit suc {}".format(res)
-        _,case_id = res.split(u'：')
+        _, case_id = res.split(u'：')
 
         try:
             # 获取纠纷信息
@@ -783,6 +865,12 @@ class DisputePageDjy(DisputePageTjy):
             return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
 
     def verification_commit(self, **kwargs):
+
+        # 打印提交成功的case id
+        res = self.find_element_by_xpath(self.x_inputlist_1_case_id_div).text
+        print "case commit suc {}".format(res)
+        _, case_id = res.split(u'：')
+
         try:
             jf_desc = self.find_element_by_xpath('/html/body/div[4]/div[2]/div/div/div/div[2]/div[1]/div[6]/p').text
         except:
@@ -801,7 +889,7 @@ class DisputePageDjy(DisputePageTjy):
         else:
             print "result: ", applicant
             print "expect: ", kwargs['applicant_name']
-            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name'], case_id
 
     def act_search_by_name_or_id(self, search_ctx):
         """登记员案件查询
@@ -907,6 +995,6 @@ def org_process(status, case_id):
 
 
 if __name__ == '__main__':
-    org_process("1", '166A56656B560')
+    org_process("1", '166BFC3A6C496')
     # from odrweb.core.utils import HOMEPATH
     # print os.path.join(HOMEPATH,'data','upload.png')

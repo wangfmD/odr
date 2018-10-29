@@ -64,6 +64,7 @@ class CaseListBasePage(Page):
         """获取纠纷详情中的纠纷状态
         """
         sleep(1)
+        self.driver.refresh()
         # self.driver.refresh()
         try:
             dispute_status = self.find_element_by_xpath('/html/body/section[1]/div[2]/i').text
