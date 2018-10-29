@@ -4,6 +4,8 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
+import datetime
+
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
 from odrweb.page.disputepage import DisputePageDjy
@@ -53,6 +55,7 @@ class DjyFunc(unittest.TestCase):
         cls.homepage.driver.quit()
 
     def setUp(self):
+        self.start = datetime.datetime.now()
         print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
@@ -86,6 +89,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_02(self):
         """首页-输入查询"""
@@ -103,6 +110,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_03(self):
         """纠纷预览-返回列表"""
@@ -118,6 +129,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_04(self):
         """纠纷预览-解纷进度"""
@@ -133,6 +148,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_05(self):
         """纠纷预览-保存"""
@@ -148,6 +167,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_06(self):
         """纠纷预览-提交"""
@@ -163,6 +186,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_07(self):
         """机构登记列表-增加纠纷-保存"""
@@ -191,6 +218,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_08(self):
         """构登记列表-删除"""
@@ -209,6 +240,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_09(self):
         """机构登记列表-增加纠纷-提交"""
@@ -237,6 +272,10 @@ class DjyFunc(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
 
 if __name__ == '__main__':

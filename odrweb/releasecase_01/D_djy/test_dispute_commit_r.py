@@ -4,6 +4,8 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
+import datetime
+
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
 from odrweb.page.browser import Screen
@@ -55,7 +57,7 @@ class DisputeCommit(unittest.TestCase):
         cls.homepage.driver.quit()
 
     def setUp(self):
-        print "Browser type: {}".format(self.homepage._type)
+        self.start = datetime.datetime.now()
         print "\n--------------------"
 
     def tearDown(self):
@@ -76,7 +78,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -86,6 +88,10 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_02(self):
         """机构登记员-登记纠纷提交-申自然人-被法人代理人"""
@@ -102,7 +108,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -112,8 +118,11 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
-    @Screen()
     def test_03(self):
         """机构登记员-登记纠纷提交-申自然人-被非法人组织代理人"""
         jf_info = {"jf_desc": u"机构登记员-登记纠纷提交-申自然人-被非法人组织代理人",
@@ -124,12 +133,25 @@ class DisputeCommit(unittest.TestCase):
                    }
         jf_info_all.update(jf_info)
 
-        self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
-        disputepage = DisputePageDjy(self.homepage)
-        disputepage.commit(**jf_info_all)
-        sleep(t)
-        res, _= disputepage.verification_commit(**jf_info_all)
-        self.assertEqual(True, res)
+        try:
+            self.homepage.organization_user_login(users.user_jgdjy['username'], users.user_jgdjy['pwd'])
+            disputepage = DisputePageDjy(self.homepage)
+            disputepage.commit(**jf_info_all)
+            sleep(t)
+            res, _ = disputepage.verification_commit(**jf_info_all)
+            self.assertEqual(True, res)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
+            # 截图
+            self.homepage.save_screen_shot(name)
+            raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_04(self):
         """机构登记员-登记纠纷提交-申法人-被自然人代理人"""
@@ -146,7 +168,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -156,6 +178,10 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_05(self):
         """机构登记员-登记纠纷提交-申法人-被法人代理人"""
@@ -172,7 +198,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -182,6 +208,10 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_06(self):
         """机构登记员-登记纠纷提交-申法人-被非法人组织代理人"""
@@ -198,7 +228,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -208,6 +238,10 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_07(self):
         """机构登记员-登记纠纷提交-申非法人组织-被自然人代理人"""
@@ -224,7 +258,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -234,6 +268,10 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_08(self):
         """机构登记员-登记纠纷提交-申非法人组织-被法人代理人"""
@@ -250,7 +288,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -260,6 +298,10 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_09(self):
         """机构登记员-登记纠纷提交-申非法人组织-被非法人组织代理人"""
@@ -276,7 +318,7 @@ class DisputeCommit(unittest.TestCase):
             disputepage = DisputePageDjy(self.homepage)
             disputepage.commit(**jf_info_all)
             sleep(t)
-            res, _= disputepage.verification_commit(**jf_info_all)
+            res, _ = disputepage.verification_commit(**jf_info_all)
             self.assertEqual(True, res)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
@@ -286,6 +328,10 @@ class DisputeCommit(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
 
 if __name__ == '__main__':

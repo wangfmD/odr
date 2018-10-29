@@ -4,6 +4,8 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 from time import sleep
 
+import datetime
+
 from odrweb.core.initdata import users
 from odrweb.core.utils import _funcname_docstring
 from odrweb.page.disputepage import DisputePageDjy
@@ -54,6 +56,7 @@ class DisputeSave(unittest.TestCase):
         cls.homepage.driver.quit()
 
     def setUp(self):
+        self.start = datetime.datetime.now()
         print "Browser type: {}".format(self.homepage._type)
         print "\n--------------------"
 
@@ -86,6 +89,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_02(self):
         """机构登记员-登记纠纷保存-申自然人-被法人"""
@@ -112,6 +119,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_03(self):
         """机构登记员-登记纠纷保存-申自然人-被非法人组织"""
@@ -138,6 +149,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_04(self):
         """机构登记员-登记纠纷保存-申法人-被自然人"""
@@ -164,6 +179,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_05(self):
         """机构登记员-登记纠纷保存-申法人-被法人"""
@@ -190,6 +209,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_06(self):
         """机构登记员-登记纠纷保存-申法人-被非法人组织"""
@@ -216,6 +239,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_07(self):
         """机构登记员-登记纠纷保存-申非法人组织-被自然人"""
@@ -242,6 +269,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_08(self):
         """机构登记员-登记纠纷保存-申非法人组织-被法人"""
@@ -268,6 +299,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
     def test_09(self):
         """机构登记员-登记纠纷保存-申非法人组织-被非法人组织"""
@@ -294,6 +329,10 @@ class DisputeSave(unittest.TestCase):
             # 截图
             self.homepage.save_screen_shot(name)
             raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
 
 
 if __name__ == '__main__':
