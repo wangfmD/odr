@@ -156,9 +156,14 @@ def is_male(user_id):
 def _funcname_docstring(self, docstr):
     """返回方法名称+docstring"""
     # docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+    docstr=docstr.replace('\n','').replace('\r','').strip()
+    if isinstance(docstr, str):
+        docstr = docstr.decode('utf8')
     prdfix, _ = self.__str__().split(" ")
     # print type(self.__doc__.decode('utf8'))
     file_name = "".join([prdfix, "_", docstr])
+    if isinstance(file_name,str):
+        file_name=file_name.decode('utf8')
     return file_name
 
 

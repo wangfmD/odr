@@ -8,6 +8,9 @@ from selenium.common.exceptions import UnexpectedAlertPresentException
 
 from odrweb.core.initdata import init
 
+# chrome =webdriver.Chrome()
+# chrome.save_screenshot()
+
 TYPES = {'firefox': webdriver.Firefox,
          'chrome': webdriver.Chrome,
          'ie': webdriver.Ie,
@@ -38,6 +41,7 @@ class Screen(object):
 
     def __call__(self, f):
         def inner(*args):
+            inner.__doc__ = f.__doc__
             try:
                 return f(*args)
             except Exception as msg:
@@ -83,6 +87,7 @@ class Browser(object):
         tm = time.strftime('%H%M%S', time.localtime(time.time()))
         file_name = os.path.join(screenshot_path, '%s_%s.png' % (name, tm))
         # screenshot = self.driver.save_screenshot(screenshot_path + '\\%s_%s.png' % (name, tm))
+
         try:
             screenshot = self.driver.save_screenshot(file_name)
         except UnexpectedAlertPresentException as msg:
@@ -90,11 +95,12 @@ class Browser(object):
             self.driver.switch_to.alert.accept()
             # alert_.accept()
             screenshot = self.driver.save_screenshot(file_name)
+        except Exception as msg:
+            print "###{}###".format(msg)
+            raise
 
-        if screenshot:
-            print "###截图为：{}###".format(file_name)
-
-        else:
+        print "###截图为：{}".format(file_name)
+        if not screenshot:
             print "###screen_shot failed###"
         print "\n"
         return screenshot
