@@ -1,4 +1,4 @@
-# coding:utf-8
+# -*- coding: utf-8 -*-
 from time import sleep
 
 from selenium.webdriver.common.action_chains import ActionChains
@@ -111,6 +111,7 @@ class MissionCenter(Page):
             self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').clear()
         self.find_element_by_xpath('//input[@data-ng-model="orn.name"]').send_keys(name_)
         self.find_element_by_xpath('//h4[text()="调解机构筛选"]/..//button[text()="搜索"]').click()
+        sleep(0.5)
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath('//button[text()="转出"]')).click()
         #  self.find_element_by_xpath('//button[text()="转出"]').click()
         sleep(1)
@@ -152,6 +153,7 @@ class MissionCenter(Page):
 
     def info_agree(self):
         """信息-确定"""
+        sleep(0.3)
         self.find_element_by_xpath('//div[text()="信息"]/../div/a[text()="确定"]').click()
 
     def case_mediator_choose(self, **kwargs):
