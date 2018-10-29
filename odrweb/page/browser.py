@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import os
 import sys
 import time
@@ -41,7 +42,8 @@ class Screen(object):
 
     def __call__(self, f):
         def inner(*args):
-            inner.__doc__ = f.__doc__
+            start = datetime.datetime.now()
+            print("###start:{}".format(start))
             try:
                 return f(*args)
             except Exception as msg:
@@ -53,14 +55,24 @@ class Screen(object):
                     os.makedirs(screenshot_path)
 
                 tm = time.strftime('%H%M%S', time.localtime(time.time()))
-                name = "".join([f.__name__, "_", f.__doc__.decode('utf8')])
+                # 去换行，去空格
+                docstr = f.__doc__.replace('\n', '').replace('\r', '').strip()
+
+                if isinstance(docstr, str):
+                    docstr = docstr.decode('utf8')
+                name = "".join([f.__name__, "_", docstr])
                 file_name = os.path.join(screenshot_path, '%s_%s.png' % (name, tm))
                 print "截图为：", file_name
                 print "\n"
                 res = args[0].homepage.driver.save_screenshot(file_name)
 
                 raise
+            finally:
+                end = datetime.datetime.now()
+                duration = (end - start).seconds
+                print "###  end:{}, case duration: {}s ###".format(end, duration)
 
+        inner.__doc__ = f.__doc__
         return inner
 
 
