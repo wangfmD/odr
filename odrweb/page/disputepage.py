@@ -25,6 +25,16 @@ class TjyBasePage(Page):
 class JudicialInputPage(TjyBasePage):
     # 司法确认
     x_fy_select = ''  # 申请受理法院 选择
+    x_case_info_a = '//a[text()="案件详情"]'
+
+    def _goto_jidicial_info(self):
+        """进入司法确认详情"""
+        self.find_element_by_xpath(self.x_case_info_a).click()
+        WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(),"工作台")]')))
+
+    def act_goto_jidicial_info(self):
+        self.act_search_judicial_list(search_content=None, select_status=u'全部案件')
+        self._goto_jidicial_info()
 
     def act_search_judicial_list(self, search_content=None, select_status=u'全部案件'):
         """在线司法确认列表-查询
@@ -362,6 +372,20 @@ class JudicialInputPage(TjyBasePage):
         print "expect: ", expect
         print "result: ", result
         return expect == result, case_id
+
+class JudicialInfoPage(JudicialInputPage):
+    """在线司法确认详情列表-司法确认详情"""
+    def act_case_material_select(self,select_type=u"全部"):
+        """文书类 申请类 证据类 其他类 代理类"""
+        Select(self.find_element_by_xpath('//span[text()="案件材料"]/following-sibling::select')).select_by_visible_text(select_type)
+
+    def verfc_act_case_material_select(self, expect):
+        sleep(0.5)
+        title_case = self.find_element_by_xpath('//span[text()="案件材料"]/../following-sibling::div/div/h4').text
+        print "案件材料查询: {}".format(expect)
+        print "expect: {}".format(expect)
+        print "result: {}".format(title_case)
+        return expect == title_case
 
 
 class DisputePageTjy(Page):
