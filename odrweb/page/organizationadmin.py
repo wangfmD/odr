@@ -9,7 +9,6 @@ from utils.tools import DbConn
 
 
 class MissionCenter(Page):
-
     def in_mission_center(self):
         """进入任务中心"""
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath('//a[@href="#/missions"]')).click()
@@ -342,3 +341,17 @@ class MissionCenter(Page):
             return True
         else:
             return False
+
+
+class OrgCaseDetialPage(MissionCenter):
+    x_case_detail = '//button[contains(text(),"纠纷详情")]'
+
+    def search_case_by_id_or_name(self, search_content):
+        """搜索案件"""
+        self.find_element_by_xpath('//input[@id="keyword"]').send_keys(search_content)
+        self.find_element_by_xpath('//a[text()="搜索"]').click()
+        sleep(1)
+
+    def _goto_case_detail(self):
+        self.find_element_by_xpath(self.x_case_detail)
+        # self.driver.window_handles

@@ -15,22 +15,39 @@ from odrweb.page.browser import Page
 
 
 class TjyBasePage(Page):
-    x_case_input_list_a = '//div[text()="案件登记列表"]'          # 案件登记列表链接
-    x_case_list_a = '//li[text()="纠纷调解案件列表"]'           # 纠纷调解案件列表
+    x_case_input_list_a = '//div[text()="案件登记列表"]'  # 案件登记列表链接
+    x_case_list_a = '//li[text()="纠纷调解案件列表"]'  # 纠纷调解案件列表
     x_apply_judicial_list_li = '//li[text()="申请司法确认列表"]'
     x_add_judicial_btn = '//font[text()="新增司法确认"]'
-    x_judicial_list_div= '//div[text()="在线司法确认列表"]'     # 在线司法确认列表
+    x_judicial_list_div = '//div[text()="在线司法确认列表"]'  # 在线司法确认列表
 
 
-class JudicialInputPage(TjyBasePage):
+class TjyJudicialPage(TjyBasePage):
     # 司法确认
     x_fy_select = ''  # 申请受理法院 选择
     x_case_info_a = '//a[text()="案件详情"]'
+    # 在线司法确认列表
+    x_case_id = '//div[contains(text(),"案件编号：")]'
+
+    def _get_judicial_list_caseinfo(self):
+        list_caseinfo = {}
+        _, list_caseinfo['案件编号'] = self.find_element_by_xpath(self.x_case_id).text.split(u'：')
+        list_caseinfo['登记时间'] = self.find_element_by_xpath('//div[text()="登记时间"]/following-sibling::div').text
+        list_caseinfo['案件状态'] = self.find_element_by_xpath('//div[text()="案件状态"]/following-sibling::div').text
+        list_caseinfo['申请人'] = self.find_element_by_xpath('//div[text()="申请人"]/following-sibling::div').text
+        list_caseinfo['司法确认案号'] = self.find_element_by_xpath('//div[text()="司法确认案号"]/following-sibling::div').text
+        list_caseinfo['申请法院'] = self.find_element_by_xpath('//div[text()="申请法院"]/following-sibling::div').text
+        list_caseinfo['案由'] = self.find_element_by_xpath('//div[text()="案由"]/following-sibling::div').text
+        list_caseinfo['办案法官'] = self.find_element_by_xpath('//div[text()="办案法官"]/following-sibling::div').text
+        list_caseinfo['请求内容'] = self.find_element_by_xpath('//div[text()="请求内容"]/following-sibling::div').text
+        return list_caseinfo
 
     def _goto_jidicial_info(self):
-        """进入司法确认详情"""
+        """进入司法确认详情
+        适配申请司法确认列表和在线司法确认列表
+        """
         self.find_element_by_xpath(self.x_case_info_a).click()
-        WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(),"工作台")]')))
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(),"工作台")]')))
 
     def act_goto_jidicial_info(self):
         self.act_search_judicial_list(search_content=None, select_status=u'全部案件')
@@ -41,6 +58,7 @@ class JudicialInputPage(TjyBasePage):
             待确认 确认有效 驳回申请
         """
         # 进入-在线司法确认列表
+        sleep(0.5)
         self.find_element_by_xpath(self.x_judicial_list_div).click()
         # 下拉选择
         Select(self.find_element_by_xpath('//select')).select_by_visible_text(select_status)
@@ -48,6 +66,7 @@ class JudicialInputPage(TjyBasePage):
         if search_content is not None:
             self.find_element_by_xpath('//input[@placeholder="请输入编号/案号"]').send_keys(search_content)
             self.find_element_by_xpath('//input[@placeholder="请输入编号/案号"]/following-sibling::span').click()
+        sleep(0.3)
 
     def verfc_act_search_judicial_list_status(self, expect):
         """在线司法确认列表-状态查询验证"""
@@ -130,14 +149,16 @@ class JudicialInputPage(TjyBasePage):
             self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div[2]//div[2]/input').clear()
             self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div[2]//div[2]/input').send_keys(kwargs['applicant'])
         else:
+            self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div/div[1]/div/input[@placeholder="请选择"]').click()
+            sleep(0.3)
             if kwargs['applicant_type'] == u'法人':
-                self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div/div[1]/div/input[@placeholder="请选择"]').click()
+
                 self.find_element_by_xpath('(//span[text()="法人"])[2]').click()
                 self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div[2]//div[2]/input[@placeholder="请输入企业名称"]').send_keys(kwargs['applicant_name'])
                 self.find_element_by_xpath('//div[text()="社会信用代码："]/following-sibling::div/div/input[@placeholder="请输入社会信用代码"]').send_keys(kwargs['world_credit_id'])
                 self.find_element_by_xpath('//div[text()="法定代表人："]/following-sibling::div/div/input[@placeholder="请输入法定代表人姓名"]').send_keys(kwargs['applicant'])
             elif kwargs['applicant_type'] == u'非法人组织':
-                self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div/div[1]/div/input[@placeholder="请选择"]').click()
+
                 self.find_element_by_xpath('(//span[text()="非法人组织"])[2]').click()
                 self.find_element_by_xpath('//div[contains(text(), "申请人：")]/../div[2]//div[2]/input[@placeholder="请输入机构名称"]').send_keys(kwargs['applicant_name'])
                 self.find_element_by_xpath('//div[text()="社会信用代码："]/following-sibling::div/div/input[@placeholder="请输入社会信用代码"]').send_keys(kwargs['world_credit_id'])
@@ -333,7 +354,6 @@ class JudicialInputPage(TjyBasePage):
         sleep(1)
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_apply_judicial_list_li)))
 
-
         # 进入申请司法确认列表
         self.find_element_by_xpath(self.x_apply_judicial_list_li).click()
         sleep(0.5)
@@ -348,11 +368,9 @@ class JudicialInputPage(TjyBasePage):
         self._judicial_tail_input(**kwargs)
         self._judicial_commit(**kwargs)
 
-
         # 获取申请司法确认列表，首条案件编号
         text = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text
         _, judicial_case_id = text.split(u"：")
-
 
         print u"申请司法确认案件编号", judicial_case_id
         return judicial_case_id
@@ -371,9 +389,11 @@ class JudicialInputPage(TjyBasePage):
         print "result: ", result
         return expect == result, case_id
 
-class JudicialInfoPage(JudicialInputPage):
+
+class TjyJudicialInfoPage(TjyJudicialPage):
     """在线司法确认详情列表-司法确认详情"""
-    def act_case_material_select(self,select_type=u"全部"):
+
+    def act_case_material_select(self, select_type=u"全部"):
         """文书类 申请类 证据类 其他类 代理类"""
         Select(self.find_element_by_xpath('//span[text()="案件材料"]/following-sibling::select')).select_by_visible_text(select_type)
 
@@ -384,6 +404,62 @@ class JudicialInfoPage(JudicialInputPage):
         print "expect: {}".format(expect)
         print "result: {}".format(title_case)
         return expect == title_case
+
+    def _get_detail_case_info(self):
+        list_caseinfo = {}
+        list_caseinfo['案件编号'] = self.find_element_by_xpath('//h6[contains(text(),"案件编号:")]/following-sibling::p').text
+        # list_caseinfo['登记时间'] = self.find_element_by_xpath('//h6[contains(text(),"受理日期")]/following-sibling::p').text
+        list_caseinfo['案件状态'] = self.find_element_by_xpath('//span[contains(text(),"案件状态")]/following-sibling::span').text
+        list_caseinfo['申请人'] = self.find_element_by_xpath('//h6[contains(text(),"申请人")]/following-sibling::p').text
+        list_caseinfo['司法确认案号'] = self.find_element_by_xpath('//h6[contains(text(),"司法确认案号")]/following-sibling::p').text
+        list_caseinfo['申请法院'] = self.find_element_by_xpath('//h6[contains(text(),"受理法院")]/following-sibling::p').text
+        list_caseinfo['案由'] = self.find_element_by_xpath('//h6[contains(text(),"案由")]/following-sibling::p').text
+        list_caseinfo['办案法官'] = self.find_element_by_xpath('//h6[contains(text(),"办案法官")]/following-sibling::p').text
+        list_caseinfo['请求内容'] = self.find_element_by_xpath('//h6[contains(text(),"请求内容")]/following-sibling::p').text
+        list_caseinfo['申请人2'] = self.find_element_by_xpath('//h4[contains(text(),"申请人2")]/following-sibling::div/div/div/p').text
+        if list_caseinfo['申请人'].startswith(u"自然人"):
+            _, list_caseinfo['申请人'] = list_caseinfo['申请人'].split(u'自然人')
+            list_caseinfo['申请人'] = list_caseinfo['申请人'].strip()
+        if list_caseinfo['申请人2'].startswith(u"自然人"):
+            _, list_caseinfo['申请人2'] = list_caseinfo['申请人2'].split(u'自然人')
+            list_caseinfo['申请人2'] = list_caseinfo['申请人2'].strip()
+
+        # if ' ' in list_caseinfo['登记时间']:
+        #     list_caseinfo['登记时间'], _ = list_caseinfo['登记时间'].split(' ')
+        return list_caseinfo
+
+    def act_ver_judicial_info(self, search_content=None, select_status=u'全部案件'):
+        self.act_search_judicial_list(search_content, select_status)
+        #
+        list_detail = self._get_judicial_list_caseinfo()
+
+        print "司法确认列表页面详情："
+        for k, v in list_detail.viewitems():
+            print "{}: {}".format(k, v)
+        print "-" * 8
+
+        # 进入详情
+        self._goto_jidicial_info()
+        self.driver.refresh()
+        sleep(1)
+        #
+        detail = self._get_detail_case_info()
+
+        print "司法确认案件详情："
+        for k, v in detail.viewitems():
+            print "{}: {}".format(k, v)
+
+        res = True
+        for k, v in detail.viewitems():
+            if k == '申请人2' or k == '申请人':
+                if v not in list_detail['申请人']:
+                    res = False
+                    print "list_info: {}, detail info:{}".format(list_detail['申请人'], v)
+            else:
+                if v != list_detail[k]:
+                    print "list_info: {}, detail info:{}".format(list_detail[k], v)
+                    res = False
+        return res
 
 
 class DisputePageTjy(Page):

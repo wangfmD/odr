@@ -77,6 +77,9 @@ class PersonalPage(Page):
     x_security_setting = '//a[contains(text(),"安全设置")]'
 
 
+    def apply_revocation(self):
+        pass
+
     def dispute_search(self, content):
         self.find_element_by_xpath(self.x_dispute_list).click()
         self.find_element_by_xpath(self.x_dispute_list_search_input).send_keys(content)
