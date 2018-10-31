@@ -5,7 +5,7 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 
 from odrweb.core.utils import _funcname_docstring
-from odrweb.page.disputepage import JudicialInputPage, JudicialInfoPage
+from odrweb.page.disputepage import TjyJudicialPage, TjyJudicialInfoPage
 from odrweb.page.homepage import HomePage
 
 reload(sys)
@@ -140,7 +140,7 @@ class JudicialList(unittest.TestCase):
         select_type = u"文书类"
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInfoPage(self.homepage)
+            page = TjyJudicialInfoPage(self.homepage)
             page.act_goto_jidicial_info()
             page.act_case_material_select(select_type)
 
@@ -167,7 +167,7 @@ class JudicialList(unittest.TestCase):
         select_type = u"申请类"
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInfoPage(self.homepage)
+            page = TjyJudicialInfoPage(self.homepage)
             page.act_goto_jidicial_info()
             page.act_case_material_select(select_type)
 
@@ -194,7 +194,7 @@ class JudicialList(unittest.TestCase):
         select_type = u"证据类"
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInfoPage(self.homepage)
+            page = TjyJudicialInfoPage(self.homepage)
             page.act_goto_jidicial_info()
             page.act_case_material_select(select_type)
 
@@ -221,7 +221,7 @@ class JudicialList(unittest.TestCase):
         select_type = u"其他类"
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInfoPage(self.homepage)
+            page = TjyJudicialInfoPage(self.homepage)
             page.act_goto_jidicial_info()
             page.act_case_material_select(select_type)
 
@@ -248,7 +248,7 @@ class JudicialList(unittest.TestCase):
         select_type = u"代理类"
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInfoPage(self.homepage)
+            page = TjyJudicialInfoPage(self.homepage)
             page.act_goto_jidicial_info()
             page.act_case_material_select(select_type)
 

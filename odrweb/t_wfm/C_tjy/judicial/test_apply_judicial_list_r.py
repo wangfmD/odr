@@ -5,7 +5,7 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 
 from odrweb.core.utils import _funcname_docstring
-from odrweb.page.disputepage import JudicialInputPage, org_process
+from odrweb.page.disputepage import TjyJudicialPage, org_process, TjyJudicialInfoPage
 from odrweb.page.homepage import HomePage
 
 reload(sys)
@@ -77,7 +77,7 @@ class ApplyJudicialList(unittest.TestCase):
 
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_judicial_commit(**jf_info_all)
             res, ApplyJudicialList.case_id = page.verification_judicial_commit(jf_info_all['jf_desc'])
             self.assertEqual(res, True)
@@ -88,14 +88,14 @@ class ApplyJudicialList(unittest.TestCase):
             name = _funcname_docstring(self, docstr.decode('utf8'))
             # 截图
             self.homepage.save_screen_shot(name)
-
-            raise
-        finally:
-            self.end = datetime.datetime.now()
-            duration = (self.end - self.start).seconds
-            print "###case duration: {}###".format(duration)
-
-    # def test_02(self):
+    #
+    #         raise
+    #     finally:
+    #         self.end = datetime.datetime.now()
+    #         duration = (self.end - self.start).seconds
+    #         print "###case duration: {}###".format(duration)
+    #
+    # # def test_02(self):
     #     """调解员-申请司法确认列表-编号查询
     #     """
     #     case_id = ApplyJudicialList.case_id
@@ -299,6 +299,52 @@ class ApplyJudicialList(unittest.TestCase):
     #         page.act_search_apply_judicial_list(select_status=case_status)
     #         res = page.verfc_act_search_apply_judicial_status(case_status)
     #         self.assertEqual(res, True)
+    #     except Exception as msg:
+    #         print "EXCEPTION >> {}".format(msg)
+    #         # class function name_class docstring
+    #         docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+    #         name = _funcname_docstring(self, docstr.decode('utf8'))
+    #         # 截图
+    #         self.homepage.save_screen_shot(name)
+    #
+    #         raise
+    #     finally:
+    #         self.end = datetime.datetime.now()
+    #         duration = (self.end - self.start).seconds
+    #         print "###case duration: {}###".format(duration)
+
+    # def test_10(self):
+    #     """调解员-司法确认详情校验
+    #     """
+    #
+    #     try:
+    #         self.homepage.mediator_login(tjy, pwd, url=T1)
+    #         page = TjyJudicialInfoPage(self.homepage)
+    #         result = page.act_ver_judicial_info()
+    #         self.assertEqual(result, True)
+    #     except Exception as msg:
+    #         print "EXCEPTION >> {}".format(msg)
+    #         # class function name_class docstring
+    #         docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+    #         name = _funcname_docstring(self, docstr.decode('utf8'))
+    #         # 截图
+    #         self.homepage.save_screen_shot(name)
+    #
+    #         raise
+    #     finally:
+    #         self.end = datetime.datetime.now()
+    #         duration = (self.end - self.start).seconds
+    #         print "###case duration: {}###".format(duration)
+    #
+    # def test_11(self):
+    #     """调解员-司法确认详情校验
+    #     """
+    #
+    #     try:
+    #         self.homepage.mediator_login(tjy, pwd, url=T1)
+    #         page = TjyJudicialInfoPage(self.homepage)
+    #         result = page.act_ver_judicial_info(search_content='16681B8B97D89')
+    #         self.assertEqual(result, True)
     #     except Exception as msg:
     #         print "EXCEPTION >> {}".format(msg)
     #         # class function name_class docstring

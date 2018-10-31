@@ -5,7 +5,7 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 
 from odrweb.core.utils import _funcname_docstring
-from odrweb.page.disputepage import JudicialInputPage, org_process
+from odrweb.page.disputepage import TjyJudicialPage, org_process, TjyJudicialInfoPage
 from odrweb.page.homepage import HomePage
 
 reload(sys)
@@ -77,7 +77,7 @@ class ApplyJudicialList(unittest.TestCase):
 
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_judicial_commit(**jf_info_all)
             res, ApplyJudicialList.case_id = page.verification_judicial_commit(jf_info_all['jf_desc'])
             self.assertEqual(res, True)
@@ -102,7 +102,7 @@ class ApplyJudicialList(unittest.TestCase):
 
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(case_id)
             res = page.verfc_act_search_apply_judicial_search_content(case_id)
             self.assertEqual(res, True)
@@ -125,7 +125,7 @@ class ApplyJudicialList(unittest.TestCase):
         """
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             # 查询新登记案件编号后，验证案件状态
             page.act_search_apply_judicial_list(search_content=ApplyJudicialList.case_id)
             res = page.verfc_act_search_apply_judicial_status(u'登记成功')
@@ -149,7 +149,7 @@ class ApplyJudicialList(unittest.TestCase):
         """
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             # 查询新登记案件编号后，验证案件状态
             org_process('1', ApplyJudicialList.case_id)  # 发送司法确认接口处理请求
             page.act_search_apply_judicial_list(search_content=ApplyJudicialList.case_id)
@@ -175,7 +175,7 @@ class ApplyJudicialList(unittest.TestCase):
         case_status = u'待分配'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
@@ -199,7 +199,7 @@ class ApplyJudicialList(unittest.TestCase):
         case_status = u'法院退回'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             # res = page.verfc_act_search_apply_judicial_status(case_status)
             # self.assertEqual(res, True)
@@ -223,7 +223,7 @@ class ApplyJudicialList(unittest.TestCase):
         case_status = u'不受理'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(u'不予受理')
             self.assertEqual(res, True)
@@ -247,7 +247,7 @@ class ApplyJudicialList(unittest.TestCase):
         case_status = u'待确认'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
@@ -271,7 +271,7 @@ class ApplyJudicialList(unittest.TestCase):
         case_status = u'确认有效'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
@@ -295,10 +295,33 @@ class ApplyJudicialList(unittest.TestCase):
         case_status = u'驳回申请'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
+        except Exception as msg:
+            print "EXCEPTION >> {}".format(msg)
+            # class function name_class docstring
+            docstr = getdoc(getattr(self, getframeinfo(currentframe()).function))
+            name = _funcname_docstring(self, docstr.decode('utf8'))
+            # 截图
+            self.homepage.save_screen_shot(name)
+
+            raise
+        finally:
+            self.end = datetime.datetime.now()
+            duration = (self.end - self.start).seconds
+            print "###case duration: {}###".format(duration)
+
+    def test_11(self):
+        """调解员-在线司法确认列表-司法确认详情校验
+        """
+
+        try:
+            self.homepage.mediator_login(tjy, pwd, url=T1)
+            page = TjyJudicialInfoPage(self.homepage)
+            result = page.act_ver_judicial_info(ApplyJudicialList.case_id)
+            self.assertEqual(result, True)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring

@@ -5,7 +5,7 @@ import unittest
 from inspect import getdoc, getframeinfo, currentframe
 
 from odrweb.core.utils import _funcname_docstring
-from odrweb.page.disputepage import JudicialInputPage
+from odrweb.page.disputepage import TjyJudicialPage
 from odrweb.page.homepage import HomePage
 
 reload(sys)
@@ -192,7 +192,7 @@ class JudicialInputCommit(unittest.TestCase):
         case_id = '166BEBC2B5673'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(case_id)
             res = page.verfc_act_search_apply_judicial_search_content(case_id)
             self.assertEqual(res, True)
@@ -244,7 +244,7 @@ class JudicialInputCommit(unittest.TestCase):
         case_status = u'待分配'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
@@ -270,7 +270,7 @@ class JudicialInputCommit(unittest.TestCase):
         case_status = u'法院退回'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             # res = page.verfc_act_search_apply_judicial_status(case_status)
             # self.assertEqual(res, True)
@@ -296,7 +296,7 @@ class JudicialInputCommit(unittest.TestCase):
         case_status = u'不受理'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(u'不予受理')
             self.assertEqual(res, True)
@@ -323,7 +323,7 @@ class JudicialInputCommit(unittest.TestCase):
         case_status = u'待确认'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
@@ -350,7 +350,7 @@ class JudicialInputCommit(unittest.TestCase):
         case_status = u'确认有效'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
@@ -376,7 +376,7 @@ class JudicialInputCommit(unittest.TestCase):
         case_status = u'驳回申请'
         try:
             self.homepage.mediator_login(tjy, pwd, url=T1)
-            page = JudicialInputPage(self.homepage)
+            page = TjyJudicialPage(self.homepage)
             page.act_search_apply_judicial_list(select_status=case_status)
             res = page.verfc_act_search_apply_judicial_status(case_status)
             self.assertEqual(res, True)
