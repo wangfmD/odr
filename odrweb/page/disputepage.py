@@ -328,12 +328,11 @@ class JudicialInputPage(TjyBasePage):
         # 提交申请
         self.find_element_by_xpath('//button[text()="提交申请"]').click()
         # 确认
-        ok_el = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
+        ok_el = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]')))
         ok_el.click()
-        try:
-            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_apply_judicial_list_li)))
-        except:
-            self.driver.refresh()
+        sleep(1)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.x_apply_judicial_list_li)))
+
 
         # 进入申请司法确认列表
         self.find_element_by_xpath(self.x_apply_judicial_list_li).click()
@@ -349,12 +348,11 @@ class JudicialInputPage(TjyBasePage):
         self._judicial_tail_input(**kwargs)
         self._judicial_commit(**kwargs)
 
-        try:
-            # 获取申请司法确认列表，首条案件编号
-            text = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text
-            _, judicial_case_id = text.split(u"：")
-        except:
-            judicial_case_id = "**None"
+
+        # 获取申请司法确认列表，首条案件编号
+        text = self.find_element_by_xpath('//div[contains(text(),"案件编号：")]').text
+        _, judicial_case_id = text.split(u"：")
+
 
         print u"申请司法确认案件编号", judicial_case_id
         return judicial_case_id
