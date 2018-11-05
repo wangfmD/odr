@@ -345,6 +345,12 @@ class PersonalPage(Page):
         print "expect: ", jf_desc
         return res == jf_desc
 
+    def _get_first_case_id(self):
+        """个人调解列表，获取第一条纠纷id"""
+        result = self.find_element_by_xpath('//div[@id="mediate"]/div[1]/div[3]/ul/li[2]').text
+        _, case_id = result.split(u'：')
+        return case_id
+
     def verfication_commit_dlr(self,**kwargs):
         try:
             res = self.find_element_by_xpath('//*[@id="mediate"]/div[1]/div[3]/ul/li[7]').text
@@ -359,14 +365,17 @@ class PersonalPage(Page):
              applicant = res.split(u'：')[-1]
         except:
             applicant = "*None*"
+
+        case_id = self._get_first_case_id()
+        print "新增案件：{}".format(case_id)
         if kwargs['applicant_type'] == u"自然人":
             print "result: ", applicant
             print "expect: ", kwargs['applicant']
-            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant'], case_id
         else:
             print "result: ", applicant
             print "expect: ", kwargs['applicant_name']
-            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name']
+            return jf_desc == kwargs['jf_desc'] and applicant == kwargs['applicant_name'],case_id
 
 
     def verification_apply_organization_mediate(self, jf_organization):

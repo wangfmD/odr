@@ -80,7 +80,8 @@ class UserAgent(unittest.TestCase):
             personalpage = PersonalPage(self.homepage)
             personalpage._input_all_dlr(**jf_info_all)
             sleep(t)
-            personalpage.verfication_commit_dlr(**jf_info_all)
+            res, _ = personalpage.verfication_commit_dlr(**jf_info_all)
+            self.assertEqual(res, True)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring
@@ -112,7 +113,8 @@ class UserAgent(unittest.TestCase):
             personalpage = PersonalPage(self.homepage)
             personalpage._input_all_dlr(**jf_info_all)
             sleep(t)
-            personalpage.verfication_commit_dlr(**jf_info_all)
+            res, _ = personalpage.verfication_commit_dlr(**jf_info_all)
+            self.assertEqual(res, True)
         except Exception as msg:
             print "EXCEPTION >> {}".format(msg)
             # class function name_class docstring

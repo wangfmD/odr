@@ -325,6 +325,23 @@ class PersonalPage(Page):
         element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '(//button[text()="确定"])[3]')))
         self.find_element_by_xpath('(//button[text()="确定"])[3]').click()
 
+    def act_case_revocation(self):
+        """案件撤回"""
+        sleep(0.5)
+        revocation_el = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="撤回案件"]')))
+        revocation_el.click()
+
+        ok_el = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]'))) # 确定，取消
+        ok_el.click()
+        sleep(0.5)
+        ok_el = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="确定"]'))) # 确定后确认
+        ok_el.click()
+
+    def verfc_case_revocation(self):
+        # 进度状态
+        result = self.find_element_by_xpath('//span[text()="提交申请"]/../../li[3]/span').text
+        return result == u'撤回调解'
+
     def tel_binding(self):
         """绑定手机-取消
         """
