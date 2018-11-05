@@ -9,9 +9,9 @@ def login_by():
     headers = {
         'Content-Type': 'application/json',
         'cType': 'PC',
-        'deviceId': 'ffea53b5-0377-4c7f-a53d-bb48a6cfb6e5',
-        'Origin': 'http://htodr.odrcloud.com',
-        'Referer': 'http://htodr.odrcloud.com/useraction/stafflogin',
+        # 'deviceId': 'ffea53b5-0377-4c7f-a53d-bb48a6cfb6e5',
+        # 'Origin': 'http://htodr.odrcloud.com',
+        # 'Referer': 'http://htodr.odrcloud.com/useraction/stafflogin',
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
     }
     formdata = {
@@ -21,7 +21,22 @@ def login_by():
     }
     formdata = json.dumps(formdata)
     r = requests.post(url, headers=headers, data=formdata)
-    print(r.text)
+    print(json.dumps(r.json(), indent=2))
+
+def search1():
+    url = 'https://performapi.bjsjsadr.com/userGateway/personalCenter/getMediationCountByCaseProgress'
+    headers = {
+        'Content-Type': 'application/json',
+        'cType': 'PC',
+        # 'deviceId': '28fd1a22-c7bd-41f5-86d5-17a6f1de7200',
+        'JWTToken': 'eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJNRURJQVRPUiJdLCJ1c2VyTmFtZSI6IumDreiwg-ino-WRmCIsInBlcnNvblR5cGUiOiJTVEFGRiIsInVzZXJJZCI6IjIwMDk2NSIsImV4cCI6MTU0MTQwNjc1M30.vrpXTspUzxNZWhw2OmFtZJcmVN5KfjjHQ9YPXaWKunVwJ-MHdyM0OoFtDUw-vD6QgK6sE1P04moe9jDvmazbOg',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    }
+
+    data = {"caseProgresses":["WAIT","START"],"roleType":"MEDIATOR"}
+    formdata = json.dumps(data)
+    r = requests.post(url, headers=headers, data=formdata)
+    print r.text
 
 
 # def req():
@@ -77,7 +92,7 @@ def search():
         # 'Accept': '*/*',
         # 'deviceId': 'ced685f1-b5bf-4ad5-ab0e-2794e15afb1b',
         'Host': 'devhtodr.odrcloud.net',
-        'JWTToken': 'eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJDT01NT04iXSwidXNlck5hbWUiOiLpg63lsI_mlY8iLCJwZXJzb25UeXBlIjoiQ09NTU9OIiwidXNlcklkIjoiMjAwOTYwIiwiZXhwIjoxNTQxMTUzMDc5fQ.j1h7zu1LokvYZjuTGTrl5AtlytjSTyHYAbtzyC3XEAKoB6My8MjMJC0DDtVeQuO5rLCEeoQ9rQ_q7QyMZOiMKg',
+        'JWTToken': 'eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJNRURJQVRPUiJdLCJ1c2VyTmFtZSI6IumDreiwg-ino-WRmCIsInBlcnNvblR5cGUiOiJTVEFGRiIsInVzZXJJZCI6IjIwMDk2NSIsImV4cCI6MTU0MTQwNjU2Mn0.Womu_UcITaohUe4nnqYbo2UPIafsYF2bzvyWytCURwgKAFsIVS314nhjWUk-4yg3lcwhXqGQVmvUN-IYiZRcHQ',
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
         # 'Cookie': 'JSESSIONID=2376C29B258F44E74F10F1DBA95EEF77'
     }
@@ -108,5 +123,5 @@ if __name__ == '__main__':
     # login()
     # search()
     login_by()
-
+    # search1()
     # zjodr_search()
